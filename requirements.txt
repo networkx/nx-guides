@@ -5,7 +5,6 @@ numpy
 nose
 nose-ignore-docstring
 pandas
-gdal
 pyyaml
 pygraphviz
 sphinx
