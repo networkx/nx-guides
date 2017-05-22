@@ -6,7 +6,6 @@ nose
 nose-ignore-docstring
 pandas
 pyyaml
-pygraphviz
 sphinx
 sphinxcontrib-bibtex
 sphinx_rtd_theme
