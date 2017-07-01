@@ -4,3 +4,6 @@ scipy
 numpy
 pandas
 networkx
+jupyter
+graphviz
+pygraphviz
