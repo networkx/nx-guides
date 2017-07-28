@@ -3,8 +3,8 @@ matplotlib
 scipy
 numpy
 pandas
-networkx
 jupyter
 graphviz
 pygraphviz
 requests
+networkx

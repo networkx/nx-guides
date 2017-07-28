@@ -1,0 +1,5 @@
+strict graph "" {
+	1 -- 2	 [color=red];
+	2 -- 3	 [color=red];
+	4;
+}
