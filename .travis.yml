@@ -1,5 +1,6 @@
 language: python
 python:
+  - "2.7"
   - "3.6"
   - "3.7-dev" # 3.7 development branch
 # command to install dependencies
