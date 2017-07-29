@@ -8,3 +8,4 @@ graphviz
 pygraphviz
 requests
 networkx
+nbval
