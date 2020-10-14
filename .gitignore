@@ -7,3 +7,4 @@
 \#*#
 .#*
 .coverage
+site/_build/*

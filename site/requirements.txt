@@ -1,0 +1,3 @@
+sphinx
+myst-nb
+sphinx_rtd_theme
