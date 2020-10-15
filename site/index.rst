@@ -7,25 +7,15 @@ Welcome to NetworkX Notebooks's documentation!
 ==============================================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Contents:
+   :titlesonly:
 
    notebooks/tutorial
-   notebooks/basic/properties
-   notebooks/basic/read_write
-   notebooks/drawing/degree_histogram
-   notebooks/drawing/edge_colormap
-   notebooks/drawing/ego_graph
-   notebooks/drawing/four_grids
-   notebooks/drawing/node_colormap
-   notebooks/drawing/simple_path
-   notebooks/graph/atlas
-   notebooks/graph/degree_seq
-   notebooks/graph/erdos_renyi
-   notebooks/graph/expected_degree_sequence
-   notebooks/graph/football
-   notebooks/subclass/antigraph
-   notebooks/subclass/printgraph
+   notebooks/basic/index
+   notebooks/drawing/index
+   notebooks/graph/index
+   notebooks/subclass/index
 
 Indices and tables
 ==================
