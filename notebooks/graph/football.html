@@ -1,0 +1,423 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Load football network in GML format and compute some network statistcs. &mdash; NetworkX Notebooks  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/mystnb.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/togglebutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="AntiGraph" href="../subclass/antigraph.html" />
+    <link rel="prev" title="Expected Degree Sequence" href="expected_degree_sequence.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> NetworkX Notebooks
+          
+
+          
+            
+            <img src="../../_static/networkx_logo.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">NetworkX Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic/properties.html">Graph Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic/read_write.html">Reading and Writing Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../drawing/degree_histogram.html">Degree Histogram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../drawing/edge_colormap.html">Edge Colormap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../drawing/ego_graph.html">Ego Graph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../drawing/four_grids.html">Four Grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../drawing/node_colormap.html">Node Colormap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../drawing/simple_path.html">Simple Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atlas.html">Atlas of all graphs of 6 nodes or less.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="degree_seq.html">Degree Sequence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="erdos_renyi.html">Random (Erdős-Rényi) Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expected_degree_sequence.html">Expected Degree Sequence</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Load football network in GML format and compute some network statistcs.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subclass/antigraph.html">AntiGraph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subclass/printgraph.html">Subclassing <code class="docutils literal notranslate"><span class="pre">Graph</span></code></a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NetworkX Notebooks</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Load football network in GML format and compute some network statistcs.</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/notebooks/graph/football.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="load-football-network-in-gml-format-and-compute-some-network-statistcs">
+<h1>Load football network in GML format and compute some network statistcs.<a class="headerlink" href="#load-football-network-in-gml-format-and-compute-some-network-statistcs" title="Permalink to this headline">¶</a></h1>
+<p>Shows how to download GML graph in a zipped file, unpack it, and load
+into a NetworkX graph.</p>
+<p>Requires Internet connection to download the URL
+http://www-personal.umich.edu/~mejn/netdata/football.zip</p>
+<p>Author: Aric Hagberg <a class="reference external" href="mailto:hagberg&#37;&#52;&#48;lanl&#46;gov">mailto:hagberg<span>&#64;</span>lanl<span>&#46;</span>gov</a></p>
+<p>Copyright (C) 2007-2016 by Aric Hagberg <a class="reference external" href="mailto:hagberg&#37;&#52;&#48;lanl&#46;gov">mailto:hagberg<span>&#64;</span>lanl<span>&#46;</span>gov</a>, Dan Schult <a class="reference external" href="mailto:dschult&#37;&#52;&#48;colgate&#46;edu">mailto:dschult<span>&#64;</span>colgate<span>&#46;</span>edu</a>, Pieter Swart <a class="reference external" href="mailto:swart&#37;&#52;&#48;lanl&#46;gov">mailto:swart<span>&#64;</span>lanl<span>&#46;</span>gov</a>.</p>
+<p>All rights reserved.
+BSD license.</p>
+<p>First, we download a ZIP file containing information about United States college football teams and extract the two text files contained within.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://www-personal.umich.edu/~mejn/netdata/football.zip&quot;</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">:</span>  <span class="c1"># zipfile object</span>
+    <span class="n">txt</span> <span class="o">=</span> <span class="n">zf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;football.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>  <span class="c1"># read info file</span>
+    <span class="n">gml</span> <span class="o">=</span> <span class="n">zf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;football.gml&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>  <span class="c1"># read gml data</span>
+    <span class="c1"># throw away bogus first line with # from mejn files</span>
+    <span class="n">gml</span> <span class="o">=</span> <span class="n">gml</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then we parse the graph information from the GML file, convert that to a NetworkX graph object, then print the degree of each node in the graph, which represents the number of games played by each team.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">parse_gml</span><span class="p">(</span><span class="n">gml</span><span class="p">)</span> <span class="c1"># parse gml data</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">txt</span><span class="p">)</span>
+<span class="c1"># print degree for each team - number of games</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The file football.gml contains the network of American football games
+between Division IA colleges during regular season Fall 2000, as compiled
+by M. Girvan and M. Newman.  The nodes have values that indicate to which
+conferences they belong.  The values are as follows:
+
+  0 = Atlantic Coast
+  1 = Big East
+  2 = Big Ten
+  3 = Big Twelve
+  4 = Conference USA
+  5 = Independents
+  6 = Mid-American
+  7 = Mountain West
+  8 = Pacific Ten
+  9 = Southeastern
+ 10 = Sun Belt
+ 11 = Western Athletic
+
+If you make use of these data, please cite M. Girvan and M. E. J. Newman,
+Community structure in social and biological networks,
+Proc. Natl. Acad. Sci. USA 99, 7821-7826 (2002).
+
+Correction: Two edges were erroneously duplicated in this data set, and
+have been removed (21 SEP 2014)
+
+BrighamYoung 12
+FloridaState 12
+Iowa 12
+KansasState 12
+NewMexico 11
+TexasTech 12
+PennState 12
+SouthernCalifornia 12
+ArizonaState 11
+SanDiegoState 11
+Baylor 10
+NorthTexas 10
+NorthernIllinois 10
+Northwestern 11
+WesternMichigan 10
+Wisconsin 12
+Wyoming 11
+Auburn 11
+Akron 11
+VirginiaTech 11
+Alabama 11
+UCLA 11
+Arizona 11
+Utah 11
+ArkansasState 10
+NorthCarolinaState 11
+BallState 10
+Florida 11
+BoiseState 9
+BostonCollege 11
+WestVirginia 11
+BowlingGreenState 11
+Michigan 11
+Virginia 10
+Buffalo 11
+Syracuse 11
+CentralFlorida 8
+GeorgiaTech 11
+CentralMichigan 11
+Purdue 11
+Colorado 11
+ColoradoState 10
+Connecticut 7
+EasternMichigan 11
+EastCarolina 11
+Duke 11
+FresnoState 11
+OhioState 11
+Houston 11
+Rice 11
+Idaho 9
+Washington 11
+Kansas 10
+SouthernMethodist 12
+Kent 10
+Pittsburgh 11
+Kentucky 10
+Louisville 10
+LouisianaTech 10
+LouisianaMonroe 8
+Minnesota 11
+MiamiOhio 11
+Vanderbilt 11
+MiddleTennesseeState 9
+Illinois 11
+MississippiState 11
+Memphis 11
+Nevada 12
+Oregon 11
+NewMexicoState 11
+SouthCarolina 11
+Ohio 10
+IowaState 11
+SanJoseState 11
+Nebraska 11
+SouthernMississippi 10
+Tennessee 11
+Stanford 11
+WashingtonState 11
+Temple 11
+Navy 11
+TexasA&amp;M 11
+NotreDame 11
+TexasElPaso 11
+Oklahoma 11
+Toledo 9
+Tulane 11
+Mississippi 11
+Tulsa 12
+NorthCarolina 11
+UtahState 9
+Army 11
+Cincinnati 11
+AirForce 10
+Rutgers 10
+Georgia 10
+LouisianaState 10
+LouisianaLafayette 8
+Texas 11
+Marshall 10
+MichiganState 11
+MiamiFlorida 10
+Missouri 10
+Clemson 10
+NevadaLasVegas 12
+WakeForest 10
+Indiana 11
+OklahomaState 10
+OregonState 10
+Maryland 11
+TexasChristian 11
+California 11
+AlabamaBirmingham 10
+Arkansas 10
+Hawaii 11
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../subclass/antigraph.html" class="btn btn-neutral float-right" title="AntiGraph" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="expected_degree_sequence.html" class="btn btn-neutral float-left" title="Expected Degree Sequence" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, NetworkX Community
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
