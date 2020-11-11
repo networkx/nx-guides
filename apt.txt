@@ -1,0 +1,5 @@
+#Dependency of pygraphviz
+libgraphviz-dev
+
+#Required for some examples
+graphviz

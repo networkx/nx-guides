@@ -1,4 +1,6 @@
 # notebooks
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/networkx/notebooks/master)
+
 Examples and IPython Notebooks about NetworkX
 
 ## Installation requirements ##
