@@ -23,6 +23,18 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+
+    - name: Before install
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo apt-get update
+          sudo apt-get install graphviz graphviz-dev
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          brew install graphviz pkg-config
+        fi
+        python3 -m venv ~/venv
+        source ~/venv/bin/activate
+  
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
