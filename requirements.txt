@@ -1,7 +1,5 @@
 matplotlib
 pandas
 jupyter
-graphviz
-pygraphviz
 requests
 git+git://github.com/networkx/networkx@master
