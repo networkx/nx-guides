@@ -2,4 +2,5 @@ matplotlib
 pandas
 jupyter
 requests
+nbval
 git+git://github.com/networkx/networkx@master
