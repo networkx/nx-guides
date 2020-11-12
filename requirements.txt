@@ -1,6 +1,4 @@
 matplotlib
-pandas
-jupyter
-requests
+pygraphviz
 nbval
 git+git://github.com/networkx/networkx@master
