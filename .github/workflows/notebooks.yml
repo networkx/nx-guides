@@ -1,0 +1,45 @@
+name: NetworkX Notebooks
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 12
+      matrix:
+        os: [Ubuntu-20.04, macOS-latest]
+        python-version: [3.6, 3.7, 3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Before install
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo apt-get update
+          sudo apt-get install graphviz graphviz-dev
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          brew install graphviz pkg-config
+        fi
+        python3 -m venv ~/venv
+        source ~/venv/bin/activate
+  
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Test with nbval
+      run: |
+        pip install pytest
+        pytest --nbval-lax
