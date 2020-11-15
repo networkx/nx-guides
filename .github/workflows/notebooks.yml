@@ -42,4 +42,4 @@ jobs:
     - name: Test with nbval
       run: |
         pip install pytest
-        pytest --nbval
+        pytest --nbval-lax
