@@ -1,4 +1,4 @@
 matplotlib
 pygraphviz
 nbval
-git+git://github.com/networkx/networkx@master
+git+git://github.com/networkx/networkx@main
