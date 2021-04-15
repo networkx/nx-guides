@@ -22,6 +22,8 @@ language_info:
   version: 3.7.4
 ---
 
+# Ego Graph
+
 ```{code-cell} ipython3
 from operator import itemgetter
 import networkx as nx

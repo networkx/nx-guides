@@ -22,6 +22,8 @@ language_info:
   version: 3.7.4
 ---
 
+# Edge Colormap
+
 ```{code-cell} ipython3
 %matplotlib inline
 import networkx as nx

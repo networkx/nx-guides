@@ -22,6 +22,8 @@ language_info:
   version: 3.7.4
 ---
 
+# Tutorial: Geometric Generator Models
+
 <h1>Introduction</h1>
 In this tutorial, we'll explore the geometric network generator models implemented in networkx under networkx/generators/geometric.py and apply them to a real-world use case to learn how these models can be parameterized and used.
 

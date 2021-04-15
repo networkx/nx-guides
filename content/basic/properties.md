@@ -22,6 +22,8 @@ language_info:
   version: 3.7.4
 ---
 
+# Graph Properties
+
 ```{code-cell} ipython3
 import networkx as nx
 ```
