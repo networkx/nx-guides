@@ -1,0 +1,722 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutorial: Geometric Generator Models &#8212; NetworkX Notebooks</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Atlas of all graphs of 6 nodes or less." href="../graph/atlas.html" />
+    <link rel="prev" title="Node Colormap" href="../drawing/node_colormap.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/networkx_logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">NetworkX Notebooks</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorial.html">
+   NetworkX Tutorial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../basic/properties.html">
+   Graph Properties
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../drawing/index.html">
+   Drawing Examples
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../drawing/degree_histogram.html">
+     Degree Histogram
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../drawing/edge_colormap.html">
+     Edge Colormap
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../drawing/ego_graph.html">
+     Ego Graph
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../drawing/four_grids.html">
+     Four Grids
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../drawing/node_colormap.html">
+     Node Colormap
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Tutorial: Geometric Generator Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../graph/atlas.html">
+   Atlas of all graphs of 6 nodes or less.
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../../_sources/content/generators/geometric.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/content/generators/geometric.md.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/networkx/notebooks/"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/networkx/notebooks//issues/new?title=Issue%20on%20page%20%2Fcontent/generators/geometric.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/networkx/notebooks/edit/main/site/content/generators/geometric.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/networkx/notebooks/main?urlpath=tree/site/content/generators/geometric.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="tutorial-geometric-generator-models">
+<h1>Tutorial: Geometric Generator Models<a class="headerlink" href="#tutorial-geometric-generator-models" title="Permalink to this headline">¶</a></h1>
+<h1>Introduction</h1>
+In this tutorial, we'll explore the geometric network generator models implemented in networkx under networkx/generators/geometric.py and apply them to a real-world use case to learn how these models can be parameterized and used.
+<h2>Geometric/Spatial Networks</h2>
+Many real-world complex systems have spatial components constraining the network structures these types of systems can produce. Infrastructure networks such as transportation, electrical, and telecommunication systems, social networks and even our own synaptic networks are all embedded in physical space. Spatial Networks provide a framework for network models having spacial elements where nodes are embedded in space and a metric is incorporated that dictates the conditions for connection between nodes. Typically, the probability of connection is a decreasing function of the metric, with most models assuming euclidean distance in 2-dimensions or 3-dimensions. The intuition of most Spatial Network models propose that there exists an increasing cost of connection between nodes that are further apart, though arbitrary connection probability functions can be modeled.
+<p>The potential application of Spatial Networks to such a wide variety of real-world systems has motivated substainial research into these networks, with many unique but closely related models being proposed with theoretical proofs for many of their network properties. The 2010 Spatial Networks review article by Marc Barthélemy[1] provides a comprehensive overview of the field and reviews many of the most important theoretical proofs for the most common Spatial Network models. Here we explore some of the most typical Spatial Network models which have been implemented in the networkx package. These models can be classified using only three model parameters used by these different models.</p>
+<p>R - The maximum connection distance, the ‘radius’ parameter in networkx<br />
+P(d<sub>ij</sub>) - The probability of edge connection as a function of the distance, d<sub>ij</sub>, between nodes i,j where i ≠ j, the ‘p_dist’ parameter in networkx<br />
+Θ - The node weight threshold for connection, the ‘theta’ parameter in networkx</p>
+<p>Typically, nodes are uniformly distributed onto the unit square and node weights are sampled from some weight distribution. Distance, d<sub>ij</sub> is typically assumed to be the Euclidean distance, but some networkx models allow custom metrics where others only allow Minkowski distance metrics.</p>
+<p>Figure below shows the relationships between Spatial Network Models connected by their shared parameterization.</p>
+<p><img alt="spatial_networks" src="../../_images/spatial_networks.png" /></p>
+<h3>Individual Model Definitions</h3>
+This section summarizes the various models. The notation E<sub>ij</sub> indicates an edges exists between nodes i and j.
+<h4>Random Geometric Graphs (R)</h4>
+A d-dimensional Random Geometric Graph (RGG) is a graph where each of the N nodes is assigned random coordinates in the box [0, 1]<sup>d</sup>, and only nodes ‘close’ to each other are connected by an edge[2]. Any node within or equal to the maximum connection distance, R, is a connected node and the structure of the network is fully defined by R. RGGs, similar to Unit Disk Graphs [3],  have been widely used to model ad-hoc wireless networks[12].
+<p>(1) E<sub>ij</sub>: d<sub>ij</sub> ≤ R</p>
+<h4>Waxman Graphs (α)</h4>
+Waxman Graphs are the spatial generalization of ER random graphs, where the probability of connection of nodes depends on a function of the distance between them[4]. The original edge probabiliy function proposed by Waxman is exponential in d<sub>ij</sub>, providing two connection probability tuning parameters, α and β:  
+<p>(2)  P(d<sub>ij</sub>) = βe<sup>-d<sub>ij</sub>/Lα</sup><br />
+Where L is the maximum distance between each pair of nodes</p>
+<p>The shape of the edge probabiliy function, P(d<sub>ij</sub>), plays the key role in determining the structure of a Waxman graph, but characterization of P(d<sub>ij</sub>) in real-world networks still seems controversial [8]. The most commonly studied functional families are the orginal exponential in Equation 1, or power laws, -d<sub>ij</sub><sup>-α</sup>.</p>
+<p>(3) E<sub>ij</sub> ∝ P(d<sub>ij</sub>)</p>
+<h4>Threshold Graphs (Θ)</h4>
+A simple graph G is a threshold graph if we can assign weights to the vertices such that a pair of distinct vertices is adjacent exactly when the sum of their assigned weights is or exceeds a specified threshold, Θ [6]. Threshold Graphs are not themselves Spatial Networks, as they do not incorporate a specific geometry or metric, but they introduce the ability to consider node weights as part of the network model which is utilized by other Spatial Network models such as Geometric Threshold Graphs.  
+<p>(4) E<sub>ij</sub>: (w<sub>i</sub> + w<sub>j</sub>) ≥ Θ</p>
+<h4>Geographical Threshold Graphs (P(d<sub>ij</sub>),Θ)</h4>
+Geographical Threshold Graphs are the geographical generalization of Threshold Graphs, where a pair of vertices with weights w<sub>i</sub>, w<sub>j</sub>, and distance d<sub>ij</sub> are connected if and only if the product between the sum of weights  w<sub>i</sub> and w<sub>j</sub> with the edge connection function, P(d<sub>ij</sub>), is greater than or equal to a threshold value, Θ. [8]
+<p>(5) E<sub>ij</sub>: (w<sub>i</sub> + w<sub>j</sub>)P(d<sub>ij</sub>) ≥ Θ</p>
+<h4>Soft Random Geometric Graphs (R,P(d<sub>ij</sub>))</h4>
+A recent extention of Random Geometric Graphs couples the influence of distance between nodes that are within the maximum connection distance, R, to better model real-world systems where node proximity does not necessarily gaurantee a connection between 'close' nodes. In Soft Random Geometric Graphs, the probability  of connection between nodes i and j is a function of their distance, d<sub>ij</sub>, if d<sub>ij</sub> ≤ R. Otherwise, they are disconnected [7].
+<p>(6) E<sub>ij</sub> ∝ P(d<sub>ij</sub>) if d<sub>ij</sub> ≤ R</p>
+<h4>Thresholded Random Geometric Graphs (R,Θ)</h4>
+Thresholded Random Geometric Graphs extend RGGs to incorporate node weights into the model, where connections are only made between nodes with sufficiently powerful weights, up to a maximum connection distance between nodes [9].   
+<p>(7) (w<sub>i</sub> + w<sub>j</sub>) ≥ Θ if d<sub>ij</sub> ≤ R</p>
+<h3>A Motivating Example</h3>
+For this tutorial, we'll use the Tesla North American Supercharger network as a motivating example to highlight how the various spatial network models implemented in networkx can be parameterized and used.
+<p><img alt="spatial_networks" src="../../_images/NA-Supercharger_Network.jpg" /></p>
+<p>The Supercharger data is obtained from supercharger.info, filtered for the Canadian and American Supercharger locations, totaling 385 Opened Superchargers as of April 2017. The collected data has been structure into a Networkx Graph which is made up of nested dictionaries keyed on the geohash of each Superchargers GPS coordinates which have been converted into a projected embedding onto the unit square. Node weights are the population of cities for each Supercharger, as a percent of total North American population. With this dataset, we can model the supercharger network with the various spatial networks implemented in networkx.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># from networkx.readwrite import json_graph</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="c1">#load json-ed networkx datafile</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/tesla_network.json&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">json_graph</span><span class="o">.</span><span class="n">node_link_graph</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">infile</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Node Count = </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">())))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node Count = 385
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#example node data structure keyed on geohash of GPS cords</span>
+<span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="s1">&#39;dr7k46ycwwb8&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;SC_index&#39;: 173,
+ &#39;geohash&#39;: &#39;dr7k46ycwwb8&#39;,
+ &#39;weight&#39;: 0.00014093906625032375,
+ &#39;GPS_lon_lat&#39;: [-74.07126104459167, 41.49977498687804],
+ &#39;lat&#39;: 41.49977498687804,
+ &#39;lon&#39;: -74.07126104459167,
+ &#39;population&#39;: 28101,
+ &#39;pos&#39;: [0.8123107474668945, 0.42622282744786055],
+ &#39;GPS&#39;: [41.49977498687804, -74.07126104459167]}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#extract pos and weight attributes for use in models</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s1">&#39;pos&#39;</span><span class="p">)</span>
+<span class="n">weight</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<h1>Random Geometric Graphs</h1>
+For RGGs, we see the impact of increasing the maximum connection distance parameter, radius, in increasing the number of connections.<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">RGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">RGG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/geometric_7_0.png" src="../../_images/geometric_7_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">RGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">RGG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/geometric_8_0.png" src="../../_images/geometric_8_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">RGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">RGG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error in callback &lt;function flush_figures at 0x7eff968b6ee0&gt; (for post_execute):
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/ipykernel/pylab/backend_inline.py</span> in <span class="ni">flush_figures</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span>         <span class="c1"># ignore the tracking, just draw and close all figures</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span>         <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">120</span>             <span class="k">return</span> <span class="n">show</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">121</span>         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">122</span>             <span class="c1"># safely show traceback if in IPython, else raise</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/ipykernel/pylab/backend_inline.py</span> in <span class="ni">show</span><span class="nt">(close, block)</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span>     <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">39</span>         <span class="k">for</span> <span class="n">figure_manager</span> <span class="ow">in</span> <span class="n">Gcf</span><span class="o">.</span><span class="n">get_all_fig_managers</span><span class="p">():</span>
+<span class="ne">---&gt; </span><span class="mi">40</span>             <span class="n">display</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">41</span>                 <span class="n">figure_manager</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">figure</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">42</span>                 <span class="n">metadata</span><span class="o">=</span><span class="n">_fetch_figure_metadata</span><span class="p">(</span><span class="n">figure_manager</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">figure</span><span class="p">)</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/IPython/core/display.py</span> in <span class="ni">display</span><span class="nt">(include, exclude, metadata, transient, display_id, *objs, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">311</span>             <span class="n">publish_display_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">312</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">313</span>             <span class="n">format_dict</span><span class="p">,</span> <span class="n">md_dict</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">314</span>             <span class="k">if</span> <span class="ow">not</span> <span class="n">format_dict</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">315</span>                 <span class="c1"># nothing to display (e.g. _ipython_display_ took over)</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/IPython/core/formatters.py</span> in <span class="ni">format</span><span class="nt">(self, obj, include, exclude)</span>
+<span class="g g-Whitespace">    </span><span class="mi">178</span>             <span class="n">md</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span>             <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">180</span>                 <span class="n">data</span> <span class="o">=</span> <span class="n">formatter</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">181</span>             <span class="k">except</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">182</span>                 <span class="c1"># FIXME: log the exception</span>
+
+<span class="nn">&lt;decorator-gen-2&gt;</span> in <span class="ni">__call__</span><span class="nt">(self, obj)</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/IPython/core/formatters.py</span> in <span class="ni">catch_format_error</span><span class="nt">(method, self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span>     <span class="sd">&quot;&quot;&quot;show traceback on failed format call&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">223</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">224</span>         <span class="n">r</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">225</span>     <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">226</span>         <span class="c1"># don&#39;t warn on NotImplementedErrors</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/IPython/core/formatters.py</span> in <span class="ni">__call__</span><span class="nt">(self, obj)</span>
+<span class="g g-Whitespace">    </span><span class="mi">339</span>                 <span class="k">pass</span>
+<span class="g g-Whitespace">    </span><span class="mi">340</span>             <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">341</span>                 <span class="k">return</span> <span class="n">printer</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">342</span>             <span class="c1"># Finally look for special method names</span>
+<span class="g g-Whitespace">    </span><span class="mi">343</span>             <span class="n">method</span> <span class="o">=</span> <span class="n">get_real_method</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_method</span><span class="p">)</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/IPython/core/pylabtools.py</span> in <span class="ni">&lt;lambda&gt;</span><span class="nt">(fig)</span>
+<span class="g g-Whitespace">    </span><span class="mi">246</span> 
+<span class="g g-Whitespace">    </span><span class="mi">247</span>     <span class="k">if</span> <span class="s1">&#39;png&#39;</span> <span class="ow">in</span> <span class="n">formats</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">248</span>         <span class="n">png_formatter</span><span class="o">.</span><span class="n">for_type</span><span class="p">(</span><span class="n">Figure</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">fig</span><span class="p">:</span> <span class="n">print_figure</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">249</span>     <span class="k">if</span> <span class="s1">&#39;retina&#39;</span> <span class="ow">in</span> <span class="n">formats</span> <span class="ow">or</span> <span class="s1">&#39;png2x&#39;</span> <span class="ow">in</span> <span class="n">formats</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">250</span>         <span class="n">png_formatter</span><span class="o">.</span><span class="n">for_type</span><span class="p">(</span><span class="n">Figure</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">fig</span><span class="p">:</span> <span class="n">retina_figure</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/IPython/core/pylabtools.py</span> in <span class="ni">print_figure</span><span class="nt">(fig, fmt, bbox_inches, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">130</span>         <span class="n">FigureCanvasBase</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">131</span> 
+<span class="ne">--&gt; </span><span class="mi">132</span>     <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">print_figure</span><span class="p">(</span><span class="n">bytes_io</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">bytes_io</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span>     <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s1">&#39;svg&#39;</span><span class="p">:</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/backend_bases.py</span> in <span class="ni">print_figure</span><span class="nt">(self, filename, dpi, facecolor, edgecolor, orientation, format, bbox_inches, pad_inches, bbox_extra_artists, backend, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2228</span>                        <span class="k">else</span> <span class="n">suppress</span><span class="p">())</span>
+<span class="g g-Whitespace">   </span><span class="mi">2229</span>                 <span class="k">with</span> <span class="n">ctx</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2230</span>                     <span class="bp">self</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2231</span> 
+<span class="g g-Whitespace">   </span><span class="mi">2232</span>             <span class="k">if</span> <span class="n">bbox_inches</span><span class="p">:</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/artist.py</span> in <span class="ni">draw_wrapper</span><span class="nt">(artist, renderer, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span>     <span class="nd">@wraps</span><span class="p">(</span><span class="n">draw</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span>     <span class="k">def</span> <span class="nf">draw_wrapper</span><span class="p">(</span><span class="n">artist</span><span class="p">,</span> <span class="n">renderer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">74</span>         <span class="n">result</span> <span class="o">=</span> <span class="n">draw</span><span class="p">(</span><span class="n">artist</span><span class="p">,</span> <span class="n">renderer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span>         <span class="k">if</span> <span class="n">renderer</span><span class="o">.</span><span class="n">_rasterizing</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span>             <span class="n">renderer</span><span class="o">.</span><span class="n">stop_rasterizing</span><span class="p">()</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/artist.py</span> in <span class="ni">draw_wrapper</span><span class="nt">(artist, renderer, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">49</span>                 <span class="n">renderer</span><span class="o">.</span><span class="n">start_filter</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">50</span> 
+<span class="ne">---&gt; </span><span class="mi">51</span>             <span class="k">return</span> <span class="n">draw</span><span class="p">(</span><span class="n">artist</span><span class="p">,</span> <span class="n">renderer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">52</span>         <span class="k">finally</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">53</span>             <span class="k">if</span> <span class="n">artist</span><span class="o">.</span><span class="n">get_agg_filter</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/figure.py</span> in <span class="ni">draw</span><span class="nt">(self, renderer)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2735</span> 
+<span class="g g-Whitespace">   </span><span class="mi">2736</span>             <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">2737</span>             <span class="n">mimage</span><span class="o">.</span><span class="n">_draw_list_compositing_images</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2738</span>                 <span class="n">renderer</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">artists</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">suppressComposite</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2739</span> 
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/image.py</span> in <span class="ni">_draw_list_compositing_images</span><span class="nt">(renderer, parent, artists, suppress_composite)</span>
+<span class="g g-Whitespace">    </span><span class="mi">130</span>     <span class="k">if</span> <span class="n">not_composite</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">has_images</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">131</span>         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">artists</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">132</span>             <span class="n">a</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span>         <span class="c1"># Composite any adjacent images together</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/artist.py</span> in <span class="ni">draw_wrapper</span><span class="nt">(artist, renderer, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">49</span>                 <span class="n">renderer</span><span class="o">.</span><span class="n">start_filter</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">50</span> 
+<span class="ne">---&gt; </span><span class="mi">51</span>             <span class="k">return</span> <span class="n">draw</span><span class="p">(</span><span class="n">artist</span><span class="p">,</span> <span class="n">renderer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">52</span>         <span class="k">finally</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">53</span>             <span class="k">if</span> <span class="n">artist</span><span class="o">.</span><span class="n">get_agg_filter</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/_api/deprecation.py</span> in <span class="ni">wrapper</span><span class="nt">(*inner_args, **inner_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">429</span>                          <span class="k">else</span> <span class="n">deprecation_addendum</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">430</span>                 <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">431</span>         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">inner_args</span><span class="p">,</span> <span class="o">**</span><span class="n">inner_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">432</span> 
+<span class="g g-Whitespace">    </span><span class="mi">433</span>     <span class="k">return</span> <span class="n">wrapper</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/axes/_base.py</span> in <span class="ni">draw</span><span class="nt">(self, renderer, inframe)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2923</span>             <span class="n">renderer</span><span class="o">.</span><span class="n">stop_rasterizing</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">2924</span> 
+<span class="ne">-&gt; </span><span class="mi">2925</span>         <span class="n">mimage</span><span class="o">.</span><span class="n">_draw_list_compositing_images</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">artists</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2926</span> 
+<span class="g g-Whitespace">   </span><span class="mi">2927</span>         <span class="n">renderer</span><span class="o">.</span><span class="n">close_group</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">)</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/image.py</span> in <span class="ni">_draw_list_compositing_images</span><span class="nt">(renderer, parent, artists, suppress_composite)</span>
+<span class="g g-Whitespace">    </span><span class="mi">130</span>     <span class="k">if</span> <span class="n">not_composite</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">has_images</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">131</span>         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">artists</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">132</span>             <span class="n">a</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span>         <span class="c1"># Composite any adjacent images together</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/patches.py</span> in <span class="ni">draw</span><span class="nt">(self, renderer)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4239</span>             <span class="c1"># too.</span>
+<span class="g g-Whitespace">   </span><span class="mi">4240</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_dpi_cor</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">.</span><span class="n">points_to_pixels</span><span class="p">(</span><span class="mf">1.</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">4241</span>             <span class="n">path</span><span class="p">,</span> <span class="n">fillable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_path_in_displaycoord</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">4242</span> 
+<span class="g g-Whitespace">   </span><span class="mi">4243</span>             <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">iterable</span><span class="p">(</span><span class="n">fillable</span><span class="p">):</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/patches.py</span> in <span class="ni">get_path_in_displaycoord</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4211</span>             <span class="n">posB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_xy_units</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_posA_posB</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="g g-Whitespace">   </span><span class="mi">4212</span>             <span class="p">(</span><span class="n">posA</span><span class="p">,</span> <span class="n">posB</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">((</span><span class="n">posA</span><span class="p">,</span> <span class="n">posB</span><span class="p">))</span>
+<span class="ne">-&gt; </span><span class="mi">4213</span>             <span class="n">_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_connectionstyle</span><span class="p">()(</span><span class="n">posA</span><span class="p">,</span> <span class="n">posB</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">4214</span>                                                <span class="n">patchA</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">patchA</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">4215</span>                                                <span class="n">patchB</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">patchB</span><span class="p">,</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/networkx/drawing/nx_pylab.py</span> in <span class="ni">_connectionstyle</span><span class="nt">(posA, posB, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">728</span>         <span class="c1"># if not, fall back to the user specified behavior</span>
+<span class="g g-Whitespace">    </span><span class="mi">729</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">730</span>             <span class="n">ret</span> <span class="o">=</span> <span class="n">base_connection_style</span><span class="p">(</span><span class="n">posA</span><span class="p">,</span> <span class="n">posB</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">731</span> 
+<span class="g g-Whitespace">    </span><span class="mi">732</span>         <span class="k">return</span> <span class="n">ret</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/patches.py</span> in <span class="ni">__call__</span><span class="nt">(self, posA, posB, shrinkA, shrinkB, patchA, patchB)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2522</span>             <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">posA</span><span class="p">,</span> <span class="n">posB</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2523</span>             <span class="n">clipped_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">patchA</span><span class="p">,</span> <span class="n">patchB</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">2524</span>             <span class="n">shrunk_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shrink</span><span class="p">(</span><span class="n">clipped_path</span><span class="p">,</span> <span class="n">shrinkA</span><span class="p">,</span> <span class="n">shrinkB</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2525</span>             <span class="k">return</span> <span class="n">shrunk_path</span>
+<span class="g g-Whitespace">   </span><span class="mi">2526</span> 
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/patches.py</span> in <span class="ni">_shrink</span><span class="nt">(self, path, shrinkA, shrinkB)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2503</span>                 <span class="n">insideA</span> <span class="o">=</span> <span class="n">inside_circle</span><span class="p">(</span><span class="o">*</span><span class="n">path</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shrinkA</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2504</span>                 <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2505</span>                     <span class="n">left</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">split_path_inout</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">insideA</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2506</span>                 <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2507</span>                     <span class="k">pass</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/bezier.py</span> in <span class="ni">split_path_inout</span><span class="nt">(path, inside, tolerance, reorder_inout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">391</span> 
+<span class="g g-Whitespace">    </span><span class="mi">392</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">393</span>         <span class="n">path_in</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">path</span><span class="o">.</span><span class="n">vertices</span><span class="p">[:</span><span class="n">iold</span><span class="p">],</span> <span class="n">verts_left</span><span class="p">]),</span>
+<span class="g g-Whitespace">    </span><span class="mi">394</span>                        <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">path</span><span class="o">.</span><span class="n">codes</span><span class="p">[:</span><span class="n">iold</span><span class="p">],</span> <span class="n">codes_left</span><span class="p">]))</span>
+<span class="g g-Whitespace">    </span><span class="mi">395</span> 
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/path.py</span> in <span class="ni">__init__</span><span class="nt">(self, vertices, codes, _interpolation_steps, closed, readonly)</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span> <span class="o">=</span> <span class="n">codes</span>
+<span class="g g-Whitespace">    </span><span class="mi">150</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation_steps</span> <span class="o">=</span> <span class="n">_interpolation_steps</span>
+<span class="ne">--&gt; </span><span class="mi">151</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_update_values</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span> 
+<span class="g g-Whitespace">    </span><span class="mi">153</span>         <span class="k">if</span> <span class="n">readonly</span><span class="p">:</span>
+
+<span class="nn">~/.virtualenvs/nx-notebooks/lib/python3.9/site-packages/matplotlib/path.py</span> in <span class="ni">_update_values</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">191</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_simplify_threshold</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;path.simplify_threshold&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">192</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_should_simplify</span> <span class="o">=</span> <span class="p">(</span>
+<span class="ne">--&gt; </span><span class="mi">193</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_simplify_threshold</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span>
+<span class="g g-Whitespace">    </span><span class="mi">194</span>             <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;path.simplify&#39;</span><span class="p">]</span> <span class="ow">and</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span>             <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">128</span> <span class="ow">and</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">RGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">RGG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<h1>Waxman Graphs</h1><h1>Geographical Threshold Graphs</h1>
+The GTG model allows for a wide range of custom parameters including custom node positioning, weights, metric between nodes and the probability of connection, P(d<sub>ij</sub>). The default P(d<sub>ij</sub>) model is the metric value, r, for the two connecting nodes raised to the -alpha parameter, which has a default value of 2.<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">GTG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">geographical_threshold_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">GTG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">#supply a custom metric</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+<span class="n">GTG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">geographical_threshold_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="n">dist</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">GTG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">#Supply a custum p_dist probability of connection function</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="k">def</span> <span class="nf">custom_p_dist</span><span class="p">(</span><span class="n">dist</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">dist</span><span class="p">)</span>
+<span class="n">GTG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">geographical_threshold_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span><span class="n">p_dist</span><span class="o">=</span><span class="n">custom_p_dist</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">GTG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">#We can use scipy built-in probability distributions .pdf method for our p_dist</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="n">GTG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">geographical_threshold_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span><span class="n">p_dist</span><span class="o">=</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">GTG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<h1>Soft Random Geometric Graphs</h1>
+SRGGs utilize the maximum connection distance parameter, R, of RGGs but provide the ability to input an arbitrary connection probability function, P(d<sub>ij</sub>), for nodes within the maximum connection distance. The default P(d<sub>ij</sub>) function for SRGGs in networkx is an exponential distribution with rate parameter lambda=1.<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">SRGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">soft_random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">SRGG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">#Supply a custum p_dist probability of connection function</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="k">def</span> <span class="nf">custom_p_dist</span><span class="p">(</span><span class="n">dist</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">dist</span><span class="p">)</span>
+<span class="n">SRGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">soft_random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">p_dist</span><span class="o">=</span><span class="n">custom_p_dist</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">SRGG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">#We can use scipy built-in probability distributions .pdf method for our p_dist</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="n">SRGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">soft_random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">p_dist</span><span class="o">=</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">SRGG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<h1>Thresholded Random Geometric Graphs</h1>
+TRGGs allow for the coupling of the maximum connection distance and threshold parameters. The default weights for TRGG are drawn from an exponential distribution with rate parameter lambda=1.<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">#default TRGG weight distribution network</span>
+<span class="n">TRGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">thresholded_random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.0001</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">TRGG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">#Increased threshold parameter, theta, reduces graph connectivity</span>
+<span class="n">TRGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">thresholded_random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.001</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">TRGG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<h1>References</h1>
+<p>[1] - Spatial Networks https://arxiv.org/pdf/1010.0302.pdf</p>
+<p>[2] - Random Geometric Graphs https://arxiv.org/pdf/cond-mat/0203026.pdf</p>
+<p>[3] - Unit Disk Graphs http://www.sciencedirect.com/science/article/pii/0012365X9090358O</p>
+<p>[4] - Waxman Graphs - http://ieeexplore.ieee.org/document/12889/</p>
+<p>[5] - Waxman Graph Parameter Estimation - https://arxiv.org/pdf/1506.07974.pdf</p>
+<p>[6] - Threshold Graphs - http://www.combinatorics.org/ojs/index.php/eljc/article/view/v16i1r130/pdf</p>
+<p>[7] - Soft Geometric Random Graphs - https://arxiv.org/pdf/1311.3897.pdf</p>
+<p>[8] - Geometric Threshold Graphs - https://arxiv.org/pdf/cond-mat/0409378.pdf</p>
+<p>[9] - Thresholded Random Geometric Graphs - http://cole-maclean.github.io/blog/files/thesis.pdf</p>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="../drawing/node_colormap.html" title="previous page">Node Colormap</a>
+    <a class='right-next' id="next-link" href="../graph/atlas.html" title="next page">Atlas of all graphs of 6 nodes or less.</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By NetworkX developers<br/>
+        
+            &copy; Copyright 2021, NetworkX developers.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
