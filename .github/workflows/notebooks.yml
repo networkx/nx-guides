@@ -42,4 +42,5 @@ jobs:
     - name: Test with nbval
       run: |
         pip install pytest
-        pytest --nbval-lax
+        find content/ -name "*.md" -exec jupytext --to notebook {} \;
+        pytest --nbval-lax content/

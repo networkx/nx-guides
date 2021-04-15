@@ -1,0 +1,37 @@
+# See: https://circleci.com/docs/2.0/language-python/
+
+version: 2
+jobs:
+
+  build-docs:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/python:3.9.2
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install Python dependencies
+          command: |
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install --upgrade pip wheel setuptools
+            pip install -r requirements.txt
+
+      - run:
+          name: Build site
+          command: |
+            source venv/bin/activate
+            # n = nitpicky (broken links), W = warnings as errors,
+            # T = full tracebacks, keep-going = run to completion even with errors
+            make -C site/ SPHINXOPTS="-nWT --keep-going" html
+
+      - store_artifacts:
+          path: site/_build/html
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-docs
