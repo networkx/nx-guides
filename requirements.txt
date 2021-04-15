@@ -5,3 +5,4 @@ git+git://github.com/networkx/networkx@main
 sphinx
 myst-nb
 sphinx-book-theme
+jupytext
