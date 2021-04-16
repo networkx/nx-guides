@@ -164,14 +164,55 @@ networks implemented in networkx.
 
 ```{code-cell} ipython3
 %matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+import networkx as nx
 ```
+
+**Aside: drawing graphs with many edges**
+
+By default, the matplotlib-based drawing functions in the `nx_pylab` module
+use `FancyArrowPatch` objects to represent edges.
+`FancyArrowPatch` is quite flexible, supporting many different methods for
+drawing curves and different arrow types for representing directed edges.
+However, drawing many `FancyArrowPatch` objects on a single graph can be
+quite slow, so the drawing time can be prohibitively long for graphs with
+more than ~1000 edges.
+For graphs with many edges, you can instead use more performant matplotlib
+objects for representing graph edges, such as `LineCollection`:
+
+```{code-cell} ipython3
+from matplotlib.collections import LineCollection
+
+def draw_edges_fast(G, pos, ax, **lc_kwargs):
+    """
+    Return a LineCollection representing the edges of G.
+
+    Parameters
+    ----------
+    G : networkx.Graph
+        Graph whose edges will be drawn
+    pos : dict
+        A mapping of node to positions
+    ax : matplotlib.axes.Axes
+        The axes to which the LineCollection will be added
+    lc_kwargs : dict
+        All other keyword arguments are passed through to LineCollection
+    """
+    edge_pos = np.array([(pos[e[0]], pos[e[1]]) for e in RGG.edges()])
+    edge_collection = LineCollection(edge_pos, **lc_kwargs)
+    ax.add_collection(edge_collection)
+```
+
+We will use the `draw_edges_fast` helper function instead of the usual
+`draw_networkx_edges`, as some of the geometric graphs examined below have
+more than 10,000 edges.
 
 ```{code-cell} ipython3
 ---
 jupyter:
   outputs_hidden: false
 ---
-import networkx as nx
 # from networkx.readwrite import json_graph
 import json
 
@@ -185,7 +226,7 @@ with open('data/tesla_network.json','r') as infile:
 jupyter:
   outputs_hidden: false
 ---
-print('Node Count = %s' %(len(G.nodes())))
+print(G)
 ```
 
 ```{code-cell} ipython3
@@ -208,40 +249,26 @@ pos = nx.get_node_attributes(G, 'pos')
 weight = nx.get_node_attributes(G, 'weight')
 ```
 
+Since we'll be visualizing a lot of graphs, let's define some general
+plotting options for consistent visualizations.
+
+```{code-cell} ipython3
+node_opts = {"node_size": 50, "node_color": "r", "alpha": 0.4}
+edge_opts = {"color": "k", "linewidth": 0.1, "alpha": 0.1, "zorder": 0}
+```
+
 <h1>Random Geometric Graphs</h1>
 For RGGs, we see the impact of increasing the maximum connection distance
 parameter, radius, in increasing the number of connections.
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
-RGG = nx.random_geometric_graph(nodes, 0, pos=pos)
-nx.draw(RGG, pos=pos, alpha=0.4, node_size=50, node_color='r')
-```
+fig, axes = plt.subplots(2, 2, figsize=(12, 8))
 
-```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
-RGG = nx.random_geometric_graph(nodes, 0.1, pos=pos)
-nx.draw(RGG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.2)
-```
-
-```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
-RGG = nx.random_geometric_graph(nodes, 0.2, pos=pos)
-nx.draw(RGG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.2)
-```
-
-```{code-cell} ipython3
-RGG = nx.random_geometric_graph(nodes, 0.3, pos=pos)
-nx.draw(RGG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.1)
+for r, ax in zip((0, 0.1, 0.2, 0.3), axes.ravel()):
+    RGG = nx.random_geometric_graph(nodes, r, pos=pos)
+    nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+    draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+    ax.set_title(f"$r = {r}$")
 ```
 
 <h1>Waxman Graphs</h1>
@@ -260,8 +287,10 @@ nodes raised to the -alpha parameter, which has a default value of 2.
 jupyter:
   outputs_hidden: false
 ---
+fig, ax = plt.subplots()
 GTG = nx.geographical_threshold_graph(nodes,0.1,pos=pos,weight=weight)
-nx.draw(GTG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
+nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
@@ -269,10 +298,12 @@ nx.draw(GTG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
 jupyter:
   outputs_hidden: false
 ---
+fig, ax = plt.subplots()
 #supply a custom metric
 dist = lambda x, y: sum(abs(a - b) for a, b in zip(x, y))
 GTG = nx.geographical_threshold_graph(nodes,0.1,pos=pos,weight=weight,metric=dist)
-nx.draw(GTG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
+nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
@@ -280,12 +311,14 @@ nx.draw(GTG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
 jupyter:
   outputs_hidden: false
 ---
+fig, ax = plt.subplots()
 #Supply a custum p_dist probability of connection function
 import math
 def custom_p_dist(dist):
     return math.exp(-dist)
 GTG = nx.geographical_threshold_graph(nodes,0.01,pos=pos,weight=weight,metric=dist,p_dist=custom_p_dist)
-nx.draw(GTG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
+nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
@@ -293,10 +326,12 @@ nx.draw(GTG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
 jupyter:
   outputs_hidden: false
 ---
+fig, ax = plt.subplots()
 #We can use scipy built-in probability distributions .pdf method for our p_dist
 from scipy.stats import norm
 GTG = nx.geographical_threshold_graph(nodes,0.01,pos=pos,weight=weight,metric=dist,p_dist=norm(loc=0.1,scale=0.1).pdf)
-nx.draw(GTG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
+nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 <h1>Soft Random Geometric Graphs</h1>
@@ -311,8 +346,10 @@ distribution with rate parameter lambda=1.
 jupyter:
   outputs_hidden: false
 ---
+fig, ax = plt.subplots()
 SRGG = nx.soft_random_geometric_graph(nodes,0.1,pos=pos)
-nx.draw(SRGG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
+nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
@@ -320,12 +357,14 @@ nx.draw(SRGG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
 jupyter:
   outputs_hidden: false
 ---
+fig, ax = plt.subplots()
 #Supply a custum p_dist probability of connection function
 import math
 def custom_p_dist(dist):
     return math.exp(-10*dist)
 SRGG = nx.soft_random_geometric_graph(nodes,0.1,pos=pos,p_dist=custom_p_dist)
-nx.draw(SRGG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
+nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
@@ -333,10 +372,12 @@ nx.draw(SRGG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
 jupyter:
   outputs_hidden: false
 ---
+fig, ax = plt.subplots()
 #We can use scipy built-in probability distributions .pdf method for our p_dist
 from scipy.stats import norm
 SRGG = nx.soft_random_geometric_graph(nodes,0.1,pos=pos,p_dist=norm(loc=0.1,scale=0.1).pdf)
-nx.draw(SRGG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
+nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 <h1>Thresholded Random Geometric Graphs</h1>
@@ -349,9 +390,11 @@ rate parameter lambda=1.
 jupyter:
   outputs_hidden: false
 ---
+fig, ax = plt.subplots()
 #default TRGG weight distribution network
 TRGG = nx.thresholded_random_geometric_graph(nodes,0.1,0.0001,pos=pos,weight=weight)
-nx.draw(TRGG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
+nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
@@ -359,9 +402,11 @@ nx.draw(TRGG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
 jupyter:
   outputs_hidden: false
 ---
+fig, ax = plt.subplots()
 #Increased threshold parameter, theta, reduces graph connectivity
 TRGG = nx.thresholded_random_geometric_graph(nodes,0.1,0.001,pos=pos,weight=weight)
-nx.draw(TRGG, pos=pos, alpha=0.4, node_size=50, node_color='r', width=0.3)
+nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 <h1>References</h1>
