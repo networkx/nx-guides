@@ -24,12 +24,12 @@ language_info:
 
 # Tutorial: Geometric Generator Models
 
-<h1>Introduction</h1>
 In this tutorial, we'll explore the geometric network generator models
 implemented in networkx under networkx/generators/geometric.py and apply them
 to a real-world use case to learn how these models can be parameterized and used.
 
-<h2>Geometric/Spatial Networks</h2>
+## Geometric/Spatial Networks
+
 Many real-world complex systems have spatial components constraining the
 network structures these types of systems can produce.
 Infrastructure networks such as transportation, electrical, and
@@ -57,94 +57,104 @@ These models can be classified using only three model parameters used by these
 different models.
 
 
-R - The maximum connection distance, the 'radius' parameter in networkx
-P(d<sub>ij</sub>) - The probability of edge connection as a function of the
-distance, d<sub>ij</sub>, between nodes i,j where i ≠ j, the 'p_dist' parameter
-in networkx
-Θ - The node weight threshold for connection, the 'theta' parameter in networkx
+ - $R$ - The maximum connection distance, the `radius` parameter in networkx
+ - $P(d_{ij})$ - The probability of edge connection as a function of the
+   distance, $d_{ij}$, between nodes $i, j$ where $i \neq j$, the `p_dist`
+   parameter in networkx
+ - $\theta$ - The node weight threshold for connection, the `theta` parameter
+   in networkx
 
 Typically, nodes are uniformly distributed onto the unit square and node weights
 are sampled from some weight distribution.
-Distance, d<sub>ij</sub> is typically assumed to be the Euclidean distance,
+Distance, $d_{ij}$ is typically assumed to be the Euclidean distance,
 but some networkx models allow custom metrics where others only allow Minkowski
 distance metrics.
 
-Figure below shows the relationships between Spatial Network Models connected
-by their shared parameterization.
+The figure below shows the relationships between Spatial Network Models
+connected by their shared parameterization.
 
 ![spatial_networks](images/spatial_networks.png "Spatial Networks")
 
-<h3>Individual Model Definitions</h3>
-This section summarizes the various models. The notation E<sub>ij</sub>
-indicates an edges exists between nodes i and j.
+### Individual Model Definitions
 
-<h4>Random Geometric Graphs (R)</h4>
-A d-dimensional Random Geometric Graph (RGG) is a graph where each of the N
-nodes is assigned random coordinates in the box [0, 1]<sup>d</sup>, and only
-nodes ‘close’ to each other are connected by an edge[2].
+This section summarizes the various models. The notation $E_{ij}$
+indicates an edges exists between nodes $i$ and $j$.
+
+#### Random Geometric Graphs ($R$)
+
+A d-dimensional Random Geometric Graph (RGG) is a graph where each of the $N$
+nodes is assigned random coordinates in the box $[0, 1]^{d}$, and only
+nodes "close" to each other are connected by an edge[2].
 Any node within or equal to the maximum connection distance, R, is a connected
-node and the structure of the network is fully defined by R.
+node and the structure of the network is fully defined by $R$.
 RGGs, similar to Unit Disk Graphs [3],  have been widely used to model ad-hoc
 wireless networks[12].
 
-(1) E<sub>ij</sub>: d<sub>ij</sub> ≤ R
+$$ E_{ij}: d_{ij} \leq R $$
 
-<h4>Waxman Graphs (α)</h4>
+#### Waxman Graphs ($\alpha$)
+
 Waxman Graphs are the spatial generalization of ER random graphs, where the
 probability of connection of nodes depends on a function of the distance between them[4].
 The original edge probabiliy function proposed by Waxman is exponential in
-d<sub>ij</sub>, providing two connection probability tuning parameters, α and β:
+$d_{ij}$, providing two connection probability tuning parameters, $\alpha$ and $\beta$:
 
-(2)  P(d<sub>ij</sub>) = βe<sup>-d<sub>ij</sub>/Lα</sup> 
-Where L is the maximum distance between each pair of nodes
+$$ P(d_{ij}) = \beta e^{\frac{-d_{ij}}{L \alpha}} $$ 
 
-The shape of the edge probabiliy function, P(d<sub>ij</sub>), plays the key role
+Where $L$ is the maximum distance between each pair of nodes.
+
+The shape of the edge probabiliy function, $P(d_{ij})$, plays the key role
 in determining the structure of a Waxman graph, but characterization of
-P(d<sub>ij</sub>) in real-world networks still seems controversial [8].
-The most commonly studied functional families are the orginal exponential in
-Equation 1, or power laws, -d<sub>ij</sub><sup>-α</sup>.
+$P(d_{ij})$ in real-world networks still seems controversial [8].
+The most commonly studied functional families are the orginal exponential above,
+or power laws, $-{d_{ij}}^{-\alpha}$.
 
-(3) E<sub>ij</sub> ∝ P(d<sub>ij</sub>)
+$$ E_{ij} \propto P(d_{ij}) $$
 
-<h4>Threshold Graphs (Θ)</h4>
+#### Threshold Graphs ($\theta$)
+
 A simple graph G is a threshold graph if we can assign weights to the vertices
 such that a pair of distinct vertices is adjacent exactly when the sum of their
-assigned weights is or exceeds a specified threshold, Θ [6].
+assigned weights is or exceeds a specified threshold, $\theta$ [6].
 Threshold Graphs are not themselves Spatial Networks, as they do not incorporate
 a specific geometry or metric, but they introduce the ability to consider node
 weights as part of the network model which is utilized by other Spatial Network
 models such as Geometric Threshold Graphs.
 
-(4) E<sub>ij</sub>: (w<sub>i</sub> + w<sub>j</sub>) ≥ Θ
+$$ E_{ij}: (w_i + w_j) \geq \theta $$
 
-<h4>Geographical Threshold Graphs (P(d<sub>ij</sub>),Θ)</h4>
+#### Geographical Threshold Graphs ($P(d_{ij}), \theta$)
+
 Geographical Threshold Graphs are the geographical generalization of Threshold
-Graphs, where a pair of vertices with weights w<sub>i</sub>, w<sub>j</sub>,
-and distance d<sub>ij</sub> are connected if and only if the product between
-the sum of weights  w<sub>i</sub> and w<sub>j</sub> with the edge connection
-function, P(d<sub>ij</sub>), is greater than or equal to a threshold value, Θ. [8]
+Graphs, where a pair of vertices with weights $w_i, w_j$,
+and distance $d_{ij}$ are connected if and only if the product between
+the sum of weights  $w_i$ and $w_j$ with the edge connection
+function, $P(d_{ij})$, is greater than or equal to a threshold value, $\theta$. [8]
 
-(5) E<sub>ij</sub>: (w<sub>i</sub> + w<sub>j</sub>)P(d<sub>ij</sub>) ≥ Θ
+$$ E_{ij}: (w_i + w_j) P(d_{ij}) \geq \theta $$
 
-<h4>Soft Random Geometric Graphs (R,P(d<sub>ij</sub>))</h4>
+#### Soft Random Geometric Graphs ($R, P(d_{ij})$)
+
 A recent extention of Random Geometric Graphs couples the influence of distance
-between nodes that are within the maximum connection distance, R, to better model
+between nodes that are within the maximum connection distance, $R$, to better model
 real-world systems where node proximity does not necessarily gaurantee a
-connection between 'close' nodes.
-In Soft Random Geometric Graphs, the probability  of connection between nodes i
-and j is a function of their distance, d<sub>ij</sub>, if d<sub>ij</sub> ≤ R.
+connection between "close" nodes.
+In Soft Random Geometric Graphs, the probability  of connection between nodes $i$
+and $j$ is a function of their distance, $d_{ij}, if $d_{ij} \leq R$.
 Otherwise, they are disconnected [7].
 
-(6) E<sub>ij</sub> ∝ P(d<sub>ij</sub>) if d<sub>ij</sub> ≤ R
+$$ E_{ij} \propto P(d_{ij}) \textrm{ if } d_{ij} \leq R $$
 
-<h4>Thresholded Random Geometric Graphs (R,Θ)</h4>
+#### Thresholded Random Geometric Graphs ($R, \theta$)
+
 Thresholded Random Geometric Graphs extend RGGs to incorporate node weights into
 the model, where connections are only made between nodes with sufficiently
 powerful weights, up to a maximum connection distance between nodes [9].
 
-(7) (w<sub>i</sub> + w<sub>j</sub>) ≥ Θ if d<sub>ij</sub> ≤ R
+$$ (w_i + w_j) \geq \theta \textrm{ if } d_{ij} \leq R $$
 
-<h3>A Motivating Example</h3>
+### A Motivating Example
+
 For this tutorial, we'll use the Tesla North American Supercharger network as a
 motivating example to highlight how the various spatial network models implemented
 in networkx can be parameterized and used.
@@ -154,8 +164,8 @@ in networkx can be parameterized and used.
 The Supercharger data is obtained from supercharger.info, filtered for the
 Canadian and American Supercharger locations, totaling 385 Opened Superchargers
 as of April 2017.
-The collected data has been structure into a Networkx Graph which is made up of
-nested dictionaries keyed on the geohash of each Superchargers GPS coordinates
+The collected data has been structured into a Networkx Graph which is made up of
+nested dictionaries keyed on the geohash of each Supercharger's GPS coordinates
 which have been converted into a projected embedding onto the unit square.
 Node weights are the population of cities for each Supercharger, as a percent
 of total North American population.
@@ -175,11 +185,14 @@ By default, the matplotlib-based drawing functions in the `nx_pylab` module
 use `FancyArrowPatch` objects to represent edges.
 `FancyArrowPatch` is quite flexible, supporting many different methods for
 drawing curves and different arrow types for representing directed edges.
-However, drawing many `FancyArrowPatch` objects on a single graph can be
-quite slow, so the drawing time can be prohibitively long for graphs with
-more than ~1000 edges.
+However, drawing many `FancyArrowPatch` objects can be quite slow, so the
+drawing time can be prohibitively long for graphs with more than ~1000 edges.
 For graphs with many edges, you can instead use more performant matplotlib
-objects for representing graph edges, such as `LineCollection`:
+objects for representing graph edges, such as `LineCollection`.
+We will define a helper function called `draw_edges_fast` to use instead of the
+usual `draw_networkx_edges`, as some of the geometric graphs examined below have
+more than 10,000 edges.
+
 
 ```{code-cell} ipython3
 from matplotlib.collections import LineCollection
@@ -202,11 +215,11 @@ def draw_edges_fast(G, pos, ax, **lc_kwargs):
     edge_pos = np.array([(pos[e[0]], pos[e[1]]) for e in RGG.edges()])
     edge_collection = LineCollection(edge_pos, **lc_kwargs)
     ax.add_collection(edge_collection)
+
 ```
 
-We will use the `draw_edges_fast` helper function instead of the usual
-`draw_networkx_edges`, as some of the geometric graphs examined below have
-more than 10,000 edges.
+Next, we load the data and construct the graph.
+
 
 ```{code-cell} ipython3
 ---
@@ -257,9 +270,10 @@ node_opts = {"node_size": 50, "node_color": "r", "alpha": 0.4}
 edge_opts = {"color": "k", "linewidth": 0.1, "alpha": 0.1, "zorder": 0}
 ```
 
-<h1>Random Geometric Graphs</h1>
+## Random Geometric Graphs
+
 For RGGs, we see the impact of increasing the maximum connection distance
-parameter, radius, in increasing the number of connections.
+parameter `radius` in increasing the number of connections.
 
 ```{code-cell} ipython3
 fig, axes = plt.subplots(2, 2, figsize=(12, 8))
@@ -271,16 +285,17 @@ for r, ax in zip((0, 0.1, 0.2, 0.3), axes.ravel()):
     ax.set_title(f"$r = {r}$")
 ```
 
-<h1>Waxman Graphs</h1>
+## Waxman Graphs
 
 +++
 
-<h1>Geographical Threshold Graphs</h1>
+## Geographical Threshold Graphs
+
 The GTG model allows for a wide range of custom parameters including custom node
 positioning, weights, metric between nodes and the probability of connection,
-P(d<sub>ij</sub>).
-The default P(d<sub>ij</sub>) model is the metric value, r, for the two connecting
-nodes raised to the -alpha parameter, which has a default value of 2.
+$P(d_{ij})$.
+The default $P(d_{ij})$ model is the metric value, $r$, for the two connecting
+nodes raised to the $-\alpha$ parameter, which has a default value of 2.
 
 ```{code-cell} ipython3
 ---
@@ -334,12 +349,13 @@ nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
 draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
-<h1>Soft Random Geometric Graphs</h1>
-SRGGs utilize the maximum connection distance parameter, R, of RGGs but provide
-the ability to input an arbitrary connection probability function, P(d<sub>ij</sub>),
+## Soft Random Geometric Graphs
+
+SRGGs utilize the maximum connection distance parameter, $R$, of RGGs but provide
+the ability to input an arbitrary connection probability function, $P(d_{ij})$,
 for nodes within the maximum connection distance.
-The default P(d<sub>ij</sub>) function for SRGGs in networkx is an exponential
-distribution with rate parameter lambda=1.
+The default $P(d_{ij})$ function for SRGGs in networkx is an exponential
+distribution with rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
 ---
@@ -380,10 +396,11 @@ nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
 draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
-<h1>Thresholded Random Geometric Graphs</h1>
+## Thresholded Random Geometric Graphs
+
 TRGGs allow for the coupling of the maximum connection distance and threshold parameters.
 The default weights for TRGG are drawn from an exponential distribution with
-rate parameter lambda=1.
+rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
 ---
@@ -409,7 +426,7 @@ nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
 draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
-<h1>References</h1>
+## References
 
 [1] - Spatial Networks https://arxiv.org/pdf/1010.0302.pdf
 
