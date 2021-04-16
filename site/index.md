@@ -36,9 +36,6 @@ maxdepth: 1
 ---
 
 content/tutorial
-content/basic/properties
-content/drawing/index
 content/generators/geometric
-content/graph/atlas
 ```
 
