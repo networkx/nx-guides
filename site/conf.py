@@ -50,12 +50,16 @@ html_title = 'NetworkX Notebooks'
 html_logo = '_static/networkx_logo.svg'
 # html_favicon
 html_theme_options = {
-    "github_url": "https://github.com/networkx/notebooks",
     "icon_links": [
         {
             "name": "GitHub",
             "url": "https://github.com/networkx/notebooks/",
             "icon": "fab fa-github-square",
+        },
+        {
+            "name": "Binder",
+            "url": "https://mybinder.org/v2/gh/networkx/notebooks/main?urlpath=lab/tree/content",
+            "icon": "fas fa-rocket",
         },
     ],
     "use_edit_page_button": True,

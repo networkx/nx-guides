@@ -3,7 +3,7 @@ Welcome to NetworkX-notebooks
 
 [![Binder](https://mybinder.org/badge_logo.svg)][launch_binder]
 
-[launch_binder]: https://mybinder.org/v2/gh/networkx/networkx-notebooks/main?urlpath=lab/tree/content
+[launch_binder]: https://mybinder.org/v2/gh/networkx/notebooks/main?urlpath=lab/tree/content
 
 This site provides educational materials officially developed and curated by the
 NetworkX community.
