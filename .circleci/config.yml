@@ -12,6 +12,12 @@ jobs:
       - checkout
 
       - run:
+          name: Install Graphviz
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y graphviz graphviz-dev
+
+      - run:
           name: Install Python dependencies
           command: |
             python3 -m venv venv
