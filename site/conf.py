@@ -45,22 +45,30 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_book_theme'
+html_theme = 'pydata_sphinx_theme'
 html_title = 'NetworkX Notebooks'
 html_logo = '_static/networkx_logo.svg'
 # html_favicon
 html_theme_options = {
-    "github_url": "https://github.com/networkx/notebooks/",
-    "repository_url": "https://github.com/networkx/notebooks/",
-    "repository_branch": "main",
-    "use_repository_button": True,
-    "use_issues_button": True,
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/networkx/notebooks/",
+            "icon": "fab fa-github-square",
+        },
+        {
+            "name": "Binder",
+            "url": "https://mybinder.org/v2/gh/networkx/notebooks/main?urlpath=lab/tree/content",
+            "icon": "fas fa-rocket",
+        },
+    ],
     "use_edit_page_button": True,
-    "path_to_docs": "site/",
-    "launch_buttons": {
-        "binderhub_url": "https://mybinder.org",
-#        "jupyterhub_url": 
-    },
+}
+html_context = {
+    "github_user": "networkx",
+    "github_repo": "notebooks",
+    "github_version": "main",
+    "doc_path": "site",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
