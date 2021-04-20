@@ -24,8 +24,8 @@ language_info:
 
 # Tutorial: Geometric Generator Models
 
-In this tutorial, we'll explore the geometric network generator models
-implemented in networkx under networkx/generators/geometric.py and apply them
+In this tutorial, we'll explore the
+{mod}`geometric network generator <networkx.generators.geometric>` models and apply them
 to a real-world use case to learn how these models can be parameterized and used.
 
 ## Geometric/Spatial Networks
@@ -193,7 +193,6 @@ We will define a helper function called `draw_edges_fast` to use instead of the
 usual `draw_networkx_edges`, as some of the geometric graphs examined below have
 more than 10,000 edges.
 
-
 ```{code-cell} ipython3
 from matplotlib.collections import LineCollection
 
@@ -215,11 +214,9 @@ def draw_edges_fast(G, pos, ax, **lc_kwargs):
     edge_pos = np.array([(pos[e[0]], pos[e[1]]) for e in RGG.edges()])
     edge_collection = LineCollection(edge_pos, **lc_kwargs)
     ax.add_collection(edge_collection)
-
 ```
 
 Next, we load the data and construct the graph.
-
 
 ```{code-cell} ipython3
 ---

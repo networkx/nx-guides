@@ -29,7 +29,12 @@ author = 'NetworkX developers'
 # ones.
 extensions = [
     "myst_nb",
+    "sphinx.ext.intersphinx",
 ]
+
+intersphinx_mapping = {
+    "networkx": ("https://networkx.org/documentation/stable", None),
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
