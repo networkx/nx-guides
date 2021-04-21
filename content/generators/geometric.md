@@ -331,32 +331,19 @@ The default $P(d_{ij})$ function for SRGGs in networkx is an exponential
 distribution with rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots()
-SRGG = nx.soft_random_geometric_graph(nodes, 0.1, pos=pos)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
-```
+fig, axes = plt.subplots(1, 3, figsize=(12, 4))
 
-```{code-cell} ipython3
-fig, ax = plt.subplots()
-#Supply a custum p_dist probability of connection function
-import math
-def custom_p_dist(dist):
-    return math.exp(-10*dist)
-SRGG = nx.soft_random_geometric_graph(nodes, 0.1, pos=pos, p_dist=custom_p_dist)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
-```
-
-```{code-cell} ipython3
-fig, ax = plt.subplots()
-#We can use scipy built-in probability distributions .pdf method for our p_dist
-from scipy.stats import norm
-SRGG = nx.soft_random_geometric_graph(
-    nodes, 0.1, pos=pos, p_dist=norm(loc=0.1, scale=0.1).pdf
-)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+pdfs = {
+    "default": None,  # default: exponential distribution with `lambda=1`
+    "exp(-10*d)": lambda d: math.exp(-10*d),
+    "norm": norm(loc=0.1, scale=0.1).pdf,
+}
+for (title, pdf), ax in zip(pdfs.items(), axes.ravel()):
+    SRGG = nx.soft_random_geometric_graph(nodes, 0.1, pos=pos, p_dist=pdf)
+    nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+    draw_edges_fast(SRGG, pos=pos, ax=ax, **edge_opts)
+    ax.set_title(f"p_dist={title}, {SRGG.number_of_edges()} edges")
+fig.tight_layout()
 ```
 
 ## Thresholded Random Geometric Graphs
