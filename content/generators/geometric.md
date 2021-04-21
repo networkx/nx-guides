@@ -353,23 +353,18 @@ The default weights for TRGG are drawn from an exponential distribution with
 rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots()
-#default TRGG weight distribution network
-TRGG = nx.thresholded_random_geometric_graph(
-    nodes, 0.1, 0.0001, pos=pos, weight=weight
-)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
-```
+fig, axes = plt.subplots(1, 2, figsize=(12, 6))
 
-```{code-cell} ipython3
-fig, ax = plt.subplots()
-#Increased threshold parameter, theta, reduces graph connectivity
-TRGG = nx.thresholded_random_geometric_graph(
-    nodes, 0.1, 0.001, pos=pos, weight=weight
-)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+# Increased threshold parameter, theta, reduces graph connectivity
+thresholds = (0.0001, 0.001)
+for thresh, ax in zip(thresholds, axes):
+    TRGG = nx.thresholded_random_geometric_graph(
+        nodes, 0.1, thresh, pos=pos, weight=weight
+    )
+    nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+    draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+    ax.set_title(f"Threshold = {thresh}, {TRGG.number_of_edges()} edges")
+fig.tight_layout()
 ```
 
 ## References
