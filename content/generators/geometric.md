@@ -219,10 +219,6 @@ def draw_edges_fast(G, pos, ax, **lc_kwargs):
 Next, we load the data and construct the graph.
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 # from networkx.readwrite import json_graph
 import json
 
@@ -232,27 +228,15 @@ with open('data/tesla_network.json','r') as infile:
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 print(G)
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 #example node data structure keyed on geohash of GPS cords
 G.nodes['dr7k46ycwwb8']
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 #extract pos and weight attributes for use in models
 nodes = G.nodes()
 pos = nx.get_node_attributes(G, 'pos')
@@ -295,10 +279,6 @@ The default $P(d_{ij})$ model is the metric value, $r$, for the two connecting
 nodes raised to the $-\alpha$ parameter, which has a default value of 2.
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 fig, ax = plt.subplots()
 GTG = nx.geographical_threshold_graph(nodes,0.1,pos=pos,weight=weight)
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
@@ -306,10 +286,6 @@ draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 fig, ax = plt.subplots()
 #supply a custom metric
 dist = lambda x, y: sum(abs(a - b) for a, b in zip(x, y))
@@ -319,10 +295,6 @@ draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 fig, ax = plt.subplots()
 #Supply a custum p_dist probability of connection function
 import math
@@ -334,10 +306,6 @@ draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 fig, ax = plt.subplots()
 #We can use scipy built-in probability distributions .pdf method for our p_dist
 from scipy.stats import norm
@@ -355,10 +323,6 @@ The default $P(d_{ij})$ function for SRGGs in networkx is an exponential
 distribution with rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 fig, ax = plt.subplots()
 SRGG = nx.soft_random_geometric_graph(nodes,0.1,pos=pos)
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
@@ -366,10 +330,6 @@ draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 fig, ax = plt.subplots()
 #Supply a custum p_dist probability of connection function
 import math
@@ -381,10 +341,6 @@ draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 fig, ax = plt.subplots()
 #We can use scipy built-in probability distributions .pdf method for our p_dist
 from scipy.stats import norm
@@ -400,10 +356,6 @@ The default weights for TRGG are drawn from an exponential distribution with
 rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 fig, ax = plt.subplots()
 #default TRGG weight distribution network
 TRGG = nx.thresholded_random_geometric_graph(nodes,0.1,0.0001,pos=pos,weight=weight)
@@ -412,10 +364,6 @@ draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 fig, ax = plt.subplots()
 #Increased threshold parameter, theta, reduces graph connectivity
 TRGG = nx.thresholded_random_geometric_graph(nodes,0.1,0.001,pos=pos,weight=weight)
