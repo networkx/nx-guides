@@ -264,7 +264,7 @@ for r, ax in zip(radii, axes.ravel()):
     RGG = nx.random_geometric_graph(nodes, radius=r, pos=pos)
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
     draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
-    ax.set_title(f"$r = {r}$")
+    ax.set_title(f"$r = {r}$, {RGG.number_of_edges()} edges")
 fig.tight_layout()
 ```
 
