@@ -39,7 +39,7 @@ Spatial Networks provide a framework for network models having spacial elements
 where nodes are embedded in space and a metric is incorporated that dictates
 the conditions for connection between nodes.
 Typically, the probability of connection is a decreasing function of the
-metric, with most models assuming euclidean distance in 2-dimensions or 3-dimensions.
+metric, with most models assuming Euclidean distance in 2-dimensions or 3-dimensions.
 The intuition of most Spatial Network models propose that there exists an
 increasing cost of connection between nodes that are further apart, though
 arbitrary connection probability functions can be modeled.
@@ -54,7 +54,7 @@ theoretical proofs for the most common Spatial Network models.
 Here we explore some of the most typical Spatial Network models which have been
 implemented in the networkx package.
 These models can be classified using only three model parameters used by these
-different models.
+different models:
 
 
  - $R$ - The maximum connection distance, the `radius` parameter in networkx
@@ -193,7 +193,6 @@ We will define a helper function called `draw_edges_fast` to use instead of the
 usual `draw_networkx_edges`, as some of the geometric graphs examined below have
 more than 10,000 edges.
 
-
 ```{code-cell} ipython3
 from matplotlib.collections import LineCollection
 
@@ -215,11 +214,9 @@ def draw_edges_fast(G, pos, ax, **lc_kwargs):
     edge_pos = np.array([(pos[e[0]], pos[e[1]]) for e in RGG.edges()])
     edge_collection = LineCollection(edge_pos, **lc_kwargs)
     ax.add_collection(edge_collection)
-
 ```
 
 Next, we load the data and construct the graph.
-
 
 ```{code-cell} ipython3
 ---
