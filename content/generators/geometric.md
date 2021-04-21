@@ -259,8 +259,9 @@ parameter `radius` in increasing the number of connections.
 ```{code-cell} ipython3
 fig, axes = plt.subplots(2, 2, figsize=(12, 8))
 
-for r, ax in zip((0, 0.1, 0.2, 0.3), axes.ravel()):
-    RGG = nx.random_geometric_graph(nodes, r, pos=pos)
+radii = (0, 0.1, 0.2, 0.3)
+for r, ax in zip(radii, axes.ravel()):
+    RGG = nx.random_geometric_graph(nodes, radius=r, pos=pos)
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
     draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
     ax.set_title(f"$r = {r}$")
@@ -280,7 +281,7 @@ nodes raised to the $-\alpha$ parameter, which has a default value of 2.
 
 ```{code-cell} ipython3
 fig, ax = plt.subplots()
-GTG = nx.geographical_threshold_graph(nodes,0.1,pos=pos,weight=weight)
+GTG = nx.geographical_threshold_graph(nodes, 0.1, pos=pos, weight=weight)
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
 draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
@@ -289,7 +290,9 @@ draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 fig, ax = plt.subplots()
 #supply a custom metric
 dist = lambda x, y: sum(abs(a - b) for a, b in zip(x, y))
-GTG = nx.geographical_threshold_graph(nodes,0.1,pos=pos,weight=weight,metric=dist)
+GTG = nx.geographical_threshold_graph(
+    nodes, 0.1, pos=pos, weight=weight, metric=dist
+)
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
 draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
@@ -300,7 +303,9 @@ fig, ax = plt.subplots()
 import math
 def custom_p_dist(dist):
     return math.exp(-dist)
-GTG = nx.geographical_threshold_graph(nodes,0.01,pos=pos,weight=weight,metric=dist,p_dist=custom_p_dist)
+GTG = nx.geographical_threshold_graph(
+    nodes, 0.01, pos=pos, weight=weight, metric=dist, p_dist=custom_p_dist
+)
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
 draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
@@ -309,7 +314,9 @@ draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 fig, ax = plt.subplots()
 #We can use scipy built-in probability distributions .pdf method for our p_dist
 from scipy.stats import norm
-GTG = nx.geographical_threshold_graph(nodes,0.01,pos=pos,weight=weight,metric=dist,p_dist=norm(loc=0.1,scale=0.1).pdf)
+GTG = nx.geographical_threshold_graph(
+    nodes, 0.01, pos=pos, weight=weight, metric=dist, p_dist=norm(loc=0.1, scale=0.1).pdf
+)
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
 draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
@@ -324,7 +331,7 @@ distribution with rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
 fig, ax = plt.subplots()
-SRGG = nx.soft_random_geometric_graph(nodes,0.1,pos=pos)
+SRGG = nx.soft_random_geometric_graph(nodes, 0.1, pos=pos)
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
 draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
@@ -335,7 +342,7 @@ fig, ax = plt.subplots()
 import math
 def custom_p_dist(dist):
     return math.exp(-10*dist)
-SRGG = nx.soft_random_geometric_graph(nodes,0.1,pos=pos,p_dist=custom_p_dist)
+SRGG = nx.soft_random_geometric_graph(nodes, 0.1, pos=pos, p_dist=custom_p_dist)
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
 draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
@@ -344,7 +351,9 @@ draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 fig, ax = plt.subplots()
 #We can use scipy built-in probability distributions .pdf method for our p_dist
 from scipy.stats import norm
-SRGG = nx.soft_random_geometric_graph(nodes,0.1,pos=pos,p_dist=norm(loc=0.1,scale=0.1).pdf)
+SRGG = nx.soft_random_geometric_graph(
+    nodes, 0.1, pos=pos, p_dist=norm(loc=0.1, scale=0.1).pdf
+)
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
 draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
@@ -358,7 +367,9 @@ rate parameter `lambda=1`.
 ```{code-cell} ipython3
 fig, ax = plt.subplots()
 #default TRGG weight distribution network
-TRGG = nx.thresholded_random_geometric_graph(nodes,0.1,0.0001,pos=pos,weight=weight)
+TRGG = nx.thresholded_random_geometric_graph(
+    nodes, 0.1, 0.0001, pos=pos, weight=weight
+)
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
 draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
@@ -366,7 +377,9 @@ draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```{code-cell} ipython3
 fig, ax = plt.subplots()
 #Increased threshold parameter, theta, reduces graph connectivity
-TRGG = nx.thresholded_random_geometric_graph(nodes,0.1,0.001,pos=pos,weight=weight)
+TRGG = nx.thresholded_random_geometric_graph(
+    nodes, 0.1, 0.001, pos=pos, weight=weight
+)
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
 draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 ```
