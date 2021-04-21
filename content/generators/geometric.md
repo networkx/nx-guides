@@ -115,7 +115,7 @@ $$ E_{ij} \propto P(d_{ij}) $$
 
 A simple graph G is a threshold graph if we can assign weights to the vertices
 such that a pair of distinct vertices is adjacent exactly when the sum of their
-assigned weights is or exceeds a specified threshold, $\theta$ [^6].
+assigned weights equals or exceeds a specified threshold, $\theta$ [^6].
 Threshold Graphs are not themselves Spatial Networks, as they do not incorporate
 a specific geometry or metric, but they introduce the ability to consider node
 weights as part of the network model which is utilized by other Spatial Network
@@ -137,7 +137,7 @@ $$ E_{ij}: (w_i + w_j) P(d_{ij}) \geq \theta $$
 
 A recent extention of Random Geometric Graphs couples the influence of distance
 between nodes that are within the maximum connection distance, $R$, to better model
-real-world systems where node proximity does not necessarily gaurantee a
+real-world systems where node proximity does not necessarily guarantee a
 connection between "close" nodes.
 In Soft Random Geometric Graphs, the probability  of connection between nodes $i$
 and $j$ is a function of their distance, $d_{ij}, if $d_{ij} \leq R$.
@@ -155,9 +155,9 @@ $$ (w_i + w_j) \geq \theta \textrm{ if } d_{ij} \leq R $$
 
 ### A Motivating Example
 
-For this tutorial, we'll use the Tesla North American Supercharger network as a
-motivating example to highlight how the various spatial network models implemented
-in networkx can be parameterized and used.
+For this tutorial, we'll use the Tesla North American Supercharger network to
+highlight how the various spatial network models implemented in networkx can
+be parameterized and used.
 
 ![spatial_networks](images/NA-Supercharger_Network.jpg "Tesla Supercharger Network")
 
@@ -190,7 +190,7 @@ drawing time can be prohibitively long for graphs with more than ~1000 edges.
 For graphs with many edges, you can instead use more performant matplotlib
 objects for representing graph edges, such as `LineCollection`.
 We will define a helper function called `draw_edges_fast` to use instead of the
-usual `draw_networkx_edges`, as some of the geometric graphs examined below have
+usual `draw_networkx_edges`, as some of the graphs examined below have
 more than 10,000 edges.
 
 ```{code-cell} ipython3
@@ -273,7 +273,7 @@ for r, ax in zip((0, 0.1, 0.2, 0.3), axes.ravel()):
 ## Geographical Threshold Graphs
 
 The GTG model allows for a wide range of custom parameters including custom node
-positioning, weights, metric between nodes and the probability of connection,
+positioning, weights, and a metric between nodes and the probability of connection,
 $P(d_{ij})$.
 The default $P(d_{ij})$ model is the metric value, $r$, for the two connecting
 nodes raised to the $-\alpha$ parameter, which has a default value of 2.
