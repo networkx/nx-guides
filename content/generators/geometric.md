@@ -48,7 +48,7 @@ The potential application of Spatial Networks to such a wide variety of
 real-world systems has motivated substainial research into these networks,
 with many unique but closely related models being proposed with theoretical
 proofs for many of their network properties.
-The 2010 Spatial Networks review article by Marc Barthélemy[1] provides a
+The 2010 Spatial Networks review article by Marc Barthélemy[^1] provides a
 comprehensive overview of the field and reviews many of the most important
 theoretical proofs for the most common Spatial Network models.
 Here we explore some of the most typical Spatial Network models which have been
@@ -84,18 +84,18 @@ indicates an edges exists between nodes $i$ and $j$.
 
 A d-dimensional Random Geometric Graph (RGG) is a graph where each of the $N$
 nodes is assigned random coordinates in the box $[0, 1]^{d}$, and only
-nodes "close" to each other are connected by an edge[2].
-Any node within or equal to the maximum connection distance, R, is a connected
+nodes "close" to each other are connected by an edge [^2].
+Any node within or equal to the maximum connection distance, $R$, is a connected
 node and the structure of the network is fully defined by $R$.
-RGGs, similar to Unit Disk Graphs [3],  have been widely used to model ad-hoc
-wireless networks[12].
+RGGs, similar to Unit Disk Graphs [^3],  have been widely used to model ad-hoc
+wireless networks.
 
 $$ E_{ij}: d_{ij} \leq R $$
 
 #### Waxman Graphs ($\alpha$)
 
-Waxman Graphs are the spatial generalization of ER random graphs, where the
-probability of connection of nodes depends on a function of the distance between them[4].
+Waxman Graphs are the spatial generalization of Erdős–Rényi random graphs, where the
+probability of connection of nodes depends on a function of the distance between them[^4].
 The original edge probabiliy function proposed by Waxman is exponential in
 $d_{ij}$, providing two connection probability tuning parameters, $\alpha$ and $\beta$:
 
@@ -105,7 +105,7 @@ Where $L$ is the maximum distance between each pair of nodes.
 
 The shape of the edge probabiliy function, $P(d_{ij})$, plays the key role
 in determining the structure of a Waxman graph, but characterization of
-$P(d_{ij})$ in real-world networks still seems controversial [8].
+$P(d_{ij})$ in real-world networks still seems controversial.
 The most commonly studied functional families are the orginal exponential above,
 or power laws, $-{d_{ij}}^{-\alpha}$.
 
@@ -115,7 +115,7 @@ $$ E_{ij} \propto P(d_{ij}) $$
 
 A simple graph G is a threshold graph if we can assign weights to the vertices
 such that a pair of distinct vertices is adjacent exactly when the sum of their
-assigned weights is or exceeds a specified threshold, $\theta$ [6].
+assigned weights is or exceeds a specified threshold, $\theta$ [^6].
 Threshold Graphs are not themselves Spatial Networks, as they do not incorporate
 a specific geometry or metric, but they introduce the ability to consider node
 weights as part of the network model which is utilized by other Spatial Network
@@ -129,7 +129,7 @@ Geographical Threshold Graphs are the geographical generalization of Threshold
 Graphs, where a pair of vertices with weights $w_i, w_j$,
 and distance $d_{ij}$ are connected if and only if the product between
 the sum of weights  $w_i$ and $w_j$ with the edge connection
-function, $P(d_{ij})$, is greater than or equal to a threshold value, $\theta$. [8]
+function, $P(d_{ij})$, is greater than or equal to a threshold value, $\theta$. [^8]
 
 $$ E_{ij}: (w_i + w_j) P(d_{ij}) \geq \theta $$
 
@@ -141,7 +141,7 @@ real-world systems where node proximity does not necessarily gaurantee a
 connection between "close" nodes.
 In Soft Random Geometric Graphs, the probability  of connection between nodes $i$
 and $j$ is a function of their distance, $d_{ij}, if $d_{ij} \leq R$.
-Otherwise, they are disconnected [7].
+Otherwise, they are disconnected [^7].
 
 $$ E_{ij} \propto P(d_{ij}) \textrm{ if } d_{ij} \leq R $$
 
@@ -149,7 +149,7 @@ $$ E_{ij} \propto P(d_{ij}) \textrm{ if } d_{ij} \leq R $$
 
 Thresholded Random Geometric Graphs extend RGGs to incorporate node weights into
 the model, where connections are only made between nodes with sufficiently
-powerful weights, up to a maximum connection distance between nodes [9].
+powerful weights, up to a maximum connection distance between nodes [^9].
 
 $$ (w_i + w_j) \geq \theta \textrm{ if } d_{ij} \leq R $$
 
@@ -425,20 +425,20 @@ draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
 
 ## References
 
-[1] - Spatial Networks https://arxiv.org/pdf/1010.0302.pdf
+[^1]: Spatial Networks <https://arxiv.org/abs/1010.0302>
 
-[2] - Random Geometric Graphs https://arxiv.org/pdf/cond-mat/0203026.pdf
+[^2]: Random Geometric Graphs <https://arxiv.org/abs/cond-mat/0203026>
 
-[3] - Unit Disk Graphs http://www.sciencedirect.com/science/article/pii/0012365X9090358O
+[^3]: Unit Disk Graphs <http://www.sciencedirect.com/science/article/pii/0012365X9090358O>
 
-[4] - Waxman Graphs - http://ieeexplore.ieee.org/document/12889/
+[^4]: Waxman Graphs <http://ieeexplore.ieee.org/document/12889/>
 
-[5] - Waxman Graph Parameter Estimation - https://arxiv.org/pdf/1506.07974.pdf
+[5]: Waxman Graph Parameter Estimation <https://arxiv.org/abs/1506.07974>
 
-[6] - Threshold Graphs - http://www.combinatorics.org/ojs/index.php/eljc/article/view/v16i1r130/pdf
+[^6]: Threshold Graphs - <http://www.combinatorics.org/ojs/index.php/eljc/article/view/v16i1r130/pdf>
 
-[7] - Soft Geometric Random Graphs - https://arxiv.org/pdf/1311.3897.pdf
+[^7]: Soft Geometric Random Graphs - <https://arxiv.org/abs/1311.3897>
 
-[8] - Geometric Threshold Graphs - https://arxiv.org/pdf/cond-mat/0409378.pdf
+[^8]: Geometric Threshold Graphs - <https://arxiv.org/abs/cond-mat/0409378>
 
-[9] - Thresholded Random Geometric Graphs - http://cole-maclean.github.io/blog/files/thesis.pdf
+[^9]: Thresholded Random Geometric Graphs - <http://cole-maclean.github.io/blog/Thresholded-Random-Geometric-Graphs>
