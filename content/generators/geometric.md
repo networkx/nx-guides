@@ -265,6 +265,7 @@ for r, ax in zip(radii, axes.ravel()):
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
     draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
     ax.set_title(f"$r = {r}$")
+fig.tight_layout()
 ```
 
 ## Waxman Graphs
