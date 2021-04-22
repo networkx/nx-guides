@@ -177,6 +177,13 @@ networks implemented in networkx.
 import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
+
+# Some matplotlib settings
+mpl_params = {
+    "axes.titlesize": 20,
+    "figure.figsize": (12, 4),
+}
+plt.rcParams.update(mpl_params)
 ```
 
 **Aside: drawing graphs with many edges**
@@ -291,7 +298,7 @@ The default $P(d_{ij})$ model is the metric value, $r$, for the two connecting
 nodes raised to the $-\alpha$ parameter, which has a default value of 2.
 
 ```{code-cell} ipython3
-fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+fig, axes = plt.subplots(1, 2)
 
 # Custom distance metric
 dist = lambda x, y: sum(abs(a - b) for a, b in zip(x, y))
@@ -307,12 +314,12 @@ for (name, metric), ax in zip(distance_metrics.items(), axes.ravel()):
     )
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
     draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
-    ax.set_title(f"{name}, {GTG.number_of_edges()} edges")
+    ax.set_title(f"{name}\n{GTG.number_of_edges()} edges")
 fig.tight_layout()
 ```
 
 ```{code-cell} ipython3
-fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+fig, axes = plt.subplots(1, 2)
 
 # Evaluate different p_dists
 import math
@@ -329,7 +336,7 @@ for (name, p_dist), ax in zip(p_dists.items(), axes.ravel()):
     )
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
     draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
-    ax.set_title(f"{name}, {GTG.number_of_edges()} edges")
+    ax.set_title(f"{name}\n{GTG.number_of_edges()} edges")
 fig.tight_layout()
 ```
 
@@ -342,7 +349,7 @@ The default $P(d_{ij})$ function for SRGGs in networkx is an exponential
 distribution with rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
-fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+fig, axes = plt.subplots(1, 3)
 
 pdfs = {
     "default": None,  # default: exponential distribution with `lambda=1`
@@ -364,7 +371,7 @@ The default weights for TRGG are drawn from an exponential distribution with
 rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
-fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+fig, axes = plt.subplots(1, 2)
 
 # Increased threshold parameter, theta, reduces graph connectivity
 thresholds = (0.0001, 0.001)
