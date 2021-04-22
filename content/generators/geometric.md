@@ -312,14 +312,25 @@ fig.tight_layout()
 ```
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots()
-#We can use scipy built-in probability distributions .pdf method for our p_dist
+fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+
+# Evaluate different p_dists
+import math
 from scipy.stats import norm
-GTG = nx.geographical_threshold_graph(
-    nodes, 0.01, pos=pos, weight=weight, metric=dist, p_dist=norm(loc=0.1, scale=0.1).pdf
-)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
+
+p_dists = {
+    "p_dist=Exponential": lambda d: math.exp(-d),
+    "p_dist=Normal": norm(loc=0.1, scale=0.1).pdf,
+}
+
+for (name, p_dist), ax in zip(p_dists.items(), axes.ravel()):
+    GTG = nx.geographical_threshold_graph(
+        nodes, 0.01, pos=pos, weight=weight, metric=dist, p_dist=p_dist
+    )
+    nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+    draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
+    ax.set_title(f"{name}, {GTG.number_of_edges()} edges")
+fig.tight_layout()
 ```
 
 ## Soft Random Geometric Graphs
