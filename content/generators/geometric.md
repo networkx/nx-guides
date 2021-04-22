@@ -383,18 +383,18 @@ fig.tight_layout()
 
 ## References
 
-[^1]: Spatial Networks <https://arxiv.org/abs/1010.0302>
+[^1]: Spatial Networks <https://doi.org/10.1016/j.physrep.2010.11.002>
 
-[^2]: Random Geometric Graphs <https://arxiv.org/abs/cond-mat/0203026>
+[^2]: Random Geometric Graphs <https://doi.org/10.1103/PhysRevE.66.016121>
 
-[^3]: Unit Disk Graphs <http://www.sciencedirect.com/science/article/pii/0012365X9090358O>
+[^3]: Unit Disk Graphs <https://doi.org/10.1016/0012-365X(90)90358-O>
 
-[^4]: Waxman Graphs <http://ieeexplore.ieee.org/document/12889/>
+[^4]: Waxman Graphs <https://doi.org/10.1109/49.12889>
 
-[^6]: Threshold Graphs - <http://www.combinatorics.org/ojs/index.php/eljc/article/view/v16i1r130/pdf>
+[^6]: Threshold Graphs - <https://doi.org/10.37236/219>
 
-[^7]: Soft Geometric Random Graphs - <https://arxiv.org/abs/1311.3897>
+[^7]: Soft Geometric Random Graphs - <https://doi.org/10.1214/15-AAP1110>
 
-[^8]: Geometric Threshold Graphs - <https://arxiv.org/abs/cond-mat/0409378>
+[^8]: Geometric Threshold Graphs - <https://doi.org/10.1103/PhysRevE.71.036108>
 
-[^9]: Thresholded Random Geometric Graphs - <http://cole-maclean.github.io/blog/Thresholded-Random-Geometric-Graphs>
+[^9]: Thresholded Random Geometric Graphs - <http://hdl.handle.net/2117/111425>
