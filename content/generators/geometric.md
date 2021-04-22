@@ -248,7 +248,7 @@ plotting options for consistent visualizations.
 
 ```{code-cell} ipython3
 node_opts = {"node_size": 50, "node_color": "r", "alpha": 0.4}
-edge_opts = {"color": "k", "linewidth": 0.1, "alpha": 0.1, "zorder": 0}
+edge_opts = {"color": "k", "zorder": 0}
 ```
 
 ## Random Geometric Graphs
@@ -258,14 +258,24 @@ parameter `radius` in increasing the number of connections.
 
 ```{code-cell} ipython3
 fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+# Params for visualizing edges
+alphas = (0.8, 0.8, 0.3, 0.1)
+linewidths = (0.2, 0.2, 0.1, 0.1)
 
 radii = (0, 0.1, 0.2, 0.3)
-for r, ax in zip(radii, axes.ravel()):
+for r, ax, alpha, lw in zip(radii, axes.ravel(), alphas, linewidths):
     RGG = nx.random_geometric_graph(nodes, radius=r, pos=pos)
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-    draw_edges_fast(RGG, pos=pos, ax=ax, **edge_opts)
+    draw_edges_fast(RGG, pos=pos, ax=ax, alpha=alpha, linewidth=lw, **edge_opts)
     ax.set_title(f"$r = {r}$, {RGG.number_of_edges()} edges")
 fig.tight_layout()
+```
+
+```{code-cell} ipython3
+# Make edge visualization more prominent (and consistent) for the following 
+# examples
+edge_opts["alpha"] = 0.8
+edge_opts["linewidth"] = 0.2
 ```
 
 ## Waxman Graphs
@@ -332,9 +342,6 @@ distribution with rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
 fig, axes = plt.subplots(1, 3, figsize=(12, 4))
-# Make edges more prominent
-edge_opts["alpha"] = 0.8
-edge_opts["linewidth"] = 0.2
 
 pdfs = {
     "default": None,  # default: exponential distribution with `lambda=1`
