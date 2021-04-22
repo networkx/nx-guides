@@ -39,7 +39,7 @@ Spatial Networks provide a framework for network models having spacial elements
 where nodes are embedded in space and a metric is incorporated that dictates
 the conditions for connection between nodes.
 Typically, the probability of connection is a decreasing function of the
-metric, with most models assuming euclidean distance in 2-dimensions or 3-dimensions.
+metric, with most models assuming Euclidean distance in 2-dimensions or 3-dimensions.
 The intuition of most Spatial Network models propose that there exists an
 increasing cost of connection between nodes that are further apart, though
 arbitrary connection probability functions can be modeled.
@@ -48,13 +48,13 @@ The potential application of Spatial Networks to such a wide variety of
 real-world systems has motivated substainial research into these networks,
 with many unique but closely related models being proposed with theoretical
 proofs for many of their network properties.
-The 2010 Spatial Networks review article by Marc Barthélemy[1] provides a
+The 2010 Spatial Networks review article by Marc Barthélemy[^1] provides a
 comprehensive overview of the field and reviews many of the most important
 theoretical proofs for the most common Spatial Network models.
 Here we explore some of the most typical Spatial Network models which have been
 implemented in the networkx package.
 These models can be classified using only three model parameters used by these
-different models.
+different models:
 
 
  - $R$ - The maximum connection distance, the `radius` parameter in networkx
@@ -84,18 +84,18 @@ indicates an edges exists between nodes $i$ and $j$.
 
 A d-dimensional Random Geometric Graph (RGG) is a graph where each of the $N$
 nodes is assigned random coordinates in the box $[0, 1]^{d}$, and only
-nodes "close" to each other are connected by an edge[2].
-Any node within or equal to the maximum connection distance, R, is a connected
+nodes "close" to each other are connected by an edge [^2].
+Any node within or equal to the maximum connection distance, $R$, is a connected
 node and the structure of the network is fully defined by $R$.
-RGGs, similar to Unit Disk Graphs [3],  have been widely used to model ad-hoc
-wireless networks[12].
+RGGs, similar to Unit Disk Graphs [^3],  have been widely used to model ad-hoc
+wireless networks.
 
 $$ E_{ij}: d_{ij} \leq R $$
 
 #### Waxman Graphs ($\alpha$)
 
-Waxman Graphs are the spatial generalization of ER random graphs, where the
-probability of connection of nodes depends on a function of the distance between them[4].
+Waxman Graphs are the spatial generalization of Erdős–Rényi random graphs, where the
+probability of connection of nodes depends on a function of the distance between them[^4].
 The original edge probabiliy function proposed by Waxman is exponential in
 $d_{ij}$, providing two connection probability tuning parameters, $\alpha$ and $\beta$:
 
@@ -105,7 +105,7 @@ Where $L$ is the maximum distance between each pair of nodes.
 
 The shape of the edge probabiliy function, $P(d_{ij})$, plays the key role
 in determining the structure of a Waxman graph, but characterization of
-$P(d_{ij})$ in real-world networks still seems controversial [8].
+$P(d_{ij})$ in real-world networks still seems controversial.
 The most commonly studied functional families are the orginal exponential above,
 or power laws, $-{d_{ij}}^{-\alpha}$.
 
@@ -115,7 +115,7 @@ $$ E_{ij} \propto P(d_{ij}) $$
 
 A simple graph G is a threshold graph if we can assign weights to the vertices
 such that a pair of distinct vertices is adjacent exactly when the sum of their
-assigned weights is or exceeds a specified threshold, $\theta$ [6].
+assigned weights equals or exceeds a specified threshold, $\theta$ [^6].
 Threshold Graphs are not themselves Spatial Networks, as they do not incorporate
 a specific geometry or metric, but they introduce the ability to consider node
 weights as part of the network model which is utilized by other Spatial Network
@@ -129,7 +129,7 @@ Geographical Threshold Graphs are the geographical generalization of Threshold
 Graphs, where a pair of vertices with weights $w_i, w_j$,
 and distance $d_{ij}$ are connected if and only if the product between
 the sum of weights  $w_i$ and $w_j$ with the edge connection
-function, $P(d_{ij})$, is greater than or equal to a threshold value, $\theta$. [8]
+function, $P(d_{ij})$, is greater than or equal to a threshold value, $\theta$. [^8]
 
 $$ E_{ij}: (w_i + w_j) P(d_{ij}) \geq \theta $$
 
@@ -137,11 +137,11 @@ $$ E_{ij}: (w_i + w_j) P(d_{ij}) \geq \theta $$
 
 A recent extention of Random Geometric Graphs couples the influence of distance
 between nodes that are within the maximum connection distance, $R$, to better model
-real-world systems where node proximity does not necessarily gaurantee a
+real-world systems where node proximity does not necessarily guarantee a
 connection between "close" nodes.
 In Soft Random Geometric Graphs, the probability  of connection between nodes $i$
 and $j$ is a function of their distance, $d_{ij}, if $d_{ij} \leq R$.
-Otherwise, they are disconnected [7].
+Otherwise, they are disconnected [^7].
 
 $$ E_{ij} \propto P(d_{ij}) \textrm{ if } d_{ij} \leq R $$
 
@@ -149,15 +149,15 @@ $$ E_{ij} \propto P(d_{ij}) \textrm{ if } d_{ij} \leq R $$
 
 Thresholded Random Geometric Graphs extend RGGs to incorporate node weights into
 the model, where connections are only made between nodes with sufficiently
-powerful weights, up to a maximum connection distance between nodes [9].
+powerful weights, up to a maximum connection distance between nodes [^9].
 
 $$ (w_i + w_j) \geq \theta \textrm{ if } d_{ij} \leq R $$
 
 ### A Motivating Example
 
-For this tutorial, we'll use the Tesla North American Supercharger network as a
-motivating example to highlight how the various spatial network models implemented
-in networkx can be parameterized and used.
+For this tutorial, we'll use the Tesla North American Supercharger network to
+highlight how the various spatial network models implemented in networkx can
+be parameterized and used.
 
 ![spatial_networks](images/NA-Supercharger_Network.jpg "Tesla Supercharger Network")
 
@@ -177,6 +177,13 @@ networks implemented in networkx.
 import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
+
+# Some matplotlib settings
+mpl_params = {
+    "axes.titlesize": 20,
+    "figure.figsize": (12, 4),
+}
+plt.rcParams.update(mpl_params)
 ```
 
 **Aside: drawing graphs with many edges**
@@ -190,9 +197,8 @@ drawing time can be prohibitively long for graphs with more than ~1000 edges.
 For graphs with many edges, you can instead use more performant matplotlib
 objects for representing graph edges, such as `LineCollection`.
 We will define a helper function called `draw_edges_fast` to use instead of the
-usual `draw_networkx_edges`, as some of the geometric graphs examined below have
+usual `draw_networkx_edges`, as some of the graphs examined below have
 more than 10,000 edges.
-
 
 ```{code-cell} ipython3
 from matplotlib.collections import LineCollection
@@ -212,20 +218,14 @@ def draw_edges_fast(G, pos, ax, **lc_kwargs):
     lc_kwargs : dict
         All other keyword arguments are passed through to LineCollection
     """
-    edge_pos = np.array([(pos[e[0]], pos[e[1]]) for e in RGG.edges()])
+    edge_pos = np.array([(pos[e[0]], pos[e[1]]) for e in G.edges()])
     edge_collection = LineCollection(edge_pos, **lc_kwargs)
     ax.add_collection(edge_collection)
-
 ```
 
 Next, we load the data and construct the graph.
 
-
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 # from networkx.readwrite import json_graph
 import json
 
@@ -235,27 +235,15 @@ with open('data/tesla_network.json','r') as infile:
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 print(G)
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 #example node data structure keyed on geohash of GPS cords
 G.nodes['dr7k46ycwwb8']
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
 #extract pos and weight attributes for use in models
 nodes = G.nodes()
 pos = nx.get_node_attributes(G, 'pos')
@@ -267,7 +255,7 @@ plotting options for consistent visualizations.
 
 ```{code-cell} ipython3
 node_opts = {"node_size": 50, "node_color": "r", "alpha": 0.4}
-edge_opts = {"color": "k", "linewidth": 0.1, "alpha": 0.1, "zorder": 0}
+edge_opts = {"color": "k", "zorder": 0}
 ```
 
 ## Random Geometric Graphs
@@ -277,76 +265,75 @@ parameter `radius` in increasing the number of connections.
 
 ```{code-cell} ipython3
 fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+# Params for visualizing edges
+alphas = (0.8, 0.8, 0.3, 0.1)
+linewidths = (0.2, 0.2, 0.1, 0.1)
 
-for r, ax in zip((0, 0.1, 0.2, 0.3), axes.ravel()):
-    RGG = nx.random_geometric_graph(nodes, r, pos=pos)
+radii = (0, 0.1, 0.2, 0.3)
+for r, ax, alpha, lw in zip(radii, axes.ravel(), alphas, linewidths):
+    RGG = nx.random_geometric_graph(nodes, radius=r, pos=pos)
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-    draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
-    ax.set_title(f"$r = {r}$")
+    draw_edges_fast(RGG, pos=pos, ax=ax, alpha=alpha, linewidth=lw, **edge_opts)
+    ax.set_title(f"$r = {r}$, {RGG.number_of_edges()} edges")
+fig.tight_layout()
 ```
 
-## Waxman Graphs
-
-+++
+```{code-cell} ipython3
+# Make edge visualization more prominent (and consistent) for the following 
+# examples
+edge_opts["alpha"] = 0.8
+edge_opts["linewidth"] = 0.2
+```
 
 ## Geographical Threshold Graphs
 
 The GTG model allows for a wide range of custom parameters including custom node
-positioning, weights, metric between nodes and the probability of connection,
+positioning, weights, and a metric between nodes and the probability of connection,
 $P(d_{ij})$.
 The default $P(d_{ij})$ model is the metric value, $r$, for the two connecting
 nodes raised to the $-\alpha$ parameter, which has a default value of 2.
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
-fig, ax = plt.subplots()
-GTG = nx.geographical_threshold_graph(nodes,0.1,pos=pos,weight=weight)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
-```
+fig, axes = plt.subplots(1, 2)
 
-```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
-fig, ax = plt.subplots()
-#supply a custom metric
+# Custom distance metric
 dist = lambda x, y: sum(abs(a - b) for a, b in zip(x, y))
-GTG = nx.geographical_threshold_graph(nodes,0.1,pos=pos,weight=weight,metric=dist)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+
+distance_metrics = {
+    "Default (Euclidean) distance metric": None,  # Euclidean distance
+    "Custom distance metric": dist,
+}
+
+for (name, metric), ax in zip(distance_metrics.items(), axes.ravel()):
+    GTG = nx.geographical_threshold_graph(
+        nodes, 0.1, pos=pos, weight=weight, metric=metric
+    )
+    nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+    draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
+    ax.set_title(f"{name}\n{GTG.number_of_edges()} edges")
+fig.tight_layout()
 ```
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
-fig, ax = plt.subplots()
-#Supply a custum p_dist probability of connection function
+fig, axes = plt.subplots(1, 2)
+
+# Evaluate different p_dists
 import math
-def custom_p_dist(dist):
-    return math.exp(-dist)
-GTG = nx.geographical_threshold_graph(nodes,0.01,pos=pos,weight=weight,metric=dist,p_dist=custom_p_dist)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
-```
-
-```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
-fig, ax = plt.subplots()
-#We can use scipy built-in probability distributions .pdf method for our p_dist
 from scipy.stats import norm
-GTG = nx.geographical_threshold_graph(nodes,0.01,pos=pos,weight=weight,metric=dist,p_dist=norm(loc=0.1,scale=0.1).pdf)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+
+p_dists = {
+    "p_dist=Exponential": lambda d: math.exp(-d),
+    "p_dist=Normal": norm(loc=0.1, scale=0.1).pdf,
+}
+
+for (name, p_dist), ax in zip(p_dists.items(), axes.ravel()):
+    GTG = nx.geographical_threshold_graph(
+        nodes, 0.01, pos=pos, weight=weight, metric=dist, p_dist=p_dist
+    )
+    nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+    draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
+    ax.set_title(f"{name}\n{GTG.number_of_edges()} edges")
+fig.tight_layout()
 ```
 
 ## Soft Random Geometric Graphs
@@ -358,42 +345,19 @@ The default $P(d_{ij})$ function for SRGGs in networkx is an exponential
 distribution with rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
-fig, ax = plt.subplots()
-SRGG = nx.soft_random_geometric_graph(nodes,0.1,pos=pos)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
-```
+fig, axes = plt.subplots(1, 3)
 
-```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
-fig, ax = plt.subplots()
-#Supply a custum p_dist probability of connection function
-import math
-def custom_p_dist(dist):
-    return math.exp(-10*dist)
-SRGG = nx.soft_random_geometric_graph(nodes,0.1,pos=pos,p_dist=custom_p_dist)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
-```
-
-```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
-fig, ax = plt.subplots()
-#We can use scipy built-in probability distributions .pdf method for our p_dist
-from scipy.stats import norm
-SRGG = nx.soft_random_geometric_graph(nodes,0.1,pos=pos,p_dist=norm(loc=0.1,scale=0.1).pdf)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+pdfs = {
+    "default": None,  # default: exponential distribution with `lambda=1`
+    "exp(-10*d)": lambda d: math.exp(-10*d),
+    "norm": norm(loc=0.1, scale=0.1).pdf,
+}
+for (title, pdf), ax in zip(pdfs.items(), axes.ravel()):
+    SRGG = nx.soft_random_geometric_graph(nodes, 0.1, pos=pos, p_dist=pdf)
+    nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+    draw_edges_fast(SRGG, pos=pos, ax=ax, **edge_opts)
+    ax.set_title(f"p_dist={title}\n{SRGG.number_of_edges()} edges")
+fig.tight_layout()
 ```
 
 ## Thresholded Random Geometric Graphs
@@ -403,45 +367,32 @@ The default weights for TRGG are drawn from an exponential distribution with
 rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
-fig, ax = plt.subplots()
-#default TRGG weight distribution network
-TRGG = nx.thresholded_random_geometric_graph(nodes,0.1,0.0001,pos=pos,weight=weight)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+fig, axes = plt.subplots(1, 2)
+
+# Increased threshold parameter, theta, reduces graph connectivity
+thresholds = (0.0001, 0.001)
+for thresh, ax in zip(thresholds, axes):
+    TRGG = nx.thresholded_random_geometric_graph(
+        nodes, 0.1, thresh, pos=pos, weight=weight
+    )
+    nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+    draw_edges_fast(TRGG, pos=pos, ax=ax, **edge_opts)
+    ax.set_title(f"Threshold = {thresh}, {TRGG.number_of_edges()} edges")
+fig.tight_layout()
 ```
 
-```{code-cell} ipython3
----
-jupyter:
-  outputs_hidden: false
----
-fig, ax = plt.subplots()
-#Increased threshold parameter, theta, reduces graph connectivity
-TRGG = nx.thresholded_random_geometric_graph(nodes,0.1,0.001,pos=pos,weight=weight)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
-```
+[^1]: Spatial Networks <https://doi.org/10.1016/j.physrep.2010.11.002>
 
-## References
+[^2]: Random Geometric Graphs <https://doi.org/10.1103/PhysRevE.66.016121>
 
-[1] - Spatial Networks https://arxiv.org/pdf/1010.0302.pdf
+[^3]: Unit Disk Graphs <https://doi.org/10.1016/0012-365X(90)90358-O>
 
-[2] - Random Geometric Graphs https://arxiv.org/pdf/cond-mat/0203026.pdf
+[^4]: Waxman Graphs <https://doi.org/10.1109/49.12889>
 
-[3] - Unit Disk Graphs http://www.sciencedirect.com/science/article/pii/0012365X9090358O
+[^6]: Threshold Graphs - <https://doi.org/10.37236/219>
 
-[4] - Waxman Graphs - http://ieeexplore.ieee.org/document/12889/
+[^7]: Soft Geometric Random Graphs - <https://doi.org/10.1214/15-AAP1110>
 
-[5] - Waxman Graph Parameter Estimation - https://arxiv.org/pdf/1506.07974.pdf
+[^8]: Geometric Threshold Graphs - <https://doi.org/10.1103/PhysRevE.71.036108>
 
-[6] - Threshold Graphs - http://www.combinatorics.org/ojs/index.php/eljc/article/view/v16i1r130/pdf
-
-[7] - Soft Geometric Random Graphs - https://arxiv.org/pdf/1311.3897.pdf
-
-[8] - Geometric Threshold Graphs - https://arxiv.org/pdf/cond-mat/0409378.pdf
-
-[9] - Thresholded Random Geometric Graphs - http://cole-maclean.github.io/blog/files/thesis.pdf
+[^9]: Thresholded Random Geometric Graphs - <http://hdl.handle.net/2117/111425>
