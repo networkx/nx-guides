@@ -285,10 +285,6 @@ edge_opts["alpha"] = 0.8
 edge_opts["linewidth"] = 0.2
 ```
 
-## Waxman Graphs
-
-+++
-
 ## Geographical Threshold Graphs
 
 The GTG model allows for a wide range of custom parameters including custom node
