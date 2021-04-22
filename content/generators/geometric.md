@@ -291,7 +291,7 @@ The default $P(d_{ij})$ model is the metric value, $r$, for the two connecting
 nodes raised to the $-\alpha$ parameter, which has a default value of 2.
 
 ```{code-cell} ipython3
-fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
 # Custom distance metric
 dist = lambda x, y: sum(abs(a - b) for a, b in zip(x, y))
@@ -312,7 +312,7 @@ fig.tight_layout()
 ```
 
 ```{code-cell} ipython3
-fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
 # Evaluate different p_dists
 import math
@@ -364,7 +364,7 @@ The default weights for TRGG are drawn from an exponential distribution with
 rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
-fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
 # Increased threshold parameter, theta, reduces graph connectivity
 thresholds = (0.0001, 0.001)
