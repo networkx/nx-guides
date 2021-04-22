@@ -291,34 +291,24 @@ The default $P(d_{ij})$ model is the metric value, $r$, for the two connecting
 nodes raised to the $-\alpha$ parameter, which has a default value of 2.
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots()
-GTG = nx.geographical_threshold_graph(nodes, 0.1, pos=pos, weight=weight)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
-```
+fig, axes = plt.subplots(1, 2, figsize=(12, 6))
 
-```{code-cell} ipython3
-fig, ax = plt.subplots()
-#supply a custom metric
+# Custom distance metric
 dist = lambda x, y: sum(abs(a - b) for a, b in zip(x, y))
-GTG = nx.geographical_threshold_graph(
-    nodes, 0.1, pos=pos, weight=weight, metric=dist
-)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
-```
 
-```{code-cell} ipython3
-fig, ax = plt.subplots()
-#Supply a custum p_dist probability of connection function
-import math
-def custom_p_dist(dist):
-    return math.exp(-dist)
-GTG = nx.geographical_threshold_graph(
-    nodes, 0.01, pos=pos, weight=weight, metric=dist, p_dist=custom_p_dist
-)
-nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
+distance_metrics = {
+    "Default (Euclidean) distance metric": None,  # Euclidean distance
+    "Custom distance metric": dist,
+}
+
+for (name, metric), ax in zip(distance_metrics.items(), axes.ravel()):
+    GTG = nx.geographical_threshold_graph(
+        nodes, 0.1, pos=pos, weight=weight, metric=metric
+    )
+    nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
+    draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
+    ax.set_title(f"{name}, {GTG.number_of_edges()} edges")
+fig.tight_layout()
 ```
 
 ```{code-cell} ipython3
