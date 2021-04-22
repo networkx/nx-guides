@@ -263,7 +263,7 @@ radii = (0, 0.1, 0.2, 0.3)
 for r, ax in zip(radii, axes.ravel()):
     RGG = nx.random_geometric_graph(nodes, radius=r, pos=pos)
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-    draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+    draw_edges_fast(RGG, pos=pos, ax=ax, **edge_opts)
     ax.set_title(f"$r = {r}$, {RGG.number_of_edges()} edges")
 fig.tight_layout()
 ```
@@ -284,7 +284,7 @@ nodes raised to the $-\alpha$ parameter, which has a default value of 2.
 fig, ax = plt.subplots()
 GTG = nx.geographical_threshold_graph(nodes, 0.1, pos=pos, weight=weight)
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
@@ -295,7 +295,7 @@ GTG = nx.geographical_threshold_graph(
     nodes, 0.1, pos=pos, weight=weight, metric=dist
 )
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
@@ -308,7 +308,7 @@ GTG = nx.geographical_threshold_graph(
     nodes, 0.01, pos=pos, weight=weight, metric=dist, p_dist=custom_p_dist
 )
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
 ```
 
 ```{code-cell} ipython3
@@ -319,7 +319,7 @@ GTG = nx.geographical_threshold_graph(
     nodes, 0.01, pos=pos, weight=weight, metric=dist, p_dist=norm(loc=0.1, scale=0.1).pdf
 )
 nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
 ```
 
 ## Soft Random Geometric Graphs
@@ -362,7 +362,7 @@ for thresh, ax in zip(thresholds, axes):
         nodes, 0.1, thresh, pos=pos, weight=weight
     )
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-    draw_edges_fast(G, pos=pos, ax=ax, **edge_opts)
+    draw_edges_fast(TRGG, pos=pos, ax=ax, **edge_opts)
     ax.set_title(f"Threshold = {thresh}, {TRGG.number_of_edges()} edges")
 fig.tight_layout()
 ```
