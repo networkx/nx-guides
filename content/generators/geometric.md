@@ -211,7 +211,7 @@ def draw_edges_fast(G, pos, ax, **lc_kwargs):
     lc_kwargs : dict
         All other keyword arguments are passed through to LineCollection
     """
-    edge_pos = np.array([(pos[e[0]], pos[e[1]]) for e in RGG.edges()])
+    edge_pos = np.array([(pos[e[0]], pos[e[1]]) for e in G.edges()])
     edge_collection = LineCollection(edge_pos, **lc_kwargs)
     ax.add_collection(edge_collection)
 ```
