@@ -360,7 +360,7 @@ for (title, pdf), ax in zip(pdfs.items(), axes.ravel()):
     SRGG = nx.soft_random_geometric_graph(nodes, 0.1, pos=pos, p_dist=pdf)
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
     draw_edges_fast(SRGG, pos=pos, ax=ax, **edge_opts)
-    ax.set_title(f"p_dist={title}, {SRGG.number_of_edges()} edges")
+    ax.set_title(f"p_dist={title}\n{SRGG.number_of_edges()} edges")
 fig.tight_layout()
 ```
 
