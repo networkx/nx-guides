@@ -381,8 +381,6 @@ for thresh, ax in zip(thresholds, axes):
 fig.tight_layout()
 ```
 
-## References
-
 [^1]: Spatial Networks <https://doi.org/10.1016/j.physrep.2010.11.002>
 
 [^2]: Random Geometric Graphs <https://doi.org/10.1103/PhysRevE.66.016121>
