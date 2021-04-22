@@ -395,8 +395,6 @@ fig.tight_layout()
 
 [^4]: Waxman Graphs <http://ieeexplore.ieee.org/document/12889/>
 
-[5]: Waxman Graph Parameter Estimation <https://arxiv.org/abs/1506.07974>
-
 [^6]: Threshold Graphs - <http://www.combinatorics.org/ojs/index.php/eljc/article/view/v16i1r130/pdf>
 
 [^7]: Soft Geometric Random Graphs - <https://arxiv.org/abs/1311.3897>
