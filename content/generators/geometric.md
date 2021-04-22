@@ -332,6 +332,9 @@ distribution with rate parameter `lambda=1`.
 
 ```{code-cell} ipython3
 fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+# Make edges more prominent
+edge_opts["alpha"] = 0.8
+edge_opts["linewidth"] = 0.2
 
 pdfs = {
     "default": None,  # default: exponential distribution with `lambda=1`
