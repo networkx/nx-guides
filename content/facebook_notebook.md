@@ -79,7 +79,7 @@ G.number_of_edges()
 
 Also, the average degree of a node can be seen. 
 * On average, a node is connected to almost 44 other nodes, also known as neighbors of the node. 
-* This has been calculated by creating a list of all the degrees of the nodes and using `numpy.array` to find the mean of created list.
+* This has been calculated by creating a list of all the degrees of the nodes and using `numpy.array` to find the mean of the created list.
 
 ```{code-cell} ipython3
 np.array(list(dict(G.degree()).values())).mean()
@@ -130,6 +130,12 @@ plt.show()
 
 ```{code-cell} ipython3
 nx.density(G)
+```
+
+* The graph's number of components are found below. As expected, the network consists of one giant compoenent:
+
+```{code-cell} ipython3
+nx.number_connected_components(G)
 ```
 
 ## Centrality measures
@@ -212,6 +218,51 @@ We can also get an image on the nodes with the highest betweenness centralities 
 
 ```{code-cell} ipython3
 node_size =  [v * 1200 for v in betweenness_centrality.values()]  #setting up nodes size for a nice graph representation
+plt.figure(figsize=(15,8))
+nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
+plt.axis('off')
+plt.show()
+```
+
+### Closeness Centrality
+Closeness centrality scores each node based on their ‘closeness’ to all other nodes in the network. For a node $v$, its closeness centrality measures the average farness to all other nodes. In other words, the higher the closeness centrality of $v$, the closer it is located to the center of the network.
+
+The closeness centrality measure is very important for the monitoring of the spread of false information (e.g. fake news) or viruses (e.g. malicious links that gain control of the facebook account in this case). Let's examine the example of fake news. If the user with the highest closeness centrality measure started spreading some fake news information (sharing or creating a post), the whole network would get missinformed the quickest possible. However, if a user with very low closeness centrality would try the same, the spread of the missinformation to the whole network would be much slower. That is because the false information would have to firstly reach a user with high closeness centrality that would spread it to many different parts of the network.
+* The nodes with the highest closeness centralities will be found now:
+
+```{code-cell} ipython3
+closeness_centrality = nx.centrality.closeness_centrality(G) #saving results in a variable to use again 
+(sorted(closeness_centrality.items(), key=lambda item: item[1], reverse=True))[:8]
+```
+
+Inspecting the users with the highest closeness centralities, we understand that there is not a huge gap between them in contrast to the previous metrics. Also, the nodes $107, 1684, 348$ are the only `spotlight nodes` found in the ones with the highest closeness centralities. That means that a node that has many friends is not necessary close to the center of the network.
+
+Also, the average distance of a particular node $v$ to any other node can be found easily with the formula:
+
+$$\frac{1}{closeness\,centrality(v)}$$
+
+```{code-cell} ipython3
+1 / closeness_centrality[107]
+```
+
+The distance from node $107$ to a random node is around two hops
+
+
+Furthermore, the distribution of the closeness centralities:
+
+```{code-cell} ipython3
+plt.figure(figsize=(15,8))
+plt.hist(closeness_centrality.values(), bins=60)
+plt.title('Closeness Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
+plt.xlabel('Closeness Centrality', fontdict ={'size': 20})
+plt.ylabel('Counts',fontdict ={'size': 20})
+plt.show()
+```
+
+The closeness centralities are distributed over various values from $0.17$ to $0.46$. In fact, the majority of them are found between $0.25$ and $0.3$. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:
+
+```{code-cell} ipython3
+node_size =  [v * 50 for v in closeness_centrality.values()]  #setting up nodes size for a nice graph representation
 plt.figure(figsize=(15,8))
 nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
