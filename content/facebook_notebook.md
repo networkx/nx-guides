@@ -268,3 +268,50 @@ nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
 plt.show()
 ```
+
+### Eigenvector Centrality
+Eigenvector centrality is the metric to show how connected a node is to other important nodes in the network. It measures a node's influence based on how well it is connected inside the network and how many links its connections have and so on. This measure can identify the nodes with the most influence over the whole network. A high eigenvector centrality means that the node is connected to other nodes who themselves have high eigenvector centralities. In this facebook analysis, the measure is associated with the users ability to influence the whole graph and thus the users with the highest eigenvector centralities are the most important nodes in this network.
+
+* The nodes with the highest eigenvector centralities will be examined now:
+
+```{code-cell} ipython3
+eigenvector_centrality = nx.centrality.eigenvector_centrality(G) #saving results in a variable to use again 
+(sorted(eigenvector_centrality.items(), key=lambda item: item[1], reverse=True))[:10]
+```
+
+Checking the results:
+* Node $1912$ has the highest eigenvector centrality with $0.095$. This node is also a `spotlight node` and can surely be considered the most important node in this network in terms of overall influence to the whole network. In fact, this node also has some of the highest degree centralities and  betweenness centralities, making the user very popular and influencious to other nodes. 
+* Nodes $1993, 2078, 2206, 2123, 2142, 2218, 2233, 2266, 2464$, even though they are not spotlight nodes, have some of the highest eigenvector centralities with around $0.83-0.87$. Very interesting is the fact that all those nodes are identified for the first time, meaning they have neither the heighest degree, betweenness or closeness centralities in this graph. That leads to the conclusion that those nodes are very likely to be connected to the node $1912$ and as a result have very high eigenvector centralities.
+
+Checking if those nodes are connected to the most important node $1912$, the hypothesis is correct:
+
+```{code-cell} ipython3
+high_eigenvector_centralities = ((sorted(eigenvector_centrality.items(), key=lambda item: item[1], reverse=True))[1:10]) #2nd to 10th heighest eigenvector centralities
+high_eigenvector_nodes = [tuple[0] for tuple in high_eigenvector_centralities]  # sets list as [2266, 2206, 2233, 2464, 2142, 2218, 2078, 2123, 1993]
+neighbors_1912 = [n for n in G.neighbors(1912)]  #list with all nodes connected to 1912
+all(item in neighbors_1912 for item in high_eigenvector_nodes) #check if items in list high_eigenvector_nodes exist in list neighbors_1912
+```
+
+Let's check the distribution of the eigenvector centralities:
+
+```{code-cell} ipython3
+plt.figure(figsize=(15,8))
+plt.hist(eigenvector_centrality.values(), bins=60)
+plt.xticks(ticks=[0, 0.01, 0.02, 0.04, 0.06, 0.08]) #setting the x axis ticks
+plt.title('Eigenvector Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
+plt.xlabel('Eigenvector Centrality', fontdict ={'size': 20})
+plt.ylabel('Counts',fontdict ={'size': 20})
+plt.show()
+```
+
+As shown in the distribution histogram, the vast majority of eigenvector centralities are below $0.005$ and are actually almost $0$. However, we can also see different values of eigenvector centralities as there are tiny bins all over the x axis.
+
+Now we can identify the eigenvector centralities of nodes based on their size in the following representation:
+
+```{code-cell} ipython3
+node_size =  [v * 4000 for v in eigenvector_centrality.values()]  #setting up nodes size for a nice graph representation
+plt.figure(figsize=(15,8))
+nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
+plt.axis('off')
+plt.show()
+```
