@@ -315,3 +315,46 @@ nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
 plt.show()
 ```
+
+## Clustering Effects
+The clustering coefficient of a node $v$ is defined as the probability that two randomly selected friends of $v$ are friends with each other. As a result, the average clustering coefficient is the average of clustering coefficients of all the nodes. The closer the average clustering coefficient is to $1$, the more complete the graph will be because there's just one giant component. Lastly, it is a sign of triadic closure because the more complete the graph is, the more triangles will usually arise.
+
+```{code-cell} ipython3
+nx.average_clustering(G)
+```
+
+Now the clustering coefficient distribution will be displayed:
+
+```{code-cell} ipython3
+plt.figure(figsize=(15,8))
+plt.hist(nx.clustering(G).values(), bins=50)
+plt.title('Clustering Coefficient Histogram ', fontdict ={'size': 35}, loc='center') 
+plt.xlabel('Clustering Coefficient', fontdict ={'size': 20})
+plt.ylabel('Counts',fontdict ={'size': 20})
+plt.show()
+```
+
+ $50$ bins were used to showcase the distribution. The bin with the highest counts concerns nodes with clustering coefficient close to $1$ as there are more than two-hundred-fifty nodes in that bin. In addition, the bins of clustering coefficient between $0.4$ and $0.8$ contain the majority of nodes by far. 
+ 
+ The number of unique triangles in the network are found next:
+
+```{code-cell} ipython3
+sum(list(nx.triangles(G).values())) / 3  #dividing by 3 because each triangle is counted once for each node
+```
+
+ Now the average number of triangles that a node is a part of:
+
+```{code-cell} ipython3
+np.mean(list(nx.triangles(G).values()))
+```
+
+Due to having some nodes that belong to a great many triangles, the metric of median will give us a better understanding:
+
+```{code-cell} ipython3
+np.median(list(nx.triangles(G).values()))
+```
+
+In fact, the median value is just $161$ triangles, when the mean is around $1197$ triangles that a node is part of. That means that the majority of nodes of the network belong to extremely few triangles, whereas some nodes are part of a plethora of triangles (which are extreme values that increase the mean)
+
+In conclusion, the high average clustering coefficient together with the huge number of triangles are signs of the triadic closure. In detail, the triadic closure means that as time goes on, new edges tend to form between two users that have one or more mutual friends. That can be explained by the fact that Facebook usually suggests new friends to a user when there are many mutual friends between the user and the new friend to be added. Also, there is a source of latent stress. For example, if node $A$ is friends with
+node $B$ and $C$,  some tension builds up if $B$ and $C$ are not friends with each other.
