@@ -358,3 +358,47 @@ In fact, the median value is just $161$ triangles, when the mean is around $1197
 
 In conclusion, the high average clustering coefficient together with the huge number of triangles are signs of the triadic closure. In detail, the triadic closure means that as time goes on, new edges tend to form between two users that have one or more mutual friends. That can be explained by the fact that Facebook usually suggests new friends to a user when there are many mutual friends between the user and the new friend to be added. Also, there is a source of latent stress. For example, if node $A$ is friends with
 node $B$ and $C$,  some tension builds up if $B$ and $C$ are not friends with each other.
+
++++
+
+## Bridges
+First of all, an edge joining two nodes A and B in the graph is considered a bridge, if deleting the edge would cause A and B to lie in two different components. Now it is checked if there are any bridges in this network:
+
+```{code-cell} ipython3
+nx.has_bridges(G)
+```
+
+Actually, there are bridges in the network. Now the edges that are bridges will be saved in a list and the number of them is printed:
+
+```{code-cell} ipython3
+bridges = []
+for edge in nx.bridges(G):
+    bridges.append(edge)
+len(bridges)
+```
+
+The existence of so many bridges is due to the fact that this network only contains the spotlight nodes and the friends of them. As a result, some friends of spotlight nodes are only connected to a spotlight node, making that edge a bridge.
+
+Also, the edges that are local bridges are saved in a list and their number is printed. In detaill, an edge joining two nodes $C$ and $D$ 
+in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in common. Very importantly, an edge that is a bridge is also a local bridge. Thus, this list contains all the above bridges as well:
+
+```{code-cell} ipython3
+local_bridges = []
+for edge in nx.local_bridges(G):
+    local_bridges.append(eval( '(' + str(edge[0]) + '),(' + str(edge[1]) + ')' )) # saving the local bridge as a tuple
+len(local_bridges)
+```
+
+Showcasing the bridges and local bridges in the network now. The bridges can be seen with the red color and the local bridges with the green color. Black edges are neither local bridges nor bridges.
+
+* It is clear that all the bridges concern nodes that are only connected to a spotlight node (have a degree of $1$)
+
+```{code-cell} ipython3
+pos = nx.spring_layout(G)  # positions for all nodes
+plt.figure(figsize=(15,8))
+nx.draw_networkx(G, pos=pos, node_size=10, with_labels=False, width=0.15)
+nx.draw_networkx_edges(G, pos, edgelist=local_bridges, width=0.5, edge_color="lawngreen")  # green color for local bridges 
+nx.draw_networkx_edges(G, pos, edgelist=bridges, width=0.5, edge_color="r") # red color for bridges
+plt.axis('off')
+plt.show()
+```
