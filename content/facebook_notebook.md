@@ -402,3 +402,19 @@ nx.draw_networkx_edges(G, pos, edgelist=bridges, width=0.5, edge_color="r") # re
 plt.axis('off')
 plt.show()
 ```
+
+## Assortativity
+Assortativity describes the preference for a network's nodes to attach to others that are similar in some way.
+* The assortativity in terms of nodes degrees is found with two ways:
+
+```{code-cell} ipython3
+nx.degree_assortativity_coefficient(G)
+```
+
+```{code-cell} ipython3
+nx.degree_pearson_correlation_coefficient(G) # uses the potentially faster scipy.stats.pearsonr function.
+```
+
+In fact, the assortativity coefficient is the Pearson correlation coefficient of degree between pairs of linked nodes. That means that it takes values from $-1$ to $1$. In detail, a positive assortativity coefficient indicates a correlation between nodes of similar degree, while a negative indicates correlation between nodes of different degrees.
+
+In our case the assortativity coefficient is around $0.064$, which is almost 0. That means that the network is almost non-assortative, and we cannot correlate linked nodes based on their degrees. In other words, we can not draw conclusions on the number of friends of a user from his/her friends' number of friends (friends degree). That makes sense since we only use the friends list of spotlight nodes, non spotlight nodes will tend to have much fewer friends while also occasionally being connected to each other.
