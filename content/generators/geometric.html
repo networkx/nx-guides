@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tutorial: Geometric Generator Models &#8212; NetworkX Notebooks</title>
     
-  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.f6b7ca918bee2f46fd9abac01cfb07d5.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -19,18 +20,14 @@
 
     
       
-  <link rel="stylesheet"
-    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+  <link rel="preload" as="script" href="../../_static/js/index.1e043a052b0af929e4d8.js">
 
     <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -38,214 +35,226 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/togglebutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Atlas of all graphs of 6 nodes or less." href="../graph/atlas.html" />
-    <link rel="prev" title="Node Colormap" href="../drawing/node_colormap.html" />
-
+    <link rel="prev" title="NetworkX Tutorial" href="../tutorial.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
-
-
-
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+
+    
+      
+      <a class="navbar-brand" href="../../index.html">
+        <img src="../../_static/networkx_logo.svg" class="logo" alt="logo">
+      </a>
+      
+    
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorial.html">
+  NetworkX Tutorial
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="current reference internal nav-link" href="#">
+  Tutorial: Geometric Generator Models
+ </a>
+</li>
+
+        
+      </ul>
+
+      <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/networkx/nx-guides/" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=lab/tree/content" rel="noopener" target="_blank" title="Binder">
+            <span><i class="fas fa-rocket"></i></span>
+            <label class="sr-only">Binder</label>
+          </a>
+        </li>
+      </ul>
+    </div>
+</div>
+    </nav>
     
 
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../../index.html">
-  
-  <img src="../../_static/networkx_logo.svg" class="logo" alt="logo">
-  
-  
-  <h1 class="site-logo" id="site-title">NetworkX Notebooks</h1>
-  
-</a>
-</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form>
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-    <ul class="current nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="../tutorial.html">
-   NetworkX Tutorial
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#geometric-spatial-networks">
+   Geometric/Spatial Networks
   </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../basic/properties.html">
-   Graph Properties
-  </a>
- </li>
- <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="../drawing/index.html">
-   Drawing Examples
-  </a>
-  <ul class="collapse-ul">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../drawing/degree_histogram.html">
-     Degree Histogram
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#individual-model-definitions">
+     Individual Model Definitions
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#random-geometric-graphs-r">
+       Random Geometric Graphs (
+       <span class="math notranslate nohighlight">
+        \(R\)
+       </span>
+       )
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#waxman-graphs-alpha">
+       Waxman Graphs (
+       <span class="math notranslate nohighlight">
+        \(\alpha\)
+       </span>
+       )
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#threshold-graphs-theta">
+       Threshold Graphs (
+       <span class="math notranslate nohighlight">
+        \(\theta\)
+       </span>
+       )
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#geographical-threshold-graphs-p-d-ij-theta">
+       Geographical Threshold Graphs (
+       <span class="math notranslate nohighlight">
+        \(P(d_{ij}), \theta\)
+       </span>
+       )
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#soft-random-geometric-graphs-r-p-d-ij">
+       Soft Random Geometric Graphs (
+       <span class="math notranslate nohighlight">
+        \(R, P(d_{ij})\)
+       </span>
+       )
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#thresholded-random-geometric-graphs-r-theta">
+       Thresholded Random Geometric Graphs (
+       <span class="math notranslate nohighlight">
+        \(R, \theta\)
+       </span>
+       )
+      </a>
+     </li>
+    </ul>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../drawing/edge_colormap.html">
-     Edge Colormap
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../drawing/ego_graph.html">
-     Ego Graph
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../drawing/four_grids.html">
-     Four Grids
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../drawing/node_colormap.html">
-     Node Colormap
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-motivating-example">
+     A Motivating Example
     </a>
    </li>
   </ul>
-  <i class="fas fa-chevron-down">
-  </i>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Tutorial: Geometric Generator Models
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#random-geometric-graphs">
+   Random Geometric Graphs
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../graph/atlas.html">
-   Atlas of all graphs of 6 nodes or less.
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#geographical-threshold-graphs">
+   Geographical Threshold Graphs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#soft-random-geometric-graphs">
+   Soft Random Geometric Graphs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#thresholded-random-geometric-graphs">
+   Thresholded Random Geometric Graphs
   </a>
  </li>
 </ul>
 
-</nav> <!-- To handle the deprecated key -->
+</nav>
 
-<div class="navbar_extra_footer">
-  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/networkx/nx-guides/edit/main/site/content/generators/geometric.md">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
 </div>
 
-</div>
-
-
+              
+          </div>
           
 
-
           
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
     
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="../../_sources/content/generators/geometric.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/content/generators/geometric.md.txt"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+  <p>This site is currently experimental; the content and URLs may change or be removed!</p>
 </div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/networkx/notebooks/"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/networkx/notebooks//issues/new?title=Issue%20on%20page%20%2Fcontent/generators/geometric.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/networkx/notebooks/edit/main/site/content/generators/geometric.md"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-    </div>
-</div>
-
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                    title="Fullscreen mode"><i
-                        class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/networkx/notebooks/main?urlpath=tree/site/content/generators/geometric.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
-            
-        </div>
-    </div>
-</div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+    
               <div>
                 
   <div class="section" id="tutorial-geometric-generator-models">
 <h1>Tutorial: Geometric Generator Models<a class="headerlink" href="#tutorial-geometric-generator-models" title="Permalink to this headline">¶</a></h1>
-<h1>Introduction</h1>
-In this tutorial, we'll explore the geometric network generator models
+<p>In this tutorial, we’ll explore the geometric network generator models
 implemented in networkx under networkx/generators/geometric.py and apply them
-to a real-world use case to learn how these models can be parameterized and used.
-<h2>Geometric/Spatial Networks</h2>
-Many real-world complex systems have spatial components constraining the
+to a real-world use case to learn how these models can be parameterized and used.</p>
+<div class="section" id="geometric-spatial-networks">
+<h2>Geometric/Spatial Networks<a class="headerlink" href="#geometric-spatial-networks" title="Permalink to this headline">¶</a></h2>
+<p>Many real-world complex systems have spatial components constraining the
 network structures these types of systems can produce.
 Infrastructure networks such as transportation, electrical, and
 telecommunication systems, social networks and even our own synaptic networks
@@ -254,99 +263,124 @@ Spatial Networks provide a framework for network models having spacial elements
 where nodes are embedded in space and a metric is incorporated that dictates
 the conditions for connection between nodes.
 Typically, the probability of connection is a decreasing function of the
-metric, with most models assuming euclidean distance in 2-dimensions or 3-dimensions.
+metric, with most models assuming Euclidean distance in 2-dimensions or 3-dimensions.
 The intuition of most Spatial Network models propose that there exists an
 increasing cost of connection between nodes that are further apart, though
-arbitrary connection probability functions can be modeled.
+arbitrary connection probability functions can be modeled.</p>
 <p>The potential application of Spatial Networks to such a wide variety of
 real-world systems has motivated substainial research into these networks,
 with many unique but closely related models being proposed with theoretical
 proofs for many of their network properties.
-The 2010 Spatial Networks review article by Marc Barthélemy[1] provides a
+The 2010 Spatial Networks review article by Marc Barthélemy<a class="footnote-reference brackets" href="#id9" id="id1">1</a> provides a
 comprehensive overview of the field and reviews many of the most important
 theoretical proofs for the most common Spatial Network models.
 Here we explore some of the most typical Spatial Network models which have been
 implemented in the networkx package.
 These models can be classified using only three model parameters used by these
-different models.</p>
-<p>R - The maximum connection distance, the ‘radius’ parameter in networkx
-P(d<sub>ij</sub>) - The probability of edge connection as a function of the
-distance, d<sub>ij</sub>, between nodes i,j where i ≠ j, the ‘p_dist’ parameter
-in networkx
-Θ - The node weight threshold for connection, the ‘theta’ parameter in networkx</p>
+different models:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(R\)</span> - The maximum connection distance, the <code class="docutils literal notranslate"><span class="pre">radius</span></code> parameter in networkx</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(d_{ij})\)</span> - The probability of edge connection as a function of the
+distance, <span class="math notranslate nohighlight">\(d_{ij}\)</span>, between nodes <span class="math notranslate nohighlight">\(i, j\)</span> where <span class="math notranslate nohighlight">\(i \neq j\)</span>, the <code class="docutils literal notranslate"><span class="pre">p_dist</span></code>
+parameter in networkx</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta\)</span> - The node weight threshold for connection, the <code class="docutils literal notranslate"><span class="pre">theta</span></code> parameter
+in networkx</p></li>
+</ul>
 <p>Typically, nodes are uniformly distributed onto the unit square and node weights
 are sampled from some weight distribution.
-Distance, d<sub>ij</sub> is typically assumed to be the Euclidean distance,
+Distance, <span class="math notranslate nohighlight">\(d_{ij}\)</span> is typically assumed to be the Euclidean distance,
 but some networkx models allow custom metrics where others only allow Minkowski
 distance metrics.</p>
-<p>Figure below shows the relationships between Spatial Network Models connected
-by their shared parameterization.</p>
+<p>The figure below shows the relationships between Spatial Network Models
+connected by their shared parameterization.</p>
 <p><img alt="spatial_networks" src="../../_images/spatial_networks.png" /></p>
-<h3>Individual Model Definitions</h3>
-This section summarizes the various models. The notation E<sub>ij</sub>
-indicates an edges exists between nodes i and j.
-<h4>Random Geometric Graphs (R)</h4>
-A d-dimensional Random Geometric Graph (RGG) is a graph where each of the N
-nodes is assigned random coordinates in the box [0, 1]<sup>d</sup>, and only
-nodes ‘close’ to each other are connected by an edge[2].
-Any node within or equal to the maximum connection distance, R, is a connected
-node and the structure of the network is fully defined by R.
-RGGs, similar to Unit Disk Graphs [3],  have been widely used to model ad-hoc
-wireless networks[12].
-<p>(1) E<sub>ij</sub>: d<sub>ij</sub> ≤ R</p>
-<h4>Waxman Graphs (α)</h4>
-Waxman Graphs are the spatial generalization of ER random graphs, where the
-probability of connection of nodes depends on a function of the distance between them[4].
+<div class="section" id="individual-model-definitions">
+<h3>Individual Model Definitions<a class="headerlink" href="#individual-model-definitions" title="Permalink to this headline">¶</a></h3>
+<p>This section summarizes the various models. The notation <span class="math notranslate nohighlight">\(E_{ij}\)</span>
+indicates an edges exists between nodes <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>.</p>
+<div class="section" id="random-geometric-graphs-r">
+<h4>Random Geometric Graphs (<span class="math notranslate nohighlight">\(R\)</span>)<a class="headerlink" href="#random-geometric-graphs-r" title="Permalink to this headline">¶</a></h4>
+<p>A d-dimensional Random Geometric Graph (RGG) is a graph where each of the <span class="math notranslate nohighlight">\(N\)</span>
+nodes is assigned random coordinates in the box <span class="math notranslate nohighlight">\([0, 1]^{d}\)</span>, and only
+nodes “close” to each other are connected by an edge <a class="footnote-reference brackets" href="#id10" id="id2">2</a>.
+Any node within or equal to the maximum connection distance, <span class="math notranslate nohighlight">\(R\)</span>, is a connected
+node and the structure of the network is fully defined by <span class="math notranslate nohighlight">\(R\)</span>.
+RGGs, similar to Unit Disk Graphs <a class="footnote-reference brackets" href="#id11" id="id3">3</a>,  have been widely used to model ad-hoc
+wireless networks.</p>
+<div class="math notranslate nohighlight">
+\[ E_{ij}: d_{ij} \leq R \]</div>
+</div>
+<div class="section" id="waxman-graphs-alpha">
+<h4>Waxman Graphs (<span class="math notranslate nohighlight">\(\alpha\)</span>)<a class="headerlink" href="#waxman-graphs-alpha" title="Permalink to this headline">¶</a></h4>
+<p>Waxman Graphs are the spatial generalization of Erdős–Rényi random graphs, where the
+probability of connection of nodes depends on a function of the distance between them<a class="footnote-reference brackets" href="#id12" id="id4">4</a>.
 The original edge probabiliy function proposed by Waxman is exponential in
-d<sub>ij</sub>, providing two connection probability tuning parameters, α and β:
-<p>(2)  P(d<sub>ij</sub>) = βe<sup>-d<sub>ij</sub>/Lα</sup>
-Where L is the maximum distance between each pair of nodes</p>
-<p>The shape of the edge probabiliy function, P(d<sub>ij</sub>), plays the key role
+<span class="math notranslate nohighlight">\(d_{ij}\)</span>, providing two connection probability tuning parameters, <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ P(d_{ij}) = \beta e^{\frac{-d_{ij}}{L \alpha}} \]</div>
+<p>Where <span class="math notranslate nohighlight">\(L\)</span> is the maximum distance between each pair of nodes.</p>
+<p>The shape of the edge probabiliy function, <span class="math notranslate nohighlight">\(P(d_{ij})\)</span>, plays the key role
 in determining the structure of a Waxman graph, but characterization of
-P(d<sub>ij</sub>) in real-world networks still seems controversial [8].
-The most commonly studied functional families are the orginal exponential in
-Equation 1, or power laws, -d<sub>ij</sub><sup>-α</sup>.</p>
-<p>(3) E<sub>ij</sub> ∝ P(d<sub>ij</sub>)</p>
-<h4>Threshold Graphs (Θ)</h4>
-A simple graph G is a threshold graph if we can assign weights to the vertices
+<span class="math notranslate nohighlight">\(P(d_{ij})\)</span> in real-world networks still seems controversial.
+The most commonly studied functional families are the orginal exponential above,
+or power laws, <span class="math notranslate nohighlight">\(-{d_{ij}}^{-\alpha}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[ E_{ij} \propto P(d_{ij}) \]</div>
+</div>
+<div class="section" id="threshold-graphs-theta">
+<h4>Threshold Graphs (<span class="math notranslate nohighlight">\(\theta\)</span>)<a class="headerlink" href="#threshold-graphs-theta" title="Permalink to this headline">¶</a></h4>
+<p>A simple graph G is a threshold graph if we can assign weights to the vertices
 such that a pair of distinct vertices is adjacent exactly when the sum of their
-assigned weights is or exceeds a specified threshold, Θ [6].
+assigned weights equals or exceeds a specified threshold, <span class="math notranslate nohighlight">\(\theta\)</span> <a class="footnote-reference brackets" href="#id13" id="id5">6</a>.
 Threshold Graphs are not themselves Spatial Networks, as they do not incorporate
 a specific geometry or metric, but they introduce the ability to consider node
 weights as part of the network model which is utilized by other Spatial Network
-models such as Geometric Threshold Graphs.
-<p>(4) E<sub>ij</sub>: (w<sub>i</sub> + w<sub>j</sub>) ≥ Θ</p>
-<h4>Geographical Threshold Graphs (P(d<sub>ij</sub>),Θ)</h4>
-Geographical Threshold Graphs are the geographical generalization of Threshold
-Graphs, where a pair of vertices with weights w<sub>i</sub>, w<sub>j</sub>,
-and distance d<sub>ij</sub> are connected if and only if the product between
-the sum of weights  w<sub>i</sub> and w<sub>j</sub> with the edge connection
-function, P(d<sub>ij</sub>), is greater than or equal to a threshold value, Θ. [8]
-<p>(5) E<sub>ij</sub>: (w<sub>i</sub> + w<sub>j</sub>)P(d<sub>ij</sub>) ≥ Θ</p>
-<h4>Soft Random Geometric Graphs (R,P(d<sub>ij</sub>))</h4>
-A recent extention of Random Geometric Graphs couples the influence of distance
-between nodes that are within the maximum connection distance, R, to better model
-real-world systems where node proximity does not necessarily gaurantee a
-connection between 'close' nodes.
-In Soft Random Geometric Graphs, the probability  of connection between nodes i
-and j is a function of their distance, d<sub>ij</sub>, if d<sub>ij</sub> ≤ R.
-Otherwise, they are disconnected [7].
-<p>(6) E<sub>ij</sub> ∝ P(d<sub>ij</sub>) if d<sub>ij</sub> ≤ R</p>
-<h4>Thresholded Random Geometric Graphs (R,Θ)</h4>
-Thresholded Random Geometric Graphs extend RGGs to incorporate node weights into
+models such as Geometric Threshold Graphs.</p>
+<div class="math notranslate nohighlight">
+\[ E_{ij}: (w_i + w_j) \geq \theta \]</div>
+</div>
+<div class="section" id="geographical-threshold-graphs-p-d-ij-theta">
+<h4>Geographical Threshold Graphs (<span class="math notranslate nohighlight">\(P(d_{ij}), \theta\)</span>)<a class="headerlink" href="#geographical-threshold-graphs-p-d-ij-theta" title="Permalink to this headline">¶</a></h4>
+<p>Geographical Threshold Graphs are the geographical generalization of Threshold
+Graphs, where a pair of vertices with weights <span class="math notranslate nohighlight">\(w_i, w_j\)</span>,
+and distance <span class="math notranslate nohighlight">\(d_{ij}\)</span> are connected if and only if the product between
+the sum of weights  <span class="math notranslate nohighlight">\(w_i\)</span> and <span class="math notranslate nohighlight">\(w_j\)</span> with the edge connection
+function, <span class="math notranslate nohighlight">\(P(d_{ij})\)</span>, is greater than or equal to a threshold value, <span class="math notranslate nohighlight">\(\theta\)</span>. <a class="footnote-reference brackets" href="#id14" id="id6">8</a></p>
+<div class="math notranslate nohighlight">
+\[ E_{ij}: (w_i + w_j) P(d_{ij}) \geq \theta \]</div>
+</div>
+<div class="section" id="soft-random-geometric-graphs-r-p-d-ij">
+<h4>Soft Random Geometric Graphs (<span class="math notranslate nohighlight">\(R, P(d_{ij})\)</span>)<a class="headerlink" href="#soft-random-geometric-graphs-r-p-d-ij" title="Permalink to this headline">¶</a></h4>
+<p>A recent extention of Random Geometric Graphs couples the influence of distance
+between nodes that are within the maximum connection distance, <span class="math notranslate nohighlight">\(R\)</span>, to better model
+real-world systems where node proximity does not necessarily guarantee a
+connection between “close” nodes.
+In Soft Random Geometric Graphs, the probability  of connection between nodes <span class="math notranslate nohighlight">\(i\)</span>
+and <span class="math notranslate nohighlight">\(j\)</span> is a function of their distance, <span class="math notranslate nohighlight">\(d_{ij}, if \)</span>d_{ij} \leq R$.
+Otherwise, they are disconnected <a class="footnote-reference brackets" href="#id15" id="id7">7</a>.</p>
+<div class="math notranslate nohighlight">
+\[ E_{ij} \propto P(d_{ij}) \textrm{ if } d_{ij} \leq R \]</div>
+</div>
+<div class="section" id="thresholded-random-geometric-graphs-r-theta">
+<h4>Thresholded Random Geometric Graphs (<span class="math notranslate nohighlight">\(R, \theta\)</span>)<a class="headerlink" href="#thresholded-random-geometric-graphs-r-theta" title="Permalink to this headline">¶</a></h4>
+<p>Thresholded Random Geometric Graphs extend RGGs to incorporate node weights into
 the model, where connections are only made between nodes with sufficiently
-powerful weights, up to a maximum connection distance between nodes [9].
-<p>(7) (w<sub>i</sub> + w<sub>j</sub>) ≥ Θ if d<sub>ij</sub> ≤ R</p>
-<h3>A Motivating Example</h3>
-For this tutorial, we'll use the Tesla North American Supercharger network as a
-motivating example to highlight how the various spatial network models implemented
-in networkx can be parameterized and used.
+powerful weights, up to a maximum connection distance between nodes <a class="footnote-reference brackets" href="#id16" id="id8">9</a>.</p>
+<div class="math notranslate nohighlight">
+\[ (w_i + w_j) \geq \theta \textrm{ if } d_{ij} \leq R \]</div>
+</div>
+</div>
+<div class="section" id="a-motivating-example">
+<h3>A Motivating Example<a class="headerlink" href="#a-motivating-example" title="Permalink to this headline">¶</a></h3>
+<p>For this tutorial, we’ll use the Tesla North American Supercharger network to
+highlight how the various spatial network models implemented in networkx can
+be parameterized and used.</p>
 <p><img alt="spatial_networks" src="../../_images/NA-Supercharger_Network.jpg" /></p>
 <p>The Supercharger data is obtained from supercharger.info, filtered for the
 Canadian and American Supercharger locations, totaling 385 Opened Superchargers
 as of April 2017.
-The collected data has been structure into a Networkx Graph which is made up of
-nested dictionaries keyed on the geohash of each Superchargers GPS coordinates
+The collected data has been structured into a Networkx Graph which is made up of
+nested dictionaries keyed on the geohash of each Supercharger’s GPS coordinates
 which have been converted into a projected embedding onto the unit square.
 Node weights are the population of cities for each Supercharger, as a percent
 of total North American population.
@@ -358,6 +392,13 @@ networks implemented in networkx.</p>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+<span class="c1"># Some matplotlib settings</span>
+<span class="n">mpl_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;axes.titlesize&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s2">&quot;figure.figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mpl_params</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -367,11 +408,13 @@ networks implemented in networkx.</p>
 use <code class="docutils literal notranslate"><span class="pre">FancyArrowPatch</span></code> objects to represent edges.
 <code class="docutils literal notranslate"><span class="pre">FancyArrowPatch</span></code> is quite flexible, supporting many different methods for
 drawing curves and different arrow types for representing directed edges.
-However, drawing many <code class="docutils literal notranslate"><span class="pre">FancyArrowPatch</span></code> objects on a single graph can be
-quite slow, so the drawing time can be prohibitively long for graphs with
-more than ~1000 edges.
+However, drawing many <code class="docutils literal notranslate"><span class="pre">FancyArrowPatch</span></code> objects can be quite slow, so the
+drawing time can be prohibitively long for graphs with more than ~1000 edges.
 For graphs with many edges, you can instead use more performant matplotlib
-objects for representing graph edges, such as <code class="docutils literal notranslate"><span class="pre">LineCollection</span></code>:</p>
+objects for representing graph edges, such as <code class="docutils literal notranslate"><span class="pre">LineCollection</span></code>.
+We will define a helper function called <code class="docutils literal notranslate"><span class="pre">draw_edges_fast</span></code> to use instead of the
+usual <code class="docutils literal notranslate"><span class="pre">draw_networkx_edges</span></code>, as some of the graphs examined below have
+more than 10,000 edges.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">LineCollection</span>
@@ -391,16 +434,14 @@ objects for representing graph edges, such as <code class="docutils literal notr
 <span class="sd">    lc_kwargs : dict</span>
 <span class="sd">        All other keyword arguments are passed through to LineCollection</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">edge_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">pos</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">pos</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">RGG</span><span class="o">.</span><span class="n">edges</span><span class="p">()])</span>
+    <span class="n">edge_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">pos</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">pos</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">()])</span>
     <span class="n">edge_collection</span> <span class="o">=</span> <span class="n">LineCollection</span><span class="p">(</span><span class="n">edge_pos</span><span class="p">,</span> <span class="o">**</span><span class="n">lc_kwargs</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">add_collection</span><span class="p">(</span><span class="n">edge_collection</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>We will use the <code class="docutils literal notranslate"><span class="pre">draw_edges_fast</span></code> helper function instead of the usual
-<code class="docutils literal notranslate"><span class="pre">draw_networkx_edges</span></code>, as some of the geometric graphs examined below have
-more than 10,000 edges.</p>
+<p>Next, we load the data and construct the graph.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># from networkx.readwrite import json_graph</span>
@@ -461,22 +502,31 @@ plotting options for consistent visualizations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_opts</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;node_size&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="s2">&quot;node_color&quot;</span><span class="p">:</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">}</span>
-<span class="n">edge_opts</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="s2">&quot;linewidth&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;zorder&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="n">edge_opts</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="s2">&quot;zorder&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
-<h1>Random Geometric Graphs</h1>
-For RGGs, we see the impact of increasing the maximum connection distance
-parameter, radius, in increasing the number of connections.<div class="cell docutils container">
+</div>
+</div>
+<div class="section" id="random-geometric-graphs">
+<h2>Random Geometric Graphs<a class="headerlink" href="#random-geometric-graphs" title="Permalink to this headline">¶</a></h2>
+<p>For RGGs, we see the impact of increasing the maximum connection distance
+parameter <code class="docutils literal notranslate"><span class="pre">radius</span></code> in increasing the number of connections.</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="c1"># Params for visualizing edges</span>
+<span class="n">alphas</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">linewidths</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()):</span>
-    <span class="n">RGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">)</span>
+<span class="n">radii</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">lw</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">radii</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">alphas</span><span class="p">,</span> <span class="n">linewidths</span><span class="p">):</span>
+    <span class="n">RGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">)</span>
     <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
-    <span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;$r = </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">RGG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;$r = </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">$, </span><span class="si">{</span><span class="n">RGG</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="si">}</span><span class="s2"> edges&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -484,17 +534,44 @@ parameter, radius, in increasing the number of connections.<div class="cell docu
 <img alt="../../_images/geometric_12_0.png" src="../../_images/geometric_12_0.png" />
 </div>
 </div>
-<h1>Waxman Graphs</h1><h1>Geographical Threshold Graphs</h1>
-The GTG model allows for a wide range of custom parameters including custom node
-positioning, weights, metric between nodes and the probability of connection,
-P(d<sub>ij</sub>).
-The default P(d<sub>ij</sub>) model is the metric value, r, for the two connecting
-nodes raised to the -alpha parameter, which has a default value of 2.<div class="cell docutils container">
+<div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">GTG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">geographical_threshold_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
-<span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make edge visualization more prominent (and consistent) for the following </span>
+<span class="c1"># examples</span>
+<span class="n">edge_opts</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">edge_opts</span><span class="p">[</span><span class="s2">&quot;linewidth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="geographical-threshold-graphs">
+<h2>Geographical Threshold Graphs<a class="headerlink" href="#geographical-threshold-graphs" title="Permalink to this headline">¶</a></h2>
+<p>The GTG model allows for a wide range of custom parameters including custom node
+positioning, weights, and a metric between nodes and the probability of connection,
+<span class="math notranslate nohighlight">\(P(d_{ij})\)</span>.
+The default <span class="math notranslate nohighlight">\(P(d_{ij})\)</span> model is the metric value, <span class="math notranslate nohighlight">\(r\)</span>, for the two connecting
+nodes raised to the <span class="math notranslate nohighlight">\(-\alpha\)</span> parameter, which has a default value of 2.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Custom distance metric</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+<span class="n">distance_metrics</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Default (Euclidean) distance metric&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Euclidean distance</span>
+    <span class="s2">&quot;Custom distance metric&quot;</span><span class="p">:</span> <span class="n">dist</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">metric</span><span class="p">),</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">distance_metrics</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()):</span>
+    <span class="n">GTG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">geographical_threshold_graph</span><span class="p">(</span>
+        <span class="n">nodes</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span>
+    <span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
+    <span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">GTG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">GTG</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="si">}</span><span class="s2"> edges&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -504,12 +581,25 @@ nodes raised to the -alpha parameter, which has a default value of 2.<div class=
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="c1">#supply a custom metric</span>
-<span class="n">dist</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-<span class="n">GTG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">geographical_threshold_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="n">dist</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
-<span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Evaluate different p_dists</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="n">p_dists</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;p_dist=Exponential&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">d</span><span class="p">),</span>
+    <span class="s2">&quot;p_dist=Normal&quot;</span><span class="p">:</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">p_dist</span><span class="p">),</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">p_dists</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()):</span>
+    <span class="n">GTG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">geographical_threshold_graph</span><span class="p">(</span>
+        <span class="n">nodes</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span> <span class="n">p_dist</span><span class="o">=</span><span class="n">p_dist</span>
+    <span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
+    <span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">GTG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">GTG</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="si">}</span><span class="s2"> edges&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -517,31 +607,29 @@ nodes raised to the -alpha parameter, which has a default value of 2.<div class=
 <img alt="../../_images/geometric_16_0.png" src="../../_images/geometric_16_0.png" />
 </div>
 </div>
+</div>
+<div class="section" id="soft-random-geometric-graphs">
+<h2>Soft Random Geometric Graphs<a class="headerlink" href="#soft-random-geometric-graphs" title="Permalink to this headline">¶</a></h2>
+<p>SRGGs utilize the maximum connection distance parameter, <span class="math notranslate nohighlight">\(R\)</span>, of RGGs but provide
+the ability to input an arbitrary connection probability function, <span class="math notranslate nohighlight">\(P(d_{ij})\)</span>,
+for nodes within the maximum connection distance.
+The default <span class="math notranslate nohighlight">\(P(d_{ij})\)</span> function for SRGGs in networkx is an exponential
+distribution with rate parameter <code class="docutils literal notranslate"><span class="pre">lambda=1</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="c1">#Supply a custum p_dist probability of connection function</span>
-<span class="kn">import</span> <span class="nn">math</span>
-<span class="k">def</span> <span class="nf">custom_p_dist</span><span class="p">(</span><span class="n">dist</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">dist</span><span class="p">)</span>
-<span class="n">GTG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">geographical_threshold_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span><span class="n">p_dist</span><span class="o">=</span><span class="n">custom_p_dist</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
-<span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/geometric_17_0.png" src="../../_images/geometric_17_0.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="c1">#We can use scipy built-in probability distributions .pdf method for our p_dist</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="n">GTG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">geographical_threshold_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span><span class="n">p_dist</span><span class="o">=</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
-<span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">pdfs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># default: exponential distribution with `lambda=1`</span>
+    <span class="s2">&quot;exp(-10*d)&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">d</span><span class="p">),</span>
+    <span class="s2">&quot;norm&quot;</span><span class="p">:</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">pdf</span><span class="p">),</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pdfs</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()):</span>
+    <span class="n">SRGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">soft_random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">p_dist</span><span class="o">=</span><span class="n">pdf</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
+    <span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">SRGG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p_dist=</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">SRGG</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="si">}</span><span class="s2"> edges&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -549,17 +637,26 @@ nodes raised to the -alpha parameter, which has a default value of 2.<div class=
 <img alt="../../_images/geometric_18_0.png" src="../../_images/geometric_18_0.png" />
 </div>
 </div>
-<h1>Soft Random Geometric Graphs</h1>
-SRGGs utilize the maximum connection distance parameter, R, of RGGs but provide
-the ability to input an arbitrary connection probability function, P(d<sub>ij</sub>),
-for nodes within the maximum connection distance.
-The default P(d<sub>ij</sub>) function for SRGGs in networkx is an exponential
-distribution with rate parameter lambda=1.<div class="cell docutils container">
+</div>
+<div class="section" id="thresholded-random-geometric-graphs">
+<h2>Thresholded Random Geometric Graphs<a class="headerlink" href="#thresholded-random-geometric-graphs" title="Permalink to this headline">¶</a></h2>
+<p>TRGGs allow for the coupling of the maximum connection distance and threshold parameters.
+The default weights for TRGG are drawn from an exponential distribution with
+rate parameter <code class="docutils literal notranslate"><span class="pre">lambda=1</span></code>.</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">SRGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">soft_random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
-<span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Increased threshold parameter, theta, reduces graph connectivity</span>
+<span class="n">thresholds</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">thresholds</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">TRGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">thresholded_random_geometric_graph</span><span class="p">(</span>
+        <span class="n">nodes</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span>
+    <span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
+    <span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">TRGG</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Threshold = </span><span class="si">{</span><span class="n">thresh</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">TRGG</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="si">}</span><span class="s2"> edges&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -567,114 +664,64 @@ distribution with rate parameter lambda=1.<div class="cell docutils container">
 <img alt="../../_images/geometric_20_0.png" src="../../_images/geometric_20_0.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="c1">#Supply a custum p_dist probability of connection function</span>
-<span class="kn">import</span> <span class="nn">math</span>
-<span class="k">def</span> <span class="nf">custom_p_dist</span><span class="p">(</span><span class="n">dist</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">dist</span><span class="p">)</span>
-<span class="n">SRGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">soft_random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">p_dist</span><span class="o">=</span><span class="n">custom_p_dist</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
-<span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
-</pre></div>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Spatial Networks <a class="reference external" href="https://doi.org/10.1016/j.physrep.2010.11.002">https://doi.org/10.1016/j.physrep.2010.11.002</a></p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Random Geometric Graphs <a class="reference external" href="https://doi.org/10.1103/PhysRevE.66.016121">https://doi.org/10.1103/PhysRevE.66.016121</a></p>
+</dd>
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Unit Disk Graphs <a class="reference external" href="https://doi.org/10.1016/0012-365X(90)90358-O">https://doi.org/10.1016/0012-365X(90)90358-O</a></p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>Waxman Graphs <a class="reference external" href="https://doi.org/10.1109/49.12889">https://doi.org/10.1109/49.12889</a></p>
+</dd>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id5">6</a></span></dt>
+<dd><p>Threshold Graphs - <a class="reference external" href="https://doi.org/10.37236/219">https://doi.org/10.37236/219</a></p>
+</dd>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id6">8</a></span></dt>
+<dd><p>Geometric Threshold Graphs - <a class="reference external" href="https://doi.org/10.1103/PhysRevE.71.036108">https://doi.org/10.1103/PhysRevE.71.036108</a></p>
+</dd>
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>Soft Geometric Random Graphs - <a class="reference external" href="https://doi.org/10.1214/15-AAP1110">https://doi.org/10.1214/15-AAP1110</a></p>
+</dd>
+<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id8">9</a></span></dt>
+<dd><p>Thresholded Random Geometric Graphs - <a class="reference external" href="http://hdl.handle.net/2117/111425">http://hdl.handle.net/2117/111425</a></p>
+</dd>
+</dl>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/geometric_21_0.png" src="../../_images/geometric_21_0.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="c1">#We can use scipy built-in probability distributions .pdf method for our p_dist</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="n">SRGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">soft_random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">p_dist</span><span class="o">=</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
-<span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/geometric_22_0.png" src="../../_images/geometric_22_0.png" />
-</div>
-</div>
-<h1>Thresholded Random Geometric Graphs</h1>
-TRGGs allow for the coupling of the maximum connection distance and threshold parameters.
-The default weights for TRGG are drawn from an exponential distribution with
-rate parameter lambda=1.<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="c1">#default TRGG weight distribution network</span>
-<span class="n">TRGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">thresholded_random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.0001</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
-<span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/geometric_24_0.png" src="../../_images/geometric_24_0.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="c1">#Increased threshold parameter, theta, reduces graph connectivity</span>
-<span class="n">TRGG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">thresholded_random_geometric_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.001</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">node_opts</span><span class="p">)</span>
-<span class="n">draw_edges_fast</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_opts</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/geometric_25_0.png" src="../../_images/geometric_25_0.png" />
-</div>
-</div>
-<h1>References</h1>
-<p>[1] - Spatial Networks https://arxiv.org/pdf/1010.0302.pdf</p>
-<p>[2] - Random Geometric Graphs https://arxiv.org/pdf/cond-mat/0203026.pdf</p>
-<p>[3] - Unit Disk Graphs http://www.sciencedirect.com/science/article/pii/0012365X9090358O</p>
-<p>[4] - Waxman Graphs - http://ieeexplore.ieee.org/document/12889/</p>
-<p>[5] - Waxman Graph Parameter Estimation - https://arxiv.org/pdf/1506.07974.pdf</p>
-<p>[6] - Threshold Graphs - http://www.combinatorics.org/ojs/index.php/eljc/article/view/v16i1r130/pdf</p>
-<p>[7] - Soft Geometric Random Graphs - https://arxiv.org/pdf/1311.3897.pdf</p>
-<p>[8] - Geometric Threshold Graphs - https://arxiv.org/pdf/cond-mat/0409378.pdf</p>
-<p>[9] - Thresholded Random Geometric Graphs - http://cole-maclean.github.io/blog/files/thesis.pdf</p>
 </div>
 
 
               </div>
               
-        
-        <div class='prev-next-bottom'>
-            
-    <a class='left-prev' id="prev-link" href="../drawing/node_colormap.html" title="previous page">Node Colormap</a>
-    <a class='right-next' id="next-link" href="../graph/atlas.html" title="next page">Atlas of all graphs of 6 nodes or less.</a>
 
-        </div>
-        
-        </div>
-    </div>
-    <footer class="footer mt-5 mt-md-0">
-    <div class="container">
-      <p>
-        
-          By NetworkX developers<br/>
-        
-            &copy; Copyright 2021, NetworkX developers.<br/>
-      </p>
-    </div>
-  </footer>
-</main>
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../tutorial.html" title="previous page">NetworkX Tutorial</a>
 
+              </div>
+              
+          </main>
+          
 
       </div>
     </div>
 
     
-  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+  <script src="../../_static/js/index.1e043a052b0af929e4d8.js"></script>
 
 
-    
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2021, NetworkX developers.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+    </p>
+  </div>
+</footer>
   </body>
 </html>

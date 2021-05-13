@@ -220,7 +220,7 @@ In addition to the methods `Graph.nodes`, `Graph.edges`, and `Graph.neighbors`, 
 
 Fast direct access to the graph data structure is also possible using subscript notation.
 
-Warning
+Warning:
 
 Do not change the returned dict--it is part of the graph data structure and direct manipulation may leave the graph in an inconsistent state.
 
@@ -533,7 +533,7 @@ The structure of G can be analyzed using various graph-theoretic functions such 
 
 
 ```{code-cell} ipython3
-G=nx.Graph()
+G = nx.Graph()
 ```
 
 ```{code-cell} ipython3
@@ -626,10 +626,11 @@ when drawing to an interactive display. Note that you may need to issue a Matplo
 plt.show()
 ```
 
-command if you are not using matplotlib in interactive mode: (See Matplotlib FAQ )
+command if you are not using matplotlib in interactive mode: (See [Matplotlib FAQ](https://matplotlib.org/stable/faq/index.html) )
 
 To save drawings to a file, use, for example
 
 ```{code-cell} ipython3
 nx.draw(G)
+plt.savefig("graph.png")
 ```
