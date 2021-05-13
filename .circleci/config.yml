@@ -77,8 +77,8 @@ workflows:
     jobs:
       - build-docs
       - deploy-docs:
-        requires:
-          - build-docs
-        filters:
-          branches:
-            only: main
+          requires:
+            - build-docs
+          filters:
+            branches:
+              only: main
