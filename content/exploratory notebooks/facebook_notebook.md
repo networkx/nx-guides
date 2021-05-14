@@ -55,11 +55,11 @@ G = nx.from_pandas_edgelist(facebook, 'start_node', 'end_node')
 ```
 
 ## Graph representation
-* The graph is drawn in order to get a better understanding of how the facebook circles look
+The graph is drawn in order to get a better understanding of how the facebook circles look
 
 ```{code-cell} ipython3
-plt.figure(figsize=(15,9)) #setting up the plot size
-plt.axis('off')  #remove border around the graph
+plt.figure(figsize=(15,9))  # set up the plot size
+plt.axis('off')  # remove border around the graph
 nx.draw_networkx(G, node_size=10, with_labels=False, width=0.15)
 plt.show()
 ```
@@ -104,14 +104,14 @@ Now a histogram of the shortest paths lenghts' relative frequencies will be crea
 * Lastly, the percentages of each frequency will be calculated. Even though the frequencies are doubled (because each shortest path between two specific nodes n1 and n2 was calculated twice, once from n1 to n2 and once from n2 to n1), the percentages remain correct.
 
 ```{code-cell} ipython3
-shortest_paths = nx.shortest_path(G) #saving all shortest paths in a dictionary
-frequencies = [0 for i in range (nx.diameter(G))] #list that will contain the different frequencies
+shortest_paths = nx.shortest_path(G)  # save all shortest paths in a dictionary
+frequencies = [0 for i in range (nx.diameter(G))]  # list that will contain the different frequencies
 for node_start in shortest_paths.keys():
     for path in shortest_paths.get(node_start).values():
-        path_length = len(path) - 1 #path is a list of nodes, so the length consists of edges equal to one less node
-        if path_length > 0: #paths with 0 length are no use
-            frequencies[path_length-1] += 1 #increase the frequency of the particular path length by one
-frequencies = [num/sum(frequencies) for num in frequencies] # finding the percentage of each path length
+        path_length = len(path) - 1  # path is a list of nodes, so the length consists of edges equal to one less node
+        if path_length > 0:  # paths with 0 length are no use
+            frequencies[path_length-1] += 1  # increase the frequency of the particular path length by one
+frequencies = [num/sum(frequencies) for num in frequencies]  # find the percentage of each path length
 ```
 
 * Showcasing the results. Clearly, the distribution of the percentages is skewed on the right. The majority of the shortest path lengths are from $2$ to $5$ edges long. Also, it's highly unlikely for a pair of nodes to have a shortest path of length 8 (diameter length) as the likelihood is less than $0.1$%.
@@ -148,11 +148,11 @@ Degree centrality assigns an importance score based simply on the number of link
 * Starting, we find the nodes with the highest degree centralities. Specifically, the nodes with the 8 highest degree centralities are shown below together with the degree centrality:
 
 ```{code-cell} ipython3
-degree_centrality = nx.centrality.degree_centrality(G) #saving results in a variable to use again 
+degree_centrality = nx.centrality.degree_centrality(G)  # save results in a variable to use again 
 (sorted(degree_centrality.items(), key=lambda item: item[1], reverse=True))[:8]
 ```
 
-That means that node $107$ has the highest degree centrality with $0.259$, meaning that this facebook user is friends with around the 26% of the whole network. Similarly, nodes $1684, 1912, 3437$ and $0$ also have very high degree centralities. However, that is well expected as those nodes are the ones whose circles we examine. Very interesting is the fact that the nodes $2543, 2347, 1888$ have some of the top 8 highest degree centralities even though we do not investigate their circles. In other words, those three nodes are very popular among the circles we examine now, meaning they have the most facebook friends inside this network apart from the spotlight nodes.
+That means that node $107$ has the highest degree centrality with $0.259$, meaning that this facebook user is friends with around the 26% of the whole network. Similarly, nodes $1684, 1912, 3437$ and $0$ also have very high degree centralities. However, that is well expected as those nodes are the ones whose facebook circles we examine. Very interesting is the fact that the nodes $2543, 2347, 1888$ have some of the top 8 highest degree centralities even though we do not investigate their circles. In other words, those three nodes are very popular among the circles we examine now, meaning they have the most facebook friends inside this network apart from the spotlight nodes.
 * Now we can also see the number of neighbors for the nodes with the highest degree centralities:
 
 ```{code-cell} ipython3
@@ -167,7 +167,7 @@ Now the distribution of degree centralities will be plotted:
 ```{code-cell} ipython3
 plt.figure(figsize=(15,8))
 plt.hist(degree_centrality.values(), bins=25)
-plt.xticks(ticks=[0, 0.025, 0.05, 0.1, 0.15, 0.2]) #setting the x axis ticks
+plt.xticks(ticks=[0, 0.025, 0.05, 0.1, 0.15, 0.2])  # set the x axis ticks
 plt.title('Degree Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
 plt.xlabel('Degree Centrality', fontdict ={'size': 20})
 plt.ylabel('Counts',fontdict ={'size': 20})
@@ -179,7 +179,7 @@ It is visible that the vast majority of facebook users have degree centralities 
 Now let's check the users with highest degree centralities from the size of their nodes:
 
 ```{code-cell} ipython3
-node_size =  [v * 1000 for v in degree_centrality.values()] #setting up nodes size for a nice graph representation
+node_size =  [v * 1000 for v in degree_centrality.values()]  # set up nodes size for a nice graph representation
 plt.figure(figsize=(15,8))
 nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
@@ -191,21 +191,21 @@ Betweenness centrality measures the number of times a node lies on the shortest 
 * Now, the nodes with the $8$ highest betweenness centralities will be calculated and shown with their centrality values:
 
 ```{code-cell} ipython3
-betweenness_centrality = nx.centrality.betweenness_centrality(G) #saving results in a variable to use again 
+betweenness_centrality = nx.centrality.betweenness_centrality(G)  # save results in a variable to use again 
 (sorted(betweenness_centrality.items(), key=lambda item: item[1], reverse=True))[:8]
 ```
 
 Looking at the results, the node $107$ has a betweenness centrality of $0.48$, meaning it lies on almost half of the total shortest paths between other nodes. Also, combining the knowledge of the degree centrality:
 * Nodes $0, 107, 1684, 1912, 3437$ have both the highest degree and betweenness centralities and are `spotlight nodes`. That indicates that those nodes are both the most popular ones in this network and can also influence and spread information in the network. However, those are some of the nodes whose friends list consist the network and as a result it is an expected finding.
 * Nodes $567, 1085$ are not spotlight nodes, have some of the highest betweenness centralities and have not the highest degree centralities. That means that even though those nodes are not the most popular users in the network, they have the most influence in this network among friends of spotlight nodes when it comes to spreading information.
-* Node $698$ is a `spotlight node` and has a very high betweenness centrality even though it has not the highest degree centralities. In other words, this node does not have a very large friends list on facebook. However, the user's friend list and thus the user could connect different circles in this network by being the middleman.
+* Node $698$ is a `spotlight node` and has a very high betweenness centrality even though it has not the highest degree centralities. In other words, this node does not have a very large friends list on facebook. However, the user's whole friend list is a part of the network and thus the user could connect different circles in this network by being the middleman.
 
 Moving on, the distribution of betweenness centralities will be plotted:
 
 ```{code-cell} ipython3
 plt.figure(figsize=(15,8))
 plt.hist(betweenness_centrality.values(), bins=100)
-plt.xticks(ticks=[0, 0.02, 0.1, 0.2, 0.3, 0.4, 0.5]) #setting the x axis ticks
+plt.xticks(ticks=[0, 0.02, 0.1, 0.2, 0.3, 0.4, 0.5])  # set the x axis ticks
 plt.title('Betweenness Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
 plt.xlabel('Betweenness Centrality', fontdict ={'size': 20})
 plt.ylabel('Counts',fontdict ={'size': 20})
@@ -217,7 +217,7 @@ As we can see, the vast majority of betweenness centralities is below $0.01$. Th
 We can also get an image on the nodes with the highest betweenness centralities and where they are located in the network. It is clear that they are the bridges from one community to another:
 
 ```{code-cell} ipython3
-node_size =  [v * 1200 for v in betweenness_centrality.values()]  #setting up nodes size for a nice graph representation
+node_size =  [v * 1200 for v in betweenness_centrality.values()]  # set up nodes size for a nice graph representation
 plt.figure(figsize=(15,8))
 nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
@@ -231,7 +231,7 @@ The closeness centrality measure is very important for the monitoring of the spr
 * The nodes with the highest closeness centralities will be found now:
 
 ```{code-cell} ipython3
-closeness_centrality = nx.centrality.closeness_centrality(G) #saving results in a variable to use again 
+closeness_centrality = nx.centrality.closeness_centrality(G)  # save results in a variable to use again 
 (sorted(closeness_centrality.items(), key=lambda item: item[1], reverse=True))[:8]
 ```
 
@@ -262,7 +262,7 @@ plt.show()
 The closeness centralities are distributed over various values from $0.17$ to $0.46$. In fact, the majority of them are found between $0.25$ and $0.3$. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:
 
 ```{code-cell} ipython3
-node_size =  [v * 50 for v in closeness_centrality.values()]  #setting up nodes size for a nice graph representation
+node_size =  [v * 50 for v in closeness_centrality.values()]  # set up nodes size for a nice graph representation
 plt.figure(figsize=(15,8))
 nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
@@ -275,7 +275,7 @@ Eigenvector centrality is the metric to show how connected a node is to other im
 * The nodes with the highest eigenvector centralities will be examined now:
 
 ```{code-cell} ipython3
-eigenvector_centrality = nx.centrality.eigenvector_centrality(G) #saving results in a variable to use again 
+eigenvector_centrality = nx.centrality.eigenvector_centrality(G)  # save results in a variable to use again 
 (sorted(eigenvector_centrality.items(), key=lambda item: item[1], reverse=True))[:10]
 ```
 
@@ -286,10 +286,10 @@ Checking the results:
 Checking if those nodes are connected to the most important node $1912$, the hypothesis is correct:
 
 ```{code-cell} ipython3
-high_eigenvector_centralities = ((sorted(eigenvector_centrality.items(), key=lambda item: item[1], reverse=True))[1:10]) #2nd to 10th heighest eigenvector centralities
-high_eigenvector_nodes = [tuple[0] for tuple in high_eigenvector_centralities]  # sets list as [2266, 2206, 2233, 2464, 2142, 2218, 2078, 2123, 1993]
-neighbors_1912 = [n for n in G.neighbors(1912)]  #list with all nodes connected to 1912
-all(item in neighbors_1912 for item in high_eigenvector_nodes) #check if items in list high_eigenvector_nodes exist in list neighbors_1912
+high_eigenvector_centralities = ((sorted(eigenvector_centrality.items(), key=lambda item: item[1], reverse=True))[1:10])  # 2nd to 10th nodes with heighest eigenvector centralities
+high_eigenvector_nodes = [tuple[0] for tuple in high_eigenvector_centralities]  # set list as [2266, 2206, 2233, 2464, 2142, 2218, 2078, 2123, 1993]
+neighbors_1912 = [n for n in G.neighbors(1912)]  # list with all nodes connected to 1912
+all(item in neighbors_1912 for item in high_eigenvector_nodes)  # check if items in list high_eigenvector_nodes exist in list neighbors_1912
 ```
 
 Let's check the distribution of the eigenvector centralities:
@@ -297,7 +297,7 @@ Let's check the distribution of the eigenvector centralities:
 ```{code-cell} ipython3
 plt.figure(figsize=(15,8))
 plt.hist(eigenvector_centrality.values(), bins=60)
-plt.xticks(ticks=[0, 0.01, 0.02, 0.04, 0.06, 0.08]) #setting the x axis ticks
+plt.xticks(ticks=[0, 0.01, 0.02, 0.04, 0.06, 0.08])  # set the x axis ticks
 plt.title('Eigenvector Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
 plt.xlabel('Eigenvector Centrality', fontdict ={'size': 20})
 plt.ylabel('Counts',fontdict ={'size': 20})
@@ -309,7 +309,7 @@ As shown in the distribution histogram, the vast majority of eigenvector central
 Now we can identify the eigenvector centralities of nodes based on their size in the following representation:
 
 ```{code-cell} ipython3
-node_size =  [v * 4000 for v in eigenvector_centrality.values()]  #setting up nodes size for a nice graph representation
+node_size =  [v * 4000 for v in eigenvector_centrality.values()]  # set up nodes size for a nice graph representation
 plt.figure(figsize=(15,8))
 nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
@@ -339,7 +339,7 @@ plt.show()
  The number of unique triangles in the network are found next:
 
 ```{code-cell} ipython3
-sum(list(nx.triangles(G).values())) / 3  #dividing by 3 because each triangle is counted once for each node
+sum(list(nx.triangles(G).values())) / 3  # divide by 3 because each triangle is counted once for each node
 ```
 
  Now the average number of triangles that a node is a part of:
@@ -385,7 +385,7 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 ```{code-cell} ipython3
 local_bridges = []
 for edge in nx.local_bridges(G):
-    local_bridges.append(eval( '(' + str(edge[0]) + '),(' + str(edge[1]) + ')' )) # saving the local bridge as a tuple
+    local_bridges.append(eval( '(' + str(edge[0]) + '),(' + str(edge[1]) + ')' ))  # save the local bridge as a tuple
 len(local_bridges)
 ```
 
@@ -398,7 +398,7 @@ pos = nx.spring_layout(G)  # positions for all nodes
 plt.figure(figsize=(15,8))
 nx.draw_networkx(G, pos=pos, node_size=10, with_labels=False, width=0.15)
 nx.draw_networkx_edges(G, pos, edgelist=local_bridges, width=0.5, edge_color="lawngreen")  # green color for local bridges 
-nx.draw_networkx_edges(G, pos, edgelist=bridges, width=0.5, edge_color="r") # red color for bridges
+nx.draw_networkx_edges(G, pos, edgelist=bridges, width=0.5, edge_color="r")  # red color for bridges
 plt.axis('off')
 plt.show()
 ```
@@ -412,9 +412,9 @@ nx.degree_assortativity_coefficient(G)
 ```
 
 ```{code-cell} ipython3
-nx.degree_pearson_correlation_coefficient(G) # uses the potentially faster scipy.stats.pearsonr function.
+nx.degree_pearson_correlation_coefficient(G)  # use the potentially faster scipy.stats.pearsonr function.
 ```
 
 In fact, the assortativity coefficient is the Pearson correlation coefficient of degree between pairs of linked nodes. That means that it takes values from $-1$ to $1$. In detail, a positive assortativity coefficient indicates a correlation between nodes of similar degree, while a negative indicates correlation between nodes of different degrees.
 
-In our case the assortativity coefficient is around $0.064$, which is almost 0. That means that the network is almost non-assortative, and we cannot correlate linked nodes based on their degrees. In other words, we can not draw conclusions on the number of friends of a user from his/her friends' number of friends (friends degree). That makes sense since we only use the friends list of spotlight nodes, non spotlight nodes will tend to have much fewer friends while also occasionally being connected to each other.
+In our case the assortativity coefficient is around $0.064$, which is almost 0. That means that the network is almost non-assortative, and we cannot correlate linked nodes based on their degrees. In other words, we can not draw conclusions on the number of friends of a user from his/her friends' number of friends (friends degree). That makes sense since we only use the friends list of spotlight nodes, non spotlight nodes will tend to have much fewer friends.
