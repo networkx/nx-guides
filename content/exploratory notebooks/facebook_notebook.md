@@ -23,7 +23,7 @@ language_info:
 ---
 
 # Facebook Network Analysis
-This notebook contains a social network analysis mainly executed with the library of NetworkX. In detail, the facebook circles (friends lists) of ten people will be examined and scrutinized in order to extract all kinds of valuable information. The dataset can be found [here](http://snap.stanford.edu/data/ego-Facebook.html). Moreover, as known, a facebook network is undirected and has no weights because one user can become friends with another user just once. Looking at the dataset from a graph analysis perspective:
+This notebook contains a social network analysis mainly executed with the library of NetworkX. In detail, the facebook circles (friends lists) of ten people will be examined and scrutinized in order to extract all kinds of valuable information. The dataset can be found in the [stanford website](http://snap.stanford.edu/data/ego-Facebook.html). Moreover, as known, a facebook network is undirected and has no weights because one user can become friends with another user just once. Looking at the dataset from a graph analysis perspective:
 * Each node represents an anonymized facebook user that belongs to one of those ten friends lists.
 * Each edge corresponds to the friendship of two facebook users that belong to this network. In other words, two users must become friends on facebook in order for them to be connected in the particular network.
 
@@ -43,10 +43,10 @@ import matplotlib.pyplot as plt
 from random import randint
 ```
 
-* The edges are downloaded from the [stanford website](http://snap.stanford.edu/data/ego-Facebook.html) and saved in a dataframe. Each edge is a new row and for each edge there is a `start_node` and an `end_node` column
+* The edges are loaded from the `data` folder and saved in a dataframe. Each edge is a new row and for each edge there is a `start_node` and an `end_node` column
 
 ```{code-cell} ipython3
-facebook = pd.read_csv('http://snap.stanford.edu/data/facebook_combined.txt.gz', compression='gzip', sep=' ', names=['start_node', 'end_node'])
+facebook = pd.read_csv('data/facebook_combined.txt.gz', compression='gzip', sep=' ', names=['start_node', 'end_node'])
 facebook
 ```
 
