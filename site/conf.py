@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'networkx-notebooks'
+project = 'nx-guides'
 copyright = '2021, NetworkX developers'
 author = 'NetworkX developers'
 
@@ -53,12 +53,12 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/networkx/notebooks/",
+            "url": "https://github.com/networkx/nx-guides/",
             "icon": "fab fa-github-square",
         },
         {
             "name": "Binder",
-            "url": "https://mybinder.org/v2/gh/networkx/notebooks/main?urlpath=lab/tree/content",
+            "url": "https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=lab/tree/content",
             "icon": "fas fa-rocket",
         },
     ],
@@ -66,7 +66,7 @@ html_theme_options = {
 }
 html_context = {
     "github_user": "networkx",
-    "github_repo": "notebooks",
+    "github_repo": "nx-guides",
     "github_version": "main",
     "doc_path": "site",
 }
