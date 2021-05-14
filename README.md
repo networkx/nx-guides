@@ -1,5 +1,6 @@
-# notebooks
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/networkx/notebooks/main)
+# nx-guides
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/networkx/nx-guides/main)
 
 Examples and IPython Notebooks about NetworkX
 
