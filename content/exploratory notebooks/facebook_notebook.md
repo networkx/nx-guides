@@ -38,7 +38,9 @@ Note: Nodes $0, 107, 348, 414, 686, 698, 1684, 1912, 3437, 3980$ are the ones wh
 import pandas as pd
 import numpy as np
 import networkx as nx
+from networkx.algorithms import community
 import matplotlib.pyplot as plt
+from random import randint
 ```
 
 * The edges are downloaded from the [stanford website](http://snap.stanford.edu/data/ego-Facebook.html) and saved in a dataframe. Each edge is a new row and for each edge there is a `start_node` and an `end_node` column
@@ -418,3 +420,59 @@ nx.degree_pearson_correlation_coefficient(G)  # use the potentially faster scipy
 In fact, the assortativity coefficient is the Pearson correlation coefficient of degree between pairs of linked nodes. That means that it takes values from $-1$ to $1$. In detail, a positive assortativity coefficient indicates a correlation between nodes of similar degree, while a negative indicates correlation between nodes of different degrees.
 
 In our case the assortativity coefficient is around $0.064$, which is almost 0. That means that the network is almost non-assortative, and we cannot correlate linked nodes based on their degrees. In other words, we can not draw conclusions on the number of friends of a user from his/her friends' number of friends (friends degree). That makes sense since we only use the friends list of spotlight nodes, non spotlight nodes will tend to have much fewer friends.
+
++++
+
+## Network Communities
+A community is a group of nodes, so that nodes inside the group are connected with many more edges than between groups. Two different algorithms will be used for communities detection in this network
+* Firstly, a semi-synchronous label propagation method[^1] is used to detect the communities.
+
+This function determines by itself the number of communities that will be detected. Now the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community. Also, the number of communities is printed:
+
+```{code-cell} ipython3
+colors = ['' for x in range (G.number_of_nodes())]  # initialize colors list
+counter = 0
+for com in community.label_propagation_communities(G):
+    color = '#%06X' % randint(0, 0xFFFFFF)  # creates random RGB color
+    counter += 1
+    for node in list(com):  # fill colors list with the particular color for the community nodes
+        colors[node] = color
+counter
+```
+
+In detail, $44$ communities were detected. Now the communities are showcased in the graph. Each community is depicted with a different color and its nodes are usually located close to each other:
+
+```{code-cell} ipython3
+plt.figure(figsize=(15,9))
+plt.axis('off') 
+nx.draw_networkx(G, node_size=10, with_labels=False, width=0.15, node_color=colors)
+plt.show()
+```
+
+* Next, the asynchronous fluid communities algorithm is used. 
+
+With this function, we can decide the number of communities to be detected. Let's say that $8$ communities is the number we want. Again, the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community.
+
+```{code-cell} ipython3
+colors = ['' for x in range (G.number_of_nodes())]
+for com in community.asyn_fluidc(G, 8, seed=0):
+    color = '#%06X' % randint(0, 0xFFFFFF)  # creates random RGB color
+    for node in list(com):
+        colors[node] = color
+```
+
+Now the $8$ communities are shown in the graph. Again, each community is depicted with a different color:
+
+```{code-cell} ipython3
+plt.figure(figsize=(15,9))
+plt.axis('off') 
+nx.draw_networkx(G, node_size=10, with_labels=False, width=0.15, node_color=colors)
+plt.show()
+```
+
+### References
+[Cambridge-intelligence](https://cambridge-intelligence.com/keylines-faqs-social-network-analysis/#:~:text=Centrality%20measures%20are%20a%20vital,but%20they%20all%20work%20differently.)
+
+[^1]: [Semi-synchronous label propagation](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.label_propagation.label_propagation_communities.html#networkx.algorithms.community.label_propagation.label_propagation_communities)
+
+[^2]: [Asynchronous fluid communities algorithm](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.asyn_fluid.asyn_fluidc.html#networkx.algorithms.community.asyn_fluid.asyn_fluidc)
