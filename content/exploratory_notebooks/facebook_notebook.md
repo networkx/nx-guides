@@ -62,7 +62,6 @@ The graph is drawn in order to get a better understanding of how the facebook ci
 plt.figure(figsize=(15,9))  # set up the plot size
 plt.axis('off')  # remove border around the graph
 nx.draw_networkx(G, node_size=10, with_labels=False, width=0.15)
-plt.show()
 ```
 
 ## Basic topological attributes
@@ -124,7 +123,6 @@ ax = plt.bar(x= [ i+1 for i in range (8)] ,
 plt.title('Percentages of Shortest Path Lengths', fontdict ={'size': 35}, loc='center') 
 plt.xlabel('Shortest Path Length', fontdict ={'size': 22})
 plt.ylabel('Percentage',fontdict ={'size': 22})
-plt.show()
 ```
 
 * The graph's density is calculated here. Clearly, the graph is a very sparse one as: $density < 1$
@@ -172,7 +170,6 @@ plt.xticks(ticks=[0, 0.025, 0.05, 0.1, 0.15, 0.2])  # set the x axis ticks
 plt.title('Degree Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
 plt.xlabel('Degree Centrality', fontdict ={'size': 20})
 plt.ylabel('Counts',fontdict ={'size': 20})
-plt.show()
 ```
 
 It is visible that the vast majority of facebook users have degree centralities of less than $0.05$. In fact the majority has less than $0.0125$. Actually, that makes sense because the network consists of friends lists of particular nodes, which are obviously the ones with the highest degree centralities. In other words, because only the friends list of particular nodes were used to create this particular network, plenty of nodes have extremely low degree centralities as they are not very interconnected in this network
@@ -184,7 +181,6 @@ node_size =  [v * 1000 for v in degree_centrality.values()]  # set up nodes size
 plt.figure(figsize=(15,8))
 nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
-plt.show()
 ```
 
 ### Betweenness Centrality
@@ -210,7 +206,6 @@ plt.xticks(ticks=[0, 0.02, 0.1, 0.2, 0.3, 0.4, 0.5])  # set the x axis ticks
 plt.title('Betweenness Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
 plt.xlabel('Betweenness Centrality', fontdict ={'size': 20})
 plt.ylabel('Counts',fontdict ={'size': 20})
-plt.show()
 ```
 
 As we can see, the vast majority of betweenness centralities is below $0.01$. That makes sense as the graph is very sparse and thus most nodes do not act as bridges in shortest paths. However, that also results in some nodes having extremely high betweenness centralities as for example node $107$ with $0.48$ and node $1684$ with $0.34$ betweenness centrality.
@@ -222,7 +217,6 @@ node_size =  [v * 1200 for v in betweenness_centrality.values()]  # set up nodes
 plt.figure(figsize=(15,8))
 nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
-plt.show()
 ```
 
 ### Closeness Centrality
@@ -257,7 +251,6 @@ plt.hist(closeness_centrality.values(), bins=60)
 plt.title('Closeness Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
 plt.xlabel('Closeness Centrality', fontdict ={'size': 20})
 plt.ylabel('Counts',fontdict ={'size': 20})
-plt.show()
 ```
 
 The closeness centralities are distributed over various values from $0.17$ to $0.46$. In fact, the majority of them are found between $0.25$ and $0.3$. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:
@@ -267,7 +260,6 @@ node_size =  [v * 50 for v in closeness_centrality.values()]  # set up nodes siz
 plt.figure(figsize=(15,8))
 nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
-plt.show()
 ```
 
 ### Eigenvector Centrality
@@ -302,7 +294,6 @@ plt.xticks(ticks=[0, 0.01, 0.02, 0.04, 0.06, 0.08])  # set the x axis ticks
 plt.title('Eigenvector Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
 plt.xlabel('Eigenvector Centrality', fontdict ={'size': 20})
 plt.ylabel('Counts',fontdict ={'size': 20})
-plt.show()
 ```
 
 As shown in the distribution histogram, the vast majority of eigenvector centralities are below $0.005$ and are actually almost $0$. However, we can also see different values of eigenvector centralities as there are tiny bins all over the x axis.
@@ -314,7 +305,6 @@ node_size =  [v * 4000 for v in eigenvector_centrality.values()]  # set up nodes
 plt.figure(figsize=(15,8))
 nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
-plt.show()
 ```
 
 ## Clustering Effects
@@ -332,7 +322,6 @@ plt.hist(nx.clustering(G).values(), bins=50)
 plt.title('Clustering Coefficient Histogram ', fontdict ={'size': 35}, loc='center') 
 plt.xlabel('Clustering Coefficient', fontdict ={'size': 20})
 plt.ylabel('Counts',fontdict ={'size': 20})
-plt.show()
 ```
 
  $50$ bins were used to showcase the distribution. The bin with the highest counts concerns nodes with clustering coefficient close to $1$ as there are more than two-hundred-fifty nodes in that bin. In addition, the bins of clustering coefficient between $0.4$ and $0.8$ contain the majority of nodes by far. 
@@ -401,7 +390,6 @@ nx.draw_networkx(G, pos=pos, node_size=10, with_labels=False, width=0.15)
 nx.draw_networkx_edges(G, pos, edgelist=local_bridges, width=0.5, edge_color="lawngreen")  # green color for local bridges 
 nx.draw_networkx_edges(G, pos, edgelist=bridges, width=0.5, edge_color="r")  # red color for bridges
 plt.axis('off')
-plt.show()
 ```
 
 ## Assortativity
@@ -445,7 +433,6 @@ In detail, $44$ communities were detected. Now the communities are showcased in 
 plt.figure(figsize=(15,9))
 plt.axis('off') 
 nx.draw_networkx(G, node_size=10, with_labels=False, width=0.15, node_color=colors)
-plt.show()
 ```
 
 * Next, the asynchronous fluid communities algorithm is used. 
@@ -466,7 +453,6 @@ Now the $8$ communities are shown in the graph. Again, each community is depicte
 plt.figure(figsize=(15,9))
 plt.axis('off') 
 nx.draw_networkx(G, node_size=10, with_labels=False, width=0.15, node_color=colors)
-plt.show()
 ```
 
 ### References
