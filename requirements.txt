@@ -6,3 +6,5 @@ sphinx
 myst-nb
 pydata-sphinx-theme==0.5.2
 jupytext
+pandas
+numpy

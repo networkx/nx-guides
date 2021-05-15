@@ -38,7 +38,6 @@ Note: Nodes $0, 107, 348, 414, 686, 698, 1684, 1912, 3437, 3980$ are the ones wh
 import pandas as pd
 import numpy as np
 import networkx as nx
-from networkx.algorithms import community
 import matplotlib.pyplot as plt
 from random import randint
 ```
@@ -432,7 +431,7 @@ This function determines by itself the number of communities that will be detect
 ```{code-cell} ipython3
 colors = ['' for x in range (G.number_of_nodes())]  # initialize colors list
 counter = 0
-for com in community.label_propagation_communities(G):
+for com in nx.community.label_propagation_communities(G):
     color = '#%06X' % randint(0, 0xFFFFFF)  # creates random RGB color
     counter += 1
     for node in list(com):  # fill colors list with the particular color for the community nodes
@@ -455,7 +454,7 @@ With this function, we can decide the number of communities to be detected. Let'
 
 ```{code-cell} ipython3
 colors = ['' for x in range (G.number_of_nodes())]
-for com in community.asyn_fluidc(G, 8, seed=0):
+for com in nx.community.asyn_fluidc(G, 8, seed=0):
     color = '#%06X' % randint(0, 0xFFFFFF)  # creates random RGB color
     for node in list(com):
         colors[node] = color
