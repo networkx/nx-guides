@@ -312,7 +312,7 @@ fig, axes = plt.subplots(1, 3)
 
 pdfs = {
     "default": None,  # default: exponential distribution with `lambda=1`
-    "exp(-10*d)": lambda d: math.exp(-10*d),
+    r"$e^{-10d}$": lambda d: math.exp(-10*d),
     "norm": norm(loc=0.1, scale=0.1).pdf,
 }
 for (title, pdf), ax in zip(pdfs.items(), axes.ravel()):
