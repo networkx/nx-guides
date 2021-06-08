@@ -186,43 +186,6 @@ mpl_params = {
 plt.rcParams.update(mpl_params)
 ```
 
-**Aside: drawing graphs with many edges**
-
-By default, the matplotlib-based drawing functions in the `nx_pylab` module
-use `FancyArrowPatch` objects to represent edges.
-`FancyArrowPatch` is quite flexible, supporting many different methods for
-drawing curves and different arrow types for representing directed edges.
-However, drawing many `FancyArrowPatch` objects can be quite slow, so the
-drawing time can be prohibitively long for graphs with more than ~1000 edges.
-For graphs with many edges, you can instead use more performant matplotlib
-objects for representing graph edges, such as `LineCollection`.
-We will define a helper function called `draw_edges_fast` to use instead of the
-usual `draw_networkx_edges`, as some of the graphs examined below have
-more than 10,000 edges.
-
-```{code-cell} ipython3
-from matplotlib.collections import LineCollection
-
-def draw_edges_fast(G, pos, ax, **lc_kwargs):
-    """
-    Return a LineCollection representing the edges of G.
-
-    Parameters
-    ----------
-    G : networkx.Graph
-        Graph whose edges will be drawn
-    pos : dict
-        A mapping of node to positions
-    ax : matplotlib.axes.Axes
-        The axes to which the LineCollection will be added
-    lc_kwargs : dict
-        All other keyword arguments are passed through to LineCollection
-    """
-    edge_pos = np.array([(pos[e[0]], pos[e[1]]) for e in G.edges()])
-    edge_collection = LineCollection(edge_pos, **lc_kwargs)
-    ax.add_collection(edge_collection)
-```
-
 Next, we load the data and construct the graph.
 
 ```{code-cell} ipython3
@@ -255,7 +218,7 @@ plotting options for consistent visualizations.
 
 ```{code-cell} ipython3
 node_opts = {"node_size": 50, "node_color": "r", "alpha": 0.4}
-edge_opts = {"color": "k", "zorder": 0}
+edge_opts = {"edge_color": "k"}
 ```
 
 ## Random Geometric Graphs
@@ -273,7 +236,7 @@ radii = (0, 0.1, 0.2, 0.3)
 for r, ax, alpha, lw in zip(radii, axes.ravel(), alphas, linewidths):
     RGG = nx.random_geometric_graph(nodes, radius=r, pos=pos)
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-    draw_edges_fast(RGG, pos=pos, ax=ax, alpha=alpha, linewidth=lw, **edge_opts)
+    nx.draw_networkx_edges(RGG, pos=pos, ax=ax, alpha=alpha, width=lw, **edge_opts)
     ax.set_title(f"$r = {r}$, {RGG.number_of_edges()} edges")
 fig.tight_layout()
 ```
@@ -282,7 +245,7 @@ fig.tight_layout()
 # Make edge visualization more prominent (and consistent) for the following 
 # examples
 edge_opts["alpha"] = 0.8
-edge_opts["linewidth"] = 0.2
+edge_opts["width"] = 0.2
 ```
 
 ## Geographical Threshold Graphs
@@ -309,7 +272,7 @@ for (name, metric), ax in zip(distance_metrics.items(), axes.ravel()):
         nodes, 0.1, pos=pos, weight=weight, metric=metric
     )
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-    draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
+    nx.draw_networkx_edges(GTG, pos=pos, ax=ax, **edge_opts)
     ax.set_title(f"{name}\n{GTG.number_of_edges()} edges")
 fig.tight_layout()
 ```
@@ -331,7 +294,7 @@ for (name, p_dist), ax in zip(p_dists.items(), axes.ravel()):
         nodes, 0.01, pos=pos, weight=weight, metric=dist, p_dist=p_dist
     )
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-    draw_edges_fast(GTG, pos=pos, ax=ax, **edge_opts)
+    nx.draw_networkx_edges(GTG, pos=pos, ax=ax, **edge_opts)
     ax.set_title(f"{name}\n{GTG.number_of_edges()} edges")
 fig.tight_layout()
 ```
@@ -355,7 +318,7 @@ pdfs = {
 for (title, pdf), ax in zip(pdfs.items(), axes.ravel()):
     SRGG = nx.soft_random_geometric_graph(nodes, 0.1, pos=pos, p_dist=pdf)
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-    draw_edges_fast(SRGG, pos=pos, ax=ax, **edge_opts)
+    nx.draw_networkx_edges(SRGG, pos=pos, ax=ax, **edge_opts)
     ax.set_title(f"p_dist={title}\n{SRGG.number_of_edges()} edges")
 fig.tight_layout()
 ```
@@ -376,7 +339,7 @@ for thresh, ax in zip(thresholds, axes):
         nodes, 0.1, thresh, pos=pos, weight=weight
     )
     nx.draw_networkx_nodes(G, pos=pos, ax=ax, **node_opts)
-    draw_edges_fast(TRGG, pos=pos, ax=ax, **edge_opts)
+    nx.draw_networkx_edges(TRGG, pos=pos, ax=ax, **edge_opts)
     ax.set_title(f"Threshold = {thresh}, {TRGG.number_of_edges()} edges")
 fig.tight_layout()
 ```
