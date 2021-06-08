@@ -1,3 +1,27 @@
+---
+jupytext:
+  notebook_metadata_filter: all
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.2
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+language_info:
+  codemirror_mode:
+    name: ipython
+    version: 3
+  file_extension: .py
+  mimetype: text/x-python
+  name: python
+  nbconvert_exporter: python
+  pygments_lexer: ipython3
+  version: 3.8.5
+---
+
 # Tutorial: Node assortativity coefficients and correlation measures
 
 In this tutorial, we will go through the theory of assortativity and its measures. We will also see how to use their implementation at `algorithms/assortativity/correlation.py` in the network.
@@ -20,11 +44,11 @@ Now define,
 
 $a[i]=$ proportion of edges $(u,v)$ such that $P(u)=P_i$
 
-$$ a[i] = \sum\limits_{j}e[i][j] $$
+$$ a[i] = \sum\limits\_{j}e[i][j] $$
 
 $b[i]=$ proportion of edges $(u,v)$ such that $P(v)=P_i$
 
-$$ b[i] = \sum\limits_{j}e[j][i]$$
+$$ b[i] = \sum\limits\_{j}e[j][i]$$
 
 $\sigma_a$ and $\sigma_b$ as standard deviation of $\{\ i\cdot a[i]\ |\ i \in 0...k-1\}$ and $\{ i\cdot b[i]\ |\ i \in 0...k-1\}$ respectively. Note, after this will use subscript notation to denote indexing i.e. $P_i=P[i]$
 
@@ -34,7 +58,7 @@ Then we can define the assortativity coefficient for this property based on the 
 
 Here the property $P(v)$ is a nominal property assigned to each node. As defined above we calculate the normalized mixing matrix $e$ and from that we define attribute assortativity coefficient as below.
 
-$$ r = \frac{\sum\limits_{i}e_{ii} - \sum\limits_{i}a_{i}b_{i}}{1-\sum\limits_{i}a_{i}b_{i}} = \frac{Trace(e) - ||e^2||}{1-||e^2||}$$
+$$ r = \frac{\sum\limits*{i}e*{ii} - \sum\limits*{i}a*{i}b*{i}}{1-\sum\limits*{i}a*{i}b*{i}} = \frac{Trace(e) - ||e^2||}{1-||e^2||}$$
 
 It is implimented as `attribute_assortativity_coefficient`.
 
@@ -42,13 +66,13 @@ It is implimented as `attribute_assortativity_coefficient`.
 
 Here the property $P(v)$ is a numerical property assigned to each node. And just as above we use the same defination of the normalized mixing matrix $e$ and $\sigma_a$ and $\sigma_b$ defined above to define the numeric assortativity coefficient as below.
 
-$$ r = \frac{\sum\limits_{i,j}i j(e_{ij} -a_i b_j)}{\sigma_a\sigma_b} $$
+$$ r = \frac{\sum\limits*{i,j}i j(e*{ij} -a_i b_j)}{\sigma_a\sigma_b} $$
 
 It is implimented as `numeric_assortativity_coefficient`.
 
 #### Degree Assortativity Coefficient
 
-When it comes to measuring degree assortativity for directed networks we have more options compared to assortativity w.r.t a property because we have 2 types of degrees, namely in-degree & out-degree. Based on the 2 types of degrees we can measure  $2 \times 2 =4$ different types of assortativity.
+When it comes to measuring degree assortativity for directed networks we have more options compared to assortativity w.r.t a property because we have 2 types of degrees, namely in-degree & out-degree. Based on the 2 types of degrees we can measure $2 \times 2 =4$ different types of assortativity.
 
     1. r(in,in) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = in-degree(v).
     2. r(in,out) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = out-degree(v).
@@ -61,13 +85,11 @@ To define the degree assortativity coefficient for all 4 types we need slight mo
 
 Let $x,y \in \{in,out\}$, the property $P(\cdot)$ takes distinct values from union of the values taken by x-degree$(\cdot)$ and y-degree$(\cdot)$, and $e_{i,j}$ is the proportion of directed edges $(u,v)$ with x-degree$(u) = P[i]$ and y-degree$(v) = P[j]$.
 
-$$ r(x,y) = \frac{\sum\limits_{i,j}i j(e_{ij} -a_i b_j)}{\sigma_a\sigma_b} $$
+$$ r(x,y) = \frac{\sum\limits*{i,j}i j(e*{ij} -a_i b_j)}{\sigma_a\sigma_b} $$
 
 It is implimented as `degree_assortativity_coefficient` and `degree_pearson_correlation_coefficient`, latter one uses `scipy.stats.pearsonr` to calculate the assortativity coefficient which makes it potentally faster.
 
-
-
-```python
+```{code-cell} ipython3
 %matplotlib inline
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -78,15 +100,13 @@ import random
 
 ## Attribute and Numeric Assortativity Coefficient
 
-
-```python
+```{code-cell} ipython3
 G = nx.read_graphml("data/base.graphml")
 with open("data/pos", 'rb') as fp:
     pos = pickle.load(fp)
 ```
 
-
-```python
+```{code-cell} ipython3
 g = copy.deepcopy(G)
 edge_list = list(nx.complement(g).edges())
 random.shuffle(edge_list)
@@ -104,10 +124,10 @@ edge_count = []
 cr_list, nr_list = [], []
 for ei, ax in zip(edge_incriments,axes.ravel()):
     nx.draw(g, pos=pos, ax=ax, node_size=10, width=0.5)
-    
+
     cr = nx.attribute_assortativity_coefficient(g, "cluster")
     nr = nx.numeric_assortativity_coefficient(g, "num_prop")
-    
+
     ax.set_title(f"Attribute assortativity coefficient = {cr:.3}\nNumeric assortativity coefficient = {nr:.3}", size=15)
     edge_count.append(g.number_of_edges())
     cr_list.append(cr)
@@ -118,8 +138,7 @@ fig.tight_layout()
 
 We can observe that the value of assortativity coefficients decreases as we add edges between different clusters.
 
-
-```python
+```{code-cell} ipython3
 plt.figure(figsize=(16,8))
 plt.plot(edge_count,cr_list,'go--',label="Attribute assortativity coefficient",markersize=10)
 plt.plot(edge_count,nr_list,'ro--',label="Numeric assortativity coefficient",markersize=10)
@@ -133,14 +152,13 @@ The parameter `nodes` in `attribute_assortativity_coefficient`, `numeric_assorta
 
 Note: If $u$ is in `nodes` and $(u,v)$ is a directed edge and even if $v$ is not in `nodes` the edge $(u,v)$ will be used in mixing matrix calculation.
 
-
-```python
+```{code-cell} ipython3
 nodes_list = [None,
               [str(i) for i in range(3)],
               [str(i) for i in range(4)],
               [str(i) for i in range(5)],
               [str(i) for i in range(4,12)],
-              [str(i) for i in range(5,12)]] 
+              [str(i) for i in range(5,12)]]
 fig, axes = plt.subplots(3, 2, figsize=(20, 20))
 
 for nodes, ax in zip(nodes_list, axes.ravel()):
@@ -152,15 +170,13 @@ fig.tight_layout()
 
 ## Degree Assortativity Coefficients
 
-
-```python
+```{code-cell} ipython3
 G = nx.read_graphml("data/base_degree.graphml")
 with open("data/pos_degree", 'rb') as fp:
     pos = pickle.load(fp)
 ```
 
-
-```python
+```{code-cell} ipython3
 g = copy.deepcopy(G)
 edge_list = list(nx.complement(g).edges())
 random.shuffle(edge_list)
@@ -172,12 +188,12 @@ r_in_in_list, r_in_out_list,r_out_in_list,r_out_out_list = [], [], [], []
 for ei, ax in zip(edge_incriments,axes.ravel()):
     add_new_edges(ei)
     nx.draw(g, pos=pos, ax=ax, node_size=10, width=0.5)
-    
+
     r_in_in = nx.degree_assortativity_coefficient(g,x='in',y='in')
     r_in_out = nx.degree_assortativity_coefficient(g,x='in',y='out')
     r_out_in = nx.degree_assortativity_coefficient(g,x='out',y='in')
     r_out_out = nx.degree_assortativity_coefficient(g,x='out',y='out')
-    
+
     ax.set_title(f"r(in,in) = {r_in_in:.3}    r(in,out) = {r_in_out:.3}\nr(out,in) = {r_out_in:.3}    r(out,out) = {r_out_out:.3}", size=15)
     edge_count.append(g.number_of_edges())
     r_in_in_list.append(r_in_in)
@@ -187,8 +203,7 @@ for ei, ax in zip(edge_incriments,axes.ravel()):
 fig.tight_layout()
 ```
 
-
-```python
+```{code-cell} ipython3
 plt.figure(figsize=(16,8))
 plt.plot(edge_count,r_in_in_list,'bo--',label="r(in,in) degree assortativity coefficient",markersize=10)
 plt.plot(edge_count,r_in_out_list,'go--',label="r(in,out) degree assortativity coefficient",markersize=10)
@@ -200,8 +215,7 @@ plt.legend(fontsize=12)
 plt.show()
 ```
 
-
-```python
+```{code-cell} ipython3
 g = copy.deepcopy(G)
 edge_list = list(nx.complement(g).edges())
 random.shuffle(edge_list)
@@ -219,7 +233,7 @@ for w, l, ax in zip(weight_list, labels_list, axes.ravel()):
     r_in_out = nx.degree_assortativity_coefficient(g,x='in',y='out',weight=w)
     r_out_in = nx.degree_assortativity_coefficient(g,x='out',y='in',weight=w)
     r_out_out = nx.degree_assortativity_coefficient(g,x='out',y='out',weight=w)
-    
+
     ax.set_title(f"r(in,in) = {r_in_in:.3}    r(in,out) = {r_in_out:.3}\nr(out,in) = {r_out_in:.3}    r(out,out) = {r_out_out:.3}", size=15)
 
 fig.tight_layout()
