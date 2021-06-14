@@ -75,3 +75,10 @@ html_context = {
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# -- Options for MyST-NB configuration -----------------------------------
+
+# Bump up per cell execution timeout to 300 seconds (from default 30 seconds)
+execution_timeout = 300
+
+
