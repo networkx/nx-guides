@@ -4,5 +4,5 @@ nbval
 git+git://github.com/networkx/networkx@main
 sphinx
 myst-nb
-pydata-sphinx-theme==0.5.2
+pydata-sphinx-theme
 jupytext
