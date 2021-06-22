@@ -24,7 +24,7 @@ language_info:
 
 # Tutorial: Node assortativity coefficients and correlation measures
 
-In this tutorial, we will go through the theory of assortativity and its measures. We will also see how to use their implementation at `algorithms/assortativity/correlation.py` in the network.
+In this tutorial, we will go through the theory of assortativity and its measures. We will also see how to use their implementation at `algorithms/assortativity/correlation.py` in the networkx.
 
 ## Assortativity
 
@@ -64,7 +64,7 @@ It is implimented as `attribute_assortativity_coefficient`.
 
 #### Numeric Assortativity Coefficient
 
-Here the property $P(v)$ is a numerical property assigned to each node. And just as above we use the same defination of the normalized mixing matrix $e$ and $\sigma_a$ and $\sigma_b$ defined above to define the numeric assortativity coefficient as below.
+Here the property $P(v)$ is a _non-negative integer_ property assigned to each node and we assume that $P[i] = i$, and the defination of the normalized mixing matrix $e$, $\sigma_a$, and $\sigma_b$ are same as above. From these we define numeric assortativity coefficient as below.
 
 $$ r = \frac{\sum\limits*{i,j}i j(e*{ij} -a_i b_j)}{\sigma_a\sigma_b} $$
 
@@ -98,146 +98,81 @@ import copy
 import random
 ```
 
-## Attribute and Numeric Assortativity Coefficient
+## Example
+
+Illustrating how value of assortativity changes
 
 ```{code-cell} ipython3
-G = nx.read_graphml("data/base.graphml")
-with open("data/pos", 'rb') as fp:
+gname = "g2"
+G = nx.read_graphml(f"data/{gname}.graphml")
+with open(f"data/pos_{gname}", 'rb') as fp:
     pos = pickle.load(fp)
 ```
 
 ```{code-cell} ipython3
-g = copy.deepcopy(G)
-edge_list = list(nx.complement(g).edges())
-random.shuffle(edge_list)
+fig, axes = plt.subplots(4, 2, figsize=(20, 20))
+node_colors = [ '#b3d9ff' if G.nodes[u]['cluster'] == 'K5' else '#ffad99' for u in G.nodes ]
+node_labels = { u:G.nodes[u]['num_prop'] for u in G.nodes }
 
-def add_new_edges(edge_incriment):
-    """Utility function to add edges randomly which are not there in G"""
-    while edge_incriment > 0 and len(edge_list) > 0:
-        e = edge_list.pop()
-        g.add_edge(e[0],e[1])
-        edge_incriment-=1
-
-edge_incriments = [50,150,250,350,450,550]
-fig, axes = plt.subplots(3, 2, figsize=(20, 20))
-edge_count = []
-cr_list, nr_list = [], []
-for ei, ax in zip(edge_incriments,axes.ravel()):
-    nx.draw(g, pos=pos, ax=ax, node_size=10, width=0.5)
-
+for i in range(8):
+    g = nx.read_graphml(f"data/{gname}_{i}.graphml")
     cr = nx.attribute_assortativity_coefficient(g, "cluster")
+    r_in_out = nx.degree_assortativity_coefficient(g,x='in',y='out')
     nr = nx.numeric_assortativity_coefficient(g, "num_prop")
 
-    ax.set_title(f"Attribute assortativity coefficient = {cr:.3}\nNumeric assortativity coefficient = {nr:.3}", size=15)
-    edge_count.append(g.number_of_edges())
-    cr_list.append(cr)
-    nr_list.append(nr)
-    add_new_edges(ei)
+    nx.draw_networkx_nodes(g, pos=pos, node_size=300,ax=axes[i//2][i%2],node_color = node_colors)
+    nx.draw_networkx_labels(g, pos=pos, labels = node_labels,ax=axes[i//2][i%2])
+    nx.draw_networkx_edges(g, pos=pos, ax=axes[i//2][i%2],edge_color='0.7')
+    axes[i//2][i%2].set_title(f"Attribute assortativity coefficient = {cr:.3}\nNumeric assortativity coefficient = {nr:.3}\nr(in,out) = {r_in_out:.3}", size=15)
+
 fig.tight_layout()
 ```
 
-We can observe that the value of assortativity coefficients decreases as we add edges between different clusters.
+Nodes are colored by the `cluster` property and labeled by `num_prop` property. We can observe that the initial network on left side is completely assortative and its compliment on right side is completely disassortative. As we add edges between nodes of different (similar) attributes in the assortative (disassortative) network, the network tends to a non-assortative network and value of both the assortaivity coefficients tends to $0$.
 
-```{code-cell} ipython3
-plt.figure(figsize=(16,8))
-plt.plot(edge_count,cr_list,'go--',label="Attribute assortativity coefficient",markersize=10)
-plt.plot(edge_count,nr_list,'ro--',label="Numeric assortativity coefficient",markersize=10)
-plt.xlabel("Number of edges",fontsize=14)
-plt.ylabel("Assortativity measure",fontsize=14)
-plt.legend(fontsize=12)
-plt.show()
-```
++++
 
-The parameter `nodes` in `attribute_assortativity_coefficient`, `numeric_assortativity_coefficient`, `degree_assortativity_coefficient`, and `degree_pearson_correlation_coefficient` specifies the nodes whos edges are to be considered in the mixing matrix calculation.
+The parameter `nodes` in `attribute_assortativity_coefficient` and `numeric_assortativity_coefficient` specifies the nodes who's edges are to be considered in the mixing matrix calculation. That is to say, if $(u,v)$ is a directed edge then the edge $(u,v)$ will be used in mixing matrix calculation if $u$ is in `nodes` and for undirected case its considered if atleast one of the $u,v$ in in `nodes`.
 
-Note: If $u$ is in `nodes` and $(u,v)$ is a directed edge and even if $v$ is not in `nodes` the edge $(u,v)$ will be used in mixing matrix calculation.
+Whereas the parameter `nodes` in `degree_assortativity_coefficient` and `degree_pearson_correlation_coefficient` specifies the nodes whose subgraph's edges are considered in the mixing matrix calculation.
 
 ```{code-cell} ipython3
 nodes_list = [None,
               [str(i) for i in range(3)],
               [str(i) for i in range(4)],
               [str(i) for i in range(5)],
-              [str(i) for i in range(4,12)],
-              [str(i) for i in range(5,12)]]
-fig, axes = plt.subplots(3, 2, figsize=(20, 20))
+              [str(i) for i in range(4,8)],
+              [str(i) for i in range(5,10)]]
+fig, axes = plt.subplots(3, 2, figsize=(20, 16))
+
+def color_node(u, nodes):
+    """Utility function to give the color of a node based on its attribute """
+    if u not in nodes:
+        return '0.85'
+    if G.nodes[u]['cluster'] == 'K5':
+        return '#b3d9ff'
+    else:
+        return '#ffad99'
+
+G.add_edge('4','5')
 
 for nodes, ax in zip(nodes_list, axes.ravel()):
-    nx.draw_networkx(G,pos=pos,node_size=350, width=0.5,ax=ax,font_size=15,node_color='w')
-    ax.set_title(f"""Attribute assortativity coefficient: {nx.attribute_assortativity_coefficient(G, 'cluster',nodes=nodes):.3}\nNumeric assortativity coefficient: {nx.numeric_assortativity_coefficient(G, 'num_prop',nodes=nodes):.3}\nNodes = {nodes}""",size=15)
-    G.add_edge('3','4')
+    cr = nx.attribute_assortativity_coefficient(G, 'cluster',nodes=nodes)
+    nr = nx.numeric_assortativity_coefficient(G, 'num_prop',nodes=nodes)
+    ax.set_title(f"Attribute assortativity coefficient: {cr:.3}\nNumeric assortativity coefficient: {nr:.3}\nNodes = {nodes}",size=15)
+
+    if nodes is None:
+        nodes = [u for u in G.nodes()]
+    node_colors = [ color_node(u, nodes) for u in G.nodes ]
+    nx.draw_networkx_nodes(G,pos=pos, node_size=450,ax=ax,node_color = node_colors)
+    nx.draw_networkx_labels(G,pos,labels={u:u for u in G.nodes},font_size=15,ax=ax)
+    nx.draw_networkx_edges(G,pos=pos,edgelist=[ (u,v) for u,v in G.edges if u in nodes ],ax=ax,edge_color='0.3')
 fig.tight_layout()
 ```
 
-## Degree Assortativity Coefficients
+In the above plots only the nodes which are considred are colored and rest are grayed out and only the edges which are considerd in the assortaivty calculation are drawn.
 
-```{code-cell} ipython3
-G = nx.read_graphml("data/base_degree.graphml")
-with open("data/pos_degree", 'rb') as fp:
-    pos = pickle.load(fp)
-```
-
-```{code-cell} ipython3
-g = copy.deepcopy(G)
-edge_list = list(nx.complement(g).edges())
-random.shuffle(edge_list)
-
-edge_incriments = [0,27,47,87,167,248]
-fig, axes = plt.subplots(3, 2, figsize=(20, 20))
-edge_count = []
-r_in_in_list, r_in_out_list,r_out_in_list,r_out_out_list = [], [], [], []
-for ei, ax in zip(edge_incriments,axes.ravel()):
-    add_new_edges(ei)
-    nx.draw(g, pos=pos, ax=ax, node_size=10, width=0.5)
-
-    r_in_in = nx.degree_assortativity_coefficient(g,x='in',y='in')
-    r_in_out = nx.degree_assortativity_coefficient(g,x='in',y='out')
-    r_out_in = nx.degree_assortativity_coefficient(g,x='out',y='in')
-    r_out_out = nx.degree_assortativity_coefficient(g,x='out',y='out')
-
-    ax.set_title(f"r(in,in) = {r_in_in:.3}    r(in,out) = {r_in_out:.3}\nr(out,in) = {r_out_in:.3}    r(out,out) = {r_out_out:.3}", size=15)
-    edge_count.append(g.number_of_edges())
-    r_in_in_list.append(r_in_in)
-    r_in_out_list.append(r_in_out)
-    r_out_in_list.append(r_out_in)
-    r_out_out_list.append(r_out_out)
-fig.tight_layout()
-```
-
-```{code-cell} ipython3
-plt.figure(figsize=(16,8))
-plt.plot(edge_count,r_in_in_list,'bo--',label="r(in,in) degree assortativity coefficient",markersize=10)
-plt.plot(edge_count,r_in_out_list,'go--',label="r(in,out) degree assortativity coefficient",markersize=10)
-plt.plot(edge_count,r_out_in_list,'yo--',label="r(out,in) degree assortativity coefficient",markersize=10)
-plt.plot(edge_count,r_out_out_list,'ro--',label="r(out,out) degree assortativity coefficient",markersize=10)
-plt.xlabel("Number of edges",fontsize=14)
-plt.ylabel("Degree assortativity measure",fontsize=14)
-plt.legend(fontsize=12)
-plt.show()
-```
-
-```{code-cell} ipython3
-g = copy.deepcopy(G)
-edge_list = list(nx.complement(g).edges())
-random.shuffle(edge_list)
-add_new_edges(5)
-
-
-weight_list = [None,'weight']
-labels_list = [{str(i):str(i) for i in range(G.number_of_nodes())},nx.get_node_attributes(G,'weight')]
-fig, axes = plt.subplots(1, 2, figsize=(20, 10))
-
-for w, l, ax in zip(weight_list, labels_list, axes.ravel()):
-    nx.draw(g, pos=pos, ax=ax, node_size=350, width=0.5,with_labels = True, labels=l,font_size=15,node_color='w')
-
-    r_in_in = nx.degree_assortativity_coefficient(g,x='in',y='in',weight=w)
-    r_in_out = nx.degree_assortativity_coefficient(g,x='in',y='out',weight=w)
-    r_out_in = nx.degree_assortativity_coefficient(g,x='out',y='in',weight=w)
-    r_out_out = nx.degree_assortativity_coefficient(g,x='out',y='out',weight=w)
-
-    ax.set_title(f"r(in,in) = {r_in_in:.3}    r(in,out) = {r_in_out:.3}\nr(out,in) = {r_out_in:.3}    r(out,out) = {r_out_out:.3}", size=15)
-
-fig.tight_layout()
-```
++++
 
 [^1] M. E. J. Newman, Mixing patterns in networks https://doi.org/10.1103/PhysRevE.67.026126
 
