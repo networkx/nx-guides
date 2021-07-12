@@ -31,14 +31,14 @@ Specifically, we'll focus on assortativity measures available in NetworkX at [al
 * Numeric assortativity
 * Degree assortativity
 
-as well as mixing matrices, which are closely releated to assortativity measures
+as well as mixing matrices, which are closely releated to assortativity measures.
 
 ## Assortativity
 
 Assortativity in a network refers to the tendency of nodes to connect with
 other 'similar' nodes over 'dissimilar' nodes.
 
-Here we say that two nodes are 'similar' wrt a property if they have the same value of that property. Properties can be any structural properties like the degree of a node to other properties like weight, capacity of a node.
+Here we say that two nodes are 'similar' with respect to a property if they have the same value of that property. Properties can be any structural properties like the degree of a node to other properties like weight, or capacity.
 
 Based on these properties we can have a different measure of assortativity for the network.
 On the other hand, we can also have disassortativity, in which case nodes tend
@@ -46,29 +46,30 @@ to connect to dissimilar nodes over similar nodes.
 
 ### Assortativity coefficients
 
-Let's say we have a network $N$, $N = (V, E)$  where $V$ is the set of nodes in the network and $E$ is the set of edges/directed edges in the network and a property $P(v)$ for each node $v$. 
+Let's say we have a network $N$, $N = (V, E)$  where $V$ is the set of nodes in the network and $E$ is the set of edges/directed edges in the network.
+In addition, $P(v)$ represents a property for each node $v$.
 
 #### Mixing matrix
 
-Let the property $Property(v)$ take $P[0],P[1],...P[k-1]$ distinct values on the network, 
-then Mixing matrix is matrix $M$ such that $M[i][j]=$ number of edges from
+Let the property $P(v)$ take $P[0],P[1],...P[k-1]$ distinct values on the network,
+then the **mixing matrix** is matrix $M$ such that $M[i][j]$ represents the number of edges from
 nodes with property $P[i]$ to $P[j]$.
 We can normalize mixing matrix by diving by total number of ordered edges i.e.
 $ e = \frac{M}{|E|}$.
 
 Now define,
 
-$a[i]=$ proportion of edges $(u,v)$ such that $Property(u)=P[i]$
+$a[i]=$ proportion of edges $(u,v)$ such that $P(u)=P[i]$
 
 $$ a[i] = \sum\limits_{j}e[i][j] $$
 
-$b[i]=$ proportion of edges $(u,v)$ such that $Property(v)=P[i]$
+$b[i]=$ proportion of edges $(u,v)$ such that $P(v)=P[i]$
 
 $$ b[i] = \sum\limits_{j}e[j][i]$$
 
-in python code it would look something like `a = e.sum(axis=0)` and `b = e.sum(axis=1)`
+in Python code it would look something like `a = e.sum(axis=0)` and `b = e.sum(axis=1)`
 
-$\sigma_a$ and $\sigma_b$ as standard deviation of
+Finally, let $\sigma_a$ and $\sigma_b$ represent the standard deviation of
 $\{\ P[i]\cdot a[i]\ |\ i \in 0...k-1\}$ and $\{ P[i]\cdot b[i]\ |\ i \in 0...k-1\}$
 respectively.
 
@@ -77,57 +78,59 @@ Pearson correlation coefficient.
 
 #### Attribute Assortativity Coefficient
 
-Here the property $Property(v)$ is a nominal property assigned to each node.
+Here the property $P(v)$ is a nominal property assigned to each node.
 As defined above we calculate the normalized mixing matrix $e$ and from that we
 define the attribute assortativity coefficient [^1] as below.
 
-Here onwards we will use subscript notation to denote indexing, for eg. $P_i = P[i]$ and $e_{ij} = e[i][j]$
+From here onwards we will use subscript notation to denote indexing, for eg. $P_i = P[i]$ and $e_{ij} = e[i][j]$
 
 $$ r = \frac{\sum\limits_{i}e_{ii} - \sum\limits_{i}a_{i}b_{i}}{1-\sum\limits_{i}a_{i}b_{i}} = \frac{Trace(e) - ||e^2||}{1-||e^2||}$$
 
-It is implimented as `attribute_assortativity_coefficient`.
+It is implemented as `attribute_assortativity_coefficient`.
 
 #### Numeric Assortativity Coefficient
 
-Here the property $Property(v)$ is a numerical property assigned to each
-node and the defination of the normalized mixing
+Here the property $P(v)$ is a numerical property assigned to each
+node and the definition of the normalized mixing
 matrix $e$, $\sigma_a$, and $\sigma_b$ are same as above.
 From these we define numeric assortativity coefficient [^1] as below.
 
 $$ r = \frac{\sum\limits_{i,j}P_i P_j(e_{ij} -a_i b_j)}{\sigma_a\sigma_b} $$
 
-It is implimented as `numeric_assortativity_coefficient`.
+It is implemented as `numeric_assortativity_coefficient`.
 
 #### Degree Assortativity Coefficient
 
 When it comes to measuring degree assortativity for directed networks we have
 more options compared to assortativity w.r.t a property because we have 2 types
-of degrees, namely in-degree & out-degree.
+of degrees, namely in-degree and out-degree.
 Based on the 2 types of degrees we can measure $2 \times 2 =4$ different types
-of assortativity [^2].
+of degree assortativity [^2]:
 
-    1. r(in,in) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = in-degree(v).
-    2. r(in,out) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = out-degree(v).
-    3. r(out,in) : Measures tendency of having a directed edge (u,v) such that, out-degree(u) = in-degree(v).
-    4. r(out,out) : Measures tendency of having a directed edge (u,v) such that, out-degree(u) = out-degree(v).
+1. r(in,in) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = in-degree(v).
+2. r(in,out) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = out-degree(v).
+3. r(out,in) : Measures tendency of having a directed edge (u,v) such that, out-degree(u) = in-degree(v).
+4. r(out,out) : Measures tendency of having a directed edge (u,v) such that, out-degree(u) = out-degree(v).
 
 Note: If the network is undirected all the 4 types of degree assortativity are the same.
 
 To define the degree assortativity coefficient for all 4 types we need slight
-modification in the defination of $P[i]$ and $e$, and the definations of
-$\sigma_a$ and $\sigma_b$ remains the same.
+modification in the definition of $P[i]$ and $e$, and the definations of
+$\sigma_a$ and $\sigma_b$ remain the same.
 
-Let $x,y \in \{in,out\}$, the property $Property(\cdot)$ takes distinct values from
-union of the values taken by x-degree$(\cdot)$ and y-degree$(\cdot)$,
-and $e_{i,j}$ is the proportion of directed edges $(u,v)$ with x-degree$(u) = P_i$
-and y-degree$(v) = P_j$.
+Let $x,y \in \{in,out\}$. The property $P(\cdot)$ takes distinct values from
+the union of the values taken by $x$-degree$(\cdot)$ and $y$-degree$(\cdot)$,
+and $e_{i,j}$ is the proportion of directed edges $(u,v)$ with $x$-degree$(u) = P_i$
+and $y$-degree$(v) = P_j$.
 
 $$ r(x,y) = \frac{\sum\limits_{i,j}P_i P_j(e_{ij} -a_i b_j)}{\sigma_a\sigma_b} $$
 
-It is implimented as `degree_assortativity_coefficient` and
-`degree_pearson_correlation_coefficient`, latter one uses
+It is implemented as `degree_assortativity_coefficient` and
+`degree_pearson_correlation_coefficient`. The latter function uses
 `scipy.stats.pearsonr` to calculate the assortativity coefficient which makes
 it potentally faster.
+
+## Example
 
 ```{code-cell} ipython3
 %matplotlib inline
@@ -138,13 +141,11 @@ import copy
 import random
 ```
 
-## Example
-
 Illustrating how value of assortativity changes
 
 ```{code-cell} ipython3
 gname = "g2"
-# loading the graph 
+# loading the graph
 G = nx.read_graphml(f"data/{gname}.graphml")
 with open(f"data/pos_{gname}", "rb") as fp:
     pos = pickle.load(fp)
@@ -180,24 +181,24 @@ fig.tight_layout()
 ```
 
 Nodes are colored by the `cluster` property and labeled by `num_prop` property.
-We can observe that the initial network on left side is completely assortative
-and its compliment on right side is completely disassortative.
+We can observe that the initial network on the left side is completely assortative
+and its complement on right side is completely disassortative.
 As we add edges between nodes of different (similar) attributes in the assortative
 (disassortative) network, the network tends to a non-assortative network and
-value of both the assortaivity coefficients tends to $0$.
+value of both the assortaitvity coefficients tends to $0$.
 
 +++
 
 The parameter `nodes` in `attribute_assortativity_coefficient` and
-`numeric_assortativity_coefficient` specifies the nodes who's edges are to be
+`numeric_assortativity_coefficient` specifies the nodes whose edges are to be
 considered in the mixing matrix calculation.
 That is to say, if $(u,v)$ is a directed edge then the edge $(u,v)$ will be
-used in mixing matrix calculation if $u$ is in `nodes` and for undirected case
-its considered if atleast one of the $u,v$ in in `nodes`.
+used in mixing matrix calculation if $u$ is in `nodes`.
+For the undirected case, it's considered if atleast one of the $u,v$ in in `nodes`.
 
-Whereas the parameter `nodes` in `degree_assortativity_coefficient` and
-`degree_pearson_correlation_coefficient` specifies the nodes whose subgraph's
-edges are considered in the mixing matrix calculation.
+The `nodes` parameter is interpreted differently in `degree_assortativity_coefficient` and
+`degree_pearson_correlation_coefficient`, where it specifies the nodes forming a subgraph
+whose edges are considered in the mixing matrix calculation.
 
 ```{code-cell} ipython3
 # list of nodes to consider for the i'th network in the example
@@ -251,7 +252,7 @@ for nodes, ax in zip(nodes_list, axes.ravel()):
 fig.tight_layout()
 ```
 
-In the above plots only the nodes which are considred are colored and rest are
+In the above plots only the nodes which are considered are colored and rest are
 grayed out and only the edges which are considerd in the assortaivty calculation
 are drawn.
 
