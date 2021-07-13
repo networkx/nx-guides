@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d0" for="edge" attr.name="capacity" attr.type="long" />
+  <graph edgedefault="directed">
+    <node id="s" />
+    <node id="t" />
+    <node id="a" />
+    <node id="b" />
+    <node id="c" />
+    <node id="d" />
+    <node id="e" />
+    <node id="f" />
+    <node id="g" />
+    <node id="h" />
+    <node id="i" />
+    <node id="j" />
+    <node id="k" />
+    <node id="l" />
+    <node id="m" />
+    <node id="n" />
+    <edge source="s" target="a">
+      <data key="d0">20</data>
+    </edge>
+    <edge source="s" target="b">
+      <data key="d0">30</data>
+    </edge>
+    <edge source="s" target="c">
+      <data key="d0">10</data>
+    </edge>
+    <edge source="s" target="d">
+      <data key="d0">15</data>
+    </edge>
+    <edge source="a" target="e">
+      <data key="d0">25</data>
+    </edge>
+    <edge source="a" target="b">
+      <data key="d0">30</data>
+    </edge>
+    <edge source="a" target="h">
+      <data key="d0">45</data>
+    </edge>
+    <edge source="b" target="f">
+      <data key="d0">10</data>
+    </edge>
+    <edge source="c" target="b">
+      <data key="d0">45</data>
+    </edge>
+    <edge source="c" target="f">
+      <data key="d0">40</data>
+    </edge>
+    <edge source="c" target="g">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="d" target="g">
+      <data key="d0">10</data>
+    </edge>
+    <edge source="d" target="k">
+      <data key="d0">35</data>
+    </edge>
+    <edge source="e" target="f">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="e" target="i">
+      <data key="d0">30</data>
+    </edge>
+    <edge source="f" target="j">
+      <data key="d0">10</data>
+    </edge>
+    <edge source="f" target="k">
+      <data key="d0">15</data>
+    </edge>
+    <edge source="f" target="m">
+      <data key="d0">15</data>
+    </edge>
+    <edge source="g" target="k">
+      <data key="d0">25</data>
+    </edge>
+    <edge source="h" target="l">
+      <data key="d0">25</data>
+    </edge>
+    <edge source="i" target="l">
+      <data key="d0">45</data>
+    </edge>
+    <edge source="i" target="t">
+      <data key="d0">15</data>
+    </edge>
+    <edge source="i" target="m">
+      <data key="d0">10</data>
+    </edge>
+    <edge source="j" target="m">
+      <data key="d0">25</data>
+    </edge>
+    <edge source="j" target="n">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="k" target="n">
+      <data key="d0">20</data>
+    </edge>
+    <edge source="l" target="t">
+      <data key="d0">20</data>
+    </edge>
+    <edge source="m" target="t">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="n" target="t">
+      <data key="d0">25</data>
+    </edge>
+    <edge source="n" target="m">
+      <data key="d0">20</data>
+    </edge>
+  </graph>
+</graphml>
