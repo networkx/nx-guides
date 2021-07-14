@@ -24,38 +24,38 @@ language_info:
 
 # Tutorial: Dinitz's algorithm and its applications
 
-In this tutorial, we will introduce [Maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)
- and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm) [^1], which is implimented at
- [algorithms/flow/dinitz_alg.py](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py) 
- in NetworkX. We will also see how it can be used to solve some interesting problems.
+In this tutorial, we will introduce [Maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem) 
+and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm) [^1], which is implimented at 
+[algorithms/flow/dinitz_alg.py](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py) 
+in NetworkX. We will also see how it can be used to solve some interesting problems.
 
 ## Maximum flow problem
 
 ### Motivation
-Let's say you want to send your friend some data as soon as possible, but the only way
- of communication/sending data between you two is through a peer-to-peer network. An 
- interesting thing about this peer-to-peer network is that it allows you to send data 
- along the paths you specify with certain limits on the sizes of data per second that 
- you can send between a pair of nodes in this network.
+Let's say you want to send your friend some data as soon as possible, but the only way 
+of communication/sending data between you two is through a peer-to-peer network. An 
+interesting thing about this peer-to-peer network is that it allows you to send data 
+along the paths you specify with certain limits on the sizes of data per second that 
+you can send between a pair of nodes in this network.
 
 ![image with you & friend and network of computer](images/intro.png)
 
-So how shall you plan the paths of the data packets to send them in the least amount
- of time?
+So how shall you plan the paths of the data packets to send them in the least amount 
+of time?
 
 Note that here we can divide the data into small data packets and send it across the 
-network and the receiver will be able to rearrange the data packets to reconstruct
- the original data.
+network and the receiver will be able to rearrange the data packets to reconstruct 
+the original data.
 
 ### Formalization
 So how can we model this problem in terms of graphs?
 
 Let's say $N=(V, E)$ represents this peer-to-peer network with $V$ as the set of nodes 
-where nodes are computers and $E$ as the set of edges where edge $uv \in E$ if there is
- a connection from node $u$ to node $v$ across which we can send data. There are also 
- 2 special nodes first one is the one on which you are there, call it $s$ & the second 
- being the one with your friend call it $t$. We also name them ***source*** and ***sink*** 
- nodes respectively.
+where nodes are computers and $E$ as the set of edges where edge $uv \in E$ if there is 
+a connection from node $u$ to node $v$ across which we can send data. There are also  
+2 special nodes first one is the one on which you are there, call it $s$ & the second 
+being the one with your friend call it $t$. We also name them ***source*** and ***sink*** 
+nodes respectively.
 
 ![image: network this time only graph nodes and edges, s&t marked you&friend near them](images/modeled-as-network.png)
 
@@ -65,21 +65,21 @@ you can send from node $u$ to node $v$ is $c_{uv}$, lets call this as capacity o
 ![image: network with capacities too, s&t marked you&friend removed](images/modeled-as-network-caps.png)
 
 So before go ahead and plan the paths on which we will be sending the data packets, 
-we need some way to represent or plan on the network. Observe that any plan will have
- to take up some capacity of the edges, so we can represent the plan by the values of 
- the capacity taken by it for each edge in E, let's call the plan as **flow**.Formally, 
- we can define flow as $f: E \to \mathbb{R}$ i.e. a mapping from edges $E$ to real numbers 
- denoting that we are sending data at rate $f(uv)$ through edge $uv\in E$.
+we need some way to represent or plan on the network. Observe that any plan will have 
+to take up some capacity of the edges, so we can represent the plan by the values of 
+the capacity taken by it for each edge in E, let's call the plan as **flow**.Formally, 
+we can define flow as $f: E \to \mathbb{R}$ i.e. a mapping from edges $E$ to real numbers 
+denoting that we are sending data at rate $f(uv)$ through edge $uv\in E$.
 
 Note that for this plan to be a valid plan it must satisfy the following constraints
 * **Capacity constraint:**
-    The data rate at which we are sending data from any node doesn't exceed its capacity,
-     formally $f_{uv} \le c_{uv}$
+    The data rate at which we are sending data from any node doesn't exceed its 
+    capacity, formally $f_{uv} \le c_{uv}$
 * **Conservation of flow:**
     Rate at which data is sent to a node is same as the rate at which the node is sending 
     data to other nodes, except for the source $s$ and sink $t$ nodes. Formally 
     $\sum\limits_{u|(u,v) \in E}f_{u,v} = \sum\limits_{w|(v,w) \in E}f_{v,w} $ for
-     $v\in V\backslash \{s,t\}$
+    $v\in V\backslash \{s,t\}$
 
 example of valid flow:
 ![Valid Flow](images/valid-flow.png)
@@ -93,10 +93,10 @@ conservation of flow
 *So if we use this plan/flow to send data then at what rate will we be sending the data to friend?*
 
 To answer it we need to observe that any data that the sink node $t$ will receive will be 
-from its neighbors so if we sum over the data rates from plan/flow from those neighbors to
- the sink node we shall get the total data rate at which $t$ will be receiving the data. 
- Formally we can say that the **value of the flow** is $|f|=\sum\limits_{u|(u,t) \in E}f_{u,t}$.
-  Also note that since flow is conservative $|f|$ would also be equal to $\sum\limits_{u|(s,u) \in E}f_{s,u}$.
+from its neighbors so if we sum over the data rates from plan/flow from those neighbors to 
+the sink node we shall get the total data rate at which $t$ will be receiving the data. 
+Formally we can say that the **value of the flow** is $|f|=\sum\limits_{u|(u,t) \in E}f_{u,t}$. 
+Also note that since flow is conservative $|f|$ would also be equal to $\sum\limits_{u|(s,u) \in E}f_{s,u}$.
 
 Remember our goal was to maximize the rate at which the data is being sent to our friend, 
 which is the same as maximizing the flow value $|f|$.
@@ -121,19 +121,19 @@ This is the residual network for the flow shown above:
 ### Level Network
 
 The level network is a subgraph of the residual network which we get when we apply 
-[BFS](https://en.wikipedia.org/wiki/Breadth-first_search) from source node $s$ to divide
- the nodes into levels and only consider the edges to be in the level network $L$ which
-  connect nodes of 2 different levels.
+[BFS](https://en.wikipedia.org/wiki/Breadth-first_search) from source node $s$ to divide 
+the nodes into levels and only consider the edges to be in the level network $L$ which 
+connect nodes of 2 different levels.
 
 ![image: level network](images/algo-eg-level.png)
 
-Note that if sink node $t$ is not reachable from the source node $s$ that means that no
- more flow can be pushed through the residual network.
+Note that if sink node $t$ is not reachable from the source node $s$ that means that no 
+more flow can be pushed through the residual network.
 
 ### Augmenting Path & Flow
 
-An augmenting path $P$ is a path from source node $s$ to sink node $t$ such that all
- the edges on the path have positive residual capacity i.e. $g_{uv}>0$ for $uv \in P$
+An augmenting path $P$ is a path from source node $s$ to sink node $t$ such that all 
+the edges on the path have positive residual capacity i.e. $g_{uv}>0$ for $uv \in P$
 
 and augmenting flow $\alpha$ for that path $P$ is the minimum value of the residual 
 flow across all the edges of $P$. i.e. $\alpha = min\{g_{uv}, uv \in P\}$.
@@ -222,8 +222,6 @@ fig.tight_layout()
 
 Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value
 
-+++
-
 ## Reductions and Applications
 
 There are many other problems which can be reduced to Maximum flow problem for eg.
@@ -234,26 +232,24 @@ There are many other problems which can be reduced to Maximum flow problem for e
 and many others
 
 Note that even though dinitz works in $O(n^2m)$ strongly polynomial time, i.e. to say it 
-doesn't depend on the value of flow. It is noteworthy that its performance of biparted
- graphs is especially fast being $O(\sqrt n m)$ time, where $n = |V|$ & $m = |E|$.
+doesn't depend on the value of flow. It is noteworthy that its performance of biparted 
+graphs is especially fast being $O(\sqrt n m)$ time, where $n = |V|$ & $m = |E|$.
 
-Lets consider the example of shipping packages from warehouse to customers through some
- intermediate shipping points, and we can only ship limited number of packages through 
- an intermediate shipping point in a day.
+Lets consider the example of shipping packages from warehouse to customers through some 
+intermediate shipping points, and we can only ship limited number of packages through 
+an intermediate shipping point in a day.
 
-So how to assign intermediate shipping point to customer so that maximum number of
- packages are shipped in a day?
+So how to assign intermediate shipping point to customer so that maximum number of 
+packages are shipped in a day?
 
 ![image:shipping problem eg](images/shipping-problem.png)
 
-+++
+Number below each intermediate shipping point is the maximum number of shipping that 
+it can do in a day, and if edge connects an intermdiate shipping point and a customer 
+only then we can send the package from that shipping point to that customer.
 
-Number below each intermediate shipping point is the maximum number of shipping that
- it can do in a day, and if edge connects an intermdiate shipping point and a customer 
- only then we can send the package from that shipping point to that customer.
-
-Note that the wharehouse node is named as $W$, intermediate shipping points as
- $lw1, lw2, lw3$, and customers as $c1,c2...c20$.
+Note that the wharehouse node is named as $W$, intermediate shipping points as 
+$lw1, lw2, lw3$, and customers as $c1,c2...c20$.
 
 ```{code-cell} ipython3
 gname = "shipping-graph"
@@ -278,12 +274,12 @@ plt.show()
 {u: B.nodes[u] for u in ["lw1", "lw2", "lw3"]}
 ```
 
-Lets add a pseudo node as $T$ for denoting sink node and add edges from
- $ci \to T$, $i\in\{1,2,...,20\}$. Note that shipping any more than the maximum
-  number of packages that any of $lwi$, $i\in\{1,2,3\}$ can ship on that day is useless. 
-  So we can transfer that maximum number of shipping to a maximum capacity of the 
-  edges $W\to lwi$, $i\in\{1,2,3\}$ and for all other edges, we can assign its capacity 
-  as 1 we only need to do one shipment per customer.
+Lets add a pseudo node as $T$ for denoting sink node and add edges from 
+$ci \to T$, $i\in\{1,2,...,20\}$. Note that shipping any more than the maximum 
+number of packages that any of $lwi$, $i\in\{1,2,3\}$ can ship on that day is useless. 
+So we can transfer that maximum number of shipping to a maximum capacity of the 
+edges $W\to lwi$, $i\in\{1,2,3\}$ and for all other edges, we can assign its capacity 
+as 1 we only need to do one shipment per customer.
 
 Note: We have already assigned the position to node $T$ in `pos` which was loaded earlier.
 
@@ -303,8 +299,6 @@ for u, v in B.edges:
 ```
 
 ```{code-cell} ipython3
-plt.figure(figsize=(20, 10))
-
 # assign colors and labels to nodes based on their type
 color_map = {"W": "skyblue", "T": "skyblue"}
 node_colors = [color_map[u] if u in color_map.keys() else "0.8" for u in B.nodes]
@@ -317,6 +311,7 @@ R = nx.flow.dinitz(B, s="W", t="T", capacity="capacity")
 edge_colors = ["0.8" if R[u][v]["flow"] == 0 else "0" for u, v in B.edges]
 
 # drawing the network
+plt.figure(figsize=(20, 10))
 nx.draw_networkx_nodes(B, pos=pos, node_size=400, node_color=node_colors)
 nx.draw_networkx_labels(B, pos=pos, labels=node_labels, font_size=8)
 nx.draw_networkx_edges(B, pos=pos, edge_color=edge_colors)
@@ -325,13 +320,13 @@ plt.axis("off")
 plt.show()
 ```
 
-Above we can see a matching of intermediate shipping points and customers which
- gives the maximum shipping in a day
+Above we can see a matching of intermediate shipping points and customers which 
+gives the maximum shipping in a day
 
 +++
 
 # References
 
-[^1]: Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz.
- In Theoretical Computer Science. Lecture Notes in Computer Science.
-  Volume 3895. pp 218-240. <https://doi.org/10.1007/11685654_10>
+[^1]: Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz. 
+In Theoretical Computer Science. Lecture Notes in Computer Science. 
+Volume 3895. pp 218-240. <https://doi.org/10.1007/11685654_10>
