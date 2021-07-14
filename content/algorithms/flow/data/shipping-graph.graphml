@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d0" for="node" attr.name="maximum shippings" attr.type="long" />
+  <graph edgedefault="directed">
+    <node id="W" />
+    <node id="lw1">
+      <data key="d0">8</data>
+    </node>
+    <node id="lw2">
+      <data key="d0">5</data>
+    </node>
+    <node id="lw3">
+      <data key="d0">6</data>
+    </node>
+    <node id="c1" />
+    <node id="c2" />
+    <node id="c3" />
+    <node id="c4" />
+    <node id="c5" />
+    <node id="c6" />
+    <node id="c7" />
+    <node id="c8" />
+    <node id="c9" />
+    <node id="c10" />
+    <node id="c11" />
+    <node id="c12" />
+    <node id="c13" />
+    <node id="c14" />
+    <node id="c15" />
+    <node id="c16" />
+    <node id="c17" />
+    <node id="c18" />
+    <node id="c19" />
+    <node id="c20" />
+    <edge source="W" target="lw1" />
+    <edge source="W" target="lw2" />
+    <edge source="W" target="lw3" />
+    <edge source="lw1" target="c1" />
+    <edge source="lw1" target="c2" />
+    <edge source="lw1" target="c3" />
+    <edge source="lw1" target="c4" />
+    <edge source="lw1" target="c6" />
+    <edge source="lw1" target="c7" />
+    <edge source="lw1" target="c10" />
+    <edge source="lw1" target="c11" />
+    <edge source="lw1" target="c12" />
+    <edge source="lw1" target="c13" />
+    <edge source="lw1" target="c14" />
+    <edge source="lw1" target="c15" />
+    <edge source="lw1" target="c16" />
+    <edge source="lw1" target="c17" />
+    <edge source="lw1" target="c18" />
+    <edge source="lw1" target="c19" />
+    <edge source="lw1" target="c20" />
+    <edge source="lw2" target="c1" />
+    <edge source="lw2" target="c2" />
+    <edge source="lw2" target="c6" />
+    <edge source="lw2" target="c7" />
+    <edge source="lw2" target="c8" />
+    <edge source="lw2" target="c9" />
+    <edge source="lw2" target="c10" />
+    <edge source="lw2" target="c11" />
+    <edge source="lw2" target="c12" />
+    <edge source="lw2" target="c14" />
+    <edge source="lw2" target="c15" />
+    <edge source="lw2" target="c16" />
+    <edge source="lw2" target="c17" />
+    <edge source="lw2" target="c18" />
+    <edge source="lw2" target="c19" />
+    <edge source="lw2" target="c20" />
+    <edge source="lw3" target="c1" />
+    <edge source="lw3" target="c2" />
+    <edge source="lw3" target="c4" />
+    <edge source="lw3" target="c5" />
+    <edge source="lw3" target="c6" />
+    <edge source="lw3" target="c7" />
+    <edge source="lw3" target="c8" />
+    <edge source="lw3" target="c10" />
+    <edge source="lw3" target="c11" />
+    <edge source="lw3" target="c12" />
+    <edge source="lw3" target="c14" />
+    <edge source="lw3" target="c15" />
+    <edge source="lw3" target="c16" />
+    <edge source="lw3" target="c17" />
+    <edge source="lw3" target="c18" />
+    <edge source="lw3" target="c19" />
+    <edge source="lw3" target="c20" />
+  </graph>
+</graphml>

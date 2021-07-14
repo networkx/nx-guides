@@ -22,11 +22,6 @@ language_info:
   version: 3.8.5
 ---
 
-- [ ] find good example of biparted matching and apply algorithm on it and plot the maxflow - code + graphs
-- [ ] refine the wording
-
-+++
-
 # Tutorial: Dinitz's algorithm and its applications
 
 In this tutorial, we will introduce [Maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem) and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm) [^1], which is implimented at [algorithms/flow/dinitz_alg.py](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py) in NetworkX. We will also see how it can be used to solve some interesting problems.
@@ -84,13 +79,17 @@ Before understanding how Dinitz's algorithm works and its steps let's define som
 #### Residual Capacity & Graph
 If we send $f_{uv}$ flow through edge $uv$ with capacity $c_{uv}$, then we define residual capacity by $g_{uv}=c_{uv}-f_{uv}$ and residual network by $N'$ which only considers the edges of $N$ if they have non-zero residual capacity.
 
-![image: residual capacity and graph]()
+example flow:
+![image: residual capacity and graph](images/algo-eg-flow.png)
+
+This is the residual network for the flow shown above:
+![image: residual capacity and graph](images/algo-eg-residual.png)
 
 #### Level Network
 
 The level network is a subgraph of the residual network which we get when we apply [BFS](https://en.wikipedia.org/wiki/Breadth-first_search) from source node $s$ to divide the nodes into levels and only consider the edges to be in the level network $L$ which connect nodes of 2 different levels.
 
-![image: level network]()
+![image: level network](images/algo-eg-level.png)
 
 Note that if sink node $t$ is not reachable from the source node $s$ that means that no more flow can be pushed through the residual network.
 
@@ -104,7 +103,14 @@ And by augmenting the flow along path $P$ we mean that reduce the residual capac
 
 We find augmenting paths by applying [DFS](https://en.wikipedia.org/wiki/Depth-first_search) on the Level network $L$.
 
-![image: augmenting path and its flow value]()
+Augmenting path:
+![image: augmenting path and its flow value](images/algo-eg-augmenting-path-before.png)
+
+Augmenting path after augmenting:
+![image: augmenting path and its flow value](images/algo-eg-augmenting-path-after.png)
+
+Resulting new residual Network:
+![image: augmenting path and its flow value](images/algo-eg-new-residual.png)
 
 #### Algorithm
 
@@ -113,15 +119,13 @@ We find augmenting paths by applying [DFS](https://en.wikipedia.org/wiki/Depth-f
 3. Find level network $L$ using BFS, if $t$ not there is a level network then break and output the flow
 4. Find augmenting path $P$ in level network $L$
 5. Augment the flow along the edges of path $P$ which will give a new residual network
-6. Repeat from point 3 with new residual network
+6. Repeat from point 3 with new residual network $N'$
 
 ```{code-cell} ipython3
 %matplotlib inline
 import networkx as nx
 import matplotlib.pyplot as plt
 import pickle
-import copy
-import random
 ```
 
 ```{code-cell} ipython3
@@ -136,7 +140,7 @@ with open(f"data/pos_{gname}", "rb") as fp:
 fig, axes = plt.subplots(4, 2, figsize=(20, 30))
 
 # assign colors and labels to nodes based on their type
-color_map = {'t':'lightgreen','s':'salmon'}
+color_map = {'t':'skyblue','s':'skyblue'}
 node_colors = [ color_map[u] if u in color_map.keys() else '0.8'  for u in G.nodes]
 node_labels = {u:u for u in G.nodes}
 cutoff_list = [5,10,15,20,25,30,35,40]
@@ -160,6 +164,10 @@ for i in range(8):
 fig.tight_layout()
 ```
 
+Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value
+
++++
+
 ## Reductions and Applications
 
 There are many other problems which can be reduced to Maximum flow problem for eg.
@@ -169,13 +177,87 @@ There are many other problems which can be reduced to Maximum flow problem for e
 
 and many others
 
-Lets see how we can reduce the Maximum Biparted Matching to Maximum Flow Problem and retrieve the solution of Maximum Biparted Matching from solution of Maximum Flow Problem.
-
 Note that even though dinitz works in $O(n^2m)$ strongly polynomial time, i.e. to say it doesn't depend on the value of flow. It is noteworthy that its performance of biparted graphs is especially fast being $O(\sqrt n m)$ time, where $n = |V|$ & $m = |E|$.
 
-```{code-cell} ipython3
+Lets consider the example of shipping packages from warehouse to customers through some intermediate shipping points, and we can only ship limited number of packages through an intermediate shipping point in a day. 
 
+So how to assign intermediate shipping point to customer so that maximum number of packages are shipped in a day?
+
+![image:shipping problem eg](images/shipping-problem.png)
+
++++
+
+Number below each intermediate shipping point is the maximum number of shipping that it can do in a day, and if edge connects an intermdiate shipping point and a customer only then we can send the package from that shipping point to that customer.
+
+Note that the wharehouse node is named as $W$, intermediate shipping points as $lw1, lw2, lw3$, and customers as $c1,c2...c20$.
+
+```{code-cell} ipython3
+gname = "shipping-graph"
+# loading the graph
+B = nx.read_graphml(f"data/{gname}.graphml")
+with open(f"data/pos_{gname}", "rb") as fp:
+    pos = pickle.load(fp)
 ```
 
+```{code-cell} ipython3
+# drawing the loaded graph
+node_colors=['skyblue' if u == 'W' else '0.8' for u in B.nodes]
+plt.figure(figsize=(20,10))
+nx.draw(B,pos=pos,node_color=node_colors, with_labels = True,arrowsize=10,node_size=800)
+plt.show()
+```
+
+```{code-cell} ipython3
+# maximum shipping capacities
+{ u: B.nodes[u] for u in ['lw1','lw2','lw3']}
+```
+
+Lets add a pseudo node as $T$ for denoting sink node and add edges from $ci \to T$, $i\in\{1,2,...,20\}$. Note that shipping any more than the maximum number of packages that any of $lwi$, $i\in\{1,2,3\}$ can ship on that day is useless.  So we can transfer that maximum number of shipping to a maximum capacity of the edges $W\to lwi$, $i\in\{1,2,3\}$ and for all other edges, we can assign its capacity as 1 we only need to do one shipment per customer.
+
+Note: We have already assigned the position to node $T$ in `pos` which was loaded earlier.
+
+```{code-cell} ipython3
+# adding node T and edges to T from c1,c2,...c20
+B.add_node('T')
+B.add_edges_from([('c'+str(i),'T') for i in range(1,21)])
+
+# adding capacities from W to lw1, lw2, lw3
+for u in ['lw1','lw2','lw3']:
+    B['W'][u]['capacity']=B.nodes[u]['maximum shippings']
+
+# adding capacities as 1 for all other edges except edges from W
+for u,v in B.edges:
+    if u!='W':
+        B[u][v]['capacity']=1
+```
+
+```{code-cell} ipython3
+plt.figure(figsize=(20,10))
+
+# assign colors and labels to nodes based on their type
+color_map = {'W':'skyblue','T':'skyblue'}
+node_colors = [ color_map[u] if u in color_map.keys() else '0.8'  for u in B.nodes]
+node_labels = {u:u for u in B.nodes}
+
+# calculating the maximum flow with the cutoff value
+R = nx.flow.dinitz(B,s='W',t='T',capacity='capacity')
+
+# coloring and labeling edges depending on if they have non-zero flow value or not
+edge_colors = ['0.8' if R[u][v]['flow'] == 0 else '0' for u, v in B.edges]
+
+# drawing the network
+nx.draw_networkx_nodes(B, pos=pos, node_size=400, node_color=node_colors)
+nx.draw_networkx_labels(B, pos=pos,labels=node_labels, font_size=8)
+nx.draw_networkx_edges(B, pos=pos, edge_color=edge_colors)
+plt.title(f"Max Flow = {R.graph['flow_value']}",size=12)
+plt.axis('off')
+plt.show()
+```
+
+Above we can see a matching of intermediate shipping points and customers which gives the maximum shipping in a day
+
++++
+
+## References
+
 [^1]: Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz. In Theoretical Computer Science. Lecture Notes in Computer Science. Volume 3895. pp 218-240. <https://doi.org/10.1007/11685654_10>
-[^2]:
