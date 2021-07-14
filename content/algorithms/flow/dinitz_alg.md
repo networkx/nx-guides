@@ -107,7 +107,7 @@ This is the definition of the **Maximum Flow Problem**.
 
 Before understanding how Dinitz's algorithm works and its steps let's define some terms.
 
-#### Residual Capacity & Graph
+### Residual Capacity & Graph
 If we send $f_{uv}$ flow through edge $uv$ with capacity $c_{uv}$, then we define residual 
 capacity by $g_{uv}=c_{uv}-f_{uv}$ and residual network by $N'$ which only considers the 
 edges of $N$ if they have non-zero residual capacity.
@@ -118,7 +118,7 @@ example flow:
 This is the residual network for the flow shown above:
 ![image: residual capacity and graph](images/algo-eg-residual.png)
 
-#### Level Network
+### Level Network
 
 The level network is a subgraph of the residual network which we get when we apply 
 [BFS](https://en.wikipedia.org/wiki/Breadth-first_search) from source node $s$ to divide
@@ -130,7 +130,7 @@ The level network is a subgraph of the residual network which we get when we app
 Note that if sink node $t$ is not reachable from the source node $s$ that means that no
  more flow can be pushed through the residual network.
 
-#### augmenting path & flow
+### Augmenting Path & Flow
 
 An augmenting path $P$ is a path from source node $s$ to sink node $t$ such that all
  the edges on the path have positive residual capacity i.e. $g_{uv}>0$ for $uv \in P$
@@ -154,7 +154,7 @@ Augmenting path after augmenting:
 Resulting new residual Network:
 ![image: augmenting path and its flow value](images/algo-eg-new-residual.png)
 
-#### Algorithm
+### Algorithm
 
 1. Initialize flow with zero value, $f_{uv}=0$
 2. Construct a residual network  $N'$ form that flow
@@ -330,7 +330,7 @@ Above we can see a matching of intermediate shipping points and customers which
 
 +++
 
-## References
+# References
 
 [^1]: Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz.
  In Theoretical Computer Science. Lecture Notes in Computer Science.
