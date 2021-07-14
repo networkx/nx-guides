@@ -325,7 +325,7 @@ gives the maximum shipping in a day
 
 +++
 
-# References
+## References
 
 [^1]: Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz. 
 In Theoretical Computer Science. Lecture Notes in Computer Science. 
