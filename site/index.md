@@ -37,5 +37,6 @@ maxdepth: 1
 
 content/tutorial
 content/generators/geometric
+content/algorithms/flow/dinitz_alg
 ```
 
