@@ -22,24 +22,136 @@ language_info:
   version: 3.9.2
 ---
 
-# Directed Acyclic Graphs
+# Tutorial: Directed Acyclic Graphs
 
-In this tutorial, we'll explore the algorithms related to directed acyclic graph
+In this tutorial, we will explore the algorithms related to a directed acyclic graph
 (or a "dag" as it is sometimes called) implemented in networkx under `networkx/algorithms/dag.py`.
 
-#### Example
+First of all, we need to understand what a directed graph is.
 
-**TODO: Create Professor Bumstead clothing graph**
+## Directed Graph
 
-#### Definition
+### Example
+
+```{code-cell} ipython3
+# import some useful libraries
+%matplotlib inline
+import networkx as nx
+import matplotlib.pyplot as plt
+```
+
+```{code-cell} ipython3
+# create DiGraph
+triangle_graph = nx.from_edgelist([(1, 2), (2, 3), (3, 1)], create_using=nx.DiGraph)
+```
+
+```{code-cell} ipython3
+# draw `triangle_graph`
+nx.draw_planar(triangle_graph,
+    with_labels=True,
+    node_size=1000,
+    node_color="#ffff8f",
+    width=0.8,
+    font_size=14,
+)
+```
+
+### Definition
+
+In mathematics, and more specifically in graph theory,
+a directed graph (or DiGraph) is a graph that is made up of a set of vertices
+connected by directed edges often called arcs.
+
+## Directed Acyclic Graph
+
+### Example
+
+```{code-cell} ipython3
+# load Professor Bumstead clothing graph
+clothing_graph = nx.read_graphml(f"data/clothing_graph.graphml")
+```
+
+```{code-cell} ipython3
+# set figure size
+plt.figure(figsize=(12, 12), dpi=150)
+
+# draw `clothing_graph`
+nx.draw_planar(clothing_graph,
+    arrowsize=12,
+    with_labels=True,
+    node_size=8000,
+    node_color="#ffff8f",
+    linewidths=2.0,
+    width=1.5,
+    font_size=14,
+)
+```
+
+Here is an example that arises when Professor Bumstead gets dressed in the morning.
+The professor must do certain garments before others (e.g., socks before shoes).
+Other items may be put on in any order (e.g., socks and pants).
+
+A directed edge $(u, v)$ in the example indicates that garment $u$
+must be donned before garment $v$.
+
+For example, the `clothing_graph` is a DAG.
+
+```{code-cell} ipython3
+# check if the `clothing_graph` is DAG
+print(nx.is_directed_acyclic_graph(clothing_graph))
+```
+
+But, the `triangle_graph` is not a DAG.
+
+```{code-cell} ipython3
+# check if the `triangle_graph` is DAG
+print(nx.is_directed_acyclic_graph(triangle_graph))
+```
+
+`triangle_graph` has a cycle:
+
+```{code-cell} ipython3
+# find cycle in the `triangle_graph`
+print(nx.find_cycle(triangle_graph))
+```
+
+### Applications
+
+Directed acyclic graphs representations of partial orderings have many applications in scheduling
+for systems of tasks with ordering constraints.
+An important class of problems of this type concern collections of objects that need to be updated,
+such as the cells of a spreadsheet after one of the cells has been changed,
+or the object files of a piece of computer software after its source code has been changed.
+In this context, a dependency graph is a graph that has a vertex for each object to be updated,
+and an edge connecting two objects whenever one of them needs to be updated earlier than the other.
+A cycle in this graph is called a circular dependency, and is generally not allowed,
+because there would be no way to consistently schedule the tasks involved in the cycle.
+Dependency graphs without circular dependencies form DAGs.
+
+A directed acyclic graph may be used to represent a network of processing elements.
+In this representation, data enters a processing element through its incoming edges
+and leaves the element through its outgoing edges.
+For instance, in electronic circuit design, static combinational logic blocks
+can be represented as an acyclic system of logic gates that computes a function of an input,
+where the input and output of the function are represented as individual bits.
+
+### Definition
 
 Directed acyclic graph ("DAG" or "dag") is a directed graph with no directed cycles.
 That is, it consists of vertices and edges (also called arcs), with each edge directed from one vertex to another,
 such that following those directions will never form a closed loop.
-A directed graph is a DAG if and only if it can be topologically ordered,
+
+A directed graph is a DAG if and only if it can be topologically ordered
 by arranging the vertices as a linear ordering that is consistent with all edge directions.
 
 ## Topological sort
+
+### Example
+
+```{code-cell} ipython3
+# get a topological sort of a dag
+print(list(nx.topological_sort(clothing_graph)))
+```
 
 ### Applications
 
@@ -64,7 +176,7 @@ logic synthesis, determining the order of compilation tasks to perform in makefi
 data serialization, and resolving symbol dependencies in linkers.
 It is also used to decide in which order to load tables with foreign keys in databases.
 
-#### Definition
+### Definition
 
 A topological sort of a directed acyclic graph $G = (V, E)$ is a linear ordering of all its vertices
 such that if $G$ contains an edge $(u, v)$, then $u$ appears before $v$ in the ordering.
@@ -74,19 +186,7 @@ It is worth noting that if the graph contains a cycle, then no linear ordering i
 It is useful to view a topological sort of a graph as an ordering of its vertices
 along a horizontal line so that all directed edges go from left to right.
 
-#### Asymptotics
-
-The usual algorithms for topological sorting have running time linear
-in the number of nodes plus the number of edges, asymptotically,
-$\mathcal{O}(|V| + |E|)$.
-
 ### Kahn's algorithm
-
-#### Example
-
-**TODO: add example of usage `topological_sort(G)` function**
-
-#### Definition
 
 First, find a list of "start nodes" which have no incoming edges and insert them into a set S;
 at least one such node must exist in a non-empty acyclic graph. Then:
@@ -104,43 +204,13 @@ while S is not empty do
             insert m into S
 
 if graph has edges then
-    return error   (graph has at least one cycle)
+    return error  # graph has at least one cycle
 else 
-    return L   (a topologically sorted order)
+    return L  # a topologically sorted order
 ```
 
-### Depth-first search based algorithm
+### Asymptotics
 
-#### Example
-
-**TODO: create topological sort function using depth-first search**\
-**TODO: add an example of using this function**
-
-#### Definition
-
-The algorithm loops through each node of the graph, in an arbitrary order,
-initiating a depth-first search that terminates when it hits any node that has already been visited
-since the beginning of the topological sort or the node has no outgoing edges (i.e. a leaf node):
-
-```
-L <- Empty list that will contain the sorted nodes
-
-while exists nodes without a permanent mark do
-    select an unmarked node n
-    visit(n)
-
-function visit(node n)
-    if n has a permanent mark then
-        return
-    if n has a temporary mark then
-        stop   (not a DAG)
-
-    mark n with a temporary mark
-
-    for each node m with an edge from n to m do
-        visit(m)
-
-    remove temporary mark from n
-    mark n with a permanent mark
-    add n to head of L
-```
+The usual algorithms for topological sorting have running time linear
+in the number of nodes plus the number of edges, asymptotically,
+$\mathcal{O}(|V| + |E|)$.
