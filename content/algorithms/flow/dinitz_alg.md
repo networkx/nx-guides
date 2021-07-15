@@ -23,7 +23,6 @@ language_info:
 ---
 
 # Tutorial: Dinitz's algorithm and its applications
-
 In this tutorial, we will introduce [Maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem) 
 and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm) [^1], which is implimented at 
 [algorithms/flow/dinitz_alg.py](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py) 
@@ -164,6 +163,8 @@ output the flow
 5. Augment the flow along the edges of path $P$ which will give a new residual network
 6. Repeat from point 3 with new residual network $N'$
 
+![image: running example](images/running-eg1.gif)
+
 ```{code-cell} ipython3
 %matplotlib inline
 import networkx as nx
@@ -221,9 +222,7 @@ fig.tight_layout()
 ```
 
 Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value
-
 ## Reductions and Applications
-
 There are many other problems which can be reduced to Maximum flow problem for eg.
 * [Maximum Bipartite Matching](https://en.wikipedia.org/wiki/Matching_(graph_theory))
 * [Assignment Problem](https://en.wikipedia.org/wiki/Assignment_problem)
@@ -322,11 +321,7 @@ plt.show()
 
 Above we can see a matching of intermediate shipping points and customers which 
 gives the maximum shipping in a day
-
-+++
-
 ## References
-
 [^1]: Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz. 
 In Theoretical Computer Science. Lecture Notes in Computer Science. 
 Volume 3895. pp 218-240. <https://doi.org/10.1007/11685654_10>
