@@ -81,4 +81,6 @@ html_static_path = ['_static']
 # Bump up per cell execution timeout to 300 seconds (from default 30 seconds)
 execution_timeout = 300
 
+# if `True` then a transition line(----) will be placed before any footnotes
+myst_footnote_transition = False
 
