@@ -185,7 +185,7 @@ We can observe that the initial network on the left side is completely assortati
 and its complement on right side is completely disassortative.
 As we add edges between nodes of different (similar) attributes in the assortative
 (disassortative) network, the network tends to a non-assortative network and
-value of both the assortaitvity coefficients tends to $0$.
+value of both the assortativity coefficients tends to $0$.
 
 +++
 
