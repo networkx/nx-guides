@@ -34,19 +34,16 @@ First of all, we need to understand what a directed graph is.
 ### Example
 
 ```{code-cell} ipython3
-# import some useful libraries
 %matplotlib inline
 import networkx as nx
 import matplotlib.pyplot as plt
 ```
 
 ```{code-cell} ipython3
-# create DiGraph
 triangle_graph = nx.from_edgelist([(1, 2), (2, 3), (3, 1)], create_using=nx.DiGraph)
 ```
 
 ```{code-cell} ipython3
-# draw `triangle_graph`
 nx.draw_planar(triangle_graph,
     with_labels=True,
     node_size=1000,
@@ -72,15 +69,12 @@ You will see this idea in action in the examples below.
 ### Example
 
 ```{code-cell} ipython3
-# load Professor Bumstead clothing graph
 clothing_graph = nx.read_graphml(f"data/clothing_graph.graphml")
 ```
 
 ```{code-cell} ipython3
-# set figure size
 plt.figure(figsize=(12, 12), dpi=150)
 
-# draw `clothing_graph`
 nx.draw_planar(clothing_graph,
     arrowsize=12,
     with_labels=True,
@@ -103,22 +97,19 @@ must be donned before garment $v$.
 In this example, the `clothing_graph` is a DAG.
 
 ```{code-cell} ipython3
-# check if the `clothing_graph` is DAG
-print(nx.is_directed_acyclic_graph(clothing_graph))
+nx.is_directed_acyclic_graph(clothing_graph)
 ```
 
 By contrast, the `triangle_graph` is not a DAG.
 
 ```{code-cell} ipython3
-# check if the `triangle_graph` is DAG
-print(nx.is_directed_acyclic_graph(triangle_graph))
+nx.is_directed_acyclic_graph(triangle_graph)
 ```
 
 This is because the `triangle_graph` has a cycle:
 
 ```{code-cell} ipython3
-# find cycle in the `triangle_graph`
-print(nx.find_cycle(triangle_graph))
+nx.find_cycle(triangle_graph)
 ```
 
 ### Applications
@@ -157,8 +148,7 @@ Let's now introduce what the topological sort is.
 ### Example
 
 ```{code-cell} ipython3
-# get a topological sort of a dag
-print(list(nx.topological_sort(clothing_graph)))
+list(nx.topological_sort(clothing_graph))
 ```
 
 ### Applications
@@ -171,7 +161,9 @@ if job $u$ must be completed before job $v$ can be started
 Then, a topological sort gives an order in which to perform the jobs.
 
 A closely related application of topological sorting algorithms
-was first studied in the early 1960s in the context of the PERT technique for scheduling in project management.
+was first studied in the early 1960s in the context of the
+[PERT technique](https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique)
+for scheduling in project management.
 In this application, the vertices of a graph represent the milestones of a project,
 and the edges represent tasks that must be performed between one milestone and another.
 Topological sorting forms the basis of linear-time algorithms for finding
