@@ -61,6 +61,11 @@ nx.draw_planar(triangle_graph,
 In mathematics, and more specifically in graph theory,
 a directed graph (or DiGraph) is a graph that is made up of a set of vertices
 connected by directed edges often called arcs.
+Edges here have _directionality_, which stands in contrast to undirected graphs
+where, semantically, edges have no notion of a direction to them.
+Directed acyclic graphs take this idea further;
+by being _acyclic_, they have no _cycles_ in them.
+You will see this idea in action in the examples below.
 
 ## Directed Acyclic Graph
 
@@ -87,28 +92,29 @@ nx.draw_planar(clothing_graph,
 )
 ```
 
-Here is an example that arises when Professor Bumstead gets dressed in the morning.
-The professor must do certain garments before others (e.g., socks before shoes).
+Here is a fun example of Professor Bumstead,
+who has a routine for getting dressed in the morning.
+By habit, the professor dons certain garments before others (e.g., socks before shoes).
 Other items may be put on in any order (e.g., socks and pants).
 
 A directed edge $(u, v)$ in the example indicates that garment $u$
 must be donned before garment $v$.
 
-For example, the `clothing_graph` is a DAG.
+In this example, the `clothing_graph` is a DAG.
 
 ```{code-cell} ipython3
 # check if the `clothing_graph` is DAG
 print(nx.is_directed_acyclic_graph(clothing_graph))
 ```
 
-But, the `triangle_graph` is not a DAG.
+By contrast, the `triangle_graph` is not a DAG.
 
 ```{code-cell} ipython3
 # check if the `triangle_graph` is DAG
 print(nx.is_directed_acyclic_graph(triangle_graph))
 ```
 
-`triangle_graph` has a cycle:
+This is because the `triangle_graph` has a cycle:
 
 ```{code-cell} ipython3
 # find cycle in the `triangle_graph`
@@ -118,17 +124,17 @@ print(nx.find_cycle(triangle_graph))
 ### Applications
 
 Directed acyclic graphs representations of partial orderings have many applications in scheduling
-for systems of tasks with ordering constraints.
+of systems of tasks with ordering constraints.
 An important class of problems of this type concern collections of objects that need to be updated,
-such as the cells of a spreadsheet after one of the cells has been changed,
-or the object files of a piece of computer software after its source code has been changed.
-In this context, a dependency graph is a graph that has a vertex for each object to be updated,
+for example, calculating the order of cells of a spreadsheet to update after one of the cells has been changed,
+or identifying which object files of software to update after its source code has been changed.
+In these contexts, we use a dependency graph, which is a graph that has a vertex for each object to be updated,
 and an edge connecting two objects whenever one of them needs to be updated earlier than the other.
 A cycle in this graph is called a circular dependency, and is generally not allowed,
 because there would be no way to consistently schedule the tasks involved in the cycle.
 Dependency graphs without circular dependencies form DAGs.
 
-A directed acyclic graph may be used to represent a network of processing elements.
+A directed acyclic graph may also be used to represent a network of processing elements.
 In this representation, data enters a processing element through its incoming edges
 and leaves the element through its outgoing edges.
 For instance, in electronic circuit design, static combinational logic blocks
@@ -137,7 +143,7 @@ where the input and output of the function are represented as individual bits.
 
 ### Definition
 
-Directed acyclic graph ("DAG" or "dag") is a directed graph with no directed cycles.
+A directed acyclic graph ("DAG" or "dag") is a directed graph with no directed cycles.
 That is, it consists of vertices and edges (also called arcs), with each edge directed from one vertex to another,
 such that following those directions will never form a closed loop.
 
@@ -145,6 +151,8 @@ A directed graph is a DAG if and only if it can be topologically ordered
 by arranging the vertices as a linear ordering that is consistent with all edge directions.
 
 ## Topological sort
+
+Let's now introduce what the topological sort is.
 
 ### Example
 
@@ -188,6 +196,9 @@ along a horizontal line so that all directed edges go from left to right.
 
 ### Kahn's algorithm
 
+NetworkX uses Kahn's algorithm to perform topological sorting.
+We will introduce it briefly here.
+
 First, find a list of "start nodes" which have no incoming edges and insert them into a set S;
 at least one such node must exist in a non-empty acyclic graph. Then:
 
@@ -196,12 +207,12 @@ L <- Empty list that will contain the sorted elements
 S <- Set of all nodes with no incoming edge
 
 while S is not empty do
-    remove a node n from S
-    add n to L
-    for each node m with an edge e from n to m do
-        remove edge e from the graph
-        if m has no other incoming edges then
-            insert m into S
+    remove a node N from S
+    add N to L
+    for each node M with an edge E from N to M do
+        remove edge E from the graph
+        if M has no other incoming edges then
+            insert M into S
 
 if graph has edges then
     return error  # graph has at least one cycle
@@ -209,8 +220,8 @@ else
     return L  # a topologically sorted order
 ```
 
-### Asymptotics
+### NetworkX implementation
 
-The usual algorithms for topological sorting have running time linear
-in the number of nodes plus the number of edges, asymptotically,
-$\mathcal{O}(|V| + |E|)$.
+Finally, let's take a look at how the topological sorting is implemented in NetworkX.
+
+[comment]: <> (TODO: Describe the implementation of the topological sorting.)
