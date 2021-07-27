@@ -112,19 +112,21 @@ capacity by $g_{uv}=c_{uv}-f_{uv}$ and residual network by $N'$ which only consi
 edges of $N$ if they have non-zero residual capacity.
 
 example flow:
-![image: residual capacity and graph](images/algo-eg-flow.png)
+![image: residual capacity and graph](images/algo-eg-flow.jpg)
 
 This is the residual network for the flow shown above:
-![image: residual capacity and graph](images/algo-eg-residual.png)
+![image: residual capacity and graph](images/algo-eg-residual.jpg)
 
+Note: In residual network we consider both the $uv$ and $vu$ edges if any of them is in $N$
 ### Level Network
 
 The level network is a subgraph of the residual network which we get when we apply 
-[BFS](https://en.wikipedia.org/wiki/Breadth-first_search) from source node $s$ to divide 
-the nodes into levels and only consider the edges to be in the level network $L$ which 
-connect nodes of 2 different levels.
+[BFS](https://en.wikipedia.org/wiki/Breadth-first_search) from source node $s$ 
+considering only the edges for which we have $c_{uv}-f_{uv}>0$ in the residual network 
+and divide the nodes into levels then we only consider the edges to be in the level 
+network $L$ which connect nodes of 2 different levels
 
-![image: level network](images/algo-eg-level.png)
+![image: level network](images/algo-eg-level.jpg)
 
 Note that if sink node $t$ is not reachable from the source node $s$ that means that no 
 more flow can be pushed through the residual network.
@@ -145,13 +147,13 @@ We find augmenting paths by applying [DFS](https://en.wikipedia.org/wiki/Depth-f
 on the Level network $L$.
 
 Augmenting path:
-![image: augmenting path and its flow value](images/algo-eg-augmenting-path-before.png)
+![image: augmenting path and its flow value](images/algo-eg-augmenting-path-before.jpg)
 
 Augmenting path after augmenting:
-![image: augmenting path and its flow value](images/algo-eg-augmenting-path-after.png)
+![image: augmenting path and its flow value](images/algo-eg-augmenting-path-after.jpg)
 
 Resulting new residual Network:
-![image: augmenting path and its flow value](images/algo-eg-new-residual.png)
+![image: augmenting path and its flow value](images/algo-eg-new-residual.jpg)
 
 ### Algorithm
 
@@ -163,7 +165,9 @@ output the flow
 5. Augment the flow along the edges of path $P$ which will give a new residual network
 6. Repeat from point 3 with new residual network $N'$
 
-![image: running example](images/running-eg1.gif)
+![image: running example](images/example.gif)
+
+Note: Some edges that are not important are either leftout or grayed
 
 ```{code-cell} ipython3
 %matplotlib inline
