@@ -139,6 +139,8 @@ import matplotlib.pyplot as plt
 import pickle
 import copy
 import random
+import warnings
+warnings.filterwarnings("ignore")
 ```
 
 Illustrating how value of assortativity changes
