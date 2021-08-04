@@ -216,4 +216,147 @@ else
 
 Finally, let's take a look at how the topological sorting is implemented in NetworkX.
 
-[comment]: <> (TODO: Describe the implementation of the topological sorting.)
+We can see that Kahn's algorithm _stratifies_ the graph such that each level contains all the nodes
+whose dependencies have been satisfied by the nodes in a previous level.
+What this translates to is, take all the nodes in the DAG that don't have any dependencies and put them in list.
+Then "remove" those nodes from the DAG, and repeat the process, creating a new list at each step.
+Thus, topological sorting is reduced to correctly stratifying the graph in this way.
+
+And this is how the `topological_generations()` function works, on which the `topological_sort()` function is based.
+
+Let's see how the `topological_generations()` function is implemented in NetworkX step by step.
+
+#### Step 1. Initialize indegrees.
+
+Since in Kahn's algorithm we are only interested in the indegrees of the vertices,
+instead of removing the edges, we will decrease the indegree of the corresponding vertex.
+Therefore, we will save these values in a separate _dictionary_ `indegree_map`.
+
+```
+indegree_map = {v: d for v, d in G.in_degree() if d > 0}
+```
+
+#### Step 2. Initialize first level.
+
+At each step of the Kahn's algorithm, the current level consists of vertices with an indegree equal to zero.
+But the first such level(`zero_indegree`) must be initialized in advance.
+
+```
+zero_indegree = [v for v, d in G.in_degree() if d == 0]
+```
+
+#### Step 3. Move from one level to the next.
+
+The main part of the algorithm is to move from one level to the next.
+
+Until the current level(`zero_indegree`) is empty, we generate the next one.
+
+We process all the vertices of the current level in variable `this_generation`
+and we store the next level in variable `zero_degree`.
+
+For each vertex from the current level(`this_generation`), we remove all of its outgoing edges.
+
+If the input degree of some vertex is zeroed, then we add it to the next level
+and remove it from the `indegree_map` dictionary.
+
+After we have processed the current level(`this_generation`), we can yield it.
+
+```
+while zero_indegree:
+    this_generation = zero_indegree
+    zero_indegree = []
+    for node in this_generation:
+        for child in G.neighbors(node):
+            indegree_map[child] -= 1
+
+            if indegree_map[child] == 0:
+                zero_indegree.append(child)
+                del indegree_map[child]
+
+    yield this_generation
+```
+
+#### Step 4. Graph contains a cycle.
+
+If, after the operation of the main cycle, there are still vertices in the graph, then there is a cycle in it.
+
+```
+if indegree_map:
+    raise nx.NetworkXUnfeasible(
+        "Graph contains a cycle or graph changed during iteration"
+    )
+```
+
+#### Addition 1. Topological sort is defined only on directed graphs.
+
+```
+if not G.is_directed():
+    raise nx.NetworkXError("Topological sort not defined on undirected graphs.")
+```
+
+#### Addition 2. Topological sort works on multigraphs as well.
+
+```
+multigraph = G.is_multigraph()
+```
+
+Replace
+
+```
+indegree_map[child] -= 1
+```
+
+with
+
+```
+indegree_map[child] -= len(G[node][child]) if multigraph else 1
+```
+
+#### Addition 3. Graph changed during iteration.
+
+Between passing different levels in a topological sort, the graph could change.
+
+#### Combine all steps.
+
+```{code-cell} ipython3
+def topological_generations(G):
+    if not G.is_directed():
+        raise nx.NetworkXError("Topological sort not defined on undirected graphs.")
+
+    multigraph = G.is_multigraph()
+    indegree_map = {v: d for v, d in G.in_degree() if d > 0}
+    zero_indegree = [v for v, d in G.in_degree() if d == 0]
+
+    while zero_indegree:
+        this_generation = zero_indegree
+        zero_indegree = []
+        for node in this_generation:
+            if node not in G:
+                raise RuntimeError("Graph changed during iteration")
+            for child in G.neighbors(node):
+                try:
+                    indegree_map[child] -= len(G[node][child]) if multigraph else 1
+                except KeyError as e:
+                    raise RuntimeError("Graph changed during iteration") from e
+                if indegree_map[child] == 0:
+                    zero_indegree.append(child)
+                    del indegree_map[child]
+        yield this_generation
+
+    if indegree_map:
+        raise nx.NetworkXUnfeasible(
+            "Graph contains a cycle or graph changed during iteration"
+        )
+```
+
+Let's finally see what the result will be on the `clothing_graph`.
+
+```{code-cell} ipython3
+list(topological_generations(clothing_graph))
+```
+
+And using the `topological_generations()` function from the NetworkX.
+
+```{code-cell} ipython3
+list(nx.topological_generations(clothing_graph))
+```
