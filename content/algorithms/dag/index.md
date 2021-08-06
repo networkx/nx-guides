@@ -218,11 +218,13 @@ Finally, let's take a look at how the topological sorting is implemented in Netw
 
 We can see that Kahn's algorithm _stratifies_ the graph such that each level contains all the nodes
 whose dependencies have been satisfied by the nodes in a previous level.
-What this translates to is, take all the nodes in the DAG that don't have any dependencies and put them in list.
-Then "remove" those nodes from the DAG, and repeat the process, creating a new list at each step.
+In other words, Kahn's algorithm does something like:
+  - Take all the nodes in the DAG that don't have any dependencies and put them in list.
+  - "Remove" those nodes from the DAG.
+  - Repeat the process, creating a new list at each step.
 Thus, topological sorting is reduced to correctly stratifying the graph in this way.
 
-And this is how the `topological_generations()` function works, on which the `topological_sort()` function is based.
+This procedure is implemented in the `topological_generations()` function, on which the `topological_sort()` function is based.
 
 Let's see how the `topological_generations()` function is implemented in NetworkX step by step.
 
@@ -276,7 +278,7 @@ while zero_indegree:
     yield this_generation
 ```
 
-#### Step 4. Graph contains a cycle.
+#### Step 4. Check if there is a cycle in the graph.
 
 If, after the operation of the main cycle, there are still vertices in the graph, then there is a cycle in it.
 
@@ -287,20 +289,15 @@ if indegree_map:
     )
 ```
 
-#### Addition 1. Topological sort is defined only on directed graphs.
+#### Addendum: Topological sort works on multigraphs as well.
 
-```
-if not G.is_directed():
-    raise nx.NetworkXError("Topological sort not defined on undirected graphs.")
-```
-
-#### Addition 2. Topological sort works on multigraphs as well.
+Check if `G` is a multigraph
 
 ```
 multigraph = G.is_multigraph()
 ```
 
-Replace
+and replace
 
 ```
 indegree_map[child] -= 1
@@ -312,50 +309,43 @@ with
 indegree_map[child] -= len(G[node][child]) if multigraph else 1
 ```
 
-#### Addition 3. Graph changed during iteration.
+#### Addendum: The graph may have changed during the iteration.
 
 Between passing different levels in a topological sort, the graph could change.
+We need to check this while the `while` loop is running.
+
+So let's replace
+
+```
+for node in this_generation:
+    for child in G.neighbors(node):
+        indegree_map[child] -= 1
+```
+
+with
+
+```
+for node in this_generation:
+    if node not in G:
+        raise RuntimeError("Graph changed during iteration")
+    for child in G.neighbors(node):
+        try:
+            indegree_map[child] -= 1
+        except KeyError as e:
+            raise RuntimeError("Graph changed during iteration") from e
+```
 
 #### Combine all steps.
 
+Combining all of the above gives the current implementation of the `topological_generations()` function in NetworkX.
+
 ```{code-cell} ipython3
-def topological_generations(G):
-    if not G.is_directed():
-        raise nx.NetworkXError("Topological sort not defined on undirected graphs.")
+import inspect
 
-    multigraph = G.is_multigraph()
-    indegree_map = {v: d for v, d in G.in_degree() if d > 0}
-    zero_indegree = [v for v, d in G.in_degree() if d == 0]
-
-    while zero_indegree:
-        this_generation = zero_indegree
-        zero_indegree = []
-        for node in this_generation:
-            if node not in G:
-                raise RuntimeError("Graph changed during iteration")
-            for child in G.neighbors(node):
-                try:
-                    indegree_map[child] -= len(G[node][child]) if multigraph else 1
-                except KeyError as e:
-                    raise RuntimeError("Graph changed during iteration") from e
-                if indegree_map[child] == 0:
-                    zero_indegree.append(child)
-                    del indegree_map[child]
-        yield this_generation
-
-    if indegree_map:
-        raise nx.NetworkXUnfeasible(
-            "Graph contains a cycle or graph changed during iteration"
-        )
+print(inspect.getsource(nx.topological_generations))
 ```
 
 Let's finally see what the result will be on the `clothing_graph`.
-
-```{code-cell} ipython3
-list(topological_generations(clothing_graph))
-```
-
-And using the `topological_generations()` function from the NetworkX.
 
 ```{code-cell} ipython3
 list(nx.topological_generations(clothing_graph))
