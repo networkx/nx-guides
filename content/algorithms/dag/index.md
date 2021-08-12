@@ -231,6 +231,7 @@ Let's see how the `topological_generations()` function is implemented in Network
 #### Step 1. Initialize indegrees.
 
 Since in Kahn's algorithm we are only interested in the indegrees of the vertices,
+in order to preserve the structure of the graph as it is passed in,
 instead of removing the edges, we will decrease the indegree of the corresponding vertex.
 Therefore, we will save these values in a separate _dictionary_ `indegree_map`.
 
@@ -240,8 +241,9 @@ indegree_map = {v: d for v, d in G.in_degree() if d > 0}
 
 #### Step 2. Initialize first level.
 
-At each step of the Kahn's algorithm, the current level consists of vertices with an indegree equal to zero.
-But the first such level(`zero_indegree`) must be initialized in advance.
+At each step of Kahn's algorithm, we seek out vertices with an in-degree of zero.
+In preparation for the first loop iteration of the algorithm,
+we can initialize a list called `zero_indegree` that houses these nodes:
 
 ```
 zero_indegree = [v for v, d in G.in_degree() if d == 0]
@@ -249,19 +251,22 @@ zero_indegree = [v for v, d in G.in_degree() if d == 0]
 
 #### Step 3. Move from one level to the next.
 
-The main part of the algorithm is to move from one level to the next.
+Now, we will show how the algorithm moves from one level to the next.
 
-Until the current level(`zero_indegree`) is empty, we generate the next one.
+Inside the loop, the first generation to be considered (`this_generation`)
+is the collection of nodes that have zero in-degrees.
 
 We process all the vertices of the current level in variable `this_generation`
 and we store the next level in variable `zero_degree`.
 
-For each vertex from the current level(`this_generation`), we remove all of its outgoing edges.
+For each vertex inside `this_generation`,
+we remove all of its outgoing edges.
 
-If the input degree of some vertex is zeroed, then we add it to the next level
+Then, if the input degree of some vertex is zeroed as a result,
+then we add it to the next level `zero_indegree`
 and remove it from the `indegree_map` dictionary.
 
-After we have processed the current level(`this_generation`), we can yield it.
+After we have processed all of the nodes inside `this_generation`, we can yield it.
 
 ```
 while zero_indegree:
@@ -280,7 +285,8 @@ while zero_indegree:
 
 #### Step 4. Check if there is a cycle in the graph.
 
-If, after the operation of the main cycle, there are still vertices in the graph, then there is a cycle in it.
+If, after completing the loop there are still vertices in the graph,
+then there is a cycle in it and the graph is not a DAG.
 
 ```
 if indegree_map:
@@ -291,49 +297,44 @@ if indegree_map:
 
 #### Addendum: Topological sort works on multigraphs as well.
 
-Check if `G` is a multigraph
+This is possible to do by slightly modifying the algorithm above.
 
-```
-multigraph = G.is_multigraph()
-```
+* Firstly, check if `G` is a multigraph
+  ```
+  multigraph = G.is_multigraph()
+  ```
 
-and replace
-
-```
-indegree_map[child] -= 1
-```
-
-with
-
-```
-indegree_map[child] -= len(G[node][child]) if multigraph else 1
-```
+* Then, replace
+  ```
+  indegree_map[child] -= 1
+  ```
+  with
+  ```
+  indegree_map[child] -= len(G[node][child]) if multigraph else 1
+  ```
 
 #### Addendum: The graph may have changed during the iteration.
 
 Between passing different levels in a topological sort, the graph could change.
 We need to check this while the `while` loop is running.
 
-So let's replace
-
-```
-for node in this_generation:
-    for child in G.neighbors(node):
-        indegree_map[child] -= 1
-```
-
-with
-
-```
-for node in this_generation:
-    if node not in G:
-        raise RuntimeError("Graph changed during iteration")
-    for child in G.neighbors(node):
-        try:
-            indegree_map[child] -= 1
-        except KeyError as e:
-            raise RuntimeError("Graph changed during iteration") from e
-```
+* To do this, just replace
+  ```
+  for node in this_generation:
+      for child in G.neighbors(node):
+          indegree_map[child] -= 1
+  ```
+  with
+  ```
+  for node in this_generation:
+      if node not in G:
+          raise RuntimeError("Graph changed during iteration")
+      for child in G.neighbors(node):
+          try:
+              indegree_map[child] -= 1
+          except KeyError as e:
+              raise RuntimeError("Graph changed during iteration") from e
+  ```
 
 #### Combine all steps.
 
