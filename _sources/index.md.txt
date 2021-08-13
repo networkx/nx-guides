@@ -38,5 +38,6 @@ maxdepth: 1
 content/tutorial
 content/generators/geometric
 content/algorithms/assortativity/correlation
+content/algorithms/dag/index
 ```
 
