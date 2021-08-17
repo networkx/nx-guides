@@ -169,6 +169,355 @@ output the flow
 
 Note: Some edges that are not important are either leftout or grayed
 
+```{admonition} Code to generate the gif and images
+:class: toggle
+
+import numpy as np
+import matplotlib.pyplot as plt
+import networkx as nx
+import pickle
+import copy
+import matplotlib.image as mpimg
+import glob
+from numpy import sqrt
+import os
+from collections import deque
+from moviepy.editor import ImageSequenceClip
+from PIL import Image
+from networkx.algorithms.flow.utils import build_residual_network
+from numpy import asarray
+from networkx.utils import pairwise
+
+Gpath = None
+Gparents = None
+Glevel = None
+S = 's'
+T = 't'
+to_draw_res_aug_path = False
+
+def edge_to_draw(u,v,ty='main'):
+    if ty=='main':
+        if (u,v) in G.edges:
+            return True
+        return False
+    if ty=='current':
+        if (u,v) in G.edges:
+            return True
+        return False
+    if ty=='residual':
+        if R[u][v]['capacity'] - R[u][v]['flow'] > 0 or (u,v) in G.edges:
+            return True
+        else:
+            return False
+    if ty=='level':
+        if v in Gparents.keys() and Gparents[v] == u:
+            return True
+        return False
+    if ty=='path':
+        if v in Gparents.keys() and Gparents[v] == u:
+            return True
+        if to_draw_res_aug_path:
+            for i in range(len(Gpath)-1):
+                if Gpath[i] == u and Gpath[i+1]==v:
+                    return True
+        return False
+    
+def give_edge_label(u,v,ty='main'):
+    if ty=='main':
+        return True
+    if ty=='current':
+        if R[u][v]['flow'] > 0:
+            return True
+        else:
+            return False
+    if ty=='residual':
+        if (u,v) in G.edges:
+            return True
+        if R[u][v]['capacity'] - R[u][v]['flow'] > 0:
+            return True
+        else:
+            return False
+    if ty=='level':
+        if v in Gparents.keys() and Gparents[v] == u:
+            return True
+        return False
+    if ty=='path':
+        for i in range(len(Gpath)-1):
+            if Gpath[i] == v and Gpath[i+1]==u:
+                return True
+        if to_draw_res_aug_path:
+            for i in range(len(Gpath)-1):
+                if Gpath[i] == u and Gpath[i+1]==v:
+                    return True
+        return False
+        
+def get_edge_label(u,v,ty='main'):
+    if ty=='current':
+        return f"{R[u][v]['flow']}"
+    if ty=='main':
+        return f"{R[u][v]['capacity']}"
+    if ty=='residual':
+        return f"{R[u][v]['capacity']-R[u][v]['flow']}"
+    if ty=='level':
+        return f"{R[u][v]['capacity']-R[u][v]['flow']}"
+    if ty=='path':
+        return f"{R[u][v]['capacity']-R[u][v]['flow']}"
+    
+def get_edge_color(u,v,ty='main'):
+    if ty=='current':
+        if R[u][v]['flow'] > 0:
+            return '0'
+        else:
+            return '0.8'
+    if ty=='main':
+        return '0'
+    if ty=='residual':
+        if R[u][v]['capacity'] - R[u][v]['flow'] > 0:
+            if R[u][v]['flow'] >= 0:
+                return '0'
+            else:
+                return 'orange'
+        return '0.8'
+    if ty=='level':
+        if v in Gparents.keys() and Gparents[v] == u:
+            if R[u][v]['flow'] < 0:
+                return 'orange'
+            else:
+                return '0'
+        return '0.8'
+    if ty=='path':
+        for i in range(len(Gpath)-1):
+            if Gpath[i] == v and Gpath[i+1]==u:
+                if R[u][v]['flow'] < 0:
+                    return 'orange'
+                else:
+                    return '0'
+        if to_draw_res_aug_path:
+            for i in range(len(Gpath)-1):
+                if Gpath[i] == u and Gpath[i+1]==v:
+                    if R[u][v]['flow'] < 0:
+                        return 'orange'
+        return '0.8'
+     
+def give_node_label(u,ty='main'):
+    if ty=='current':
+        return True
+    if ty=='main':
+        return True
+    if ty=='residual':
+        return True
+    if ty=='level':
+        if u==S or  u==T:
+            return True
+        if u in Gparents.keys() or u in Gparents.items():
+            return True
+        else:
+            return False
+    if ty=='path':
+        if u in Gpath:
+            return True
+        return False
+        
+def get_node_label(u,ty='main'):
+    if ty=='current':
+        return u
+    if ty=='main':
+        return u
+    if ty=='residual':
+        return u
+    if ty=='level':
+        if u==S or  u==T:
+            return u
+        if u in Gparents.keys() or u in Gparents.items():
+            return u
+        else:
+            return None
+    if ty=='path':
+        if u in Gpath:
+            return u
+        return None
+
+level_colors={1:'aqua',2:'lightgreen',3:'yellow',4:'orange',5:'lightpink',6:'violet'}
+def get_node_color(u,ty='main'):
+    if u ==T or u == S:
+        return "skyblue"
+    if ty=='current':
+        return '0.8'
+    if ty=='main':
+        return '0.8'
+    if ty=='residual':
+        return '0.8'
+    if ty=='level':
+        if u in Gparents.keys() or u in Gparents.items():
+            return level_colors[Glevel[u]]
+        else:
+            return '0.8'
+    if ty=='path':
+        if u in Gpath:
+            return level_colors[Glevel[u]]
+        else:
+            return '0.8'
+        
+def get_title(ty):
+    if ty=='current':
+        return 'Current flow values'
+    if ty=='main':
+        return 'Main Network'
+    if ty=='residual':
+        return 'Residual Network'
+    if ty=='level':
+        return 'Level Network'
+    if ty=='path':
+        return 'Augmenting path'
+
+iid = 1
+def plot_G(ty='residual',opt=0):
+    node_colors = [get_node_color(u,ty) for u in G.nodes]
+    node_labels = {u:get_node_label(u,ty) for u in G.nodes if give_node_label(u,ty)}
+    
+    edges_to_draw = [(u,v) for u, v in R.edges if edge_to_draw(u,v,ty)]
+    main_edge_labels = {(u,v):get_edge_label(u,v,ty) for u, v in edges_to_draw if give_edge_label(u,v,ty) and (u,v) in G.edges}
+    comp_edge_labels = {(u,v):get_edge_label(u,v,ty) for u, v in edges_to_draw if give_edge_label(u,v,ty) and (u,v) not in G.edges}    
+    
+    comp_edges_to_draw = [(u,v) for u, v in edges_to_draw if (u,v) not in G.edges]
+    comp_edge_colors = [get_edge_color(u,v,ty) for u, v in comp_edges_to_draw]
+    
+    main_edges_to_draw = [(u,v) for u, v in edges_to_draw if (u,v) in G.edges]
+    main_edge_colors = [get_edge_color(u,v,ty) for u, v in main_edges_to_draw]
+    
+    plt.figure(figsize=(30,18))
+
+    # drawing the network
+    nx.draw_networkx_nodes(G, pos=pos, node_size=500, node_color=node_colors)
+    nx.draw_networkx_labels(G, pos=pos,labels=node_labels, font_size=15)
+    
+    nx.draw_networkx_edges(G, edgelist=main_edges_to_draw, pos=pos, edge_color=main_edge_colors,arrowsize=20)
+    nx.draw_networkx_edge_labels(G, pos=pos, edge_labels=main_edge_labels,font_size=15,label_pos=0.7,font_color='0')
+    
+    nx.draw_networkx_edges(G, edgelist=comp_edges_to_draw, pos=pos, edge_color=comp_edge_colors,arrowsize=20, connectionstyle='arc3,rad=0.1')
+    nx.draw_networkx_edge_labels(G, pos=pos, edge_labels=comp_edge_labels,font_size=15,label_pos=0.7,font_color='orange')
+    
+    plt.axis('off')
+    st = ''
+    if opt==2:
+        st = " After Augmenting"
+    if opt ==1:
+        st= " Before Augmenting"
+    plt.title(get_title(ty)+st, fontsize=20)
+    #plt.show(block=False)
+    global iid
+    plt.savefig(os.path.join("images","gif",f"final_{iid}.jpg"), dpi = 300, format="jpg",transparent=False,pad_inches=0,bbox_inches='tight')
+    iid+=1
+
+
+gname = "egnetwork"
+capacity="capacity"
+G = nx.read_graphml(f"data/{gname}.graphml")
+with open(f"data/pos_{gname}", 'rb') as fp:
+    pos = pickle.load(fp)
+s='s' 
+t='t' 
+
+R = build_residual_network(G, capacity)
+
+# Initialize/reset the residual network.
+for u in R:
+    for e in R[u].values():
+        e["flow"] = 0
+        
+# Use an arbitrary high value as infinite. It is computed
+# when building the residual network.
+INF = R.graph["inf"]
+cutoff = INF
+
+R_succ = R.succ
+R_pred = R.pred
+plot_G('main')
+
+def breath_first_search():
+    parents = {}
+    level = {}
+    queue = deque([s])
+    level[s] = 0
+    while queue:
+        if t in parents:
+            break
+        u = queue.popleft()
+        for v in R_succ[u]:
+            attr = R_succ[u][v]
+            if v not in parents and attr["capacity"] - attr["flow"] > 0:
+                parents[v] = u
+                level[v] = level[u] + 1
+                queue.append(v)
+    return parents, level
+
+def depth_first_search(parents):
+    """Build a path using DFS starting from the sink"""
+    path = []
+    u = t
+    flow = INF
+    while u != s:
+        path.append(u)
+        v = parents[u]
+        flow = min(flow, R_pred[u][v]["capacity"] - R_pred[u][v]["flow"])
+        u = v
+    path.append(s)
+    # Augment the flow along the path found
+    if flow > 0:
+        for u, v in pairwise(path):
+            R_pred[u][v]["flow"] += flow
+            R_pred[v][u]["flow"] -= flow
+    return flow, path
+
+flow_value = 0
+while flow_value < cutoff:
+    plot_G('current')
+    plot_G('residual') 
+    parents, level = breath_first_search()
+    Gparents , Glevel = parents, level
+    plot_G('level') 
+
+    if t not in parents:
+        break
+        
+    this_flow, path = depth_first_search(parents)
+    Gpath = path
+    
+    for u, v in pairwise(Gpath):
+        R_pred[u][v]["flow"] -= this_flow
+        R_pred[v][u]["flow"] += this_flow
+    plot_G('path',opt=1) # before augmenting
+    
+    for u, v in pairwise(Gpath):
+        R_pred[u][v]["flow"] += this_flow
+        R_pred[v][u]["flow"] -= this_flow
+        
+    to_draw_res_aug_path = True
+    plot_G('path',opt=2) # after augmenting
+    to_draw_res_aug_path = False
+    
+    if this_flow * 2 > INF:
+        raise nx.NetworkXUnbounded("Infinite capacity path, flow unbounded above.")
+    flow_value += this_flow
+
+R.graph["flow_value"] = flow_value
+plot_G('current')
+
+def gif(filename, array, fps, scale=1.0):
+    fname, _ = os.path.splitext(filename)
+    filename = fname + '.gif'
+    clip = ImageSequenceClip(array, fps=fps).resize(scale)
+    clip.write_gif(filename, fps=fps)
+    return clip
+
+limage = []
+for i in range(1,36):
+    limage.append(asarray(Image.open(os.path.join("images","gif",f"final_{i}.jpg"))))
+
+gif("images/example",limage,fps=0.5)
+
+```
+
 ```{code-cell} ipython3
 %matplotlib inline
 import networkx as nx
