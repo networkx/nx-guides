@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <graph edgedefault="directed">
+    <node id="undershorts" />
+    <node id="pants" />
+    <node id="belt" />
+    <node id="shirt" />
+    <node id="tie" />
+    <node id="jacket" />
+    <node id="socks" />
+    <node id="shoes" />
+    <node id="watch" />
+    <edge source="undershorts" target="pants" />
+    <edge source="undershorts" target="shoes" />
+    <edge source="pants" target="belt" />
+    <edge source="pants" target="shoes" />
+    <edge source="belt" target="jacket" />
+    <edge source="shirt" target="belt" />
+    <edge source="shirt" target="tie" />
+    <edge source="tie" target="jacket" />
+    <edge source="socks" target="shoes" />
+  </graph>
+</graphml>
