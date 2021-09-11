@@ -22,7 +22,7 @@ language_info:
   version: 3.8.5
 ---
 
-# Tutorial: Node assortativity coefficients and correlation measures
+# Node assortativity coefficients and correlation measures
 
 In this tutorial, we will go through the theory of [assortativity](https://en.wikipedia.org/wiki/Assortativity) and its measures.
 
