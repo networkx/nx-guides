@@ -22,7 +22,7 @@ language_info:
   version: 3.9.2
 ---
 
-# Tutorial: Directed Acyclic Graphs
+# Directed Acyclic Graphs & Topological Sort
 
 In this tutorial, we will explore the algorithms related to a directed acyclic graph
 (or a "dag" as it is sometimes called) implemented in networkx under `networkx/algorithms/dag.py`.

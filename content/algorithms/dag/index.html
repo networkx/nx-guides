@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tutorial: Directed Acyclic Graphs &#8212; NetworkX Notebooks</title>
+    <title>Directed Acyclic Graphs &amp; Topological Sort &#8212; NetworkX Notebooks</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -40,7 +40,8 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="prev" title="Tutorial: Node assortativity coefficients and correlation measures" href="../assortativity/correlation.html" />
+    <link rel="next" title="Graph Generators" href="../../generators/index.html" />
+    <link rel="prev" title="Node assortativity coefficients and correlation measures" href="../assortativity/correlation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -76,20 +77,44 @@
    NetworkX Tutorial
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../generators/geometric.html">
-   Tutorial: Geometric Generator Models
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../index.html">
+   Algorithms
   </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assortativity/correlation.html">
+     Node assortativity coefficients and correlation measures
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Directed Acyclic Graphs &amp; Topological Sort
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../assortativity/correlation.html">
-   Tutorial: Node assortativity coefficients and correlation measures
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../generators/index.html">
+   Graph Generators
   </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Tutorial: Directed Acyclic Graphs
-  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../generators/geometric.html">
+     Geometric Generator Models
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -108,12 +133,6 @@
 
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-  <p>This site is currently experimental; the content and URLs may change or be removed!</p>
-</div>
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
@@ -325,8 +344,8 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="tutorial-directed-acyclic-graphs">
-<h1>Tutorial: Directed Acyclic Graphs<a class="headerlink" href="#tutorial-directed-acyclic-graphs" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="directed-acyclic-graphs-topological-sort">
+<h1>Directed Acyclic Graphs &amp; Topological Sort<a class="headerlink" href="#directed-acyclic-graphs-topological-sort" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial, we will explore the algorithms related to a directed acyclic graph
 (or a “dag” as it is sometimes called) implemented in networkx under <code class="docutils literal notranslate"><span class="pre">networkx/algorithms/dag.py</span></code>.</p>
 <p>First of all, we need to understand what a directed graph is.</p>
@@ -809,17 +828,25 @@ We need to check this while the <code class="docutils literal notranslate"><span
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Tutorial: Node assortativity coefficients and correlation measures</p>
+                <p class="prevnext-title">Node assortativity coefficients and correlation measures</p>
             </div>
         </a>
     </div>
+     <div id="next">
+        <a class="right-next" href="../../generators/index.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Graph Generators</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
 </div>
         
         </div>
     </div>
-    
-<footer class="footer mt-5 mt-md-0">
+    <footer class="footer mt-5 mt-md-0">
     <div class="container">
       <p>
         

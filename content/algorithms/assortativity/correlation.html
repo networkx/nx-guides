@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tutorial: Node assortativity coefficients and correlation measures &#8212; NetworkX Notebooks</title>
+    <title>Node assortativity coefficients and correlation measures &#8212; NetworkX Notebooks</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -40,8 +40,8 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Tutorial: Directed Acyclic Graphs" href="../dag/index.html" />
-    <link rel="prev" title="Tutorial: Geometric Generator Models" href="../../generators/geometric.html" />
+    <link rel="next" title="Directed Acyclic Graphs &amp; Topological Sort" href="../dag/index.html" />
+    <link rel="prev" title="Algorithms" href="../index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -77,20 +77,44 @@
    NetworkX Tutorial
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../generators/geometric.html">
-   Tutorial: Geometric Generator Models
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../index.html">
+   Algorithms
   </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Node assortativity coefficients and correlation measures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dag/index.html">
+     Directed Acyclic Graphs &amp; Topological Sort
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Tutorial: Node assortativity coefficients and correlation measures
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../generators/index.html">
+   Graph Generators
   </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../dag/index.html">
-   Tutorial: Directed Acyclic Graphs
-  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../generators/geometric.html">
+     Geometric Generator Models
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -109,12 +133,6 @@
 
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-  <p>This site is currently experimental; the content and URLs may change or be removed!</p>
-</div>
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
@@ -257,8 +275,8 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="tutorial-node-assortativity-coefficients-and-correlation-measures">
-<h1>Tutorial: Node assortativity coefficients and correlation measures<a class="headerlink" href="#tutorial-node-assortativity-coefficients-and-correlation-measures" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="node-assortativity-coefficients-and-correlation-measures">
+<h1>Node assortativity coefficients and correlation measures<a class="headerlink" href="#node-assortativity-coefficients-and-correlation-measures" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial, we will go through the theory of <a class="reference external" href="https://en.wikipedia.org/wiki/Assortativity">assortativity</a> and its measures.</p>
 <p>Specifically, we’ll focus on assortativity measures available in NetworkX at <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/assortativity/correlation.py">algorithms/assortativity/correlation.py</a>:</p>
 <ul class="simple">
@@ -512,11 +530,11 @@ are drawn.</p>
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="../../generators/geometric.html" title="previous page">
+        <a class="left-prev" href="../index.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Tutorial: Geometric Generator Models</p>
+                <p class="prevnext-title">Algorithms</p>
             </div>
         </a>
     </div>
@@ -524,7 +542,7 @@ are drawn.</p>
         <a class="right-next" href="../dag/index.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Tutorial: Directed Acyclic Graphs</p>
+                <p class="prevnext-title">Directed Acyclic Graphs &amp; Topological Sort</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
@@ -534,8 +552,7 @@ are drawn.</p>
         
         </div>
     </div>
-    
-<footer class="footer mt-5 mt-md-0">
+    <footer class="footer mt-5 mt-md-0">
     <div class="container">
       <p>
         
