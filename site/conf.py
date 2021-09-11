@@ -50,8 +50,8 @@ html_title = 'NetworkX Notebooks'
 html_logo = '_static/networkx_logo.svg'
 # html_favicon
 html_theme_options = {
-    "github_url": "https://github.com/networkx/notebooks/",
-    "repository_url": "https://github.com/networkx/notebooks/",
+    "github_url": "https://github.com/networkx/nx-guides/",
+    "repository_url": "https://github.com/networkx/nx-guides/",
     "repository_branch": "main",
     "use_repository_button": True,
     "use_issues_button": True,
