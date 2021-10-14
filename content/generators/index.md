@@ -8,4 +8,5 @@ graphs.
 maxdepth: 1
 ---
 geometric
+sudoku
 ```
