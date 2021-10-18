@@ -37,6 +37,5 @@ maxdepth: 1
 
 content/tutorial
 content/generators/geometric
-content/exploratory_notebooks/facebook_notebook.md
 ```
 
