@@ -329,19 +329,20 @@ plt.ylabel('Counts',fontdict ={'size': 20})
  The number of unique triangles in the network are found next:
 
 ```{code-cell} ipython3
-sum(list(nx.triangles(G).values())) / 3  # divide by 3 because each triangle is counted once for each node
+triangles_per_node = list(nx.triangles(G).values())
+sum(triangles_per_node) / 3  # divide by 3 because each triangle is counted once for each node
 ```
 
  Now the average number of triangles that a node is a part of:
 
 ```{code-cell} ipython3
-np.mean(list(nx.triangles(G).values()))
+np.mean(triangles_per_node)
 ```
 
 Due to having some nodes that belong to a great many triangles, the metric of median will give us a better understanding:
 
 ```{code-cell} ipython3
-np.median(list(nx.triangles(G).values()))
+np.median(triangles_per_node)
 ```
 
 In fact, the median value is just $161$ triangles, when the mean is around $1197$ triangles that a node is part of. That means that the majority of nodes of the network belong to extremely few triangles, whereas some nodes are part of a plethora of triangles (which are extreme values that increase the mean)
