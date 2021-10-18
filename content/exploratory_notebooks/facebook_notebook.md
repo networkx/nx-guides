@@ -82,7 +82,7 @@ Also, the average degree of a node can be seen.
 * This has been calculated by creating a list of all the degrees of the nodes and using `numpy.array` to find the mean of the created list.
 
 ```{code-cell} ipython3
-np.array(list(dict(G.degree()).values())).mean()
+np.mean([d for _, d in G.degree()])
 ```
 
 * The diameter is calculated now. As known, it is the longest shortest path of the graph. That means in order to connect from any node to another one we would have to traverse 8 edges or less.
