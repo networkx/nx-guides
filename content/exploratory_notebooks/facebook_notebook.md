@@ -362,9 +362,7 @@ nx.has_bridges(G)
 Actually, there are bridges in the network. Now the edges that are bridges will be saved in a list and the number of them is printed:
 
 ```{code-cell} ipython3
-bridges = []
-for edge in nx.bridges(G):
-    bridges.append(edge)
+bridges = list(nx.bridges(G))
 len(bridges)
 ```
 
