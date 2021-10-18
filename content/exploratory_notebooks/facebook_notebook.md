@@ -372,9 +372,7 @@ Also, the edges that are local bridges are saved in a list and their number is p
 in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in common. Very importantly, an edge that is a bridge is also a local bridge. Thus, this list contains all the above bridges as well:
 
 ```{code-cell} ipython3
-local_bridges = []
-for edge in nx.local_bridges(G):
-    local_bridges.append(eval( '(' + str(edge[0]) + '),(' + str(edge[1]) + ')' ))  # save the local bridge as a tuple
+local_bridges = list(nx.local_bridges(G, with_span=False))
 len(local_bridges)
 ```
 
