@@ -1,10 +1,11 @@
 matplotlib
+scipy
 pygraphviz
 nbval
 git+git://github.com/networkx/networkx@main
 sphinx
 myst-nb
-pydata-sphinx-theme==0.5.2
+sphinx-book-theme
 jupytext
 pandas
 numpy

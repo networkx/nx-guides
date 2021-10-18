@@ -36,6 +36,7 @@ maxdepth: 1
 ---
 
 content/tutorial
-content/generators/geometric
+content/algorithms/index
+content/generators/index
 ```
 

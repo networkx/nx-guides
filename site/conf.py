@@ -45,33 +45,31 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'pydata_sphinx_theme'
+html_theme = 'sphinx_book_theme'
 html_title = 'NetworkX Notebooks'
 html_logo = '_static/networkx_logo.svg'
 # html_favicon
 html_theme_options = {
-    "icon_links": [
-        {
-            "name": "GitHub",
-            "url": "https://github.com/networkx/nx-guides/",
-            "icon": "fab fa-github-square",
-        },
-        {
-            "name": "Binder",
-            "url": "https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=lab/tree/content",
-            "icon": "fas fa-rocket",
-        },
-    ],
+    "github_url": "https://github.com/networkx/nx-guides/",
+    "repository_url": "https://github.com/networkx/nx-guides/",
+    "repository_branch": "main",
+    "use_repository_button": True,
+    "use_issues_button": True,
     "use_edit_page_button": True,
-}
-html_context = {
-    "github_user": "networkx",
-    "github_repo": "nx-guides",
-    "github_version": "main",
-    "doc_path": "site",
+    "path_to_docs": "site/",
+    "launch_buttons": {
+        "binderhub_url": "https://mybinder.org",
+    },
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# -- Options for MyST-NB configuration -----------------------------------
+
+# Bump up per cell execution timeout to 300 seconds (from default 30 seconds)
+execution_timeout = 300
+
+
