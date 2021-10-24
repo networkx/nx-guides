@@ -102,7 +102,7 @@ nodes seem to be highly connected, as we might expect for a social network.
 We also get a sense that the nodes tend to form clusters. The `spring_layout`
 serves to give a qualitative sense of clustering, but it is not designed for
 repeatable, qualitative clustering analysis. We'll revisit evaluating
-network clustering [later in the analysis](#Clustering Effects)
+network clustering [later in the analysis](#clustering-effects)
 
 ## Basic topological attributes
 * Total number of nodes in network:
