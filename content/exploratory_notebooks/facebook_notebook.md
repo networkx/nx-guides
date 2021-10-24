@@ -219,7 +219,7 @@ Now let's check the users with highest degree centralities from the size of thei
 ```{code-cell} ipython3
 node_size =  [v * 1000 for v in degree_centrality.values()]  # set up nodes size for a nice graph representation
 plt.figure(figsize=(15,8))
-nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
+nx.draw_networkx(G, pos=pos, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
 ```
 
@@ -255,7 +255,7 @@ We can also get an image on the nodes with the highest betweenness centralities 
 ```{code-cell} ipython3
 node_size =  [v * 1200 for v in betweenness_centrality.values()]  # set up nodes size for a nice graph representation
 plt.figure(figsize=(15,8))
-nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
+nx.draw_networkx(G, pos=pos, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
 ```
 
@@ -298,7 +298,7 @@ The closeness centralities are distributed over various values from $0.17$ to $0
 ```{code-cell} ipython3
 node_size =  [v * 50 for v in closeness_centrality.values()]  # set up nodes size for a nice graph representation
 plt.figure(figsize=(15,8))
-nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
+nx.draw_networkx(G, pos=pos, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
 ```
 
@@ -343,7 +343,7 @@ Now we can identify the eigenvector centralities of nodes based on their size in
 ```{code-cell} ipython3
 node_size =  [v * 4000 for v in eigenvector_centrality.values()]  # set up nodes size for a nice graph representation
 plt.figure(figsize=(15,8))
-nx.draw_networkx(G, node_size=node_size, with_labels=False, width=0.15)
+nx.draw_networkx(G, pos=pos, node_size=node_size, with_labels=False, width=0.15)
 plt.axis('off')
 ```
 
@@ -421,7 +421,6 @@ Showcasing the bridges and local bridges in the network now. The bridges can be 
 * It is clear that all the bridges concern nodes that are only connected to a spotlight node (have a degree of $1$)
 
 ```{code-cell} ipython3
-pos = nx.spring_layout(G)  # positions for all nodes
 plt.figure(figsize=(15,8))
 nx.draw_networkx(G, pos=pos, node_size=10, with_labels=False, width=0.15)
 nx.draw_networkx_edges(G, pos, edgelist=local_bridges, width=0.5, edge_color="lawngreen")  # green color for local bridges 
@@ -469,7 +468,7 @@ In detail, $44$ communities were detected. Now the communities are showcased in 
 ```{code-cell} ipython3
 plt.figure(figsize=(15,9))
 plt.axis('off') 
-nx.draw_networkx(G, node_size=10, with_labels=False, width=0.15, node_color=colors)
+nx.draw_networkx(G, pos=pos, node_size=10, with_labels=False, width=0.15, node_color=colors)
 ```
 
 * Next, the asynchronous fluid communities algorithm is used. 
@@ -489,7 +488,7 @@ Now the $8$ communities are shown in the graph. Again, each community is depicte
 ```{code-cell} ipython3
 plt.figure(figsize=(15,9))
 plt.axis('off') 
-nx.draw_networkx(G, node_size=10, with_labels=False, width=0.15, node_color=colors)
+nx.draw_networkx(G, pos=pos, node_size=10, with_labels=False, width=0.15, node_color=colors)
 ```
 
 ### References
