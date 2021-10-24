@@ -55,14 +55,54 @@ facebook
 G = nx.from_pandas_edgelist(facebook, 'start_node', 'end_node')
 ```
 
-## Graph representation
-The graph is drawn in order to get a better understanding of how the facebook circles look
+## Visualizing the graph
+
+Let's start our exploration by visualizing the graph. Visualization plays a
+central role in exploratory data analysis to help get a qualitative feel for
+the data.
+
+Since we don't have any real sense of structure in the data, let's start by
+viewing the graph with `random_layout`, which is among the fastest of the layout
+functions.
 
 ```{code-cell} ipython3
-plt.figure(figsize=(15,9))  # set up the plot size
-plt.axis('off')  # remove border around the graph
-nx.draw_networkx(G, node_size=10, with_labels=False, width=0.15)
+fig, ax = plt.subplots(figsize=(15, 9))
+ax.axis('off')
+plot_options = {"node_size": 10, "with_labels": False, "width": 0.15}
+nx.draw_networkx(G, pos=nx.random_layout(G), ax=ax, **plot_options)
 ```
+
+The resulting image is... not very useful. Graph visualizations of this kind
+are sometimes colloquially referred to as "hairballs" due to the overlapping
+edges resulting in an entangled mess.
+
+It's clear that we need to impose more structure on the positioning of the if
+we want to get a sense for the data. For this, we can use the `spring_layout`
+function which is the default layout function for the networkx drawing module.
+The `spring_layout` function has the advantage that it takes into account the
+nodes and edges to compute locations of the nodes. The downside however, is
+that this process is much more computationally expensive, and can be quite
+slow for graphs with 100's of nodes and 1000's of edges.
+
+Since our dataset has over 80k edges, we will limit the number of iterations
+used in the `spring_layout` function to reduce the computation time.
+We will also save the computed layout so we can use it for future
+visualizations.
+
+```{code-cell} ipython3
+pos = nx.spring_layout(G, iterations=15, seed=1721)
+fig, ax = plt.subplots(figsize=(15, 9))
+ax.axis('off')
+nx.draw_networkx(G, pos=pos, ax=ax, **plot_options)
+```
+
+This visualization is much more useful than the previous one! Already we can
+glean something about the structure of the network; for example, many of the
+nodes seem to be highly connected, as we might expect for a social network.
+We also get a sense that the nodes tend to form clusters. The `spring_layout`
+serves to give a qualitative sense of clustering, but it is not designed for
+repeatable, qualitative clustering analysis. We'll revisit evaluating
+network clustering [later in the analysis](#Clustering Effects)
 
 ## Basic topological attributes
 * Total number of nodes in network:
