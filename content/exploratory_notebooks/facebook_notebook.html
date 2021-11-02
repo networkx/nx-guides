@@ -1,0 +1,1292 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facebook Network Analysis &#8212; NetworkX Notebooks</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Geometric Generator Models" href="../generators/geometric.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/networkx_logo.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">NetworkX Notebooks</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorial.html">
+   NetworkX Tutorial
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../algorithms/index.html">
+   Algorithms
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../algorithms/assortativity/correlation.html">
+     Node assortativity coefficients and correlation measures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../algorithms/dag/index.html">
+     Directed Acyclic Graphs &amp; Topological Sort
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../generators/index.html">
+   Graph Generators
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../generators/geometric.html">
+     Geometric Generator Models
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Facebook Network Analysis
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../../_sources/content/exploratory_notebooks/facebook_notebook.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/content/exploratory_notebooks/facebook_notebook.md.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/networkx/nx-guides/"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/networkx/nx-guides//issues/new?title=Issue%20on%20page%20%2Fcontent/exploratory_notebooks/facebook_notebook.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/networkx/nx-guides/edit/main/site/content/exploratory_notebooks/facebook_notebook.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=tree/site/content/exploratory_notebooks/facebook_notebook.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#visualizing-the-graph">
+   Visualizing the graph
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-topological-attributes">
+   Basic topological attributes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#centrality-measures">
+   Centrality measures
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#degree-centrality">
+     Degree Centrality
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#betweenness-centrality">
+     Betweenness Centrality
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#closeness-centrality">
+     Closeness Centrality
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#eigenvector-centrality">
+     Eigenvector Centrality
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#clustering-effects">
+   Clustering Effects
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bridges">
+   Bridges
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#assortativity">
+   Assortativity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#network-communities">
+   Network Communities
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#references">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="facebook-network-analysis">
+<h1>Facebook Network Analysis<a class="headerlink" href="#facebook-network-analysis" title="Permalink to this headline">¶</a></h1>
+<p>This notebook contains a social network analysis mainly executed with the library of NetworkX. In detail, the facebook circles (friends lists) of ten people will be examined and scrutinized in order to extract all kinds of valuable information. The dataset can be found in the <a class="reference external" href="http://snap.stanford.edu/data/ego-Facebook.html">stanford website</a>. Moreover, as known, a facebook network is undirected and has no weights because one user can become friends with another user just once. Looking at the dataset from a graph analysis perspective:</p>
+<ul class="simple">
+<li><p>Each node represents an anonymized facebook user that belongs to one of those ten friends lists.</p></li>
+<li><p>Each edge corresponds to the friendship of two facebook users that belong to this network. In other words, two users must become friends on facebook in order for them to be connected in the particular network.</p></li>
+</ul>
+<p>Note: Nodes <span class="math notranslate nohighlight">\(0, 107, 348, 414, 686, 698, 1684, 1912, 3437, 3980\)</span> are the ones whose friends list will be examined. That means that they are in the spotlight of this analysis. Those nodes are considered the <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">nodes</span></code></p>
+<ul class="simple">
+<li><p>Now, the necessary libraries are imported</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The edges are loaded from the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder and saved in a dataframe. Each edge is a new row and for each edge there is a <code class="docutils literal notranslate"><span class="pre">start_node</span></code> and an <code class="docutils literal notranslate"><span class="pre">end_node</span></code> column</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">facebook</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/facebook_combined.txt.gz&#39;</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s1">&#39;gzip&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;start_node&#39;</span><span class="p">,</span> <span class="s1">&#39;end_node&#39;</span><span class="p">])</span>
+<span class="n">facebook</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>start_node</th>
+      <th>end_node</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>88229</th>
+      <td>4026</td>
+      <td>4030</td>
+    </tr>
+    <tr>
+      <th>88230</th>
+      <td>4027</td>
+      <td>4031</td>
+    </tr>
+    <tr>
+      <th>88231</th>
+      <td>4027</td>
+      <td>4032</td>
+    </tr>
+    <tr>
+      <th>88232</th>
+      <td>4027</td>
+      <td>4038</td>
+    </tr>
+    <tr>
+      <th>88233</th>
+      <td>4031</td>
+      <td>4038</td>
+    </tr>
+  </tbody>
+</table>
+<p>88234 rows × 2 columns</p>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>The graph is created from the <code class="docutils literal notranslate"><span class="pre">facebook</span></code> dataframe of the edges:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_pandas_edgelist</span><span class="p">(</span><span class="n">facebook</span><span class="p">,</span> <span class="s1">&#39;start_node&#39;</span><span class="p">,</span> <span class="s1">&#39;end_node&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="visualizing-the-graph">
+<h2>Visualizing the graph<a class="headerlink" href="#visualizing-the-graph" title="Permalink to this headline">¶</a></h2>
+<p>Let’s start our exploration by visualizing the graph. Visualization plays a
+central role in exploratory data analysis to help get a qualitative feel for
+the data.</p>
+<p>Since we don’t have any real sense of structure in the data, let’s start by
+viewing the graph with <code class="docutils literal notranslate"><span class="pre">random_layout</span></code>, which is among the fastest of the layout
+functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plot_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;node_size&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;with_labels&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">}</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">random_layout</span><span class="p">(</span><span class="n">G</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">plot_options</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/facebook_notebook_8_0.png" src="../../_images/facebook_notebook_8_0.png" />
+</div>
+</div>
+<p>The resulting image is… not very useful. Graph visualizations of this kind
+are sometimes colloquially referred to as “hairballs” due to the overlapping
+edges resulting in an entangled mess.</p>
+<p>It’s clear that we need to impose more structure on the positioning of the if
+we want to get a sense for the data. For this, we can use the <code class="docutils literal notranslate"><span class="pre">spring_layout</span></code>
+function which is the default layout function for the networkx drawing module.
+The <code class="docutils literal notranslate"><span class="pre">spring_layout</span></code> function has the advantage that it takes into account the
+nodes and edges to compute locations of the nodes. The downside however, is
+that this process is much more computationally expensive, and can be quite
+slow for graphs with 100’s of nodes and 1000’s of edges.</p>
+<p>Since our dataset has over 80k edges, we will limit the number of iterations
+used in the <code class="docutils literal notranslate"><span class="pre">spring_layout</span></code> function to reduce the computation time.
+We will also save the computed layout so we can use it for future
+visualizations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1721</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">plot_options</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/facebook_notebook_10_0.png" src="../../_images/facebook_notebook_10_0.png" />
+</div>
+</div>
+<p>This visualization is much more useful than the previous one! Already we can
+glean something about the structure of the network; for example, many of the
+nodes seem to be highly connected, as we might expect for a social network.
+We also get a sense that the nodes tend to form clusters. The <code class="docutils literal notranslate"><span class="pre">spring_layout</span></code>
+serves to give a qualitative sense of clustering, but it is not designed for
+repeatable, qualitative clustering analysis. We’ll revisit evaluating
+network clustering <a class="reference internal" href="#clustering-effects"><span class="std std-doc">later in the analysis</span></a></p>
+</div>
+<div class="section" id="basic-topological-attributes">
+<h2>Basic topological attributes<a class="headerlink" href="#basic-topological-attributes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Total number of nodes in network:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4039
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Total number of edges:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>88234
+</pre></div>
+</div>
+</div>
+</div>
+<p>Also, the average degree of a node can be seen.</p>
+<ul class="simple">
+<li><p>On average, a node is connected to almost 44 other nodes, also known as neighbors of the node.</p></li>
+<li><p>This has been calculated by creating a list of all the degrees of the nodes and using <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> to find the mean of the created list.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">d</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>43.69101262688784
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The diameter is calculated now. As known, it is the longest shortest path of the graph. That means in order to connect from any node to another one we would have to traverse 8 edges or less.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">diameter</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Next up, the average path length is found. In detail, it is defined as the average of the shortest paths for all pairs of nodes. That means that generally in order to reach from one node to another node, 3 or 4 edges will be crossed.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.6925068496963913
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now a histogram of the shortest paths lenghts’ relative frequencies will be created to see how those lenghts are distributed.</p>
+<ul class="simple">
+<li><p>Firstly, all the shortest paths will be found</p></li>
+<li><p>Then, a list <code class="docutils literal notranslate"><span class="pre">frequencies</span></code> will be created to store the frequency of each path length</p></li>
+<li><p>Next, every shortest path will be checked and the frequency of its length will be increased by 1</p></li>
+<li><p>Lastly, the percentages of each frequency will be calculated. Even though the frequencies are doubled (because each shortest path between two specific nodes n1 and n2 was calculated twice, once from n1 to n2 and once from n2 to n1), the percentages remain correct.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shortest_paths</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">shortest_path</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># save all shortest paths in a dictionary</span>
+<span class="n">frequencies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">diameter</span><span class="p">(</span><span class="n">G</span><span class="p">))]</span>  <span class="c1"># list that will contain the different frequencies</span>
+<span class="k">for</span> <span class="n">node_start</span> <span class="ow">in</span> <span class="n">shortest_paths</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">shortest_paths</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">node_start</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">path_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># path is a list of nodes, so the length consists of edges equal to one less node</span>
+        <span class="k">if</span> <span class="n">path_length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># paths with 0 length are no use</span>
+            <span class="n">frequencies</span><span class="p">[</span><span class="n">path_length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># increase the frequency of the particular path length by one</span>
+<span class="n">frequencies</span> <span class="o">=</span> <span class="p">[</span><span class="n">num</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">frequencies</span><span class="p">)</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">frequencies</span><span class="p">]</span>  <span class="c1"># find the percentage of each path length</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Showcasing the results. Clearly, the distribution of the percentages is skewed on the right. The majority of the shortest path lengths are from <span class="math notranslate nohighlight">\(2\)</span> to <span class="math notranslate nohighlight">\(5\)</span> edges long. Also, it’s highly unlikely for a pair of nodes to have a shortest path of length 8 (diameter length) as the likelihood is less than <span class="math notranslate nohighlight">\(0.1\)</span>%.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span> <span class="p">[</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">8</span><span class="p">)]</span> <span class="p">,</span> 
+            <span class="n">height</span><span class="o">=</span><span class="n">frequencies</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Percentages of Shortest Path Lengths&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Shortest Path Length&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage&#39;</span><span class="p">,</span><span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Percentage&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/facebook_notebook_24_1.png" src="../../_images/facebook_notebook_24_1.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>The graph’s density is calculated here. Clearly, the graph is a very sparse one as: <span class="math notranslate nohighlight">\(density &lt; 1\)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">density</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.010819963503439287
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The graph’s number of components are found below. As expected, the network consists of one giant compoenent:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">number_connected_components</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="centrality-measures">
+<h2>Centrality measures<a class="headerlink" href="#centrality-measures" title="Permalink to this headline">¶</a></h2>
+<p>Now the centrality measures will be examined for the facebook graph</p>
+<div class="section" id="degree-centrality">
+<h3>Degree Centrality<a class="headerlink" href="#degree-centrality" title="Permalink to this headline">¶</a></h3>
+<p>Degree centrality assigns an importance score based simply on the number of links held by each node. In this analysis, that means that the higher the degree centrality of a node is, the more edges are connected to the particular node and thus the more neighbor nodes (facebook friends) this node has. In fact, the degree of centrality of a node is the fraction of nodes it is connected to. In other words, it is the percentage of the network that the particular node is connected to meaning being friends with.</p>
+<ul class="simple">
+<li><p>Starting, we find the nodes with the highest degree centralities. Specifically, the nodes with the 8 highest degree centralities are shown below together with the degree centrality:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degree_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">degree_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># save results in a variable to use again </span>
+<span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">degree_centrality</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[:</span><span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(107, 0.258791480931154),
+ (1684, 0.1961367013372957),
+ (1912, 0.18697374938088163),
+ (3437, 0.13546310054482416),
+ (0, 0.08593363051015354),
+ (2543, 0.07280832095096582),
+ (2347, 0.07206537890044576),
+ (1888, 0.0629024269440317)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>That means that node <span class="math notranslate nohighlight">\(107\)</span> has the highest degree centrality with <span class="math notranslate nohighlight">\(0.259\)</span>, meaning that this facebook user is friends with around the 26% of the whole network. Similarly, nodes <span class="math notranslate nohighlight">\(1684, 1912, 3437\)</span> and <span class="math notranslate nohighlight">\(0\)</span> also have very high degree centralities. However, that is well expected as those nodes are the ones whose facebook circles we examine. Very interesting is the fact that the nodes <span class="math notranslate nohighlight">\(2543, 2347, 1888\)</span> have some of the top 8 highest degree centralities even though we do not investigate their circles. In other words, those three nodes are very popular among the circles we examine now, meaning they have the most facebook friends inside this network apart from the spotlight nodes.</p>
+<ul class="simple">
+<li><p>Now we can also see the number of neighbors for the nodes with the highest degree centralities:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[:</span><span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(107, 1045),
+ (1684, 792),
+ (1912, 755),
+ (3437, 547),
+ (0, 347),
+ (2543, 294),
+ (2347, 291),
+ (1888, 254)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>As expected, node <span class="math notranslate nohighlight">\(107\)</span> has <span class="math notranslate nohighlight">\(1045\)</span> facebook friends which is the most any facebook user has in this analysis. Moreover, nodes <span class="math notranslate nohighlight">\(1684\)</span> and <span class="math notranslate nohighlight">\(1912\)</span> have more than <span class="math notranslate nohighlight">\(750\)</span> facebook friends in this network. Also, nodes <span class="math notranslate nohighlight">\(3437\)</span> and <span class="math notranslate nohighlight">\(0\)</span> have the following highest number of facebook friends in this network with <span class="math notranslate nohighlight">\(547\)</span> and <span class="math notranslate nohighlight">\(347\)</span> respectively. Lastly, the two most popular friends of spotlight nodes have around <span class="math notranslate nohighlight">\(290\)</span> facebook friends in this network.</p>
+<p>Now the distribution of degree centralities will be plotted:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">degree_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>  <span class="c1"># set the x axis ticks</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Degree Centrality Histogram &#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Degree Centrality&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">,</span><span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/facebook_notebook_35_1.png" src="../../_images/facebook_notebook_35_1.png" />
+</div>
+</div>
+<p>It is visible that the vast majority of facebook users have degree centralities of less than <span class="math notranslate nohighlight">\(0.05\)</span>. In fact the majority has less than <span class="math notranslate nohighlight">\(0.0125\)</span>. Actually, that makes sense because the network consists of friends lists of particular nodes, which are obviously the ones with the highest degree centralities. In other words, because only the friends list of particular nodes were used to create this particular network, plenty of nodes have extremely low degree centralities as they are not very interconnected in this network</p>
+<p>Now let’s check the users with highest degree centralities from the size of their nodes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span>  <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="mi">1000</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">degree_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>  <span class="c1"># set up nodes size for a nice graph representation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.9991880235075951,
+ 1.1078363832831382,
+ -1.164599134027958,
+ 0.7322099342942238)
+</pre></div>
+</div>
+<img alt="../../_images/facebook_notebook_37_1.png" src="../../_images/facebook_notebook_37_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="betweenness-centrality">
+<h3>Betweenness Centrality<a class="headerlink" href="#betweenness-centrality" title="Permalink to this headline">¶</a></h3>
+<p>Betweenness centrality measures the number of times a node lies on the shortest path between other nodes, meaning it acts as a bridge. In detail, betweenness centrality of a node <span class="math notranslate nohighlight">\(v\)</span> is the percentage of all the shortest paths of any two nodes (apart from <span class="math notranslate nohighlight">\(v\)</span>), which pass through <span class="math notranslate nohighlight">\(v\)</span>. Specifically, in the facebook graph this measure is associated with the user’s ability to influence others. A user with a high betweenness centrality acts as a bridge to many users that are not friends and thus has the ability to influence them by conveying information (e.g. by posting something or sharing a post) or even connect them via the user’s circle (which would reduce the user’s betweeness centrality after).</p>
+<ul class="simple">
+<li><p>Now, the nodes with the <span class="math notranslate nohighlight">\(8\)</span> highest betweenness centralities will be calculated and shown with their centrality values:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">betweenness_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># save results in a variable to use again </span>
+<span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">betweenness_centrality</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[:</span><span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(107, 0.4805180785560152),
+ (1684, 0.3377974497301992),
+ (3437, 0.23611535735892905),
+ (1912, 0.2292953395868782),
+ (1085, 0.14901509211665306),
+ (0, 0.14630592147442917),
+ (698, 0.11533045020560802),
+ (567, 0.09631033121856215)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Looking at the results, the node <span class="math notranslate nohighlight">\(107\)</span> has a betweenness centrality of <span class="math notranslate nohighlight">\(0.48\)</span>, meaning it lies on almost half of the total shortest paths between other nodes. Also, combining the knowledge of the degree centrality:</p>
+<ul class="simple">
+<li><p>Nodes <span class="math notranslate nohighlight">\(0, 107, 1684, 1912, 3437\)</span> have both the highest degree and betweenness centralities and are <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">nodes</span></code>. That indicates that those nodes are both the most popular ones in this network and can also influence and spread information in the network. However, those are some of the nodes whose friends list consist the network and as a result it is an expected finding.</p></li>
+<li><p>Nodes <span class="math notranslate nohighlight">\(567, 1085\)</span> are not spotlight nodes, have some of the highest betweenness centralities and have not the highest degree centralities. That means that even though those nodes are not the most popular users in the network, they have the most influence in this network among friends of spotlight nodes when it comes to spreading information.</p></li>
+<li><p>Node <span class="math notranslate nohighlight">\(698\)</span> is a <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">node</span></code> and has a very high betweenness centrality even though it has not the highest degree centralities. In other words, this node does not have a very large friends list on facebook. However, the user’s whole friend list is a part of the network and thus the user could connect different circles in this network by being the middleman.</p></li>
+</ul>
+<p>Moving on, the distribution of betweenness centralities will be plotted:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">betweenness_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>  <span class="c1"># set the x axis ticks</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Betweenness Centrality Histogram &#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Betweenness Centrality&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">,</span><span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/facebook_notebook_41_1.png" src="../../_images/facebook_notebook_41_1.png" />
+</div>
+</div>
+<p>As we can see, the vast majority of betweenness centralities is below <span class="math notranslate nohighlight">\(0.01\)</span>. That makes sense as the graph is very sparse and thus most nodes do not act as bridges in shortest paths. However, that also results in some nodes having extremely high betweenness centralities as for example node <span class="math notranslate nohighlight">\(107\)</span> with <span class="math notranslate nohighlight">\(0.48\)</span> and node <span class="math notranslate nohighlight">\(1684\)</span> with <span class="math notranslate nohighlight">\(0.34\)</span> betweenness centrality.</p>
+<p>We can also get an image on the nodes with the highest betweenness centralities and where they are located in the network. It is clear that they are the bridges from one community to another:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span>  <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="mi">1200</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">betweenness_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>  <span class="c1"># set up nodes size for a nice graph representation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.9991880235075951,
+ 1.1078363832831382,
+ -1.164599134027958,
+ 0.7322099342942238)
+</pre></div>
+</div>
+<img alt="../../_images/facebook_notebook_43_1.png" src="../../_images/facebook_notebook_43_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="closeness-centrality">
+<h3>Closeness Centrality<a class="headerlink" href="#closeness-centrality" title="Permalink to this headline">¶</a></h3>
+<p>Closeness centrality scores each node based on their ‘closeness’ to all other nodes in the network. For a node <span class="math notranslate nohighlight">\(v\)</span>, its closeness centrality measures the average farness to all other nodes. In other words, the higher the closeness centrality of <span class="math notranslate nohighlight">\(v\)</span>, the closer it is located to the center of the network.</p>
+<p>The closeness centrality measure is very important for the monitoring of the spread of false information (e.g. fake news) or viruses (e.g. malicious links that gain control of the facebook account in this case). Let’s examine the example of fake news. If the user with the highest closeness centrality measure started spreading some fake news information (sharing or creating a post), the whole network would get missinformed the quickest possible. However, if a user with very low closeness centrality would try the same, the spread of the missinformation to the whole network would be much slower. That is because the false information would have to firstly reach a user with high closeness centrality that would spread it to many different parts of the network.</p>
+<ul class="simple">
+<li><p>The nodes with the highest closeness centralities will be found now:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">closeness_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">closeness_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># save results in a variable to use again </span>
+<span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">closeness_centrality</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[:</span><span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(107, 0.45969945355191255),
+ (58, 0.3974018305284913),
+ (428, 0.3948371956585509),
+ (563, 0.3939127889961955),
+ (1684, 0.39360561458231796),
+ (171, 0.37049270575282134),
+ (348, 0.36991572004397216),
+ (483, 0.3698479575013739)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Inspecting the users with the highest closeness centralities, we understand that there is not a huge gap between them in contrast to the previous metrics. Also, the nodes <span class="math notranslate nohighlight">\(107, 1684, 348\)</span> are the only <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">nodes</span></code> found in the ones with the highest closeness centralities. That means that a node that has many friends is not necessary close to the center of the network.</p>
+<p>Also, the average distance of a particular node <span class="math notranslate nohighlight">\(v\)</span> to any other node can be found easily with the formula:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{closeness\,centrality(v)}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">/</span> <span class="n">closeness_centrality</span><span class="p">[</span><span class="mi">107</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.1753343239227343
+</pre></div>
+</div>
+</div>
+</div>
+<p>The distance from node <span class="math notranslate nohighlight">\(107\)</span> to a random node is around two hops</p>
+<p>Furthermore, the distribution of the closeness centralities:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">closeness_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Closeness Centrality Histogram &#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Closeness Centrality&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">,</span><span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/facebook_notebook_49_1.png" src="../../_images/facebook_notebook_49_1.png" />
+</div>
+</div>
+<p>The closeness centralities are distributed over various values from <span class="math notranslate nohighlight">\(0.17\)</span> to <span class="math notranslate nohighlight">\(0.46\)</span>. In fact, the majority of them are found between <span class="math notranslate nohighlight">\(0.25\)</span> and <span class="math notranslate nohighlight">\(0.3\)</span>. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span>  <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="mi">50</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">closeness_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>  <span class="c1"># set up nodes size for a nice graph representation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.9991880235075951,
+ 1.1078363832831382,
+ -1.164599134027958,
+ 0.7322099342942238)
+</pre></div>
+</div>
+<img alt="../../_images/facebook_notebook_51_1.png" src="../../_images/facebook_notebook_51_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="eigenvector-centrality">
+<h3>Eigenvector Centrality<a class="headerlink" href="#eigenvector-centrality" title="Permalink to this headline">¶</a></h3>
+<p>Eigenvector centrality is the metric to show how connected a node is to other important nodes in the network. It measures a node’s influence based on how well it is connected inside the network and how many links its connections have and so on. This measure can identify the nodes with the most influence over the whole network. A high eigenvector centrality means that the node is connected to other nodes who themselves have high eigenvector centralities. In this facebook analysis, the measure is associated with the users ability to influence the whole graph and thus the users with the highest eigenvector centralities are the most important nodes in this network.</p>
+<ul class="simple">
+<li><p>The nodes with the highest eigenvector centralities will be examined now:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigenvector_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># save results in a variable to use again </span>
+<span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">eigenvector_centrality</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(1912, 0.09540696149067629),
+ (2266, 0.08698327767886552),
+ (2206, 0.08605239270584342),
+ (2233, 0.08517340912756598),
+ (2464, 0.08427877475676092),
+ (2142, 0.08419311897991796),
+ (2218, 0.0841557356805503),
+ (2078, 0.08413617041724979),
+ (2123, 0.08367141238206226),
+ (1993, 0.0835324284081597)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Checking the results:</p>
+<ul class="simple">
+<li><p>Node <span class="math notranslate nohighlight">\(1912\)</span> has the highest eigenvector centrality with <span class="math notranslate nohighlight">\(0.095\)</span>. This node is also a <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">node</span></code> and can surely be considered the most important node in this network in terms of overall influence to the whole network. In fact, this node also has some of the highest degree centralities and  betweenness centralities, making the user very popular and influencious to other nodes.</p></li>
+<li><p>Nodes <span class="math notranslate nohighlight">\(1993, 2078, 2206, 2123, 2142, 2218, 2233, 2266, 2464\)</span>, even though they are not spotlight nodes, have some of the highest eigenvector centralities with around <span class="math notranslate nohighlight">\(0.83-0.87\)</span>. Very interesting is the fact that all those nodes are identified for the first time, meaning they have neither the heighest degree, betweenness or closeness centralities in this graph. That leads to the conclusion that those nodes are very likely to be connected to the node <span class="math notranslate nohighlight">\(1912\)</span> and as a result have very high eigenvector centralities.</p></li>
+</ul>
+<p>Checking if those nodes are connected to the most important node <span class="math notranslate nohighlight">\(1912\)</span>, the hypothesis is correct:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">high_eigenvector_centralities</span> <span class="o">=</span> <span class="p">((</span><span class="nb">sorted</span><span class="p">(</span><span class="n">eigenvector_centrality</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span>  <span class="c1"># 2nd to 10th nodes with heighest eigenvector centralities</span>
+<span class="n">high_eigenvector_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="nb">tuple</span> <span class="ow">in</span> <span class="n">high_eigenvector_centralities</span><span class="p">]</span>  <span class="c1"># set list as [2266, 2206, 2233, 2464, 2142, 2218, 2078, 2123, 1993]</span>
+<span class="n">neighbors_1912</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="mi">1912</span><span class="p">)]</span>  <span class="c1"># list with all nodes connected to 1912</span>
+<span class="nb">all</span><span class="p">(</span><span class="n">item</span> <span class="ow">in</span> <span class="n">neighbors_1912</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">high_eigenvector_nodes</span><span class="p">)</span>  <span class="c1"># check if items in list high_eigenvector_nodes exist in list neighbors_1912</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s check the distribution of the eigenvector centralities:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">eigenvector_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">])</span>  <span class="c1"># set the x axis ticks</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Eigenvector Centrality Histogram &#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Eigenvector Centrality&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">,</span><span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/facebook_notebook_57_1.png" src="../../_images/facebook_notebook_57_1.png" />
+</div>
+</div>
+<p>As shown in the distribution histogram, the vast majority of eigenvector centralities are below <span class="math notranslate nohighlight">\(0.005\)</span> and are actually almost <span class="math notranslate nohighlight">\(0\)</span>. However, we can also see different values of eigenvector centralities as there are tiny bins all over the x axis.</p>
+<p>Now we can identify the eigenvector centralities of nodes based on their size in the following representation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span>  <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="mi">4000</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">eigenvector_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>  <span class="c1"># set up nodes size for a nice graph representation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.9991880235075951,
+ 1.1078363832831382,
+ -1.164599134027958,
+ 0.7322099342942238)
+</pre></div>
+</div>
+<img alt="../../_images/facebook_notebook_59_1.png" src="../../_images/facebook_notebook_59_1.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="clustering-effects">
+<h2>Clustering Effects<a class="headerlink" href="#clustering-effects" title="Permalink to this headline">¶</a></h2>
+<p>The clustering coefficient of a node <span class="math notranslate nohighlight">\(v\)</span> is defined as the probability that two randomly selected friends of <span class="math notranslate nohighlight">\(v\)</span> are friends with each other. As a result, the average clustering coefficient is the average of clustering coefficients of all the nodes. The closer the average clustering coefficient is to <span class="math notranslate nohighlight">\(1\)</span>, the more complete the graph will be because there’s just one giant component. Lastly, it is a sign of triadic closure because the more complete the graph is, the more triangles will usually arise.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6055467186200876
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now the clustering coefficient distribution will be displayed:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Clustering Coefficient Histogram &#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Clustering Coefficient&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">,</span><span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/facebook_notebook_63_1.png" src="../../_images/facebook_notebook_63_1.png" />
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(50\)</span> bins were used to showcase the distribution. The bin with the highest counts concerns nodes with clustering coefficient close to <span class="math notranslate nohighlight">\(1\)</span> as there are more than two-hundred-fifty nodes in that bin. In addition, the bins of clustering coefficient between <span class="math notranslate nohighlight">\(0.4\)</span> and <span class="math notranslate nohighlight">\(0.8\)</span> contain the majority of nodes by far.</p>
+<p>The number of unique triangles in the network are found next:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">triangles_per_node</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">triangles</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="nb">sum</span><span class="p">(</span><span class="n">triangles_per_node</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>  <span class="c1"># divide by 3 because each triangle is counted once for each node</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1612010.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now the average number of triangles that a node is a part of:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">triangles_per_node</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1197.3334983906907
+</pre></div>
+</div>
+</div>
+</div>
+<p>Due to having some nodes that belong to a great many triangles, the metric of median will give us a better understanding:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">triangles_per_node</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>161.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>In fact, the median value is just <span class="math notranslate nohighlight">\(161\)</span> triangles, when the mean is around <span class="math notranslate nohighlight">\(1197\)</span> triangles that a node is part of. That means that the majority of nodes of the network belong to extremely few triangles, whereas some nodes are part of a plethora of triangles (which are extreme values that increase the mean)</p>
+<p>In conclusion, the high average clustering coefficient together with the huge number of triangles are signs of the triadic closure. In detail, the triadic closure means that as time goes on, new edges tend to form between two users that have one or more mutual friends. That can be explained by the fact that Facebook usually suggests new friends to a user when there are many mutual friends between the user and the new friend to be added. Also, there is a source of latent stress. For example, if node <span class="math notranslate nohighlight">\(A\)</span> is friends with
+node <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span>,  some tension builds up if <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span> are not friends with each other.</p>
+</div>
+<div class="section" id="bridges">
+<h2>Bridges<a class="headerlink" href="#bridges" title="Permalink to this headline">¶</a></h2>
+<p>First of all, an edge joining two nodes A and B in the graph is considered a bridge, if deleting the edge would cause A and B to lie in two different components. Now it is checked if there are any bridges in this network:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">has_bridges</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>Actually, there are bridges in the network. Now the edges that are bridges will be saved in a list and the number of them is printed:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bridges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">bridges</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">bridges</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>75
+</pre></div>
+</div>
+</div>
+</div>
+<p>The existence of so many bridges is due to the fact that this network only contains the spotlight nodes and the friends of them. As a result, some friends of spotlight nodes are only connected to a spotlight node, making that edge a bridge.</p>
+<p>Also, the edges that are local bridges are saved in a list and their number is printed. In detaill, an edge joining two nodes <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(D\)</span>
+in a graph is a local bridge, if its endpoints <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(D\)</span> have no friends in common. Very importantly, an edge that is a bridge is also a local bridge. Thus, this list contains all the above bridges as well:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">local_bridges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">local_bridges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_span</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">local_bridges</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>78
+</pre></div>
+</div>
+</div>
+</div>
+<p>Showcasing the bridges and local bridges in the network now. The bridges can be seen with the red color and the local bridges with the green color. Black edges are neither local bridges nor bridges.</p>
+<ul class="simple">
+<li><p>It is clear that all the bridges concern nodes that are only connected to a spotlight node (have a degree of <span class="math notranslate nohighlight">\(1\)</span>)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">local_bridges</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;lawngreen&quot;</span><span class="p">)</span>  <span class="c1"># green color for local bridges </span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">bridges</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>  <span class="c1"># red color for bridges</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.9991880235075951,
+ 1.1078363832831382,
+ -1.164599134027958,
+ 0.7322099342942238)
+</pre></div>
+</div>
+<img alt="../../_images/facebook_notebook_78_1.png" src="../../_images/facebook_notebook_78_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="assortativity">
+<h2>Assortativity<a class="headerlink" href="#assortativity" title="Permalink to this headline">¶</a></h2>
+<p>Assortativity describes the preference for a network’s nodes to attach to others that are similar in some way.</p>
+<ul class="simple">
+<li><p>The assortativity in terms of nodes degrees is found with two ways:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">degree_assortativity_coefficient</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.06357722918564943
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">degree_pearson_correlation_coefficient</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># use the potentially faster scipy.stats.pearsonr function.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.06357722918564918
+</pre></div>
+</div>
+</div>
+</div>
+<p>In fact, the assortativity coefficient is the Pearson correlation coefficient of degree between pairs of linked nodes. That means that it takes values from <span class="math notranslate nohighlight">\(-1\)</span> to <span class="math notranslate nohighlight">\(1\)</span>. In detail, a positive assortativity coefficient indicates a correlation between nodes of similar degree, while a negative indicates correlation between nodes of different degrees.</p>
+<p>In our case the assortativity coefficient is around <span class="math notranslate nohighlight">\(0.064\)</span>, which is almost 0. That means that the network is almost non-assortative, and we cannot correlate linked nodes based on their degrees. In other words, we can not draw conclusions on the number of friends of a user from his/her friends’ number of friends (friends degree). That makes sense since we only use the friends list of spotlight nodes, non spotlight nodes will tend to have much fewer friends.</p>
+</div>
+<div class="section" id="network-communities">
+<h2>Network Communities<a class="headerlink" href="#network-communities" title="Permalink to this headline">¶</a></h2>
+<p>A community is a group of nodes, so that nodes inside the group are connected with many more edges than between groups. Two different algorithms will be used for communities detection in this network</p>
+<ul class="simple">
+<li><p>Firstly, a semi-synchronous label propagation method<a class="footnote-reference brackets" href="#id2" id="id1">1</a> is used to detect the communities.</p></li>
+</ul>
+<p>This function determines by itself the number of communities that will be detected. Now the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community. Also, the number of communities is printed:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())]</span>  <span class="c1"># initialize colors list</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">com</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">community</span><span class="o">.</span><span class="n">label_propagation_communities</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#</span><span class="si">%06X</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0xFFFFFF</span><span class="p">)</span>  <span class="c1"># creates random RGB color</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">com</span><span class="p">):</span>  <span class="c1"># fill colors list with the particular color for the community nodes</span>
+        <span class="n">colors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
+<span class="n">counter</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>44
+</pre></div>
+</div>
+</div>
+</div>
+<p>In detail, <span class="math notranslate nohighlight">\(44\)</span> communities were detected. Now the communities are showcased in the graph. Each community is depicted with a different color and its nodes are usually located close to each other:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span> 
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/facebook_notebook_86_0.png" src="../../_images/facebook_notebook_86_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Next, the asynchronous fluid communities algorithm is used.</p></li>
+</ul>
+<p>With this function, we can decide the number of communities to be detected. Let’s say that <span class="math notranslate nohighlight">\(8\)</span> communities is the number we want. Again, the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())]</span>
+<span class="k">for</span> <span class="n">com</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">community</span><span class="o">.</span><span class="n">asyn_fluidc</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#</span><span class="si">%06X</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0xFFFFFF</span><span class="p">)</span>  <span class="c1"># creates random RGB color</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">com</span><span class="p">):</span>
+        <span class="n">colors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now the <span class="math notranslate nohighlight">\(8\)</span> communities are shown in the graph. Again, each community is depicted with a different color:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span> 
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/facebook_notebook_90_0.png" src="../../_images/facebook_notebook_90_0.png" />
+</div>
+</div>
+<div class="section" id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://cambridge-intelligence.com/keylines-faqs-social-network-analysis/#:~:text=Centrality%20measures%20are%20a%20vital,but%20they%20all%20work%20differently.">Cambridge-intelligence</a></p>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.label_propagation.label_propagation_communities.html#networkx.algorithms.community.label_propagation.label_propagation_communities">Semi-synchronous label propagation</a></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="../generators/geometric.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Geometric Generator Models</p>
+            </div>
+        </a>
+    </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By NetworkX developers<br/>
+        
+            &copy; Copyright 2021, NetworkX developers.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
