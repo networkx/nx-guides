@@ -134,8 +134,8 @@ edges to be traversed to get from one node to another in the network.
 These attributes can be calculated with the `nx.diameter` and
 `nx.average_shortest_path_length` functions, respectively.
 Note however that these analyses require computing the shortest path between
-every pair of nodes in the network.
-This can be quite expensive for networks of this size!
+every pair of nodes in the network: this can be quite expensive for networks
+of this size!
 Since we're interested in several analyses involving the shortest path length
 for all nodes in the network, we can instead compute this once and reuse the
 information to save computation time.
@@ -148,7 +148,7 @@ shortest_path_lengths = dict(nx.all_pairs_shortest_path_length(G))
 ```
 
 `nx.all_pairs_shortest_path_length` returns a dict-of-dict that maps a node `u`
-to all other nodes in the network, and the inner-most mapping returns the
+to all other nodes in the network, where the inner-most mapping returns the
 length of the shortest path between the two nodes.
 In other words, `shortest_path_lengths[u][v]` will return the shortest path
 length between any two pair of nodes `u` and `v`:
@@ -158,8 +158,8 @@ length between any two pair of nodes `u` and `v`:
 shortest_path_lengths[0][42]  # Length of shortest path between nodes 0 and 42
 ```
 
-Now let's use the `shortest_path_lengths` dict-of-dicts that we've computed to
-conduct our analyses, starting with the *diameter* of `G`.
+Now let's use `shortest_path_lengths` to perform our analyses, starting with
+the *diameter* of `G`.
 If we look carefully at the [docstring for `nx.diameter`][nx_diameter_], we see
 that it is equivalent to the maximum *eccentricity* of the graph.
 It turns out that `nx.eccentricity` has an optional argument `sp` where we can
