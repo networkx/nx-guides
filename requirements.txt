@@ -7,3 +7,5 @@ sphinx
 myst-nb
 sphinx-book-theme
 jupytext
+pandas
+numpy

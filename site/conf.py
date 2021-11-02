@@ -31,6 +31,9 @@ extensions = [
     "myst_nb",
 ]
 
+# MyST configuration
+myst_heading_anchors = 2
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
