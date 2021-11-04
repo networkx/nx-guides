@@ -1,9 +1,33 @@
-# Sudoku and Graph coloring 
+---
+jupytext:
+  notebook_metadata_filter: all
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.1
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+language_info:
+  codemirror_mode:
+    name: ipython
+    version: 3
+  file_extension: .py
+  mimetype: text/x-python
+  name: python
+  nbconvert_exporter: python
+  pygments_lexer: ipython3
+  version: 3.7.4
+---
+
+# Sudoku and Graph coloring
 
 This notebook tries to help you understand the mathematics in the backdrop of the popular number placement puzzle -Sudoku. A Sudoku puzzle consists of a 9 × 9 grid of 81 cells. The objective is to ﬁll the rest of the grid with digits from 1 to 9 such that no digit repeats within any row, column and speciﬁed 3 × 3 blocks.
 
 
-```python
+```{code-cell} ipython3
 import networkx as nx
 import numpy as np
 import matplotlib as mpl
@@ -14,7 +38,7 @@ from random import sample
 Informally the Sudoku graph is an undirected graph- its vertices represent the cells and edges represent pairs of cells that belong to the same row, column, or block of the puzzle. Formally this can be defined as:
 
 > A Sudoku grid of rank $n$ is a $n^2 × n^2$ grid($X_n$) . It consists of $n^2$ disjoint $n × n$ grids. Graph of $X_n$, denoted as $GX_n$, is $(V, E)$ where cells of Sudoku grid form the vertices of its graph and two
-cells are adjacent if they are either in the same row or column or block of $X_n$. 
+cells are adjacent if they are either in the same row or column or block of $X_n$.
 
 > $GX_n$ is a regular $(n^4, \frac{3n^6}{2} − n^5− \frac{n^4}{2})$ graph of degree $3n^2 − 2n − 1$  (1)
 
@@ -25,16 +49,16 @@ Now, from (1) we can get that the graph of a Sudoku grid of rank 3 is a (81, 810
 Let's generate a random (filled) sudoku of rank n and then build further intuition
 
 
-```python
+```{code-cell} ipython3
 def generate_random_sudoku(n):
     rank  = n
     side  = rank*rank
     def pattern(row,col): return (rank*(row%rank)+row//rank+col)%side
-    def shuffle(s): return sample(s,len(s)) 
+    def shuffle(s): return sample(s,len(s))
     # generate random row and column indices
-    rows  = [ x*rank + row for x in shuffle(range(rank)) for row in shuffle(range(rank)) ] 
+    rows  = [ x*rank + row for x in shuffle(range(rank)) for row in shuffle(range(rank)) ]
     cols  = [ x*rank + col for x in shuffle(range(rank)) for col in shuffle(range(rank)) ]
-    
+
     numbers  = shuffle(range(1,rank*rank+1))
 
     board = [ [numbers[pattern(row,col)] for col in cols] for row in rows ]
@@ -62,7 +86,7 @@ def empty_sudoku_graph(n):
         column_edges += get_edges(column)
     return box_edges, row_edges, column_edges
 
-# We have the edges and the nodes, now we want a networkx graph 
+# We have the edges and the nodes, now we want a networkx graph
 def draw_networkx_graph(n, board, box_edges, row_edges, column_edges, layout='grid'):
     G = nx.empty_graph(n*n*n*n)
     if layout=='circular':
@@ -71,19 +95,19 @@ def draw_networkx_graph(n, board, box_edges, row_edges, column_edges, layout='gr
         pos=nx.spring_layout(G)
     if layout=='grid':
         pos = dict(zip(list(G.nodes()), nx.grid_2d_graph(n*n,n*n)))
-        
+
     mapping = dict(zip(G.nodes(), board.flatten()))
-    plt.figure(1,figsize=(12,12)) 
+    plt.figure(1,figsize=(12,12))
     nx.draw(G, pos, labels=mapping, with_labels=True, node_color='white')
     nx.draw_networkx_edges(G,pos,edgelist=box_edges,width=2, alpha=0.5, edge_color="tab:red")
     nx.draw_networkx_edges(G,pos,edgelist=row_edges,width=2, alpha=0.5, edge_color="tab:green")
     nx.draw_networkx_edges(G,pos,edgelist=column_edges,width=2, alpha=0.5, edge_color="tab:blue")
     plt.show()
-    
+
 ```
 
 
-```python
+```{code-cell} ipython3
 def sudoku(n, layout):
     board = generate_random_sudoku(n)
     box_edges, row_edges, column_edges = empty_sudoku_graph(n)
@@ -93,41 +117,29 @@ def sudoku(n, layout):
 in this view we can see th three different edge colors as the three different ways two nodes can be adjacent in a sudoku graph. Observe that no edge connects the same two numbers, this is what it means to satisfy the constraints of a sudoku problem
 
 
-```python
+```{code-cell} ipython3
 sudoku(3, 'grid')
 ```
-
-
-    
-![png](images/sudoku_grid.png)
-    
-
 
 We couldn't see a lot of edges in the first figure because they fell on top of each other, this is perhaps a better view, if you want to look at this in an animated way, check [this old reddit post](https://reddit.com/r/dataisbeautiful?utm_content=subreddit&utm_medium=post_embed&utm_name=8775be457c4149bd9d15290fa5723658&utm_source=embedly&utm_term=6ty4vf) although the code isn't available there and it's an old link. This is a simpler way to do it in networkx
 
 
-```python
+```{code-cell} ipython3
 sudoku(3, 'circular')
 ```
-
-
-    
-![png](images/sudoku_circular.png)
-    
-
 
 Is this the only way? can we do something more? yes! we can color the vertices and not edges, it's the same problem regardless.
 
 > A k-coloring of a graph G is a vertex coloring that is an assignment of one of k possible colors to each vertex of G (i.e., a vertex coloring) such that no two adjacent vertices receive the same color.
 
-How many colors would we need in this case? 9 
+How many colors would we need in this case? 9
 
 Note: this is more than intuition, formally 9 is the chromatic number of a 2-distant coloring problem, you can learn more about it [here](https://mast.queensu.ca/~murty/sudoku-ams.pdf) !
 
 Let's visualize this, we'll modify the drawing a little
 
 
-```python
+```{code-cell} ipython3
 #structure of the graph remains the same!
 n = 3
 board = generate_random_sudoku(n)
@@ -141,17 +153,11 @@ low, *_, high = sorted(mapping.values())
 norm = mpl.colors.Normalize(vmin=low, vmax=high, clip=True)
 mapper = mpl.cm.ScalarMappable(norm=norm, cmap=mpl.cm.Pastel1)
 
-plt.figure(1,figsize=(12,12)) 
-nx.draw(G, pos, labels=mapping,node_size=1000, 
-        node_color=[mapper.to_rgba(i) for i in mapping.values()], 
+plt.figure(1,figsize=(12,12))
+nx.draw(G, pos, labels=mapping,node_size=1000,
+        node_color=[mapper.to_rgba(i) for i in mapping.values()],
         with_labels=True)
 #edges remain uncolored for the sake of visualization
 nx.draw_networkx_edges(G,pos,edgelist=box_edges+row_edges+column_edges,width=2, alpha=0.5, )
 plt.show()
 ```
-
-
-    
-![png](images/sudoku_vertex_coloring.png)
-    
-
