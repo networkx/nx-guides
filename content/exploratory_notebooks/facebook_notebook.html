@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Facebook Network Analysis &#8212; NetworkX Notebooks</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -27,7 +27,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -36,13 +36,16 @@
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="prev" title="Geometric Generator Models" href="../generators/geometric.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -540,12 +543,58 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
 </div>
 </div>
 </div>
-<ul class="simple">
-<li><p>The diameter is calculated now. As known, it is the longest shortest path of the graph. That means in order to connect from any node to another one we would have to traverse 8 edges or less.</p></li>
-</ul>
+<p>There are many interesting properties related to the distribution of <em>paths</em>
+through the graph.
+For example, the <em>diameter</em> of a graph represents the longest of the
+shortest-paths that connect any node to another node in the Graph.
+Similarly, the average path length gives a measure of the average number of
+edges to be traversed to get from one node to another in the network.
+These attributes can be calculated with the <code class="docutils literal notranslate"><span class="pre">nx.diameter</span></code> and
+<code class="docutils literal notranslate"><span class="pre">nx.average_shortest_path_length</span></code> functions, respectively.
+Note however that these analyses require computing the shortest path between
+every pair of nodes in the network: this can be quite expensive for networks
+of this size!
+Since we’re interested in several analyses involving the shortest path length
+for all nodes in the network, we can instead compute this once and reuse the
+information to save computation time.</p>
+<p>Let’s start by computing the shortest path length for all pairs of nodes in the
+network:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">diameter</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shortest_path_lengths</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">all_pairs_shortest_path_length</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">nx.all_pairs_shortest_path_length</span></code> returns a dict-of-dict that maps a node <code class="docutils literal notranslate"><span class="pre">u</span></code>
+to all other nodes in the network, where the inner-most mapping returns the
+length of the shortest path between the two nodes.
+In other words, <code class="docutils literal notranslate"><span class="pre">shortest_path_lengths[u][v]</span></code> will return the shortest path
+length between any two pair of nodes <code class="docutils literal notranslate"><span class="pre">u</span></code> and <code class="docutils literal notranslate"><span class="pre">v</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shortest_path_lengths</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">42</span><span class="p">]</span>  <span class="c1"># Length of shortest path between nodes 0 and 42</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s use <code class="docutils literal notranslate"><span class="pre">shortest_path_lengths</span></code> to perform our analyses, starting with
+the <em>diameter</em> of <code class="docutils literal notranslate"><span class="pre">G</span></code>.
+If we look carefully at the <a class="reference external" href="https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.distance_measures.diameter.html">docstring for <code class="docutils literal notranslate"><span class="pre">nx.diameter</span></code></a>, we see
+that it is equivalent to the maximum <em>eccentricity</em> of the graph.
+It turns out that <code class="docutils literal notranslate"><span class="pre">nx.eccentricity</span></code> has an optional argument <code class="docutils literal notranslate"><span class="pre">sp</span></code> where we can
+pass in our pre-computed <code class="docutils literal notranslate"><span class="pre">shortest_path_lengths</span></code> to save the extra computation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is equivalent to `diameter = nx.diameter(G), but much more efficient since we&#39;re</span>
+<span class="c1"># reusing the pre-computed shortest path lengths!</span>
+<span class="n">diameter</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">sp</span><span class="o">=</span><span class="n">shortest_path_lengths</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">diameter</span>
 </pre></div>
 </div>
 </div>
@@ -555,63 +604,71 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
 </div>
 </div>
 </div>
-<ul class="simple">
-<li><p>Next up, the average path length is found. In detail, it is defined as the average of the shortest paths for all pairs of nodes. That means that generally in order to reach from one node to another node, 3 or 4 edges will be crossed.</p></li>
-</ul>
+<p>In order to connect from one node to any other one we would have to traverse 8
+edges or fewer.</p>
+<p>Next up, the average path length is found.
+Again, we could use <code class="docutils literal notranslate"><span class="pre">nx.average_shortest_path_length</span></code> to compute this
+directly, but it’s much more efficient to use the <code class="docutils literal notranslate"><span class="pre">shortest_path_length</span></code> that
+we’ve already computed:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the average shortest path length for each node</span>
+<span class="n">average_path_lengths</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">spl</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span> <span class="k">for</span> <span class="n">spl</span> <span class="ow">in</span> <span class="n">shortest_path_lengths</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="p">]</span>
+<span class="c1"># The average over all nodes</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">average_path_lengths</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.6925068496963913
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.691592636562027
 </pre></div>
 </div>
 </div>
 </div>
-<p>Now a histogram of the shortest paths lenghts’ relative frequencies will be created to see how those lenghts are distributed.</p>
-<ul class="simple">
-<li><p>Firstly, all the shortest paths will be found</p></li>
-<li><p>Then, a list <code class="docutils literal notranslate"><span class="pre">frequencies</span></code> will be created to store the frequency of each path length</p></li>
-<li><p>Next, every shortest path will be checked and the frequency of its length will be increased by 1</p></li>
-<li><p>Lastly, the percentages of each frequency will be calculated. Even though the frequencies are doubled (because each shortest path between two specific nodes n1 and n2 was calculated twice, once from n1 to n2 and once from n2 to n1), the percentages remain correct.</p></li>
-</ul>
+<p>This represents the average of the shortest path length for all pairs of nodes:
+in order to reach from one node to another node, roughly 3.6 edges will be
+traversed on average.</p>
+<p>The above measures capture useful information about the network, but metrics
+like the average value represent only a moment of the distribution; it is
+also often valuable to look at the <em>distribution</em> itself.
+Again, we can construct a visualization of the distribution of shortest path
+lengths from our pre-computed dict-of-dicts:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shortest_paths</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">shortest_path</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># save all shortest paths in a dictionary</span>
-<span class="n">frequencies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">diameter</span><span class="p">(</span><span class="n">G</span><span class="p">))]</span>  <span class="c1"># list that will contain the different frequencies</span>
-<span class="k">for</span> <span class="n">node_start</span> <span class="ow">in</span> <span class="n">shortest_paths</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">shortest_paths</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">node_start</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="n">path_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># path is a list of nodes, so the length consists of edges equal to one less node</span>
-        <span class="k">if</span> <span class="n">path_length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># paths with 0 length are no use</span>
-            <span class="n">frequencies</span><span class="p">[</span><span class="n">path_length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># increase the frequency of the particular path length by one</span>
-<span class="n">frequencies</span> <span class="o">=</span> <span class="p">[</span><span class="n">num</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">frequencies</span><span class="p">)</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">frequencies</span><span class="p">]</span>  <span class="c1"># find the percentage of each path length</span>
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>Showcasing the results. Clearly, the distribution of the percentages is skewed on the right. The majority of the shortest path lengths are from <span class="math notranslate nohighlight">\(2\)</span> to <span class="math notranslate nohighlight">\(5\)</span> edges long. Also, it’s highly unlikely for a pair of nodes to have a shortest path of length 8 (diameter length) as the likelihood is less than <span class="math notranslate nohighlight">\(0.1\)</span>%.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span> <span class="p">[</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">8</span><span class="p">)]</span> <span class="p">,</span> 
-            <span class="n">height</span><span class="o">=</span><span class="n">frequencies</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Percentages of Shortest Path Lengths&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span> 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Shortest Path Length&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage&#39;</span><span class="p">,</span><span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We know the maximum shortest path length (the diameter), so create an array</span>
+<span class="c1"># to store values from 0 up to (and including) diameter</span>
+<span class="n">path_lengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">diameter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># Extract the frequency of shortest path lengths between two nodes</span>
+<span class="k">for</span> <span class="n">pls</span> <span class="ow">in</span> <span class="n">shortest_path_lengths</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="n">pl</span><span class="p">,</span> <span class="n">cnts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">pls</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">path_lengths</span><span class="p">[</span><span class="n">pl</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cnts</span>
+
+<span class="c1"># Express frequency distribution as a percentage (ignoring path lengths of 0)</span>
+<span class="n">freq_percent</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">path_lengths</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">/</span> <span class="n">path_lengths</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># Plot the frequency distribution (ignoring path lengths of 0) as a percentage</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">diameter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">height</span><span class="o">=</span><span class="n">freq_percent</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+    <span class="s1">&#39;Distribution of shortest path length in G&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Shortest Path Length&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency (%)&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Percentage&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Frequency (%)&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/facebook_notebook_24_1.png" src="../../_images/facebook_notebook_24_1.png" />
+<img alt="../../_images/facebook_notebook_26_1.png" src="../../_images/facebook_notebook_26_1.png" />
 </div>
 </div>
+<p>The majority of the shortest path lengths are from <span class="math notranslate nohighlight">\(2\)</span> to <span class="math notranslate nohighlight">\(5\)</span> edges long.
+Also, it’s highly unlikely for a pair of nodes to have a shortest path of length 8 (diameter length) as the likelihood is less than <span class="math notranslate nohighlight">\(0.1\)</span>%.</p>
 <ul class="simple">
 <li><p>The graph’s density is calculated here. Clearly, the graph is a very sparse one as: <span class="math notranslate nohighlight">\(density &lt; 1\)</span></p></li>
 </ul>
@@ -712,7 +769,7 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/facebook_notebook_35_1.png" src="../../_images/facebook_notebook_35_1.png" />
+<img alt="../../_images/facebook_notebook_37_1.png" src="../../_images/facebook_notebook_37_1.png" />
 </div>
 </div>
 <p>It is visible that the vast majority of facebook users have degree centralities of less than <span class="math notranslate nohighlight">\(0.05\)</span>. In fact the majority has less than <span class="math notranslate nohighlight">\(0.0125\)</span>. Actually, that makes sense because the network consists of friends lists of particular nodes, which are obviously the ones with the highest degree centralities. In other words, because only the friends list of particular nodes were used to create this particular network, plenty of nodes have extremely low degree centralities as they are not very interconnected in this network</p>
@@ -733,7 +790,7 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
  0.7322099342942238)
 </pre></div>
 </div>
-<img alt="../../_images/facebook_notebook_37_1.png" src="../../_images/facebook_notebook_37_1.png" />
+<img alt="../../_images/facebook_notebook_39_1.png" src="../../_images/facebook_notebook_39_1.png" />
 </div>
 </div>
 </div>
@@ -785,7 +842,7 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/facebook_notebook_41_1.png" src="../../_images/facebook_notebook_41_1.png" />
+<img alt="../../_images/facebook_notebook_43_1.png" src="../../_images/facebook_notebook_43_1.png" />
 </div>
 </div>
 <p>As we can see, the vast majority of betweenness centralities is below <span class="math notranslate nohighlight">\(0.01\)</span>. That makes sense as the graph is very sparse and thus most nodes do not act as bridges in shortest paths. However, that also results in some nodes having extremely high betweenness centralities as for example node <span class="math notranslate nohighlight">\(107\)</span> with <span class="math notranslate nohighlight">\(0.48\)</span> and node <span class="math notranslate nohighlight">\(1684\)</span> with <span class="math notranslate nohighlight">\(0.34\)</span> betweenness centrality.</p>
@@ -806,7 +863,7 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
  0.7322099342942238)
 </pre></div>
 </div>
-<img alt="../../_images/facebook_notebook_43_1.png" src="../../_images/facebook_notebook_43_1.png" />
+<img alt="../../_images/facebook_notebook_45_1.png" src="../../_images/facebook_notebook_45_1.png" />
 </div>
 </div>
 </div>
@@ -869,7 +926,7 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/facebook_notebook_49_1.png" src="../../_images/facebook_notebook_49_1.png" />
+<img alt="../../_images/facebook_notebook_51_1.png" src="../../_images/facebook_notebook_51_1.png" />
 </div>
 </div>
 <p>The closeness centralities are distributed over various values from <span class="math notranslate nohighlight">\(0.17\)</span> to <span class="math notranslate nohighlight">\(0.46\)</span>. In fact, the majority of them are found between <span class="math notranslate nohighlight">\(0.25\)</span> and <span class="math notranslate nohighlight">\(0.3\)</span>. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:</p>
@@ -889,7 +946,7 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
  0.7322099342942238)
 </pre></div>
 </div>
-<img alt="../../_images/facebook_notebook_51_1.png" src="../../_images/facebook_notebook_51_1.png" />
+<img alt="../../_images/facebook_notebook_53_1.png" src="../../_images/facebook_notebook_53_1.png" />
 </div>
 </div>
 </div>
@@ -958,7 +1015,7 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/facebook_notebook_57_1.png" src="../../_images/facebook_notebook_57_1.png" />
+<img alt="../../_images/facebook_notebook_59_1.png" src="../../_images/facebook_notebook_59_1.png" />
 </div>
 </div>
 <p>As shown in the distribution histogram, the vast majority of eigenvector centralities are below <span class="math notranslate nohighlight">\(0.005\)</span> and are actually almost <span class="math notranslate nohighlight">\(0\)</span>. However, we can also see different values of eigenvector centralities as there are tiny bins all over the x axis.</p>
@@ -979,7 +1036,7 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
  0.7322099342942238)
 </pre></div>
 </div>
-<img alt="../../_images/facebook_notebook_59_1.png" src="../../_images/facebook_notebook_59_1.png" />
+<img alt="../../_images/facebook_notebook_61_1.png" src="../../_images/facebook_notebook_61_1.png" />
 </div>
 </div>
 </div>
@@ -1014,7 +1071,7 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/facebook_notebook_63_1.png" src="../../_images/facebook_notebook_63_1.png" />
+<img alt="../../_images/facebook_notebook_65_1.png" src="../../_images/facebook_notebook_65_1.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(50\)</span> bins were used to showcase the distribution. The bin with the highest counts concerns nodes with clustering coefficient close to <span class="math notranslate nohighlight">\(1\)</span> as there are more than two-hundred-fifty nodes in that bin. In addition, the bins of clustering coefficient between <span class="math notranslate nohighlight">\(0.4\)</span> and <span class="math notranslate nohighlight">\(0.8\)</span> contain the majority of nodes by far.</p>
@@ -1128,7 +1185,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
  0.7322099342942238)
 </pre></div>
 </div>
-<img alt="../../_images/facebook_notebook_78_1.png" src="../../_images/facebook_notebook_78_1.png" />
+<img alt="../../_images/facebook_notebook_80_1.png" src="../../_images/facebook_notebook_80_1.png" />
 </div>
 </div>
 </div>
@@ -1201,7 +1258,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/facebook_notebook_86_0.png" src="../../_images/facebook_notebook_86_0.png" />
+<img alt="../../_images/facebook_notebook_88_0.png" src="../../_images/facebook_notebook_88_0.png" />
 </div>
 </div>
 <ul class="simple">
@@ -1229,7 +1286,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/facebook_notebook_90_0.png" src="../../_images/facebook_notebook_90_0.png" />
+<img alt="../../_images/facebook_notebook_92_0.png" src="../../_images/facebook_notebook_92_0.png" />
 </div>
 </div>
 <div class="section" id="references">
@@ -1249,22 +1306,15 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="../generators/geometric.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Geometric Generator Models</p>
-            </div>
-        </a>
-    </div>
-
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../generators/geometric.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Geometric Generator Models</p>
+        </div>
+    </a>
 </div>
         
         </div>
@@ -1285,8 +1335,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

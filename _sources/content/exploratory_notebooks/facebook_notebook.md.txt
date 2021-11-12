@@ -125,45 +125,107 @@ Also, the average degree of a node can be seen.
 np.mean([d for _, d in G.degree()])
 ```
 
-* The diameter is calculated now. As known, it is the longest shortest path of the graph. That means in order to connect from any node to another one we would have to traverse 8 edges or less.
+There are many interesting properties related to the distribution of *paths*
+through the graph.
+For example, the *diameter* of a graph represents the longest of the
+shortest-paths that connect any node to another node in the Graph.
+Similarly, the average path length gives a measure of the average number of
+edges to be traversed to get from one node to another in the network.
+These attributes can be calculated with the `nx.diameter` and
+`nx.average_shortest_path_length` functions, respectively.
+Note however that these analyses require computing the shortest path between
+every pair of nodes in the network: this can be quite expensive for networks
+of this size!
+Since we're interested in several analyses involving the shortest path length
+for all nodes in the network, we can instead compute this once and reuse the
+information to save computation time.
+
+Let's start by computing the shortest path length for all pairs of nodes in the
+network:
 
 ```{code-cell} ipython3
-nx.diameter(G)
+shortest_path_lengths = dict(nx.all_pairs_shortest_path_length(G))
 ```
 
-* Next up, the average path length is found. In detail, it is defined as the average of the shortest paths for all pairs of nodes. That means that generally in order to reach from one node to another node, 3 or 4 edges will be crossed.
+`nx.all_pairs_shortest_path_length` returns a dict-of-dict that maps a node `u`
+to all other nodes in the network, where the inner-most mapping returns the
+length of the shortest path between the two nodes.
+In other words, `shortest_path_lengths[u][v]` will return the shortest path
+length between any two pair of nodes `u` and `v`:
+
 
 ```{code-cell} ipython3
-nx.average_shortest_path_length(G)
+shortest_path_lengths[0][42]  # Length of shortest path between nodes 0 and 42
 ```
 
-Now a histogram of the shortest paths lenghts' relative frequencies will be created to see how those lenghts are distributed.
-* Firstly, all the shortest paths will be found
-* Then, a list `frequencies` will be created to store the frequency of each path length
-* Next, every shortest path will be checked and the frequency of its length will be increased by 1
-* Lastly, the percentages of each frequency will be calculated. Even though the frequencies are doubled (because each shortest path between two specific nodes n1 and n2 was calculated twice, once from n1 to n2 and once from n2 to n1), the percentages remain correct.
+Now let's use `shortest_path_lengths` to perform our analyses, starting with
+the *diameter* of `G`.
+If we look carefully at the [docstring for `nx.diameter`][nx_diameter_], we see
+that it is equivalent to the maximum *eccentricity* of the graph.
+It turns out that `nx.eccentricity` has an optional argument `sp` where we can
+pass in our pre-computed `shortest_path_lengths` to save the extra computation:
 
 ```{code-cell} ipython3
-shortest_paths = nx.shortest_path(G)  # save all shortest paths in a dictionary
-frequencies = [0 for i in range (nx.diameter(G))]  # list that will contain the different frequencies
-for node_start in shortest_paths.keys():
-    for path in shortest_paths.get(node_start).values():
-        path_length = len(path) - 1  # path is a list of nodes, so the length consists of edges equal to one less node
-        if path_length > 0:  # paths with 0 length are no use
-            frequencies[path_length-1] += 1  # increase the frequency of the particular path length by one
-frequencies = [num/sum(frequencies) for num in frequencies]  # find the percentage of each path length
+# This is equivalent to `diameter = nx.diameter(G), but much more efficient since we're
+# reusing the pre-computed shortest path lengths!
+diameter = max(nx.eccentricity(G, sp=shortest_path_lengths).values())
+diameter
 ```
 
-* Showcasing the results. Clearly, the distribution of the percentages is skewed on the right. The majority of the shortest path lengths are from $2$ to $5$ edges long. Also, it's highly unlikely for a pair of nodes to have a shortest path of length 8 (diameter length) as the likelihood is less than $0.1$%.
+[nx_diameter_]: https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.distance_measures.diameter.html
+
+In order to connect from one node to any other one we would have to traverse 8
+edges or fewer.
+
+Next up, the average path length is found.
+Again, we could use `nx.average_shortest_path_length` to compute this
+directly, but it's much more efficient to use the `shortest_path_length` that
+we've already computed:
 
 ```{code-cell} ipython3
-plt.figure(figsize=(15,8))
-ax = plt.bar(x= [ i+1 for i in range (8)] , 
-            height=frequencies)
-plt.title('Percentages of Shortest Path Lengths', fontdict ={'size': 35}, loc='center') 
-plt.xlabel('Shortest Path Length', fontdict ={'size': 22})
-plt.ylabel('Percentage',fontdict ={'size': 22})
+# Compute the average shortest path length for each node
+average_path_lengths = [
+    np.mean(list(spl.values())) for spl in shortest_path_lengths.values()
+]
+# The average over all nodes
+np.mean(average_path_lengths)
 ```
+
+This represents the average of the shortest path length for all pairs of nodes:
+in order to reach from one node to another node, roughly 3.6 edges will be
+traversed on average.
+
+The above measures capture useful information about the network, but metrics
+like the average value represent only a moment of the distribution; it is
+also often valuable to look at the *distribution* itself.
+Again, we can construct a visualization of the distribution of shortest path
+lengths from our pre-computed dict-of-dicts:
+
+```{code-cell} ipython3
+# We know the maximum shortest path length (the diameter), so create an array
+# to store values from 0 up to (and including) diameter
+path_lengths = np.zeros(diameter + 1, dtype=int)
+
+# Extract the frequency of shortest path lengths between two nodes
+for pls in shortest_path_lengths.values():
+    pl, cnts = np.unique(list(pls.values()), return_counts=True)
+    path_lengths[pl] += cnts
+
+# Express frequency distribution as a percentage (ignoring path lengths of 0)
+freq_percent = 100 * path_lengths[1:] / path_lengths[1:].sum()
+
+# Plot the frequency distribution (ignoring path lengths of 0) as a percentage
+fig, ax = plt.subplots(figsize=(15, 8))
+ax.bar(np.arange(1, diameter + 1), height=freq_percent)
+ax.set_title(
+    'Distribution of shortest path length in G', fontdict ={'size': 35}, loc='center'
+)
+ax.set_xlabel('Shortest Path Length', fontdict ={'size': 22})
+ax.set_ylabel('Frequency (%)', fontdict ={'size': 22})
+```
+
+The majority of the shortest path lengths are from $2$ to $5$ edges long.
+Also, it's highly unlikely for a pair of nodes to have a shortest path of length 8 (diameter length) as the likelihood is less than $0.1$%.
 
 * The graph's density is calculated here. Clearly, the graph is a very sparse one as: $density < 1$
 
