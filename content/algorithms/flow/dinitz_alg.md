@@ -30,6 +30,14 @@ in NetworkX. We will also see how it can be used to solve some interesting probl
 
 ## Maximum flow problem
 
+```{code-cell} ipython3
+import networkx as nx
+import numpy as np
+import matplotlib.pyplot as plt
+import PIL
+from copy import deepcopy
+```
+
 ### Motivation
 Let's say you want to send your friend some data as soon as possible, but the only way
 of communication/sending data between you two is through a peer-to-peer network. An
@@ -37,7 +45,35 @@ interesting thing about this peer-to-peer network is that it allows you to send 
 along the paths you specify with certain limits on the sizes of data per second that
 you can send between a pair of nodes in this network.
 
-![image with you & friend and network of computer](images/intro.png)
+```{code-cell} ipython3
+# Load the example graph
+G = nx.read_gml("data/example_graph.gml")
+# Extract info about node position from graph (for visualization)
+pos = {k: np.asarray(v) for k, v in G.nodes(data="pos")}
+label_pos = deepcopy(pos)
+label_pos["s"][0] = -1.15
+label_pos["t"][0] = 1.20
+
+fig, ax = plt.subplots(figsize=(16, 8))
+nx.draw_networkx_edges(G, pos=pos, ax=ax, min_source_margin=20, min_target_margin=20)
+nx.draw_networkx_labels(G, label_pos, labels={"s": "You", "t": "Friend"}, ax=ax, font_size=16)
+ax.set_xlim([-1.4, 1.4])
+ax.axis("off")
+
+# Spruce up the image with computer icons to represent the nodes
+tr_figure = ax.transData.transform
+tr_axes = fig.transFigure.inverted().transform
+icon_size = abs(np.diff(ax.get_xlim())) * 0.015
+icon_center = icon_size / 2
+icon = PIL.Image.open("images/computer_black_144x144.png")
+for n in G.nodes:
+    xf, yf = tr_figure(pos[n])
+    xa, ya = tr_axes((xf, yf))
+    a = plt.axes([xa - icon_center, ya - icon_center, icon_size, icon_size])
+    a.imshow(icon)
+    a.axis("off")
+```
+
 
 So how shall you plan the paths of the data packets to send them in the least amount
 of time?
