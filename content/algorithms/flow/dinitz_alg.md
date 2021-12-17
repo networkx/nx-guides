@@ -53,10 +53,11 @@ pos = {k: np.asarray(v) for k, v in G.nodes(data="pos")}
 label_pos = deepcopy(pos)
 label_pos["s"][0] = -1.15
 label_pos["t"][0] = 1.20
+labels = {"s": "You", "t": "Friend"}
 
 fig, ax = plt.subplots(figsize=(16, 8))
 nx.draw_networkx_edges(G, pos=pos, ax=ax, min_source_margin=20, min_target_margin=20)
-nx.draw_networkx_labels(G, label_pos, labels={"s": "You", "t": "Friend"}, ax=ax, font_size=16)
+nx.draw_networkx_labels(G, label_pos, labels=labels, ax=ax, font_size=16)
 ax.set_xlim([-1.4, 1.4])
 ax.axis("off")
 
@@ -92,7 +93,16 @@ a connection from node $u$ to node $v$ across which we can send data. There are 
 being the one with your friend call it $t$. We also name them ***source*** and ***sink***
 nodes respectively.
 
-![image: network this time only graph nodes and edges, s&t marked you&friend near them](images/modeled-as-network.png)
+```{code-cell} ipython3
+fig, ax = plt.subplots(figsize=(16, 8))
+
+node_colors = ["skyblue" if n in {"s", "t"} else "lightgray" for n in G.nodes]
+
+nx.draw(G, pos, ax=ax, node_color=node_colors, with_labels=True)
+nx.draw_networkx_labels(G, label_pos, labels=labels, ax=ax, font_size=16)
+ax.set_xlim([-1.4, 1.4]);
+```
+
 
 Now say that node $u$ and node $v$ are connected and the maximum data per second that
 you can send from node $u$ to node $v$ is $c_{uv}$, lets call this as capacity of the edge $uv$.
