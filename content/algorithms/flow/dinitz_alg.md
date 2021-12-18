@@ -246,6 +246,64 @@ If we send $f_{uv}$ flow through edge $uv$ with capacity $c_{uv}$, then we defin
 capacity by $g_{uv}=c_{uv}-f_{uv}$ and residual network by $N'$ which only considers the
 edges of $N$ if they have non-zero residual capacity.
 
+```{code-cell} ipython3
+def residual_graph(G, flow):
+    H = G.copy()
+    for (u, v), f in flow.items():
+        capacity = G[u][v]["capacity"]
+        if f > G[u][v]["capacity"]:
+            raise ValueError(
+                f"Flow {f} exceeds the capacity of edge {u!r}->{v!r}."
+            )
+        H[u][v]["capacity"] -= f
+        if H.has_edge(v, u):
+            H[v][u]["capacity"] += f
+        else:
+            H.add_edge(v, u, capacity=f, etype="rev")
+    return H
+
+
+def draw_residual_graph(R):
+    """Visualize residual graph returned by `residual_graph`."""
+    fig, ax = plt.subplots(figsize=(15, 9))
+    ax.axis("off")
+
+    # Draw nodes
+    nx.draw_networkx_nodes(R, pos, node_color=node_colors)
+    nx.draw_networkx_labels(R, pos)
+
+    # Categorize edges by their capacity and whether they were added by
+    # residual_graph
+    orig_edges, zero_edges, rev_edges = [], [], []
+    for u, v, data in R.edges(data=True):
+        if data.get("etype") == "rev":
+            rev_edges.append((u, v))
+        elif data["capacity"] == 0:
+            zero_edges.append((u, v))
+        else:
+            orig_edges.append((u, v))
+
+    # Draw edges
+    nx.draw_networkx_edges(R, pos, edgelist=orig_edges)
+    nx.draw_networkx_edges(
+        R, pos, edgelist=rev_edges, edge_color="goldenrod", connectionstyle="arc3,rad=0.2"
+    )
+    nx.draw_networkx_edges(R, pos, edgelist=zero_edges, style="--", edge_color="lightgrey")
+    
+    # Label edges by capacity
+    rv = set(rev_edges)
+    fwd_caps = {
+        (u, v): c for u, v, c in R.edges(data="capacity") if (u, v) not in rv
+    }
+    rev_caps = {
+        (u, v): c for u, v, c in R.edges(data="capacity") if (u, v) in rv
+    }
+    nx.draw_networkx_edge_labels(R, pos, edge_labels=fwd_caps, label_pos=0.667)
+    nx.draw_networkx_edge_labels(
+        R, pos, edge_labels=rev_caps, label_pos=0.667, font_color="goldenrod"
+    )
+```
+
 example flow:
 
 ```{code-cell}
@@ -260,7 +318,11 @@ visualize_flow(check_valid_flow(G, example_flow, "s", "t"))
 ```
 
 This is the residual network for the flow shown above:
-![image: residual capacity and graph](images/algo-eg-residual.jpg)
+
+```{code-cell}
+R = residual_graph(G, example_flow)
+draw_residual_graph(R)
+```
 
 Note: In residual network we consider both the $uv$ and $vu$ edges if any of them is in $N$
 ### Level Network
