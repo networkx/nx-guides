@@ -247,7 +247,17 @@ capacity by $g_{uv}=c_{uv}-f_{uv}$ and residual network by $N'$ which only consi
 edges of $N$ if they have non-zero residual capacity.
 
 example flow:
-![image: residual capacity and graph](images/algo-eg-flow.jpg)
+
+```{code-cell}
+example_flow = {
+    ("s", "a"): 15,
+    ("a", "e"): 15,
+    ("e", "i"): 15,
+    ("i", "t"): 15,
+}
+
+visualize_flow(check_valid_flow(G, example_flow, "s", "t"))
+```
 
 This is the residual network for the flow shown above:
 ![image: residual capacity and graph](images/algo-eg-residual.jpg)
