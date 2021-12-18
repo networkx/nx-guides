@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.11.2
+    jupytext_version: 1.13.4
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 language_info:
@@ -19,7 +19,7 @@ language_info:
   name: python
   nbconvert_exporter: python
   pygments_lexer: ipython3
-  version: 3.8.5
+  version: 3.10.1
 ---
 
 # Tutorial: Dinitz's algorithm and its applications
@@ -37,6 +37,7 @@ import matplotlib.pyplot as plt
 import PIL
 import math
 from copy import deepcopy
+from collections import deque
 ```
 
 ### Motivation
@@ -76,7 +77,6 @@ for n in G.nodes:
     a.axis("off")
 ```
 
-
 So how shall you plan the paths of the data packets to send them in the least amount
 of time?
 
@@ -103,7 +103,6 @@ nx.draw(G, pos, ax=ax, node_color=node_colors, with_labels=True)
 nx.draw_networkx_labels(G, label_pos, labels=labels, ax=ax, font_size=16)
 ax.set_xlim([-1.4, 1.4]);
 ```
-
 
 Now say that node $u$ and node $v$ are connected and the maximum data per second that
 you can send from node $u$ to node $v$ is $c_{uv}$, lets call this as capacity of the edge $uv$.
@@ -136,7 +135,7 @@ Note that for this plan to be a valid plan it must satisfy the following constra
     $\sum\limits_{u|(u,v) \in E}f_{u,v} = \sum\limits_{w|(v,w) \in E}f_{v,w} $ for
     $v\in V\backslash \{s,t\}$
 
-```{code-cell}
+```{code-cell} ipython3
 def check_valid_flow(G, flow, source_node, target_node):
     H = nx.DiGraph()
     H.add_edges_from(flow.keys())
@@ -180,10 +179,9 @@ def visualize_flow(flow_graph):
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, ax=ax);
 ```
 
-
 example of valid flow:
 
-```{code-cell}
+```{code-cell} ipython3
 example_flow = {
     ("s", "a"): 20,
     ("a", "e"): 15,
@@ -203,7 +201,7 @@ visualize_flow(flow_graph)
 
 example of invalid flow:
 
-```{code-cell}
+```{code-cell} ipython3
 example_flow = {
     ("s", "a"): 30,
     ("a", "e"): 25,
@@ -217,7 +215,7 @@ example_flow = {
 flow_graph = check_valid_flow(G, example_flow, "s", "t")
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 visualize_flow(flow_graph)
 ```
 
@@ -306,7 +304,7 @@ def draw_residual_graph(R):
 
 example flow:
 
-```{code-cell}
+```{code-cell} ipython3
 example_flow = {
     ("s", "a"): 15,
     ("a", "e"): 15,
@@ -319,7 +317,7 @@ visualize_flow(check_valid_flow(G, example_flow, "s", "t"))
 
 This is the residual network for the flow shown above:
 
-```{code-cell}
+```{code-cell} ipython3
 R = residual_graph(G, example_flow)
 draw_residual_graph(R)
 ```
@@ -332,6 +330,52 @@ The level network is a subgraph of the residual network which we get when we app
 considering only the edges for which we have $c_{uv}-f_{uv}>0$ in the residual network
 and divide the nodes into levels then we only consider the edges to be in the level
 network $L$ which connect nodes of 2 different levels
+
+```{code-cell} ipython3
+# Mapping between node level and color for visualization
+level_colors = {
+    1:'aqua', 2:'lightgreen', 3:'yellow', 4:'orange', 5:'lightpink', 6:'violet'
+}
+
+def level_bfs(R, flow, source_node, target_node):
+    """BFS to construct the level network from residual network for given flow."""
+    parents, level = {}, {}
+    queue = deque([source_node])
+    level[source_node] = 0
+    while queue:
+        if target_node in parents:
+            break
+        u = queue.popleft()
+        for v in R.successors(u):
+            if (v not in parents) and (R[u][v]["capacity"] > 0):
+                parents[v] = u
+                level[v] = level[u] + 1
+                queue.append(v)
+    return parents, level
+
+
+def draw_level_network(R, parents, level):
+    fig, ax = plt.subplots(figsize=(15, 9))
+    ax.axis("off")
+
+    # Draw nodes
+    nodelist = list(level.keys())
+    level_nc = [level_colors[l] for l in level.values()]
+    level_nc[0] = level_nc[-1] = "skyblue"
+    nx.draw_networkx_nodes(R, pos, nodelist=nodelist, node_color=level_nc)
+    nx.draw_networkx_labels(R, pos)
+
+    # Draw edges
+    edgelist = [(v, u) for u, v in parents.items()]
+    labels = {(u, v): R[u][v]["capacity"] for u, v in edgelist}
+    nx.draw_networkx_edges(R, pos, edgelist=edgelist)
+    nx.draw_networkx_edge_labels(R, pos, edge_labels=labels, label_pos=0.667)
+```
+
+```{code-cell} ipython3
+parents, level = level_bfs(R, example_flow, "s", "t")
+draw_level_network(R, parents, level)
+```
 
 ![image: level network](images/algo-eg-level.jpg)
 
