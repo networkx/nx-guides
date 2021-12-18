@@ -366,18 +366,25 @@ def draw_level_network(R, parents, level):
     nx.draw_networkx_labels(R, pos)
 
     # Draw edges
-    edgelist = [(v, u) for u, v in parents.items()]
-    labels = {(u, v): R[u][v]["capacity"] for u, v in edgelist}
-    nx.draw_networkx_edges(R, pos, edgelist=edgelist)
+    fwd_edges = [(v, u) for u, v in parents.items() if (v, u) in G.edges]
+    labels = {(u, v): R[u][v]["capacity"] for u, v in fwd_edges}
+    nx.draw_networkx_edges(R, pos, edgelist=fwd_edges)
     nx.draw_networkx_edge_labels(R, pos, edge_labels=labels, label_pos=0.667)
+
+    rev_edges = [(v, u) for u, v in parents.items() if (v, u) not in G.edges]
+    labels = {(u, v): R[u][v]["capacity"] for u, v in rev_edges}
+    nx.draw_networkx_edges(
+        R, pos, edgelist=rev_edges, connectionstyle="arc3,rad=0.2", edge_color="goldenrod"
+    )
+    nx.draw_networkx_edge_labels(
+        R, pos, edge_labels=labels, label_pos=0.667, font_color="goldenrod"
+    )
 ```
 
 ```{code-cell} ipython3
 parents, level = level_bfs(R, example_flow, "s", "t")
 draw_level_network(R, parents, level)
 ```
-
-![image: level network](images/algo-eg-level.jpg)
 
 Note that if sink node $t$ is not reachable from the source node $s$ that means that no
 more flow can be pushed through the residual network.
