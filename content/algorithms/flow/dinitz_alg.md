@@ -354,31 +354,39 @@ def level_bfs(R, flow, source_node, target_node):
     return parents, level
 
 
-def draw_level_network(R, parents, level):
+def draw_level_network(R, parents, level, background=False):
     fig, ax = plt.subplots(figsize=(15, 9))
     ax.axis("off")
 
     # Draw nodes
     nodelist = list(level.keys())
-    level_nc = [level_colors[l] for l in level.values()]
-    level_nc[0] = level_nc[-1] = "skyblue"
+    if background:
+        level_nc = "lightgrey"
+    else:
+        level_nc = [level_colors[l] for l in level.values()]
+        level_nc[0] = level_nc[-1] = "skyblue"
     nx.draw_networkx_nodes(R, pos, nodelist=nodelist, node_color=level_nc)
-    nx.draw_networkx_labels(R, pos)
+    if not background:
+        nx.draw_networkx_labels(R, pos)
 
     # Draw edges
     fwd_edges = [(v, u) for u, v in parents.items() if (v, u) in G.edges]
     labels = {(u, v): R[u][v]["capacity"] for u, v in fwd_edges}
-    nx.draw_networkx_edges(R, pos, edgelist=fwd_edges)
-    nx.draw_networkx_edge_labels(R, pos, edge_labels=labels, label_pos=0.667)
+    ec = "lightgrey" if background else "black"
+    nx.draw_networkx_edges(R, pos, edgelist=fwd_edges, edge_color=ec)
+    if not background:
+        nx.draw_networkx_edge_labels(R, pos, edge_labels=labels, label_pos=0.667)
 
     rev_edges = [(v, u) for u, v in parents.items() if (v, u) not in G.edges]
     labels = {(u, v): R[u][v]["capacity"] for u, v in rev_edges}
+    ec = "lightgrey" if background else "goldenrod"
     nx.draw_networkx_edges(
-        R, pos, edgelist=rev_edges, connectionstyle="arc3,rad=0.2", edge_color="goldenrod"
+        R, pos, edgelist=rev_edges, connectionstyle="arc3,rad=0.2", edge_color=ec
     )
-    nx.draw_networkx_edge_labels(
-        R, pos, edge_labels=labels, label_pos=0.667, font_color="goldenrod"
-    )
+    if not background:
+        nx.draw_networkx_edge_labels(
+            R, pos, edge_labels=labels, label_pos=0.667, font_color="goldenrod"
+        )
 ```
 
 ```{code-cell} ipython3
@@ -403,8 +411,45 @@ residual network with zero residual capacity.
 We find augmenting paths by applying [DFS](https://en.wikipedia.org/wiki/Depth-first_search)
 on the Level network $L$.
 
-Augmenting path:
-![image: augmenting path and its flow value](images/algo-eg-augmenting-path-before.jpg)
+```{code-cell} ipython3
+def aug_path_dfs(parents, flow, source_node, target_node):
+    """Build a path using DFS starting from the target_node"""
+    path = []
+    u = target_node
+    f = 3 * max(flow.values())  # Initialize flow to large value
+    while u != source_node:
+        path.append(u)
+        v = parents[u]
+        f = min(f, R.pred[u][v]["capacity"] - flow.get((u, v), 0))
+        u = v
+    path.append(source_node)
+    # Augment the flow along the path found
+    if f > 0:
+        for u, v in nx.utils.pairwise(path):
+            if (u, v) in flow:
+                flow[(u, v)] += f
+            else:
+                flow[(u, v)] = f
+            if (v, u) in flow:
+                flow[(v, u)] -= f
+            else:
+                flow[(v, u)] = f
+    return flow, path
+```
+
+Augmenting path before augmenting:
+
+```{code-cell} ipython3
+example_flow, path = aug_path_dfs(parents, example_flow, "s", "t")
+
+# Visualize
+draw_level_network(R, parents, level, background=True)  # Level graph in the background
+nc = [level_colors[level[n]] for n in path]
+el = [(v, u) for u, v in nx.utils.pairwise(path)]
+nx.draw(R, pos, nodelist=path, edgelist=el, node_color=nc, with_labels=True)
+edgelabels = {(u, v): R[u][v]["capacity"] for u, v in el}
+nx.draw_networkx_edge_labels(R, pos, edge_labels=edgelabels, label_pos=0.667)
+```
 
 Augmenting path after augmenting:
 ![image: augmenting path and its flow value](images/algo-eg-augmenting-path-after.jpg)
