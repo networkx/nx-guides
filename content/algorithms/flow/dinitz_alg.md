@@ -158,7 +158,7 @@ def check_valid_flow(G, flow, source_node, target_node):
             )
             if not math.isclose(incoming_flow, outgoing_flow):
                 print(f"Invalid flow: flow conservation violated at node {v}")
-                H.nodes(v)["color"] = "red"
+                H.nodes[v]["color"] = "red"
     return H
 ```
 
@@ -197,7 +197,37 @@ nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, ax=ax);
 ```
 
 example of invalid flow:
-![Invalid Flow](images/invalid-flow.png)
+
+```{code-cell}
+example_flow = {
+    ("s", "a"): 30,
+    ("a", "e"): 25,
+    ("e", "i"): 15,
+    ("i", "t"): 15,
+    ("a", "h"): 5,
+    ("h", "l"): 5,
+    ("l", "t"): 5,
+}
+
+flow_graph = check_valid_flow(G, example_flow, "s", "t")
+```
+
+```{code-cell}
+fig, ax = plt.subplots(figsize=(15, 9))
+
+# Draw the full graph
+nx.draw(G, pos, ax=ax, node_color=node_colors, edge_color="lightgrey", with_labels=True)
+
+# Draw the example flow on top
+flow_nc = [
+    "skyblue" if n in {"s", "t"} else flow_graph.nodes[n].get("color", "lightgrey")
+    for n in flow_graph
+]
+flow_ec = [flow_graph[u][v].get("edgecolor", "black") for u, v in flow_graph.edges]
+edge_labels = {(u, v): lbl for u, v, lbl in flow_graph.edges(data="label")}
+nx.draw(flow_graph, pos, ax=ax, node_color=flow_nc, edge_color=flow_ec)
+nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, ax=ax);
+```
 
 red color edges dont satisfy capacity constraint and red color nodes dont satisfy the
 conservation of flow
