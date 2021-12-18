@@ -107,7 +107,16 @@ ax.set_xlim([-1.4, 1.4]);
 Now say that node $u$ and node $v$ are connected and the maximum data per second that
 you can send from node $u$ to node $v$ is $c_{uv}$, lets call this as capacity of the edge $uv$.
 
-![image: network with capacities too, s&t marked you&friend removed](images/modeled-as-network-caps.png)
+```{code-cell} ipython3
+fig, ax = plt.subplots(figsize=(16, 8))
+
+capacities = {(u, v): c for u, v, c in G.edges(data="capacity")}
+
+nx.draw(G, pos, ax=ax, node_color=node_colors, with_labels=True)
+nx.draw_networkx_edge_labels(G, pos, edge_labels=capacities, ax=ax)
+nx.draw_networkx_labels(G, label_pos, labels=labels, ax=ax, font_size=16)
+ax.set_xlim([-1.4, 1.4]);
+```
 
 So before go ahead and plan the paths on which we will be sending the data packets,
 we need some way to represent or plan on the network. Observe that any plan will have
