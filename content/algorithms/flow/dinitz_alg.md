@@ -470,6 +470,9 @@ node_colors = ["skyblue" if n in {"s", "t"} else "lightgray" for n in R.nodes]
 draw_residual_graph(R)
 ```
 
+Each of the above steps plays a role in Dinitz's algorithm for finding the
+maximum flow in a network, summarized below.
+
 ### Algorithm
 
 1. Initialize a flow with zero value, $f_{uv}=0$
@@ -479,6 +482,17 @@ output the flow
 4. Find an augmenting path $P$ in level network $L$
 5. Augment the flow along the edges of path $P$ which will give a new residual network
 6. Repeat from point 3 with new residual network $N'$
+
+## Maximum flow in NetworkX
+
+In the previous section, we decomposed the Dinitz algorithm into smaller steps
+to better understand the algorithm as a whole.
+In practice however, there's no need to implement all these steps yourself!
+NetworkX provides an implementation of Dinitz's algorithm:
+[nx.flow.dinitz](https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.flow.dinitz.html).
+`nx.flow.dinitz` includes several features in addition to those described above.
+For example, the `cutoff` keyword argument can be used to prematurely terminate
+the dinitz algorithm once the desired value of maximum flow is reached.
 
 ```{code-cell} ipython3
 %matplotlib inline
