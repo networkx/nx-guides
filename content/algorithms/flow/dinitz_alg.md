@@ -565,26 +565,21 @@ Note that the wharehouse node is named as $W$, intermediate shipping points as
 $lw1, lw2, lw3$, and customers as $c1,c2...c20$.
 
 ```{code-cell} ipython3
-gname = "shipping-graph"
-# loading the graph
-B = nx.read_graphml(f"data/{gname}.graphml")
-with open(f"data/pos_{gname}", "rb") as fp:
-    pos = pickle.load(fp)
-```
+# Load data
+B = nx.read_gml("data/shipping_graph.gml")
+pos = {k: np.asarray(v) for k, v in B.nodes(data="pos")}
 
-```{code-cell} ipython3
 # drawing the loaded graph
-node_colors = ["skyblue" if u == "W" else "0.8" for u in B.nodes]
+node_colors = ["skyblue" if u == "W" else "lightgray" for u in B.nodes]
 plt.figure(figsize=(20, 10))
 nx.draw(
     B, pos=pos, node_color=node_colors, with_labels=True, arrowsize=10, node_size=800
 )
-plt.show()
 ```
 
 ```{code-cell} ipython3
 # maximum shipping capacities
-{u: B.nodes[u] for u in ["lw1", "lw2", "lw3"]}
+{u: B.nodes[u]["maximum_shippings"] for u in ["lw1", "lw2", "lw3"]}
 ```
 
 Let's add a pseudo node $T$ denoting the ultimate sink node and add edges from
@@ -599,11 +594,12 @@ Note: We have already assigned the position to node $T$ in `pos` which was loade
 ```{code-cell} ipython3
 # adding node T and edges to T from c1,c2,...c20
 B.add_node("T")
-B.add_edges_from([("c" + str(i), "T") for i in range(1, 21)])
+pos["T"] = np.array([0.97, 0.0])
+B.add_edges_from((f"c{i}", "T") for i in range(1, 21))
 
 # adding capacities from W to lw1, lw2, lw3
 for u in ["lw1", "lw2", "lw3"]:
-    B["W"][u]["capacity"] = B.nodes[u]["maximum shippings"]
+    B["W"][u]["capacity"] = B.nodes[u]["maximum_shippings"]
 
 # adding capacities as 1 for all other edges except edges from W
 for u, v in B.edges:
@@ -613,9 +609,7 @@ for u, v in B.edges:
 
 ```{code-cell} ipython3
 # assign colors and labels to nodes based on their type
-color_map = {"W": "skyblue", "T": "skyblue"}
-node_colors = [color_map[u] if u in color_map.keys() else "0.8" for u in B.nodes]
-node_labels = {u: u for u in B.nodes}
+node_colors = ["skyblue" if u in {"W", "T"} else "lightgray" for u in B.nodes]
 
 # calculating the maximum flow with the cutoff value
 R = nx.flow.dinitz(B, s="W", t="T", capacity="capacity")
@@ -626,7 +620,7 @@ edge_colors = ["0.8" if R[u][v]["flow"] == 0 else "0" for u, v in B.edges]
 # drawing the network
 plt.figure(figsize=(20, 10))
 nx.draw_networkx_nodes(B, pos=pos, node_size=400, node_color=node_colors)
-nx.draw_networkx_labels(B, pos=pos, labels=node_labels, font_size=8)
+nx.draw_networkx_labels(B, pos=pos, font_size=8)
 nx.draw_networkx_edges(B, pos=pos, edge_color=edge_colors)
 plt.title(f"Max Flow = {R.graph['flow_value']}", size=12)
 plt.axis("off")
