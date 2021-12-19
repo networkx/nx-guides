@@ -464,9 +464,11 @@ Resulting new residual Network:
 
 ```{code-cell} ipython3
 R = residual_graph(R, aug_flow)
+
+# Original color scheme for residual graph
+node_colors = ["skyblue" if n in {"s", "t"} else "lightgray" for n in R.nodes]
 draw_residual_graph(R)
 ```
-![image: augmenting path and its flow value](images/algo-eg-new-residual.jpg)
 
 ### Algorithm
 
