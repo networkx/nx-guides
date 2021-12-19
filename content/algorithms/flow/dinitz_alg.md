@@ -505,14 +505,15 @@ cutoff_list = [5, 10, 15, 20, 25, 30, 35, None]
 fig, axes = plt.subplots(4, 2, figsize=(20, 30))
 node_colors = ["skyblue" if n in {"s", "t"} else "lightgray" for n in G.nodes]
 
-
 for cutoff, ax in zip(cutoff_list, axes.ravel()):
 
     # calculating the maximum flow with the cutoff value
     R = nx.flow.dinitz(G, s="s", t="t", capacity="capacity", cutoff=cutoff)
 
     # coloring and labeling edges depending on if they have non-zero flow value or not
-    edge_colors = ["0.8" if R[u][v]["flow"] == 0 else "0" for u, v in G.edges]
+    edge_colors = [
+        "lightgray" if R[u][v]["flow"] == 0 else "black" for u, v in G.edges
+    ]
     edge_labels = {
         (u, v): f"{R[u][v]['flow']}/{G[u][v]['capacity']}"
         for u, v in G.edges
@@ -520,19 +521,15 @@ for cutoff, ax in zip(cutoff_list, axes.ravel()):
     }
 
     # drawing the network
-    nx.draw_networkx_nodes(
-        G, pos=pos, ax=ax, node_size=500, node_color=node_colors
-    )
-    nx.draw_networkx_labels(
-        G, pos=pos, ax=ax, font_size=14
-    )
+    nx.draw_networkx_nodes(G, pos=pos, ax=ax, node_size=500, node_color=node_colors)
+    nx.draw_networkx_labels(G, pos=pos, ax=ax, font_size=14)
     nx.draw_networkx_edges(G, pos=pos, ax=ax, edge_color=edge_colors)
     nx.draw_networkx_edge_labels(
         G, pos=pos, ax=ax, edge_labels=edge_labels, font_size=14
     )
     ax.set_title(
-        f"Max Flow = {R.graph['flow_value']}\nCutoff value of = {cutoff}",
-        size=15,
+        f"Cutoff value = {cutoff}; Max Flow = {R.graph['flow_value']}",
+        size=22,
     )
 
 fig.tight_layout()
