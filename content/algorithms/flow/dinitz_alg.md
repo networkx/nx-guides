@@ -480,10 +480,6 @@ output the flow
 5. Augment the flow along the edges of path $P$ which will give a new residual network
 6. Repeat from point 3 with new residual network $N'$
 
-![image: running example](images/example.gif)
-
-Note: Some edges that are not important are either leftout or grayed
-
 ````{admonition} Code to generate the gif and images
 :class: toggle
 
