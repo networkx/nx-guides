@@ -261,10 +261,11 @@ def residual_graph(G, flow):
     return H
 
 
-def draw_residual_graph(R):
+def draw_residual_graph(R, ax=None):
     """Visualize residual graph returned by `residual_graph`."""
-    fig, ax = plt.subplots(figsize=(15, 9))
-    ax.axis("off")
+    if not ax:
+        fig, ax = plt.subplots(figsize=(15, 9))
+        ax.axis("off")
 
     # Draw nodes
     nx.draw_networkx_nodes(R, pos, node_color=node_colors)
@@ -424,23 +425,13 @@ def aug_path_dfs(parents, flow, source_node, target_node):
         u = v
     path.append(source_node)
     # Augment the flow along the path found
-    if f > 0:
-        for u, v in nx.utils.pairwise(path):
-            if (u, v) in flow:
-                flow[(u, v)] += f
-            else:
-                flow[(u, v)] = f
-            if (v, u) in flow:
-                flow[(v, u)] -= f
-            else:
-                flow[(v, u)] = f
-    return flow, path
+    return path, f
 ```
 
 Augmenting path before augmenting:
 
 ```{code-cell} ipython3
-example_flow, path = aug_path_dfs(parents, example_flow, "s", "t")
+path, min_resid_flow = aug_path_dfs(parents, example_flow, "s", "t")
 
 # Visualize
 draw_level_network(R, parents, level, background=True)  # Level graph in the background
@@ -448,13 +439,33 @@ nc = [level_colors[level[n]] for n in path]
 el = [(v, u) for u, v in nx.utils.pairwise(path)]
 nx.draw(R, pos, nodelist=path, edgelist=el, node_color=nc, with_labels=True)
 edgelabels = {(u, v): R[u][v]["capacity"] for u, v in el}
-nx.draw_networkx_edge_labels(R, pos, edge_labels=edgelabels, label_pos=0.667)
+nx.draw_networkx_edge_labels(R, pos, edge_labels=edgelabels, label_pos=0.667);
 ```
 
 Augmenting path after augmenting:
-![image: augmenting path and its flow value](images/algo-eg-augmenting-path-after.jpg)
+
+```{code-cell} ipython3
+# Apply the minimum flow along the augmenting path
+aug_flow = {(v, u): min_resid_flow for u, v in nx.utils.pairwise(path)}
+
+# Visualize the augmented flow along the path
+draw_level_network(R, parents, level, background=True)
+aug_path = residual_graph(R.subgraph(path), aug_flow)
+
+# Node ordering in the subgraph can be different than `path`
+nodes = list(aug_path.nodes)
+node_colors = [level_colors[level[n]] for n in nodes]
+node_colors[nodes.index('s')] = node_colors[nodes.index('t')] = "skyblue"
+
+draw_residual_graph(aug_path, ax=plt.gca())
+```
 
 Resulting new residual Network:
+
+```{code-cell} ipython3
+R = residual_graph(R, aug_flow)
+draw_residual_graph(R)
+```
 ![image: augmenting path and its flow value](images/algo-eg-new-residual.jpg)
 
 ### Algorithm
