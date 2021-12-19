@@ -492,36 +492,24 @@ NetworkX provides an implementation of Dinitz's algorithm:
 [nx.flow.dinitz](https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.flow.dinitz.html).
 `nx.flow.dinitz` includes several features in addition to those described above.
 For example, the `cutoff` keyword argument can be used to prematurely terminate
-the dinitz algorithm once the desired value of maximum flow is reached.
+the Dinitz algorithm once the desired flow value is reached.
+
+Let's try out NetworkX's implementation of Dinitz's algorith on our example
+network, `G`.
 
 ```{code-cell} ipython3
-%matplotlib inline
-import networkx as nx
-import matplotlib.pyplot as plt
-import pickle
-```
+# Maximum flow values to find. Note the final value of `None` which indicates
+# the algorithm should run to completion, finding the true maximum flow
+cutoff_list = [5, 10, 15, 20, 25, 30, 35, None]
 
-```{code-cell} ipython3
-gname = "egnetwork"
-# loading the graph
-G = nx.read_graphml(f"data/{gname}.graphml")
-with open(f"data/pos_{gname}", "rb") as fp:
-    pos = pickle.load(fp)
-```
-
-```{code-cell} ipython3
 fig, axes = plt.subplots(4, 2, figsize=(20, 30))
+node_colors = ["skyblue" if n in {"s", "t"} else "lightgray" for n in G.nodes]
 
-# assign colors and labels to nodes based on their type
-color_map = {"t": "skyblue", "s": "skyblue"}
-node_colors = [color_map[u] if u in color_map.keys() else "0.8" for u in G.nodes]
-node_labels = {u: u for u in G.nodes}
-cutoff_list = [5, 10, 15, 20, 25, 30, 35, 40]
 
-for i in range(8):
+for cutoff, ax in zip(cutoff_list, axes.ravel()):
 
     # calculating the maximum flow with the cutoff value
-    R = nx.flow.dinitz(G, s="s", t="t", capacity="capacity", cutoff=cutoff_list[i])
+    R = nx.flow.dinitz(G, s="s", t="t", capacity="capacity", cutoff=cutoff)
 
     # coloring and labeling edges depending on if they have non-zero flow value or not
     edge_colors = ["0.8" if R[u][v]["flow"] == 0 else "0" for u, v in G.edges]
@@ -533,17 +521,17 @@ for i in range(8):
 
     # drawing the network
     nx.draw_networkx_nodes(
-        G, pos=pos, ax=axes[i // 2][i % 2], node_size=500, node_color=node_colors
+        G, pos=pos, ax=ax, node_size=500, node_color=node_colors
     )
     nx.draw_networkx_labels(
-        G, pos=pos, ax=axes[i // 2][i % 2], labels=node_labels, font_size=14
+        G, pos=pos, ax=ax, font_size=14
     )
-    nx.draw_networkx_edges(G, pos=pos, ax=axes[i // 2][i % 2], edge_color=edge_colors)
+    nx.draw_networkx_edges(G, pos=pos, ax=ax, edge_color=edge_colors)
     nx.draw_networkx_edge_labels(
-        G, pos=pos, ax=axes[i // 2][i % 2], edge_labels=edge_labels, font_size=14
+        G, pos=pos, ax=ax, edge_labels=edge_labels, font_size=14
     )
-    axes[i // 2][i % 2].set_title(
-        f"Max Flow = {R.graph['flow_value']}\nCutoff value of = {cutoff_list[i]}",
+    ax.set_title(
+        f"Max Flow = {R.graph['flow_value']}\nCutoff value of = {cutoff}",
         size=15,
     )
 
