@@ -9,4 +9,5 @@ maxdepth: 1
 ---
 assortativity/correlation
 dag/index
+flow/dinitz_alg
 ```
