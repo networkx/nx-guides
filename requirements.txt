@@ -1,9 +1,15 @@
-matplotlib
-scipy
-pygraphviz
-nbval
+# nx-guides is tested on the development branch of NetworkX
 git+git://github.com/networkx/networkx@main
+
+# Scientific Python (see networkx/requirements/default.txt)
+numpy
+scipy
+matplotlib
+pandas
+
+# For testing and site generation
+nbval
 sphinx
 myst-nb
-pydata-sphinx-theme
+sphinx-book-theme
 jupytext

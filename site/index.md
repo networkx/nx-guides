@@ -35,10 +35,8 @@ You can follow along yourself:
 maxdepth: 1
 ---
 
-content/tutorial
-content/generators/geometric
-content/algorithms/assortativity/correlation
-content/algorithms/dag/index
-content/algorithms/flow/dinitz_alg
+content/algorithms/index
+content/generators/index
+content/exploratory_notebooks/facebook_notebook
 ```
 

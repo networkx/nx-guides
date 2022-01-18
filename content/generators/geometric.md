@@ -22,7 +22,7 @@ language_info:
   version: 3.7.4
 ---
 
-# Tutorial: Geometric Generator Models
+# Geometric Generator Models
 
 In this tutorial, we'll explore the geometric network generator models
 implemented in networkx under networkx/generators/geometric.py and apply them
