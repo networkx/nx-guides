@@ -3,7 +3,7 @@ git+git://github.com/networkx/networkx@main
 
 # Scientific Python (see networkx/requirements/default.txt)
 numpy
-scipy
+scipy==1.8.0rc2
 matplotlib
 pandas
 
