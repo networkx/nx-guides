@@ -22,8 +22,8 @@ language_info:
   version: 3.10.1
 ---
 
-# Tutorial: Dinitz's algorithm and its applications
-In this tutorial, we will introduce [Maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)
+# Dinitz's algorithm and its applications
+In this notebook, we will introduce the [Maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)
 and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm) [^1], which is implemented at
 [algorithms/flow/dinitz_alg.py](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py)
 in NetworkX. We will also see how it can be used to solve some interesting problems.
@@ -90,9 +90,7 @@ So how can we model this problem in terms of graphs?
 Let's say $N=(V, E)$ represents this peer-to-peer network with $V$ as the set of nodes
 where nodes are computers and $E$ as the set of edges where edge $uv \in E$ if there is
 a connection from node $u$ to node $v$ across which we can send data. There are also
-2 special nodes first one is the one on which you are there, call it $s$ & the second
-being the one with your friend call it $t$. We also name them ***source*** and ***sink***
-nodes respectively.
+2 special nodes, the first one is you (node $s$) and the second one is your friend (node $t$). We also name them the ***source*** and ***sink*** nodes respectively.
 
 ```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(16, 8))
@@ -127,7 +125,7 @@ denoting that we are sending data at rate $f(uv)$ through edge $uv\in E$.
 
 Note that for this plan to be a valid plan it must satisfy the following constraints
 * **Capacity constraint:**
-    The data rate at which we are sending data from any node doesn't exceed its
+    The data rate at which we are sending data from any node shouldn't exceed its
     capacity, formally $f_{uv} \le c_{uv}$
 * **Conservation of flow:**
     Rate at which data is sent to a node is same as the rate at which the node is sending
@@ -224,7 +222,7 @@ conservation of flow
 
 *So if we use this plan/flow to send data then at what rate will we be sending the data to friend?*
 
-To answer it we need to observe that any data that the sink node $t$ will receive will be
+To answer this we need to observe that any data that the sink node $t$ will receive will be
 from its neighbors so if we sum over the data rates from plan/flow from those neighbors to
 the sink node we shall get the total data rate at which $t$ will be receiving the data.
 Formally we can say that the **value of the flow** is $|f|=\sum\limits_{u|(u,t) \in E}f_{u,t}$.
@@ -561,7 +559,7 @@ Number below each intermediate shipping point is the maximum number of shipping 
 it can do in a day, and if edge connects an intermdiate shipping point and a customer
 only then we can send the package from that shipping point to that customer.
 
-Note that the wharehouse node is named as $W$, intermediate shipping points as
+Note that the warehouse node is named as $W$, intermediate shipping points as
 $lw1, lw2, lw3$, and customers as $c1,c2...c20$.
 
 ```{code-cell} ipython3
