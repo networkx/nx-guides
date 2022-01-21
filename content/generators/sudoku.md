@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.11.1
+    jupytext_version: 1.13.6
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 language_info:
@@ -19,8 +19,10 @@ language_info:
   name: python
   nbconvert_exporter: python
   pygments_lexer: ipython3
-  version: 3.7.4
+  version: 3.9.7
 ---
+
++++ {"tags": []}
 
 # Sudoku and Graph coloring
 
@@ -37,7 +39,7 @@ This is the graph-theoretic framing of the problem, after this point we can trea
 
 > In the mathematics of Sudoku, the Sudoku graph is an undirected graph whose vertices represent the cells of a (blank) Sudoku puzzle and whose edges represent pairs of cells that belong to the same row, column, or block of the puzzle. The problem of solving a Sudoku puzzle can be represented as precoloring extension on this graph. It is an integral Cayley graph.
 
-[Sudoku Graph - Wikipedia](https://en.wikipedia.org/wiki/Sudoku_graph)
+[Wikipedia - Sudoku Graph](https://en.wikipedia.org/wiki/Sudoku_graph)
 
 Here `pre-coloring extension` simply means translating the pre-existing cues into a graph with 81 nodes, coloring the nodes that are already given as clues, and then trying to color the rest of the vertices within the contraints.
 
@@ -51,44 +53,55 @@ Informally the Sudoku graph is an undirected graph- its vertices represent the c
 cells are adjacent if they are either in the same row or column or block of $X_n$.
 > $GX_n$ is a regular $(n^4, \frac{3n^6}{2} − n^5− \frac{n^4}{2})$ graph of degree $3n^2 − 2n − 1$  (1)
 
-[Wikipedia Page - Sudoku Graph](https://en.wikipedia.org/wiki/Sudoku_graph)
+[Wikipedia - Sudoku Graph](https://en.wikipedia.org/wiki/Sudoku_graph)
 
-Now, from (1) we can get that the graph of a Sudoku grid of rank 3 is a (81, 810) regular graph of degree 20. This can be verified informally- we have 81 cells in the standard sudoku where every cell is adjacent to 8 cells in its row + 8 cells in its column and 4 more leftover cells in its block, hence the degree 20, [this Wikipedia figure](https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/9x9_Sudoku_graph_neighbors_%28really_fixed%29.svg/600px-9x9_Sudoku_graph_neighbors_%28really_fixed%29.svg.png) makes this visualization more understandable
+Now, from (1) we can get that the graph of a Sudoku grid of rank 3 is a $(V=81, E=810)$ regular graph of degree 20. This can be verified informally- we have 81 cells in the standard sudoku where every cell is adjacent to 8 cells in its row + 8 cells in its column and 4 more leftover cells in its block, hence the degree 20, [this Wikipedia figure](https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/9x9_Sudoku_graph_neighbors_%28really_fixed%29.svg/600px-9x9_Sudoku_graph_neighbors_%28really_fixed%29.svg.png) makes this visualization more understandable
 
-Let's take an example Sudoku Puzzle that we will solve with graph theory (networkx and some cool figures as well!)
+Let's take an example Sudoku Puzzle that we will solve with graph theory (NetworkX and some cool figures as well!)
 
 ```{code-cell} ipython3
 import numpy as np
-puzzle = np.asarray([
-       [0, 4, 3, 0, 8, 0, 2, 5, 0],
-       [6, 0, 0, 0, 0, 0, 0, 0, 0],
-       [0, 0, 0, 0, 0, 1, 0, 9, 4],
-       [9, 0, 0, 0, 0, 4, 0, 7, 0],
-       [0, 0, 0, 6, 0, 8, 0, 0, 0],
-       [0, 1, 0, 2, 0, 0, 0, 0, 3],
-       [8, 2, 0, 5, 0, 0, 0, 0, 0],
-       [0, 0, 0, 0, 0, 0, 0, 0, 5],
-       [0, 3, 4, 0, 9, 0, 7, 1, 0]])
+
+puzzle = np.asarray(
+    [
+        [0, 4, 3, 0, 8, 0, 2, 5, 0],
+        [6, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0, 9, 4],
+        [9, 0, 0, 0, 0, 4, 0, 7, 0],
+        [0, 0, 0, 6, 0, 8, 0, 0, 0],
+        [0, 1, 0, 2, 0, 0, 0, 0, 3],
+        [8, 2, 0, 5, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 5],
+        [0, 3, 4, 0, 9, 0, 7, 1, 0],
+    ]
+)
 ```
 
 ```{code-cell} ipython3
-colors = [(1,1,1),
-          (0.999, 0.7, 0.6, 0.9), (0.80, 0.699, 0.89,0.9), (0.60, 0.65, 0.999,0.9),
-         (0.8, 0.8, 0.6, 0.9), (0.60, 0.89, 0.4,0.9), (0.99, 0.65, 0.999,0.9),
-         (0.49, 0.69, 0.89, 0.8), (0.80, 0.699, 0.7,0.9), (0.50, 0.75, 0.499,0.9)]
-```
-
-```{code-cell} ipython3
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 import networkx as nx
-import matplotlib.pyplot as plt 
 
 n = 3
-G = nx.sudoku_graph()
+G = nx.sudoku_graph(n)
 mapping = dict(zip(G.nodes(), puzzle.flatten()))
-pos = dict(zip(list(G.nodes()), nx.grid_2d_graph(n*n,n*n)))
-plt.figure(1,figsize=(12,12)) 
-nx.draw(G, labels=mapping, pos=pos, with_labels=True, 
-        node_color=[colors[i] for i in mapping.values()], width=1, node_size=1000)
+pos = dict(zip(list(G.nodes()), nx.grid_2d_graph(n * n, n * n)))
+
+# we map the nodes 1-9 to a colormap
+low, *_, high = sorted(mapping.values())
+norm = mpl.colors.Normalize(vmin=low, vmax=high, clip=True)
+mapper = mpl.cm.ScalarMappable(norm=norm, cmap=mpl.cm.Pastel1)
+
+plt.figure(figsize=(12, 12))
+nx.draw(
+    G,
+    labels=mapping,
+    pos=pos,
+    with_labels=True,
+    node_color=[mapper.to_rgba(i) for i in mapping.values()],
+    width=1,
+    node_size=1000,
+)
 plt.show()
 ```
 
@@ -105,19 +118,19 @@ Let's Generate a solved grid which we'll try to visualize
 ```{code-cell} ipython3
 from random import sample
 
+
 # Generate random sudoku
 def generate_random_sudoku(n):
-    base  = n
-    side  = base*base
-    def pattern(r,c): return (base*(r%base)+r//base+c)%side
-    def shuffle(s): return sample(s,len(s)) 
-    rBase = range(base) 
-    rows  = [ g*base + r for g in shuffle(rBase) for r in shuffle(rBase) ] 
-    cols  = [ g*base + c for g in shuffle(rBase) for c in shuffle(rBase) ]
-    nums  = shuffle(range(1,base*base+1))
-    board=[]
-    for r in rows:
-        board += [nums[pattern(r,c)] for c in cols]
+    side = n * n
+
+    def _pattern(r, c):
+        return (n * (r % n) + r // n + c) % side
+
+    rBase = range(n)
+    rows = [g * n + r for g in sample(rBase, n) for r in sample(rBase, n)]
+    cols = [g * n + c for g in sample(rBase, n) for c in sample(rBase, n)]
+    nums = sample(range(1, n * n + 1), n * n)
+    board = [nums[_pattern(r, c)] for r in rows for c in cols]
     return board
 ```
 
@@ -129,26 +142,18 @@ mapping = dict(zip(G.nodes(), board))
 ```
 
 ```{code-cell} ipython3
-import matplotlib as mpl
-
-# we map the nodes 1-9 to a colormap
-low, *_, high = sorted(mapping.values())
-norm = mpl.colors.Normalize(vmin=low, vmax=high, clip=True)
-mapper = mpl.cm.ScalarMappable(norm=norm, cmap=mpl.cm.Pastel1)
-```
-
-```{code-cell} ipython3
-plt.figure(1,figsize=(12,12))
-nx.draw(G, pos=pos, labels=mapping,node_size=1000,
+plt.figure(1, figsize=(12, 12))
+nx.draw(
+    G,
+    pos=pos,
+    labels=mapping,
+    node_size=1000,
     node_color=[mapper.to_rgba(i) for i in mapping.values()],
-        with_labels=True)
+    with_labels=True,
+)
 
 plt.show()
 ```
-
-To understand and visualize the constraints of same row, box or column, looking more carefully at the edges might be useful
-
-For starters, say we have this graph `G`, now say we want to check all the three different kinds of constraints individually, one would need to differentiate between the three different kinds of edges(there are 810!), let's do that!
 
 ```{code-cell} ipython3
 G = nx.sudoku_graph(n=3)
@@ -158,12 +163,16 @@ G = nx.sudoku_graph(n=3)
 len(G.edges())
 ```
 
-let's just have a quick look at what networkx draws in an empty(uncolored or unlabeled) sudoku graph
+To understand and visualize the constraints of same row, box or column, looking more carefully at the edges might be useful
+
+For starters, say we have this graph `G`, now say we want to check all the three different kinds of constraints individually, one would need to differentiate between the three different kinds of edges(there are 810!), let's do that!
+
+Let's just have a quick look at what networkx draws in an empty(uncolored or unlabeled) sudoku graph
 
 ```{code-cell} ipython3
-plt.figure(1,figsize=(12,12))
-pos = dict(zip(list(G.nodes()), nx.grid_2d_graph(n*n,n*n)))
-nx.draw(G, pos=pos, node_color='white', with_labels=True)
+plt.figure(figsize=(12, 12))
+pos = dict(zip(list(G.nodes()), nx.grid_2d_graph(n * n, n * n)))
+nx.draw(G, pos=pos, node_color="white", with_labels=True)
 plt.show()
 ```
 
@@ -172,42 +181,53 @@ There you go, so all the nodes are indexed as stacks of columns from 0 to 80, no
 ```{code-cell} ipython3
 import itertools
 
+
 def separate_edges(n):
     G = nx.sudoku_graph(n)
-    box_edges=[]
-    row_edges=[]
-    column_edges=[]
-    boxes=[]
+    box_edges = []
+    row_edges = []
+    column_edges = []
+    boxes = []
     for i in range(n):
         for j in range(n):
-            box=[]
-            for k in range(n):
-                for l in range(n):
-                    box.append((n)*i+j*(n*n*n)+(n*n)*k+l)
+            box = [
+                (n) * i + j * (n * n * n) + (n * n) * k + l
+                for k in range(n)
+                for l in range(n)
+            ]
             boxes.append(box)
 
-    for i in range(n*n):
-        row_edges += list(itertools.combinations([i+(n*n)*j for j in range(n*n)],2))
-        box_edges += list(itertools.combinations(boxes[i],2))
-        column_edges += list(itertools.combinations(list(G.nodes())[i*(n*n):(i+1)*(n*n)],2))
+    for i in range(n * n):
+        row_edges += list(
+            itertools.combinations([i + (n * n) * j for j in range(n * n)], 2)
+        )
+        box_edges += list(itertools.combinations(boxes[i], 2))
+        column_edges += list(
+            itertools.combinations(list(G.nodes())[i * (n * n) : (i + 1) * (n * n)], 2)
+        )
     return row_edges, box_edges, column_edges
 
-def plot_edge_colored_sudoku(n=3,layout='grid'):
+
+def plot_edge_colored_sudoku(n=3, layout="grid"):
     row_edges, box_edges, column_edges = separate_edges(n)
     G = nx.sudoku_graph(n)
     board = generate_random_sudoku(n)
     mapping = dict(zip(G.nodes(), board))
-    
-    plt.figure(1,figsize=(12,12)) 
-    if layout=='circular':
-        pos= nx.circular_layout(G)
-    if layout=='grid':
-        pos = dict(zip(list(G.nodes()), nx.grid_2d_graph(n*n,n*n)))
-        
-    nx.draw(G,pos=pos, labels=mapping, with_labels=True, node_color='white')
-    nx.draw_networkx_edges(G,pos=pos,edgelist=box_edges, edge_color="tab:gray")
-    nx.draw_networkx_edges(G,pos=pos,edgelist=row_edges,width=2, edge_color="tab:blue")
-    nx.draw_networkx_edges(G,pos=pos,edgelist=column_edges,width=2, edge_color="tab:green")
+
+    plt.figure(figsize=(12, 12))
+    if layout == "circular":
+        pos = nx.circular_layout(G)
+    if layout == "grid":
+        pos = dict(zip(list(G.nodes()), nx.grid_2d_graph(n * n, n * n)))
+
+    nx.draw(G, pos=pos, labels=mapping, with_labels=True, node_color="orange")
+    nx.draw_networkx_edges(G, pos=pos, edgelist=box_edges, edge_color="tab:gray")
+    nx.draw_networkx_edges(
+        G, pos=pos, edgelist=row_edges, width=2, edge_color="tab:blue"
+    )
+    nx.draw_networkx_edges(
+        G, pos=pos, edgelist=column_edges, width=2, edge_color="tab:green"
+    )
     plt.show()
 ```
 
@@ -220,10 +240,10 @@ plot_edge_colored_sudoku()
 Let's change the layout a little to see all the edges that are invisible because they fall on top of each other
 
 ```{code-cell} ipython3
-plot_edge_colored_sudoku(layout='circular')
+plot_edge_colored_sudoku(layout="circular")
 ```
 
-pretty! Now, let's check how do sudoku graphs look if sudokus were 16*16 grids instead of 9*9
+pretty! Now, let's check how do sudoku graphs look if sudokus were 16 x 16 grids instead of 9 x 9
 
 ```{code-cell} ipython3
 plot_edge_colored_sudoku(n=4)
