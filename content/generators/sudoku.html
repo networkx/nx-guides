@@ -1,0 +1,619 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sudoku and Graph coloring &#8212; NetworkX Notebooks</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Facebook Network Analysis" href="../exploratory_notebooks/facebook_notebook.html" />
+    <link rel="prev" title="Geometric Generator Models" href="geometric.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/networkx_logo.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">NetworkX Notebooks</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../algorithms/index.html">
+   Algorithms
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../algorithms/assortativity/correlation.html">
+     Node assortativity coefficients and correlation measures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../algorithms/dag/index.html">
+     Directed Acyclic Graphs &amp; Topological Sort
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../algorithms/flow/dinitz_alg.html">
+     Dinitz’s algorithm and its applications
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="index.html">
+   Graph Generators
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="geometric.html">
+     Geometric Generator Models
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Sudoku and Graph coloring
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exploratory_notebooks/facebook_notebook.html">
+   Facebook Network Analysis
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
+<div class="sbt-scroll-pixel-helper"></div>
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            <div class="topbar-left">
+                
+                <label class="nav-toggle-button" for="__navigation">
+                    <div class="visually-hidden">Toggle navigation</div>
+                    <i class="fas fa-bars"></i>
+                </label>
+                
+            </div>
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../../_sources/content/generators/sudoku.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/content/generators/sudoku.md.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/networkx/nx-guides/"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/networkx/nx-guides//issues/new?title=Issue%20on%20page%20%2Fcontent/generators/sudoku.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/networkx/nx-guides/edit/main/site/content/generators/sudoku.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=tree/site/content/generators/sudoku.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction-and-intuition-building">
+   Introduction and intuition building
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-formulation">
+   Problem Formulation
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Sudoku and Graph coloring</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction-and-intuition-building">
+   Introduction and intuition building
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-formulation">
+   Problem Formulation
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="sudoku-and-graph-coloring">
+<h1>Sudoku and Graph coloring<a class="headerlink" href="#sudoku-and-graph-coloring" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction-and-intuition-building">
+<h2>Introduction and intuition building<a class="headerlink" href="#introduction-and-intuition-building" title="Permalink to this headline">¶</a></h2>
+<p>Sudoku is a popular number-placement puzzle based on logic and combinatorics. The objective is to fill a 9 × 9 grid with digits such that each column, each row, and each of the nine 3 × 3 subgrids that compose the grid contain all of the digits from 1 to 9 (once and only once). Usually the puzzle is partially filled in a way that guarantees a unique solution, as of now from what we know at least 17 cues are needed to create a puzzle with a unique solution.</p>
+<p>Another way of looking at this puzzle is as follows:</p>
+<ul class="simple">
+<li><p>View the 81 cells as nodes of a graph</p></li>
+<li><p>Consider the connections(being in the same row, column or grid) as edges</p></li>
+</ul>
+<p>This is the graph-theoretic framing of the problem, after this point we can treat the Sudoku as a vertex coloring problem, where we assign a color to each number(1-9) and ensure that no two nodes of the same color are connected by an edge (thus satisfying the constraints provided)</p>
+<blockquote>
+<div><p>In the mathematics of Sudoku, the Sudoku graph is an undirected graph whose vertices represent the cells of a (blank) Sudoku puzzle and whose edges represent pairs of cells that belong to the same row, column, or block of the puzzle. The problem of solving a Sudoku puzzle can be represented as precoloring extension on this graph. It is an integral Cayley graph.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Sudoku_graph">Wikipedia - Sudoku Graph</a></p>
+<p>Here <em>pre-coloring extension</em> simply means translating the pre-existing cues into a graph with 81 nodes, coloring the nodes that are already given as clues, and then trying to color the rest of the vertices within the contraints.</p>
+<p><em>cayley graph</em> is simply a way of encoding information about group in a graph, as in we can define the sudoku puzzle completely in terms of a Graph, without missing any logical information or mathematical properties</p>
+</div>
+<div class="section" id="problem-formulation">
+<h2>Problem Formulation<a class="headerlink" href="#problem-formulation" title="Permalink to this headline">¶</a></h2>
+<p>Informally the Sudoku graph is an undirected graph- its vertices represent the cells and edges represent pairs of cells that belong to the same row, column, or block of the puzzle. Formally this can be defined as:</p>
+<blockquote>
+<div><p>A Sudoku grid of rank <span class="math notranslate nohighlight">\(n\)</span> is a <span class="math notranslate nohighlight">\(n^2 × n^2\)</span> grid(<span class="math notranslate nohighlight">\(X_n\)</span>).
+It consists of <span class="math notranslate nohighlight">\(n^2\)</span> disjoint <span class="math notranslate nohighlight">\(n × n\)</span> grids.
+The graph of <span class="math notranslate nohighlight">\(X_n\)</span>, denoted as <span class="math notranslate nohighlight">\(GX_n\)</span>, is <span class="math notranslate nohighlight">\((V, E)\)</span> where cells of Sudoku grid
+form the vertices of its graph and two cells are adjacent if they are either
+in the same row or column or block of <span class="math notranslate nohighlight">\(X_n\)</span>.
+<span class="math notranslate nohighlight">\(GX_n\)</span> is a regular <span class="math notranslate nohighlight">\((n^4, \frac{3n^6}{2} − n^5− \frac{n^4}{2})\)</span> graph of
+degree</p>
+</div></blockquote>
+<div class="math notranslate nohighlight">
+\[
+3n^2 − 2n − 1  (1)
+\]</div>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Sudoku_graph">Wikipedia - Sudoku Graph</a></p>
+<p>Now, from (1) we can get that the graph of a Sudoku grid of rank 3 is a <span class="math notranslate nohighlight">\((V=81, E=810)\)</span> regular graph of degree 20. This can be verified informally- we have 81 cells in the standard sudoku where every cell is adjacent to 8 cells in its row + 8 cells in its column and 4 more leftover cells in its block, hence the degree 20, <a class="reference external" href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/9x9_Sudoku_graph_neighbors_%28really_fixed%29.svg/600px-9x9_Sudoku_graph_neighbors_%28really_fixed%29.svg.png">this Wikipedia figure</a> makes this visualization more understandable</p>
+<p>Let’s take an example Sudoku Puzzle that we will solve with graph theory (NetworkX and some cool figures as well!)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">puzzle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">sudoku_graph</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">mapping</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(),</span> <span class="n">puzzle</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()),</span> <span class="n">nx</span><span class="o">.</span><span class="n">grid_2d_graph</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">)))</span>
+
+<span class="c1"># we map the nodes 1-9 to a colormap</span>
+<span class="n">low</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mapping</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">low</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">high</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Pastel1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="n">mapping</span><span class="p">,</span>
+    <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span>
+    <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">node_color</span><span class="o">=</span><span class="p">[</span><span class="n">mapper</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">node_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/sudoku_2_0.png" src="../../_images/sudoku_2_0.png" />
+</div>
+</div>
+<p>Now this can be solved using greedy graph coloring algorithms, it’s an NP hard problem, so some level of brute force is part of the process</p>
+<blockquote>
+<div><p>A k-coloring of a graph G is a vertex coloring that is an assignment of one of k possible colors to each vertex of G (i.e., a vertex coloring) such that no two adjacent vertices receive the same color.</p>
+</div></blockquote>
+<p>How many colors would we need in this case? 9</p>
+<p>Note: this is more than intuition, formally 9 is the chromatic number of a 2-distant coloring problem for a sudoku graph <span class="math notranslate nohighlight">\(n^2 * n^2\)</span>, you can learn more about this <a class="reference external" href="https://mast.queensu.ca/~murty/sudoku-ams.pdf">here</a>!</p>
+<p>Let’s generate a solved grid which we’ll try to visualize</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">sample</span>
+
+
+<span class="c1"># Generate random sudoku</span>
+<span class="k">def</span> <span class="nf">generate_random_sudoku</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">side</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span>
+
+    <span class="k">def</span> <span class="nf">_pattern</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span> <span class="o">%</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="n">r</span> <span class="o">//</span> <span class="n">n</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span> <span class="o">%</span> <span class="n">side</span>
+
+    <span class="n">rBase</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">r</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">(</span><span class="n">rBase</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">(</span><span class="n">rBase</span><span class="p">,</span> <span class="n">n</span><span class="p">)]</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">c</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">(</span><span class="n">rBase</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">(</span><span class="n">rBase</span><span class="p">,</span> <span class="n">n</span><span class="p">)]</span>
+    <span class="n">nums</span> <span class="o">=</span> <span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">board</span> <span class="o">=</span> <span class="p">[</span><span class="n">nums</span><span class="p">[</span><span class="n">_pattern</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">)]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">board</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>So now we modify our mapping of nodes to this solved sudoku</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">board</span> <span class="o">=</span> <span class="n">generate_random_sudoku</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">mapping</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(),</span> <span class="n">board</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span>
+    <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="n">mapping</span><span class="p">,</span>
+    <span class="n">node_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">node_color</span><span class="o">=</span><span class="p">[</span><span class="n">mapper</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span>
+    <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/sudoku_7_0.png" src="../../_images/sudoku_7_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">sudoku_graph</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>810
+</pre></div>
+</div>
+</div>
+</div>
+<p>To understand and visualize the constraints of same row, box or column, looking more carefully at the edges might be useful</p>
+<p>For starters, say we have this graph <code class="docutils literal notranslate"><span class="pre">G</span></code>, now say we want to check all the three different kinds of constraints individually, one would need to differentiate between the three different kinds of edges(there are 810!), let’s do that!</p>
+<p>Let’s just have a quick look at what networkx draws in an empty(uncolored or unlabeled) sudoku graph</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()),</span> <span class="n">nx</span><span class="o">.</span><span class="n">grid_2d_graph</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">)))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/sudoku_11_0.png" src="../../_images/sudoku_11_0.png" />
+</div>
+</div>
+<p>There you go, so all the nodes are indexed as stacks of columns from 0 to 80, now we’ll separate the three different types of edges here</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
+
+
+<span class="k">def</span> <span class="nf">separate_edges</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">sudoku_graph</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">box_edges</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">row_edges</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">column_edges</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">boxes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">box</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">k</span> <span class="o">+</span> <span class="n">l</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="n">boxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">):</span>
+        <span class="n">row_edges</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span>
+            <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">([</span><span class="n">i</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">)],</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">box_edges</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">boxes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">column_edges</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span>
+            <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">())[</span><span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span> <span class="p">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">)],</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">row_edges</span><span class="p">,</span> <span class="n">box_edges</span><span class="p">,</span> <span class="n">column_edges</span>
+
+
+<span class="k">def</span> <span class="nf">plot_edge_colored_sudoku</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">):</span>
+    <span class="n">row_edges</span><span class="p">,</span> <span class="n">box_edges</span><span class="p">,</span> <span class="n">column_edges</span> <span class="o">=</span> <span class="n">separate_edges</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">sudoku_graph</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">board</span> <span class="o">=</span> <span class="n">generate_random_sudoku</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">mapping</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(),</span> <span class="n">board</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">layout</span> <span class="o">==</span> <span class="s2">&quot;circular&quot;</span><span class="p">:</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">circular_layout</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">layout</span> <span class="o">==</span> <span class="s2">&quot;grid&quot;</span><span class="p">:</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()),</span> <span class="n">nx</span><span class="o">.</span><span class="n">grid_2d_graph</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">)))</span>
+
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">mapping</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">box_edges</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;tab:gray&quot;</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
+        <span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">row_edges</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span>
+    <span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
+        <span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">column_edges</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;tab:green&quot;</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Alright time to plot!!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_edge_colored_sudoku</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/sudoku_15_0.png" src="../../_images/sudoku_15_0.png" />
+</div>
+</div>
+<p>Let’s change the layout a little to see all the edges that are invisible because they fall on top of each other</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_edge_colored_sudoku</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="s2">&quot;circular&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/sudoku_17_0.png" src="../../_images/sudoku_17_0.png" />
+</div>
+</div>
+<p>pretty! Now, let’s check how do sudoku graphs look if sudokus were 16 x 16 grids instead of 9 x 9</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_edge_colored_sudoku</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/sudoku_19_0.png" src="../../_images/sudoku_19_0.png" />
+</div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="geometric.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Geometric Generator Models</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../exploratory_notebooks/facebook_notebook.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Facebook Network Analysis</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By NetworkX developers<br/>
+    
+        &copy; Copyright 2021, NetworkX developers.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
