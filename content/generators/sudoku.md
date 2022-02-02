@@ -28,7 +28,7 @@ language_info:
 
 ## Introduction and intuition building
 
-Sudoku is a popular number-placement puzzle based on logic and combinatorics. The objective is to fill a 9 × 9 grid with digits such that each column, each row, and each of the nine 3 × 3 subgrids that compose the grid contain all of the digits from 1 to 9 (once and only once). Usually the puzzle is partially filled in a way that guarantees a unique solution, as of now from what we know atleast 17 cues are needed to create a puzzle with a unique solution.
+Sudoku is a popular number-placement puzzle based on logic and combinatorics. The objective is to fill a 9 × 9 grid with digits such that each column, each row, and each of the nine 3 × 3 subgrids that compose the grid contain all of the digits from 1 to 9 (once and only once). Usually the puzzle is partially filled in a way that guarantees a unique solution, as of now from what we know at least 17 cues are needed to create a puzzle with a unique solution.
 
 Another way of looking at this puzzle is as follows:
 
@@ -41,17 +41,25 @@ This is the graph-theoretic framing of the problem, after this point we can trea
 
 [Wikipedia - Sudoku Graph](https://en.wikipedia.org/wiki/Sudoku_graph)
 
-Here `pre-coloring extension` simply means translating the pre-existing cues into a graph with 81 nodes, coloring the nodes that are already given as clues, and then trying to color the rest of the vertices within the contraints.
+Here *pre-coloring extension* simply means translating the pre-existing cues into a graph with 81 nodes, coloring the nodes that are already given as clues, and then trying to color the rest of the vertices within the contraints.
 
-`cayley graph` is simply a way of encoding information about group in a graph, as in we can define the sudoku puzzle completely in terms of a Graph, without missing any logical information or mathematical properties
+*cayley graph* is simply a way of encoding information about group in a graph, as in we can define the sudoku puzzle completely in terms of a Graph, without missing any logical information or mathematical properties
 
 ## Problem Formulation
 
 Informally the Sudoku graph is an undirected graph- its vertices represent the cells and edges represent pairs of cells that belong to the same row, column, or block of the puzzle. Formally this can be defined as:
 
-> A Sudoku grid of rank $n$ is a $n^2 × n^2$ grid($X_n$) . It consists of $n^2$ disjoint $n × n$ grids. Graph of $X_n$, denoted as $GX_n$, is $(V, E)$ where cells of Sudoku grid form the vertices of its graph and two
-cells are adjacent if they are either in the same row or column or block of $X_n$.
-> $GX_n$ is a regular $(n^4, \frac{3n^6}{2} − n^5− \frac{n^4}{2})$ graph of degree $3n^2 − 2n − 1$  (1)
+> A Sudoku grid of rank $n$ is a $n^2 × n^2$ grid($X_n$). 
+> It consists of $n^2$ disjoint $n × n$ grids.
+> The graph of $X_n$, denoted as $GX_n$, is $(V, E)$ where cells of Sudoku grid
+> form the vertices of its graph and two cells are adjacent if they are either
+> in the same row or column or block of $X_n$.
+> $GX_n$ is a regular $(n^4, \frac{3n^6}{2} − n^5− \frac{n^4}{2})$ graph of
+> degree 
+> 
+$$
+3n^2 − 2n − 1  (1)
+$$
 
 [Wikipedia - Sudoku Graph](https://en.wikipedia.org/wiki/Sudoku_graph)
 
@@ -113,7 +121,7 @@ How many colors would we need in this case? 9
 
 Note: this is more than intuition, formally 9 is the chromatic number of a 2-distant coloring problem for a sudoku graph $n^2 * n^2$, you can learn more about this [here](https://mast.queensu.ca/~murty/sudoku-ams.pdf)!
 
-Let's Generate a solved grid which we'll try to visualize
+Let's generate a solved grid which we'll try to visualize
 
 ```{code-cell} ipython3
 from random import sample
