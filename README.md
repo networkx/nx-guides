@@ -27,7 +27,3 @@ Specifically:
    so that others may benefit from the same license you did.
 
  - Do not represent yourself as the original author of re-used material.
-
-For more information on these guidelines, which are sometimes known as
-CC0 (+BY), see [this blog post](http://www.dancohen.org/2013/11/26/cc0-by/) by
-Dan Cohen.
