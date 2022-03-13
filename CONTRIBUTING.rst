@@ -218,7 +218,7 @@ Please `report bugs on GitHub <https://github.com/networkx/nx-guides/issues>`_.
 Policies
 --------
 
-All interactions with the project are subject to the `Code of Conduct <CODE_OF_CONDUCT.md>`_.
+All interactions with the project are subject to the `Code of Conduct <CODE_OF_CONDUCT.rst>`_.
 
 We also follow these policies:
 
