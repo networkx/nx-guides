@@ -6,7 +6,9 @@ numpy
 scipy
 matplotlib
 pandas
-ipython!=8.7.0
+libpysal
+contextily
+geopandas
 
 # For testing and site generation
 nbval
