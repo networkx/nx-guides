@@ -13,13 +13,9 @@ kernelspec:
 
 # Delaunay Graph from Geographic Points
 
-
-<figure style="width:25%;float:right;">
-  <img src="images/delaunay_introduction.png" alt="A Delaunay triangulation in the plane with circumcircles shown" style="width:100%">
-  <figcaption style="font-size:12px;text-align:center;width:fit-content;">Fig.1. A Delaunay triangulation in the plane with circumcircles shown</figcaption>
-</figure>
-
 Delaunay triangulation for a set P of points in the plane is a triangulation DT(P) such that no point in P is inside the circumcircle of any triangle in DT(P). Delaunay triangulations maximize the minimum angle of all the angles of the triangles in the triangulation; they tend to avoid skinny triangles. The triangulation was invented by Boris Delaunay in 1934.
+
+![delaunay_triangulation](images/delaunay_introduction.png "A Delaunay triangulation in the plane with circumcircles shown")
 
 ## Properties of Denaulay Triangulation
 
@@ -33,11 +29,9 @@ Delaunay triangulation for a set P of points in the plane is a triangulation DT(
 
 ## Visual Delaunay definition: Flipping
 
-<br>
-<figure style="float: right;">
-  <img src="images/edge_flip.png" alt="Edge Flipping property of Delaunay Triangulation" style="height:100%;margin:4px;">
-  <figcaption style="font-size:12px;text-align:center;">Fig.2. Initial triangulation does not meet the Delaunay condition (the circumcircles contain more than 3 points).<br>Flipping the common edge produces a Delaunay triangulation for the four points.</figcaption>
-</figure>
+
+
+![edge_flip](images/edge_flip.png "Edge flipping property of Delaunay Triangulation")
 
 From the above properties an important feature arises: Looking at two triangles **ABD** and **BCD** with the common edge BD (see figures), if the sum of the angles $\alpha$ and  $\gamma$ is less than or equal to $180^{\circ}$, the triangles meet the Delaunay condition.
 
@@ -72,12 +66,9 @@ As mentioned above, if a triangle is non-Delaunay, we can flip one of its edges.
 
 ### Incremental
 
-The most straightforward way of efficiently computing the Delaunay triangulation is to repeatedly add one vertex at a time, retriangulating the affected parts of the graph. When a vertex $p$ is added (Fig.3.a), we split in three the triangle that contains $p$, then we apply the flip algorithm (Fig.3.b). Done naively, this will take $O(n)$ time: we search through all the triangles to find the one that contains $p$, then we potentially flip away every triangle. Then the overall runtime is $O(n^2)$.
-<br>
-<figure style="width:50%;margin: auto;">
-  <img src="images/incremental.png" alt="Edge Flipping property of Delaunay Triangulation" style="height:100%;">
-  <figcaption style="font-size:12px;text-align:center;">Fig.3. Incremental Approach in Delaunay Point insertion</figcaption>
-</figure>
+The most straightforward way of efficiently computing the Delaunay triangulation is to repeatedly add one vertex at a time, retriangulating the affected parts of the graph. When a vertex $p$ is added (Fig.a), we split in three the triangle that contains $p$, then we apply the flip algorithm (Fig.b). Done naively, this will take $O(n)$ time: we search through all the triangles to find the one that contains $p$, then we potentially flip away every triangle. Then the overall runtime is $O(n^2)$.
+
+![incremental](images/incremental.png "Incremental Approach in generating Delaunay Triangles")
 
 
 ### Divide and Conquer
