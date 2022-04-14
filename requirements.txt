@@ -10,6 +10,7 @@ libpysal
 contextily
 geopandas
 shapely
+rtree
 
 # For testing and site generation
 nbval
