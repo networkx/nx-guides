@@ -133,7 +133,7 @@ The `voronoi_frames` takes in four parameters:
 Next, plotting the aformentioned points in a delaunay graph
 
 ```{code-cell} ipython3
-region_df, point_df = voronoi_frames(points)
+region_df, point_df = voronoi_frames(points,clip='extent')
 fig, ax = plt.subplots()
 ax.set_title("Basic example of voronoi_frames",fontsize=12)
 region_df.plot(ax=ax, color='blue',edgecolor='black', alpha=0.3)
@@ -170,7 +170,7 @@ ax[0,0].set_title('Voronoi Diagram with no clipping', fontsize=12)
 region_df.plot(ax=ax[0,0], color='blue',edgecolor='black', alpha=0.3)
 point_df.plot(ax=ax[0,0], color='red')
 
-region_df, point_df = voronoi_frames(points,clip='bbox')
+region_df, point_df = voronoi_frames(points,clip='extent')
 ax[0,1].set_title('Voronoi Diagram with Bounding Box clipping', fontsize=12)
 region_df.plot(ax=ax[0,1], color='blue',edgecolor='black', alpha=0.3)
 point_df.plot(ax=ax[0,1], color='red')
@@ -215,7 +215,7 @@ coordinates = np.column_stack((data.lng, data.lat))
 - While we could simply present the Delaunay graph directly, it is useful to visualize the Delaunay graph alongside the Voronoi diagram. This is because the two are intrinsically linked: the adjacency graph of the Voronoi diagram is the Delaunay graph for the set of generator points! Put simply, this means we can build the Voronoi diagram (relying on scipy.spatial for the underlying computations), and then convert these polygons quickly into the Delaunay graph. Be careful, though; our algorithm, by default, will clip the voronoi diagram to the bounding box of the point pattern. This is controlled by the "clip" argument.
 
 ```{code-cell} ipython3
-cells, generators = voronoi_frames(coordinates,clip="chull")
+cells, generators = voronoi_frames(coordinates,clip='chull')
 ```
 
 - With the voronoi polygons, we can construct the adjacency graph between them using "Rook" contiguity. This represents voronoi cells as being adjacent if they share an edge/face. This is an analogue to the "von Neuman" neighborhood, or the 4 cardinal neighbors in a regular grid. The name comes from the directions a Rook piece can move on a chessboard.
