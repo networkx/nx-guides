@@ -9,6 +9,7 @@ pandas
 libpysal
 contextily
 geopandas
+shapely
 
 # For testing and site generation
 nbval
