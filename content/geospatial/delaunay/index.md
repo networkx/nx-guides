@@ -179,6 +179,11 @@ region_df, point_df = voronoi_frames(points,100.0,clip='chull')
 ax[1,0].set_title('Voronoi Diagram with Convex Hull clipping', fontsize=12)
 region_df.plot(ax=ax[1,0], color='blue',edgecolor='black', alpha=0.3)
 point_df.plot(ax=ax[1,0], color='red');
+
+region_df, point_df = voronoi_frames(points,100.0,clip='ahull')
+ax[1,1].set_title('Voronoi Diagram with tightest hull clipping', fontsize=12)
+region_df.plot(ax=ax[1,1], color='blue',edgecolor='black', alpha=0.3)
+point_df.plot(ax=ax[1,1], color='red');
 ```
 
 ### Voronoi Frames with Real World Dataset
