@@ -46,13 +46,31 @@ from itertools import chain, count
 
 ```python colab={"base_uri": "https://localhost:8080/", "height": 463} id="UDDayA6giYRI" outputId="573c5c0e-525e-4ae3-cfc3-eaee8f689fc6"
 T = nx.DiGraph()
-T.add_edges_from([("Vertabrate","Lamprey"),("Vertabrate","Jawed V."),
-                  ("Jawed V.","Sunfish"),("Jawed V.","Tetrapod"),
-                  ("Tetrapod","Newt"),("Tetrapod","Amniote"),("Amniote","Lizard"),
-                  ("Amniote","Mammal"),("Mammal","Bear"), ("Mammal", "Chimpanzee")])
+T.add_edges_from(
+    [
+        ("Vertabrate", "Lamprey"),
+        ("Vertabrate", "Jawed V."),
+        ("Jawed V.", "Sunfish"),
+        ("Jawed V.", "Tetrapod"),
+        ("Tetrapod", "Newt"),
+        ("Tetrapod", "Amniote"),
+        ("Amniote", "Lizard"),
+        ("Amniote", "Mammal"),
+        ("Mammal", "Bear"),
+        ("Mammal", "Chimpanzee"),
+    ]
+)
 pos = graphviz_layout(T, prog="dot")
-plt.figure(3,figsize=(16,6))
-nx.draw(T, pos, with_labels=True, node_size=4000, node_color='brown', font_size = 11, font_color = "White")
+plt.figure(3, figsize=(16, 6))
+nx.draw(
+    T,
+    pos,
+    with_labels=True,
+    node_size=4000,
+    node_color="brown",
+    font_size=11,
+    font_color="White",
+)
 plt.show()
 ```
 
@@ -81,16 +99,24 @@ Here is a small exercise for you. Start the quiz by running the below cell and a
 
 ```python id="KQXr3r1VmGYY"
 import random as rnd
+
+
 def takeQuiz():
-  question = rnd.sample(T.nodes,2)
-  u, v = question[0], question[1]
-  LCA = input("What is the lowest common ancestor of "+str(u)+" and "+str(v)+"? Enter the LCA Node: ")
-  print("**********")
-  if nx.lowest_common_ancestor(T, u, v) == LCA:
-    print("Correct Answer!")
-  else:
-    print("LCA is", nx.lowest_common_ancestor(T, u, v), ". Wrong answer:(")
-  print("**********")
+    question = rnd.sample(T.nodes, 2)
+    u, v = question[0], question[1]
+    LCA = input(
+        "What is the lowest common ancestor of "
+        + str(u)
+        + " and "
+        + str(v)
+        + "? Enter the LCA Node: "
+    )
+    print("**********")
+    if nx.lowest_common_ancestor(T, u, v) == LCA:
+        print("Correct Answer!")
+    else:
+        print("LCA is", nx.lowest_common_ancestor(T, u, v), ". Wrong answer:(")
+    print("**********")
 ```
 
 ```python id="MzaXYN71oFgY"
@@ -118,10 +144,18 @@ NetworkX uses [Ancestor-List](https://www3.cs.stonybrook.edu/~bender/pub/JALG05-
 ```python colab={"base_uri": "https://localhost:8080/", "height": 247} id="KHfCRDdjipmQ" outputId="55b56360-d7de-4e1c-f24a-843287cea6e5"
 # Generating and visualizing our DAG
 G = nx.DiGraph()
-G.add_edges_from([(1, 0), (2, 0), (3, 2), (4, 1), (4, 3),(5,6)])
+G.add_edges_from([(1, 0), (2, 0), (3, 2), (4, 1), (4, 3), (5, 6)])
 pos = graphviz_layout(G, prog="dot")
-plt.figure(3,figsize=(5,3))
-nx.draw(G, pos, with_labels=True, node_size=1500, node_color='darkgreen', font_size = 14, font_color = "White")
+plt.figure(3, figsize=(5, 3))
+nx.draw(
+    G,
+    pos,
+    with_labels=True,
+    node_size=1500,
+    node_color="darkgreen",
+    font_size=14,
+    font_color="White",
+)
 plt.show()
 ```
 
@@ -152,7 +186,14 @@ Observe that super root $-1$ connected components in our graph.
 <!-- #endregion -->
 
 ```python colab={"base_uri": "https://localhost:8080/", "height": 319} id="KTJgQuB-nrQN" outputId="c7eaf69a-ebdf-47e3-df84-f6c3259462a4"
-nx.draw(G, with_labels=True, node_size=1500, node_color='darkgreen', font_size=14, font_color="White")
+nx.draw(
+    G,
+    with_labels=True,
+    node_size=1500,
+    node_color="darkgreen",
+    font_size=14,
+    font_color="White",
+)
 ```
 
 <!-- #region id="Je365ItTG7Ri" -->
@@ -164,9 +205,7 @@ Preprocess $G$ by partitioning the set of edges into two sets: $S_1$ is the set 
 ```python id="A4ze0sRHnfkT"
 spanning_tree = nx.dfs_tree(G, root)
 dag = nx.DiGraph(
-    (u, v)
-    for u, v in G.edges
-    if u not in spanning_tree or v not in spanning_tree[u]
+    (u, v) for u, v in G.edges if u not in spanning_tree or v not in spanning_tree[u]
 )
 
 # Ensure that both the dag and the spanning tree contains all nodes in G,
