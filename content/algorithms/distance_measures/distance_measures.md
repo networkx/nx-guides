@@ -143,7 +143,7 @@ G = nx.Graph([(1, 2), (2, 3), (2, 4), (3,5), (3, 6)])
 color_map = []
 for node in G:
     if node == (nx.diameter(G)):
-        color_map.append('yellow')
+        color_map.append('yellow') # The nodes in yellow are the nodes which represent the diameter of graph G
     else:
         color_map.append('purple')
 nx.draw(G, node_color=color_map, with_labels="True")
