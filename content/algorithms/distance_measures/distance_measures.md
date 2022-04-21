@@ -237,7 +237,7 @@ nx.draw(G, node_color=color_map, with_labels="True")
 ## Center
 
 The center of a graph is the set of all vertices of minimum
-eccentricity,that is, the set of all vertices u where the greatest
+eccentricity,that is, the set of all vertices where the greatest
 distance d(u,v) to other vertices v is minimal. Equivalently, it is the
 set of vertices with eccentricity equal to the graph's radius.
 
