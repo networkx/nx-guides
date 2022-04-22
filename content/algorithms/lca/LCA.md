@@ -38,12 +38,12 @@ It is always a good idea to learn concepts on an example. Consider the following
 <!-- #endregion -->
 
 ```python id="FdGHBPT-ublJ"
+!pip install pydot
 import matplotlib.pyplot as plt
 import networkx as nx
 from networkx.drawing.nx_pydot import graphviz_layout
 from itertools import chain, count
 ```
-
 ```python colab={"base_uri": "https://localhost:8080/", "height": 463} id="UDDayA6giYRI" outputId="573c5c0e-525e-4ae3-cfc3-eaee8f689fc6"
 T = nx.DiGraph()
 T.add_edges_from(
