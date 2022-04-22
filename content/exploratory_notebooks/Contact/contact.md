@@ -16,6 +16,7 @@ jupyter:
 ## Subject: Kenyan Household Contact Network
 In this notebook we will be analysing a social network in our case we will be analysing the contact network of house.
 This will provide us with a network approach for integrating and analyzing all collected contact records via a simple network graph.Our dataset is gotten from http://www.sociopatterns.org/datasets/kenyan-households-contact-network/ 
+@http://epjdatascience.springeropen.com/articles/10.1140/epjds/s13688-016-0084-2
 
 The data shows contact pattern between different people. Our dataset contains data of people within the same household as well as data of people across household. For the purpose of this notebook, we will focus more on the data of those within the house hold. The name of the file has been renamed to ease its usage in this explanatory session.
 
