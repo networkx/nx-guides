@@ -93,41 +93,7 @@ _Note that every node is both an ancestor and descendant of itself._
 
 <!-- #endregion -->
 
-<!-- #region id="06T3UUDJiT7j" -->
-Here is a small exercise for you. Start the quiz by running the below cell and answer a question for two random animals!
-<!-- #endregion -->
-
-```python id="KQXr3r1VmGYY"
-import random as rnd
-
-
-def takeQuiz():
-    question = rnd.sample(T.nodes, 2)
-    u, v = question[0], question[1]
-    LCA = input(
-        "What is the lowest common ancestor of "
-        + str(u)
-        + " and "
-        + str(v)
-        + "? Enter the LCA Node: "
-    )
-    print("**********")
-    if nx.lowest_common_ancestor(T, u, v) == LCA:
-        print("Correct Answer!")
-    else:
-        print("LCA is", nx.lowest_common_ancestor(T, u, v), ". Wrong answer:(")
-    print("**********")
-```
-
-```python id="MzaXYN71oFgY"
-# Run this cell to take the quiz.
-takeQuiz()
-```
-
-<!-- #region id="8CdjSmPZDn7s" -->
-In the quiz implementation, we used `lowest_common_ancestor()`method for finding LCA of a given pair of nodes. It is also possible to find lowest common ancestors for all pairs of nodes using `all_pairs_lowest_common_ancestor()` method implemented in NetworkX. You can run the below cell to see it yourself!
-
-
+It is possible to find lowest common ancestors for all pairs of nodes using `all_pairs_lowest_common_ancestor()` method implemented in NetworkX. You can run the below cell to see it yourself!
 
 <!-- #endregion -->
 
