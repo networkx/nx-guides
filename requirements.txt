@@ -6,6 +6,7 @@ numpy
 scipy
 matplotlib
 pandas
+pydot
 
 # For testing and site generation
 nbval
