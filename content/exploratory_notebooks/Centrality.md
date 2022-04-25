@@ -12,7 +12,7 @@ jupyter:
     name: python3
 ---
 
-## Centrality Algorithms
+# Centrality Algorithms
 
 ```python
 import networkx as nx
@@ -27,7 +27,7 @@ import pandas as pd
 G = nx.read_gml("polblogs.gml")
 ```
 
-# Initial Analysis of the Network
+## Initial Analysis of the Network
 
 ```python
 print("Number of Nodes in the Network is {}".format(nx.number_of_nodes(G)))
@@ -65,7 +65,7 @@ def distribution(func , title, limits):
     plt.show()
 ```
 
-# Degree Centrality
+## Degree Centrality
 
 ```python
 max_vals(nx.degree_centrality(G))
@@ -82,7 +82,7 @@ max_vals(nx.out_degree_centrality(G))
 distribution(nx.out_degree_centrality(G), "In-Degree Centrality", [0,0.2, 0.01])
 ```
 
-## Analysis of Degree Centrality
+### Analysis of Degree Centrality
 
 | Rank  | **Degree**            | **Value** | **In-degree**         | **Value** | **Out-degree**            | **Value** |
 |-------|-----------------------|-----------|-----------------------|-----------|---------------------------|-----------|
@@ -97,7 +97,7 @@ distribution(nx.out_degree_centrality(G), "In-Degree Centrality", [0,0.2, 0.01])
 3. The Degree Centrality follows a **Scale-Free Distribution**.
 
 
-# Closeness Centrality
+## Closeness Centrality
 
 ```python
 max_vals(nx.closeness_centrality(G))
@@ -181,7 +181,7 @@ print("In-degree Centrality of these are {:.2f}".format(nx.group_in_degree_centr
 print("Out-degree Centrality of these are {:.2f}".format(nx.group_out_degree_centrality(G, sources)))
 ```
 
-# Dispersion
+## Dispersion
 
 ```python
 largest = max(nx.strongly_connected_components(G), key=len)
