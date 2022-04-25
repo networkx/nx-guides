@@ -42,7 +42,6 @@ colab:
 id: FdGHBPT-ublJ
 outputId: 49272870-d3b9-4715-8bff-682def5293ec
 ---
-!pip install pydot
 import matplotlib.pyplot as plt
 import networkx as nx
 from networkx.drawing.nx_pydot import graphviz_layout
@@ -123,7 +122,7 @@ plt.show()
 
 +++ {"id": "bnLcpToCnyCj"}
 
-###Step 1
+### Step 1
 Add a node $v$ to the directed acyclic graph $G$, and add directed edges from $v$ to sources with no incoming edges in $G$. The addition of $v$ guarantees that every two nodes have an LCA. If $v$ is reported as a representative $LCA$ for a pair of nodes, then these nodes have no common ancestors in $G$.
 
 ```{code-cell}
