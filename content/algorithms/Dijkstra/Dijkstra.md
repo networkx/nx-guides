@@ -41,22 +41,21 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 flight_path = nx.DiGraph()
-path_edge=  [
-        ("DEL", "ZRH", 5),
-        ("DEL", "FRA", 6),
-        ("DEL", "DUB", 7),
-        ("ZRH", "LCY", 6),
-        ("ZRH", "GVA", 3),
-        ("FRA", "LCY", 3),
-        ("FRA", "AMS", 2),
-        ("DUB", "LCY", 4),
-        ("DUB", "AMS", 2),
-        ("GVA", "LCY", 1),
-        ("AMS", "LCY", 5),
-    ]
+path_edge = [
+    ("DEL", "ZRH", 5),
+    ("DEL", "FRA", 6),
+    ("DEL", "DUB", 7),
+    ("ZRH", "LCY", 6),
+    ("ZRH", "GVA", 3),
+    ("FRA", "LCY", 3),
+    ("FRA", "AMS", 2),
+    ("DUB", "LCY", 4),
+    ("DUB", "AMS", 2),
+    ("GVA", "LCY", 1),
+    ("AMS", "LCY", 5),
+]
 # adding weighted edges
-flight_path.add_weighted_edges_from( path_edge
-)
+flight_path.add_weighted_edges_from(path_edge)
 
 # layout of the graph
 position = {
@@ -104,6 +103,8 @@ nx.draw_networkx_edge_labels(
 Dijkstra's algorithm is used to find the shortest path between nodes or commonly from one source node to every other node in the graph, where edge weight represents the cost/ distance between 2 nodes in the case of a weighted graph. It can work with both directed and undirected graphs, but <b>it is not suitable for graphs with NEGATIVE edges.</b><br>
 Time complexity of Dijkstra's algorithm is $O(\ V^{2})$, but with minimum priority queue, it comes down to $O(\ V + E\text{ log } V\ )$
 
++++
+
 ### Algorithm
 
 1. Convert your problem into a graph equivalent.
@@ -114,8 +115,6 @@ Time complexity of Dijkstra's algorithm is $O(\ V^{2})$, but with minimum priori
 6. When all the neighbours have been visited, remove the node from the unvisited list and select the next node with the minimum distance.
 7. Repeat from step 4.
 8. The final graph will represent all the nodes with minimum distance and the algorithm will end.
-
-+++
 
 Let's look at the example of the directed graph mentioned above. But, before moving forward, here are some things one should keep in mind.<br>
 In the following graphs:
@@ -131,7 +130,9 @@ LET'S BEGIN!!
 flight_succ = flight_path._succ
 
 # infinity is assigned as the maximum edge weight + 1
-inf = 1 + len(flight_succ.keys())* max([d['weight'] for u in flight_succ.keys() for (v,d) in flight_succ[u].items()])
+inf = 1 + len(flight_succ.keys()) * max(
+    [d["weight"] for u in flight_succ.keys() for (v, d) in flight_succ[u].items()]
+)
 
 # initialising dictionaries
 (visited, distance) = ({}, {})
@@ -145,18 +146,18 @@ Assign all stops(nodes) infinite values except the source node (DEL in this case
 # assigning infinite distance to all nodes and marking all nodes as not visited
 for v in flight_succ.keys():
     (visited[v], distance[v]) = (False, inf)  # false indicates not visited
-
-distance['DEL'] = 0
+distance["DEL"] = 0
 
 # plotting graph
 # Nudge function is created to show node labels outside the node
 def nudge(pos, x_shift, y_shift):
     return {n: (x + x_shift, y + y_shift) for n, (x, y) in pos.items()}
 
-pos_nodes = nudge(pos, 0.06, 0.18)  # shift the layout
-fig,ax= plt.subplots(figsize=(9, 7))
 
-labels = {v:distance[v] for v in distance}
+pos_nodes = nudge(pos, 0.06, 0.18)  # shift the layout
+fig, ax = plt.subplots(figsize=(9, 7))
+
+labels = {v: distance[v] for v in distance}
 
 # drawing customised nodes
 nx.draw(
@@ -174,11 +175,7 @@ nx.draw(
 )
 # adding node labels
 nx.draw_networkx_labels(
-    flight_path,
-    pos= pos_nodes,
-    labels= labels,
-    font_size= 15,
-    font_color='red'
+    flight_path, pos=pos_nodes, labels=labels, font_size=15, font_color="red"
 )
 # adding edge labels
 nx.draw_networkx_edge_labels(
@@ -231,6 +228,8 @@ for _ in flight_succ.keys():
     edgelist.append(edgelist[-1] + edge)
     current_edges.append(edge.copy())
     current_distance.append(distance.copy())
+# Distance and path from DEL to LCY
+print(distance["LCY"], path["LCY"])
 ```
 
 LET'S UNDERSTAND EACH ITERATION
@@ -269,12 +268,7 @@ This figure shows the final graph with shortest distance to each node from DEL(s
 - (DEL $\rightarrow$ FRA $\rightarrow$ LCY) <br>
 - (DEL $\rightarrow$ ZRH $\rightarrow$ GVA $\rightarrow$ LCY)
 
-So, one can take any of these paths to reach as soon as possible. But, in case there are more than one path, like in this situation, <b>dijkstra's algorithm returns the first shortest path traveresed in the graph as shown below. </b>
-
-```{code-cell} ipython3
-# Distance and path from DEL to LCY
-print(distance['LCY'],path['LCY'])
-```
+So, one can take any of these paths to reach as soon as possible. But, in case there are more than one path, like in this situation, <b>dijkstra's algorithm returns the first shortest path traveresed in the graph as the above output. </b>
 
 ```{code-cell} ipython3
 # plotting the graphs
@@ -337,7 +331,7 @@ So, NetworkX provides provides functions with the help of which one can actually
 All functions using dijkstra's algorithm are similar, but for this example the most suitable one is [single_source_dijkstra()](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.shortest_paths.weighted.single_source_dijkstra.html#networkx.algorithms.shortest_paths.weighted.single_source_dijkstra). This function gives the same output as the above program but in a better time. One only needs to call the function as shown below.
 
 ```{code-cell} ipython3
-nx.single_source_dijkstra(G= flight_path, source = 'DEL', target='LCY')
+nx.single_source_dijkstra(G=flight_path, source="DEL", target="LCY")
 ```
 
 ## Applications of Dijkstra's Algorithm
