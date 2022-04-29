@@ -44,7 +44,7 @@ Euler's negative resolution to this question laid the foundations of graph theor
 <!-- #endregion -->
 
 <!-- #region id="a4728aiWjeDM" -->
-### **Reformulating the Problem in Abstract Terms**
+### Reformulating the Problem in Abstract Terms
 <!-- #endregion -->
 
 <!-- #region id="oEB55JLl0Unx" -->
@@ -74,7 +74,7 @@ Note that every Euler Circuit is also an Euler Path.
 <!-- #endregion -->
 
 <!-- #region id="8iEYRZjUOrBc" -->
-### **Euler's Method**
+### Euler's Method
 <!-- #endregion -->
 
 <!-- #region id="cZgO0JpY0p78" -->
