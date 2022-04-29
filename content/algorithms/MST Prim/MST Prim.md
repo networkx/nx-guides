@@ -1,27 +1,29 @@
 ---
-jupyter:
-  jupytext:
-    text_representation:
-      extension: .md
-      format_name: markdown
-      format_version: '1.3'
-      jupytext_version: 1.13.8
-  kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.13.8
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
 ---
 
 # Minimum Spanning Tree using Prim's Algorithm
 
++++
 
 We all have travelled by road from one city to another. But, ever wondered how they decided where to create the route and what path to choose? If one will get the job to connect 5 cities via road, then, the naive approach will be to start connecting from one city and continue doing that until one covers all destinations. But, that's not the optimal solution, not only one should cover all nodes but also at the lowest cost possible (minimum length of the road) and for that <b>Minimum Spanning Trees</b> are constructed using Prim's and Kruskal's algorithm.
 
 When each and every node of a graph is connected to each other without forming any cycle, it is known as the <b>Spanning Tree.</b> A graph $G$ having $n$ nodes will have spanning trees with $n$ nodes and $n-1$ edges. Thus, as its name indicates, Minimum Spanning Tree is the tree with the shortest possible distance covered among all other spanning trees.<br> Let's look at the following example to understand this better.
 
++++
 
 ## Minimum Spanning Tree Problem
 
++++
 
 Suppose there are 5 cities (A, B, C, D and E) that needs to be connected via road. Now, there can be more than one path connecting one city to another but our goal is to find the one having the shortest distance.
 
@@ -29,7 +31,7 @@ Suppose there are 5 cities (A, B, C, D and E) that needs to be connected via roa
 
 The following graph depicts our situation in this case.
 
-```python
+```{code-cell} ipython3
 # importing libraries
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -76,12 +78,12 @@ nx.draw_networkx_edge_labels(
     edge_labels=nx.get_edge_attributes(roads, "weight"),
     font_size=12,
 );
-
 ```
 
 Now, in order to find the minimum spanning tree, this notepad will cover the Prim's algorithm.
 Let's understand it in detail.
 
++++
 
 ## Prim's Algorithm
 Prim's algorithm uses greedy approach to find the minimum spanning tree.That means, in each iteration it finds an edge which has the minimum weight and add it to the growing spanning tree.
@@ -95,13 +97,14 @@ The time complexity of the Prim’s Algorithm is $O((V+E) \text{ log} V)$  becau
 4. Repeat steps 2 and 3 until all nodes are covered.
 5. The final graph will represent the Minimum Spanning Tree
 
++++
 
 ### Example solution
 Let's get back to the example and find its minimum spanning tree using Prim's algorithm. Before moving forward, here are a few notations that one should remember:
 - Red nodes represent unvisited vertices while green nodes represent visited vertices.
 - Edges of minimum spanning tree are represented in purple color.
 
-```python
+```{code-cell} ipython3
 # converting graph to dictionary
 road_list = roads._adj
 
@@ -115,7 +118,7 @@ inf = 1 + max([w['weight'] for u in road_list.keys() for (v,w) in road_list[u].i
 ### Step 1
 Suppose the road construction starts from city A, so A is the source node. The distance of other cities is assumed to be unknown, so all other visited vertices are marked as 'not visited' and the distance as infinite (which equals 8 in this case).
 
-```python
+```{code-cell} ipython3
 # assigning infinite distance to all nodes and marking all nodes as not visited
 for v in road_list.keys():
     (visited[v], distance[v]) = (False, inf)  # false indicates not visited
@@ -169,7 +172,7 @@ Here, the following nodes will get updated:
 - B : `min(1, 8) = 1`
 - C : `min(7, 8) = 7`
 
-```python
+```{code-cell} ipython3
 # updating weights of A's neighbour
 for (v, w) in road_list["A"].items():
     distance[v] = w["weight"]
@@ -202,13 +205,12 @@ nx.draw_networkx_edge_labels(
     edge_labels=nx.get_edge_attributes(roads, "weight"),
     font_size=12,
 );
-
 ```
 
 ### Step 3 & Step 4
 After updating the distance in the previous step, it's time to find the next node with the minimum distance. To do this, iterate across the neighbours of the visited nodes and find the node with the minimum distance. Then update its distance and mark it as visited.
 
-```python
+```{code-cell} ipython3
 # initialising the required dictionaries for plotting graphs
 visited_list = []
 distance_list = []
@@ -238,7 +240,6 @@ for i in road_list.keys():
         if not visited[v]:
             distance[v] = min(distance[v], d)
     distance_list.append(distance.copy())
-
 ```
 
 Let's understand each iteration and plot the graph!
@@ -265,7 +266,7 @@ Among the last 2 nodes, E has the minimum distance of 3 units. So, E will get ad
 <b>Figure 4</b><br>
 The final node D, with a distance of 2 units, got connected to the minimum spanning tree. This figure illustrates the final Minimum Spanning Tree of the example.
 
-```python
+```{code-cell} ipython3
 fig, axes = plt.subplots(2, 2, figsize=(15,15))
 c=0
 for v,d,ax,edges in zip(visited_list,distance_list,axes.ravel(), edge_list):
@@ -315,7 +316,7 @@ for v,d,ax,edges in zip(visited_list,distance_list,axes.ravel(), edge_list):
 ### Step 5
 The final output of the program is stored as a list of tuples in `TreeEdges` as shown below.
 
-```python
+```{code-cell} ipython3
 print(TreeEdges)
 ```
 
@@ -325,7 +326,7 @@ The above code is a basic implementation of Prim's algorithm with the time compl
 NetworkX provides various [Tree](https://networkx.org/documentation/stable/reference/algorithms/tree.html#) functions to perform difficult operations, and [minimum_spanning_tree()](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.tree.mst.minimum_spanning_tree.html#networkx.algorithms.tree.mst.minimum_spanning_tree) is one of them. Not only this, you can also find the maximum spanning tree with the help of the [maximum_spanning_tree()](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.tree.mst.maximum_spanning_tree.html#networkx.algorithms.tree.mst.maximum_spanning_tree) function.<br>
 The following code uses NetworkX function and gives us the same output as our code.
 
-```python
+```{code-cell} ipython3
 MST= nx.minimum_spanning_tree(roads, algorithm= "prim")
 print(sorted(MST.edges(data=True)))
 ```
@@ -340,6 +341,7 @@ print(sorted(MST.edges(data=True)))
 
 There are many other similar applications present in this world. Whenever there's a need to find a cost-effective method to connect nodes (it can be anything), there's a high chance of Prim's algorithm playing its role in the solution.
 
++++
 
 ## Reference
 R. C. Prim "Shortest connection networks and some generalizations." The bell system technical journal, Volume: 36, Issue: 6, (Nov. 1957): 1389-1401<br>
