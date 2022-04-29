@@ -1,25 +1,27 @@
 ---
-jupyter:
-  jupytext:
-    text_representation:
-      extension: .md
-      format_name: markdown
-      format_version: '1.3'
-      jupytext_version: 1.13.8
-  kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.13.8
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
 ---
 
 # Shortest path using Dijkstra's algorithm
 
++++
 
 When it comes to finding the shortest path in a weighted graph, the Dijkstra algorithm has always been preferred by all. In this notebook, we will learn how it works and is carried out.<b> Shortest path problem</b> is a graph problem where the objective is to find a path between 2 nodes having the minimum distance covered.
 
++++
 
 ## Shortest Path Problem
 
++++
 
 Let's say you want to travel from Delhi (DEL), India, to London (LCY), UK via flights that have various routes with different stops, namely, Frankfurt (FRA), Zurich (ZRH), Amsterdam (AMS), Geneva (GVA) and Dublin (DUB). Now, you want to find the shortest path as you are in a hurry and want to get to London as soon as possible.<br> 
 An important thing to know is that any subpath from C $\rightarrow$ E of the shortest path A $\rightarrow$ E is also the shortest path from node C to node E. That means not only one will get the shortest path from Delhi to London but also to other stops from Delhi.
@@ -33,7 +35,7 @@ An important thing to know is that any subpath from C $\rightarrow$ E of the sho
 
 So, the following directed graph describes all paths available with the distance between them.
 
-```python
+```{code-cell} ipython3
 # importing libraries
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -95,7 +97,6 @@ nx.draw_networkx_edge_labels(
     edge_labels=nx.get_edge_attributes(flight_path, "weight"),
     font_size=13,
 );
-
 ```
 
 ## Dijkstra's Algorithm
@@ -114,6 +115,7 @@ Time complexity of Dijkstra's algorithm is $O(\ V^{2})$, but with minimum priori
 7. Repeat from step 4.
 8. The final graph will represent all the nodes with minimum distance and the algorithm will end.
 
++++
 
 Let's look at the example of the directed graph mentioned above. But, before moving forward, here are some things one should keep in mind.<br>
 In the following graphs:
@@ -124,7 +126,7 @@ In the following graphs:
 
 LET'S BEGIN!!
 
-```python
+```{code-cell} ipython3
 # converting graph to dictionary
 flight_succ = flight_path._succ
 
@@ -139,7 +141,7 @@ inf = 1 + len(flight_succ.keys())* max([d['weight'] for u in flight_succ.keys() 
 
 Assign all stops(nodes) infinite values except the source node (DEL in this case as the path starts from Delhi), which is assigned a value of 0. This is because the distance one needs to cover to reach other nodes is assumed to be unknown and, hence maximum value possible is being assigned.
 
-```python
+```{code-cell} ipython3
 # assigning infinite distance to all nodes and marking all nodes as not visited
 for v in flight_succ.keys():
     (visited[v], distance[v]) = (False, inf)  # false indicates not visited
@@ -188,13 +190,12 @@ nx.draw_networkx_edge_labels(
 
 # expand plot to fit labels
 ax.set_ylim(tuple(i * 1.02 for i in ax.get_ylim()));
-
 ```
 
 ### Step 2
 Dijkstra is based on the greedy approach, which means one needs to select the node with the minimum distance and this approach is being followed in the whole process. After selecting, it's time to start traversing the neighbours of the selected node and update the distance of all neighbouring nodes. While updating the distance, always keep in mind that the updated distance should be `minimum(current distance, distance of previous node + edge weight)`.
 
-```python
+```{code-cell} ipython3
 # initialising the required dictionaries for plotting graphs
 edgelist = [[]]
 current_edges = []
@@ -230,7 +231,6 @@ for _ in flight_succ.keys():
     edgelist.append(edgelist[-1] + edge)
     current_edges.append(edge.copy())
     current_distance.append(distance.copy())
-
 ```
 
 LET'S UNDERSTAND EACH ITERATION
@@ -271,12 +271,12 @@ This figure shows the final graph with shortest distance to each node from DEL(s
 
 So, one can take any of these paths to reach as soon as possible. But, in case there are more than one path, like in this situation, <b>dijkstra's algorithm returns the first shortest path traveresed in the graph as shown below. </b>
 
-```python
+```{code-cell} ipython3
 # Distance and path from DEL to LCY
 print(distance['LCY'],path['LCY'])
 ```
 
-```python
+```{code-cell} ipython3
 # plotting the graphs
 
 # layout of the graphs
@@ -325,18 +325,18 @@ for d, ax, edges, current in zip(
     )
     # expand plot to fit labels
     ax.set_ylim(tuple(i * 1.02 for i in ax.get_ylim()));
-
 ```
 
 ## NetworkX Implementation
 
++++
 
 The time complexity of the above program was $O(n^{2})$, which is fine for the above example as the number of nodes was less. But, in real-life problems, there can be a lot of nodes with complex solutions, and thus, it is needed to implement the algorithm in $O(\ V + E\text{ log } V\ )$ time using a priority queue. Don't worry; you don't need to write the whole code. Networkx got you covered!!
 
 So, NetworkX provides provides functions with the help of which one can actually find the [shortest path](https://networkx.org/documentation/stable/reference/algorithms/shortest_paths.html) based on their needs.<br>
 All functions using dijkstra's algorithm are similar, but for this example the most suitable one is [single_source_dijkstra()](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.shortest_paths.weighted.single_source_dijkstra.html#networkx.algorithms.shortest_paths.weighted.single_source_dijkstra). This function gives the same output as the above program but in a better time. One only needs to call the function as shown below.
 
-```python
+```{code-cell} ipython3
 nx.single_source_dijkstra(G= flight_path, source = 'DEL', target='LCY')
 ```
 
@@ -350,6 +350,7 @@ It is used as a part of applications to find the shortest path if required. Ther
 - It is used in IP routing to find Open shortest Path First.
 - It is used in the telephone network.
 
++++
 
 ## Advantages and Disadvantages of Dijkstra's Algorithm
 
@@ -362,6 +363,7 @@ It is used as a part of applications to find the shortest path if required. Ther
 - It cannot handle negative weights which leads to acyclic graphs and most often cannot obtain the right shortest path.
 - It is a greedy algorithm that means it is possible for the algorithm to select the current best option which can make the algorithm get sidetracked following a potential path that doesn’t exist, simply because the edges along it form a short path.
 
++++
 
 ## Reference
 
