@@ -12,7 +12,7 @@ kernelspec:
 
 +++ {"id": "jrizb5yufXBG"}
 
-# **Lowest Common Ancestor**
+# Lowest Common Ancestor
 
 
 In this tutorial, we will explore the lowest common ancestor algorithm implemented in networkx under `networkx/algorithms/lowest_common_ancestor.py`. 
