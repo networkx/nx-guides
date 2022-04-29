@@ -152,7 +152,7 @@ nx.draw_networkx_labels(
     pos= pos_nodes,
     labels= labels,
     font_size= 14,
-    font_color='blue'
+    font_color="blue"
 )
 # adding edge labels
 nx.draw_networkx_edge_labels(
@@ -299,7 +299,7 @@ for v,d,ax,edges in zip(visited_list,distance_list,axes.ravel(), edge_list):
     pos= pos_nodes,
     labels= labels,
     font_size= 14.5,
-    font_color='blue',
+    font_color="blue",
     ax= ax
 )
     nx.draw_networkx_edge_labels(
@@ -326,7 +326,7 @@ NetworkX provides various [Tree](https://networkx.org/documentation/stable/refer
 The following code uses NetworkX function and gives us the same output as our code.
 
 ```python
-MST= nx.minimum_spanning_tree(roads, algorithm= 'prim')
+MST= nx.minimum_spanning_tree(roads, algorithm= "prim")
 print(sorted(MST.edges(data=True)))
 ```
 
