@@ -22,8 +22,8 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
@@ -38,8 +38,6 @@
     <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Facebook Network Analysis" href="../exploratory_notebooks/facebook_notebook.html" />
@@ -439,7 +437,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="sudoku-and-graph-coloring">
+  <section id="sudoku-and-graph-coloring">
 <h1>Sudoku and Graph coloring<a class="headerlink" href="#sudoku-and-graph-coloring" title="Permalink to this headline">#</a></h1>
 <section id="introduction-and-intuition-building">
 <h2>Introduction and intuition building<a class="headerlink" href="#introduction-and-intuition-building" title="Permalink to this headline">#</a></h2>
@@ -461,20 +459,19 @@ title="Print to PDF"
 <h2>Problem Formulation<a class="headerlink" href="#problem-formulation" title="Permalink to this headline">#</a></h2>
 <p>Informally the Sudoku graph is an undirected graph- its vertices represent the cells and edges represent pairs of cells that belong to the same row, column, or block of the puzzle. Formally this can be defined as:</p>
 <blockquote>
-<div><p>A Sudoku grid of rank <span class="math notranslate nohighlight">\(n\)</span> is a <span class="math notranslate nohighlight">\(n^2 × n^2\)</span> grid(<span class="math notranslate nohighlight">\(X_n\)</span>).
-It consists of <span class="math notranslate nohighlight">\(n^2\)</span> disjoint <span class="math notranslate nohighlight">\(n × n\)</span> grids.
-The graph of <span class="math notranslate nohighlight">\(X_n\)</span>, denoted as <span class="math notranslate nohighlight">\(GX_n\)</span>, is <span class="math notranslate nohighlight">\((V, E)\)</span> where cells of Sudoku grid
+<div><p>A Sudoku grid of rank $n$ is a $n^2 × n^2$ grid($X_n$).
+It consists of $n^2$ disjoint $n × n$ grids.
+The graph of $X_n$, denoted as $GX_n$, is $(V, E)$ where cells of Sudoku grid
 form the vertices of its graph and two cells are adjacent if they are either
-in the same row or column or block of <span class="math notranslate nohighlight">\(X_n\)</span>.
-<span class="math notranslate nohighlight">\(GX_n\)</span> is a regular <span class="math notranslate nohighlight">\((n^4, \frac{3n^6}{2} − n^5− \frac{n^4}{2})\)</span> graph of
+in the same row or column or block of $X_n$.
+$GX_n$ is a regular $(n^4, \frac{3n^6}{2} − n^5− \frac{n^4}{2})$ graph of
 degree</p>
 </div></blockquote>
-<div class="math notranslate nohighlight">
-\[
+<p>$$
 3n^2 − 2n − 1  (1)
-\]</div>
+$$</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Sudoku_graph">Wikipedia - Sudoku Graph</a></p>
-<p>Now, from (1) we can get that the graph of a Sudoku grid of rank 3 is a <span class="math notranslate nohighlight">\((V=81, E=810)\)</span> regular graph of degree 20. This can be verified informally- we have 81 cells in the standard sudoku where every cell is adjacent to 8 cells in its row + 8 cells in its column and 4 more leftover cells in its block, hence the degree 20, <a class="reference external" href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/9x9_Sudoku_graph_neighbors_%28really_fixed%29.svg/600px-9x9_Sudoku_graph_neighbors_%28really_fixed%29.svg.png">this Wikipedia figure</a> makes this visualization more understandable</p>
+<p>Now, from (1) we can get that the graph of a Sudoku grid of rank 3 is a $(V=81, E=810)$ regular graph of degree 20. This can be verified informally- we have 81 cells in the standard sudoku where every cell is adjacent to 8 cells in its row + 8 cells in its column and 4 more leftover cells in its block, hence the degree 20, <a class="reference external" href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/9x9_Sudoku_graph_neighbors_%28really_fixed%29.svg/600px-9x9_Sudoku_graph_neighbors_%28really_fixed%29.svg.png">this Wikipedia figure</a> makes this visualization more understandable</p>
 <p>Let’s take an example Sudoku Puzzle that we will solve with graph theory (NetworkX and some cool figures as well!)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -528,7 +525,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/sudoku_2_0.png" src="../../_images/sudoku_2_0.png" />
+<img alt="../../_images/fe9d3d0ce773f4a4f7e47c3b264ee1b51dcf6ce2a3babb2d6b052fba9b2a7394.png" src="../../_images/fe9d3d0ce773f4a4f7e47c3b264ee1b51dcf6ce2a3babb2d6b052fba9b2a7394.png" />
 </div>
 </div>
 <p>Now this can be solved using greedy graph coloring algorithms, it’s an NP hard problem, so some level of brute force is part of the process</p>
@@ -536,7 +533,7 @@ degree</p>
 <div><p>A k-coloring of a graph G is a vertex coloring that is an assignment of one of k possible colors to each vertex of G (i.e., a vertex coloring) such that no two adjacent vertices receive the same color.</p>
 </div></blockquote>
 <p>How many colors would we need in this case? 9</p>
-<p>Note: this is more than intuition, formally 9 is the chromatic number of a 2-distant coloring problem for a sudoku graph <span class="math notranslate nohighlight">\(n^2 * n^2\)</span>, you can learn more about this <a class="reference external" href="https://mast.queensu.ca/~murty/sudoku-ams.pdf">here</a>!</p>
+<p>Note: this is more than intuition, formally 9 is the chromatic number of a 2-distant coloring problem for a sudoku graph $n^2 * n^2$, you can learn more about this <a class="reference external" href="https://mast.queensu.ca/~murty/sudoku-ams.pdf">here</a>!</p>
 <p>Let’s generate a solved grid which we’ll try to visualize</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -586,7 +583,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/sudoku_7_0.png" src="../../_images/sudoku_7_0.png" />
+<img alt="../../_images/c15cdad2ec34df25b7946e8e0f515d0b4a96e102a106333f72163162c1fac59f.png" src="../../_images/c15cdad2ec34df25b7946e8e0f515d0b4a96e102a106333f72163162c1fac59f.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -621,7 +618,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/sudoku_11_0.png" src="../../_images/sudoku_11_0.png" />
+<img alt="../../_images/d9ee11d60886ba3490ebd55502110eff63369d9da66d471bdc9bc3381f5ce974.png" src="../../_images/d9ee11d60886ba3490ebd55502110eff63369d9da66d471bdc9bc3381f5ce974.png" />
 </div>
 </div>
 <p>There you go, so all the nodes are indexed as stacks of columns from 0 to 80, now we’ll separate the three different types of edges here</p>
@@ -689,7 +686,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/sudoku_15_0.png" src="../../_images/sudoku_15_0.png" />
+<img alt="../../_images/4d9eb64643351f71b5374e24e012cf267f8b3a7698b7d6e94d52531352a334d8.png" src="../../_images/4d9eb64643351f71b5374e24e012cf267f8b3a7698b7d6e94d52531352a334d8.png" />
 </div>
 </div>
 <p>Let’s change the layout a little to see all the edges that are invisible because they fall on top of each other</p>
@@ -700,7 +697,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/sudoku_17_0.png" src="../../_images/sudoku_17_0.png" />
+<img alt="../../_images/53d9a7f3f5277b0b16e6931106a5b43ade1d2bdcc79d868bc2df371888f1334f.png" src="../../_images/53d9a7f3f5277b0b16e6931106a5b43ade1d2bdcc79d868bc2df371888f1334f.png" />
 </div>
 </div>
 <p>pretty! Now, let’s check how do sudoku graphs look if sudokus were 16 x 16 grids instead of 9 x 9</p>
@@ -711,7 +708,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/sudoku_19_0.png" src="../../_images/sudoku_19_0.png" />
+<img alt="../../_images/159927cfad3f607fe901fe08cb44c70a735c4db68fabdcc23002a170778eebf7.png" src="../../_images/159927cfad3f607fe901fe08cb44c70a735c4db68fabdcc23002a170778eebf7.png" />
 </div>
 </div>
 </section>

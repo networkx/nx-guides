@@ -22,8 +22,8 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
@@ -38,8 +38,6 @@
     <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Directed Acyclic Graphs &amp; Topological Sort" href="../dag/index.html" />
@@ -497,7 +495,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="node-assortativity-coefficients-and-correlation-measures">
+  <section id="node-assortativity-coefficients-and-correlation-measures">
 <h1>Node assortativity coefficients and correlation measures<a class="headerlink" href="#node-assortativity-coefficients-and-correlation-measures" title="Permalink to this headline">#</a></h1>
 <p>In this tutorial, we will go through the theory of <a class="reference external" href="https://en.wikipedia.org/wiki/Assortativity">assortativity</a> and its measures.</p>
 <p>Specifically, we’ll focus on assortativity measures available in NetworkX at <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/assortativity/correlation.py">algorithms/assortativity/correlation.py</a>:</p>
@@ -517,47 +515,43 @@ On the other hand, we can also have disassortativity, in which case nodes tend
 to connect to dissimilar nodes over similar nodes.</p>
 <section id="assortativity-coefficients">
 <h3>Assortativity coefficients<a class="headerlink" href="#assortativity-coefficients" title="Permalink to this headline">#</a></h3>
-<p>Let’s say we have a network <span class="math notranslate nohighlight">\(N\)</span>, <span class="math notranslate nohighlight">\(N = (V, E)\)</span>  where <span class="math notranslate nohighlight">\(V\)</span> is the set of nodes in the network and <span class="math notranslate nohighlight">\(E\)</span> is the set of edges/directed edges in the network.
-In addition, <span class="math notranslate nohighlight">\(P(v)\)</span> represents a property for each node <span class="math notranslate nohighlight">\(v\)</span>.</p>
+<p>Let’s say we have a network $N$, $N = (V, E)$  where $V$ is the set of nodes in the network and $E$ is the set of edges/directed edges in the network.
+In addition, $P(v)$ represents a property for each node $v$.</p>
 <section id="mixing-matrix">
 <h4>Mixing matrix<a class="headerlink" href="#mixing-matrix" title="Permalink to this headline">#</a></h4>
-<p>Let the property <span class="math notranslate nohighlight">\(P(v)\)</span> take <span class="math notranslate nohighlight">\(P[0],P[1],...P[k-1]\)</span> distinct values on the network,
-then the <strong>mixing matrix</strong> is matrix <span class="math notranslate nohighlight">\(M\)</span> such that <span class="math notranslate nohighlight">\(M[i][j]\)</span> represents the number of edges from
-nodes with property <span class="math notranslate nohighlight">\(P[i]\)</span> to <span class="math notranslate nohighlight">\(P[j]\)</span>.
+<p>Let the property $P(v)$ take $P[0],P[1],…P[k-1]$ distinct values on the network,
+then the <strong>mixing matrix</strong> is matrix $M$ such that $M[i][j]$ represents the number of edges from
+nodes with property $P[i]$ to $P[j]$.
 We can normalize mixing matrix by diving by total number of ordered edges i.e.
-<span class="math notranslate nohighlight">\( e = \frac{M}{|E|}\)</span>.</p>
+$ e = \frac{M}{|E|}$.</p>
 <p>Now define,</p>
-<p><span class="math notranslate nohighlight">\(a[i]=\)</span> proportion of edges <span class="math notranslate nohighlight">\((u,v)\)</span> such that <span class="math notranslate nohighlight">\(P(u)=P[i]\)</span></p>
-<div class="math notranslate nohighlight">
-\[ a[i] = \sum\limits_{j}e[i][j] \]</div>
-<p><span class="math notranslate nohighlight">\(b[i]=\)</span> proportion of edges <span class="math notranslate nohighlight">\((u,v)\)</span> such that <span class="math notranslate nohighlight">\(P(v)=P[i]\)</span></p>
-<div class="math notranslate nohighlight">
-\[ b[i] = \sum\limits_{j}e[j][i]\]</div>
+<p>$a[i]=$ proportion of edges $(u,v)$ such that $P(u)=P[i]$</p>
+<p>$$ a[i] = \sum\limits_{j}e[i][j] $$</p>
+<p>$b[i]=$ proportion of edges $(u,v)$ such that $P(v)=P[i]$</p>
+<p>$$ b[i] = \sum\limits_{j}e[j][i]$$</p>
 <p>in Python code it would look something like <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">e.sum(axis=0)</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">e.sum(axis=1)</span></code></p>
-<p>Finally, let <span class="math notranslate nohighlight">\(\sigma_a\)</span> and <span class="math notranslate nohighlight">\(\sigma_b\)</span> represent the standard deviation of
-<span class="math notranslate nohighlight">\(\{\ P[i]\cdot a[i]\ |\ i \in 0...k-1\}\)</span> and <span class="math notranslate nohighlight">\(\{ P[i]\cdot b[i]\ |\ i \in 0...k-1\}\)</span>
+<p>Finally, let $\sigma_a$ and $\sigma_b$ represent the standard deviation of
+${\ P[i]\cdot a[i]\ |\ i \in 0…k-1}$ and ${ P[i]\cdot b[i]\ |\ i \in 0…k-1}$
 respectively.</p>
 <p>Then we can define the assortativity coefficient for this property based on the
 Pearson correlation coefficient.</p>
 </section>
 <section id="attribute-assortativity-coefficient">
 <h4>Attribute Assortativity Coefficient<a class="headerlink" href="#attribute-assortativity-coefficient" title="Permalink to this headline">#</a></h4>
-<p>Here the property <span class="math notranslate nohighlight">\(P(v)\)</span> is a nominal property assigned to each node.
-As defined above we calculate the normalized mixing matrix <span class="math notranslate nohighlight">\(e\)</span> and from that we
+<p>Here the property $P(v)$ is a nominal property assigned to each node.
+As defined above we calculate the normalized mixing matrix $e$ and from that we
 define the attribute assortativity coefficient <a class="footnote-reference brackets" href="#id4" id="id1">1</a> as below.</p>
-<p>From here onwards we will use subscript notation to denote indexing, for eg. <span class="math notranslate nohighlight">\(P_i = P[i]\)</span> and <span class="math notranslate nohighlight">\(e_{ij} = e[i][j]\)</span></p>
-<div class="math notranslate nohighlight">
-\[ r = \frac{\sum\limits_{i}e_{ii} - \sum\limits_{i}a_{i}b_{i}}{1-\sum\limits_{i}a_{i}b_{i}} = \frac{Trace(e) - ||e^2||}{1-||e^2||}\]</div>
+<p>From here onwards we will use subscript notation to denote indexing, for eg. $P_i = P[i]$ and $e_{ij} = e[i][j]$</p>
+<p>$$ r = \frac{\sum\limits_{i}e_{ii} - \sum\limits_{i}a_{i}b_{i}}{1-\sum\limits_{i}a_{i}b_{i}} = \frac{Trace(e) - ||e^2||}{1-||e^2||}$$</p>
 <p>It is implemented as <code class="docutils literal notranslate"><span class="pre">attribute_assortativity_coefficient</span></code>.</p>
 </section>
 <section id="numeric-assortativity-coefficient">
 <h4>Numeric Assortativity Coefficient<a class="headerlink" href="#numeric-assortativity-coefficient" title="Permalink to this headline">#</a></h4>
-<p>Here the property <span class="math notranslate nohighlight">\(P(v)\)</span> is a numerical property assigned to each
+<p>Here the property $P(v)$ is a numerical property assigned to each
 node and the definition of the normalized mixing
-matrix <span class="math notranslate nohighlight">\(e\)</span>, <span class="math notranslate nohighlight">\(\sigma_a\)</span>, and <span class="math notranslate nohighlight">\(\sigma_b\)</span> are same as above.
+matrix $e$, $\sigma_a$, and $\sigma_b$ are same as above.
 From these we define numeric assortativity coefficient <a class="footnote-reference brackets" href="#id4" id="id2">1</a> as below.</p>
-<div class="math notranslate nohighlight">
-\[ r = \frac{\sum\limits_{i,j}P_i P_j(e_{ij} -a_i b_j)}{\sigma_a\sigma_b} \]</div>
+<p>$$ r = \frac{\sum\limits_{i,j}P_i P_j(e_{ij} -a_i b_j)}{\sigma_a\sigma_b} $$</p>
 <p>It is implemented as <code class="docutils literal notranslate"><span class="pre">numeric_assortativity_coefficient</span></code>.</p>
 </section>
 <section id="degree-assortativity-coefficient">
@@ -565,9 +559,9 @@ From these we define numeric assortativity coefficient <a class="footnote-refere
 <p>When it comes to measuring degree assortativity for directed networks we have
 more options compared to assortativity w.r.t a property because we have 2 types
 of degrees, namely in-degree and out-degree.
-Based on the 2 types of degrees we can measure <span class="math notranslate nohighlight">\(2 \times 2 =4\)</span> different types
+Based on the 2 types of degrees we can measure $2 \times 2 =4$ different types
 of degree assortativity <a class="footnote-reference brackets" href="#id5" id="id3">2</a>:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>r(in,in) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = in-degree(v).</p></li>
 <li><p>r(in,out) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = out-degree(v).</p></li>
 <li><p>r(out,in) : Measures tendency of having a directed edge (u,v) such that, out-degree(u) = in-degree(v).</p></li>
@@ -575,14 +569,13 @@ of degree assortativity <a class="footnote-reference brackets" href="#id5" id="i
 </ol>
 <p>Note: If the network is undirected all the 4 types of degree assortativity are the same.</p>
 <p>To define the degree assortativity coefficient for all 4 types we need slight
-modification in the definition of <span class="math notranslate nohighlight">\(P[i]\)</span> and <span class="math notranslate nohighlight">\(e\)</span>, and the definations of
-<span class="math notranslate nohighlight">\(\sigma_a\)</span> and <span class="math notranslate nohighlight">\(\sigma_b\)</span> remain the same.</p>
-<p>Let <span class="math notranslate nohighlight">\(x,y \in \{in,out\}\)</span>. The property <span class="math notranslate nohighlight">\(P(\cdot)\)</span> takes distinct values from
-the union of the values taken by <span class="math notranslate nohighlight">\(x\)</span>-degree<span class="math notranslate nohighlight">\((\cdot)\)</span> and <span class="math notranslate nohighlight">\(y\)</span>-degree<span class="math notranslate nohighlight">\((\cdot)\)</span>,
-and <span class="math notranslate nohighlight">\(e_{i,j}\)</span> is the proportion of directed edges <span class="math notranslate nohighlight">\((u,v)\)</span> with <span class="math notranslate nohighlight">\(x\)</span>-degree<span class="math notranslate nohighlight">\((u) = P_i\)</span>
-and <span class="math notranslate nohighlight">\(y\)</span>-degree<span class="math notranslate nohighlight">\((v) = P_j\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[ r(x,y) = \frac{\sum\limits_{i,j}P_i P_j(e_{ij} -a_i b_j)}{\sigma_a\sigma_b} \]</div>
+modification in the definition of $P[i]$ and $e$, and the definations of
+$\sigma_a$ and $\sigma_b$ remain the same.</p>
+<p>Let $x,y \in {in,out}$. The property $P(\cdot)$ takes distinct values from
+the union of the values taken by $x$-degree$(\cdot)$ and $y$-degree$(\cdot)$,
+and $e_{i,j}$ is the proportion of directed edges $(u,v)$ with $x$-degree$(u) = P_i$
+and $y$-degree$(v) = P_j$.</p>
+<p>$$ r(x,y) = \frac{\sum\limits_{i,j}P_i P_j(e_{ij} -a_i b_j)}{\sigma_a\sigma_b} $$</p>
 <p>It is implemented as <code class="docutils literal notranslate"><span class="pre">degree_assortativity_coefficient</span></code> and
 <code class="docutils literal notranslate"><span class="pre">degree_pearson_correlation_coefficient</span></code>. The latter function uses
 <code class="docutils literal notranslate"><span class="pre">scipy.stats.pearsonr</span></code> to calculate the assortativity coefficient which makes
@@ -650,7 +643,7 @@ it potentally faster.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/correlation_4_0.png" src="../../../_images/correlation_4_0.png" />
+<img alt="../../../_images/9318d53e763f887039ee05654e38c82893c524f3debbc40dacf068ad361c7729.png" src="../../../_images/9318d53e763f887039ee05654e38c82893c524f3debbc40dacf068ad361c7729.png" />
 </div>
 </div>
 <p>Nodes are colored by the <code class="docutils literal notranslate"><span class="pre">cluster</span></code> property and labeled by <code class="docutils literal notranslate"><span class="pre">num_prop</span></code> property.
@@ -658,13 +651,13 @@ We can observe that the initial network on the left side is completely assortati
 and its complement on right side is completely disassortative.
 As we add edges between nodes of different (similar) attributes in the assortative
 (disassortative) network, the network tends to a non-assortative network and
-value of both the assortativity coefficients tends to <span class="math notranslate nohighlight">\(0\)</span>.</p>
+value of both the assortativity coefficients tends to $0$.</p>
 <p>The parameter <code class="docutils literal notranslate"><span class="pre">nodes</span></code> in <code class="docutils literal notranslate"><span class="pre">attribute_assortativity_coefficient</span></code> and
 <code class="docutils literal notranslate"><span class="pre">numeric_assortativity_coefficient</span></code> specifies the nodes whose edges are to be
 considered in the mixing matrix calculation.
-That is to say, if <span class="math notranslate nohighlight">\((u,v)\)</span> is a directed edge then the edge <span class="math notranslate nohighlight">\((u,v)\)</span> will be
-used in mixing matrix calculation if <span class="math notranslate nohighlight">\(u\)</span> is in <code class="docutils literal notranslate"><span class="pre">nodes</span></code>.
-For the undirected case, it’s considered if atleast one of the <span class="math notranslate nohighlight">\(u,v\)</span> in in <code class="docutils literal notranslate"><span class="pre">nodes</span></code>.</p>
+That is to say, if $(u,v)$ is a directed edge then the edge $(u,v)$ will be
+used in mixing matrix calculation if $u$ is in <code class="docutils literal notranslate"><span class="pre">nodes</span></code>.
+For the undirected case, it’s considered if atleast one of the $u,v$ in in <code class="docutils literal notranslate"><span class="pre">nodes</span></code>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">nodes</span></code> parameter is interpreted differently in <code class="docutils literal notranslate"><span class="pre">degree_assortativity_coefficient</span></code> and
 <code class="docutils literal notranslate"><span class="pre">degree_pearson_correlation_coefficient</span></code>, where it specifies the nodes forming a subgraph
 whose edges are considered in the mixing matrix calculation.</p>
@@ -723,7 +716,7 @@ whose edges are considered in the mixing matrix calculation.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/correlation_7_0.png" src="../../../_images/correlation_7_0.png" />
+<img alt="../../../_images/729e87be41635aff88527760e0eb7a68fc71a9da0b536ab51c98590cf858de69.png" src="../../../_images/729e87be41635aff88527760e0eb7a68fc71a9da0b536ab51c98590cf858de69.png" />
 </div>
 </div>
 <p>In the above plots only the nodes which are considered are colored and rest are
