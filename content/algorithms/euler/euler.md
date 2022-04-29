@@ -215,12 +215,11 @@ def has_eulerian_path(G, source=None):
 ```
 
 <!-- #region id="eLNvmeFdW75x" -->
-    #     # If an undirected graph is not Eulerian, it can still be `semi_eulerian` meaning that it might have an Eulerian Path with different starting and ending vertices. As explained above, this is possible if and only if
-    #     # - there are exactly two vertices of odd degree, and
-    #     # - all of its vertices with non-zero degree belong to a single connected component.
-    #     #
-    #     #
-    #     # If source vertex is given by the user, it must have an odd degree. Otherwise, there cannot be a Euler Path starting from this source.
+If an undirected graph is not Eulerian, it can still be `semi_eulerian` meaning that it might have an Eulerian Path with different starting and ending vertices. As explained above, this is possible if and only if
+- there are exactly two vertices of odd degree, and
+- all of its vertices with non-zero degree belong to a single connected component.
+
+If source vertex is given by the user, it must have an odd degree. Otherwise, there cannot be a Euler Path starting from this source.
 <!-- #endregion -->
 
 ```python id="VFfGgN-1qlZ_"
@@ -231,11 +230,11 @@ def has_eulerian_path(G, source=None):
 ```
 
 <!-- #region id="hDN2WSX2YFgG" -->
-    #     # For a directed graph to has an Euler Path (i.e. to be `semi_eulerian`), it must have
-    #     # - at most one vertex has out_degree - in_degree = 1,
-    #     # - at most one vertex has in_degree - out_degree = 1,
-    #     # - every other vertex has equal in_degree and out_degree, and
-    #     # - all of its vertices with non-zero degree belong to a single connected component of the underlying undirected graph *(I.e. Should be weakly connected)*.
+For a directed graph to has an Euler Path (i.e. to be `semi_eulerian`), it must have
+- at most one vertex has out_degree - in_degree = 1,
+- at most one vertex has in_degree - out_degree = 1,
+- every other vertex has equal in_degree and out_degree, and
+- all of its vertices with non-zero degree belong to a single connected component of the underlying undirected graph *(I.e. Should be weakly connected)*.
 <!-- #endregion -->
 
 ```python id="kn8dLkeIX0RX"
