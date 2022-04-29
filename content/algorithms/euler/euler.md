@@ -23,7 +23,7 @@ In this tutorial, we will explore the Euler's algorithm and its implementation i
 
 <!-- #region id="W4oRTaPEhhAU" -->
 
-## **Seven Bridges of Königsberg**
+## Seven Bridges of Königsberg
 <!-- #endregion -->
 
 <!-- #region id="AxM3uBAZe9cX" -->
@@ -103,20 +103,20 @@ It is obvious that we cannot satisfy both of these conditions at the same time. 
 <!-- #endregion -->
 
 <!-- #region id="dOgKxxjHhGuP" -->
-### **Generalizing Euler's Solution**
+### Generalizing Euler's Solution
 <!-- #endregion -->
 
 <!-- #region id="OpaOlWK8hL9H" -->
 Euler generalized the method he applied for Königsberg problem as follows:
 
-> ***A graph has an Euler Path if and only if the number of vertices with odd degree must be either zero or two.***
+> ***A graph has an Euler Path if and only if the number of vertices with odd degree is either zero or two.***
 
 - If there are two vertices with odd degree, then they are the starting and ending vertices.
 - If there are no vertices with odd degree, any vertex can be starting or ending vertex and the graph has also an Euler Circuit.
 <!-- #endregion -->
 
 <!-- #region id="ffSQYe1Cj9et" -->
-## **NetworkX Implementation of Euler's Algorithm**
+## NetworkX Implementation of Euler's Algorithm
 <!-- #endregion -->
 
 <!-- #region id="ne_lPsankWsW" -->
@@ -132,7 +132,7 @@ In this part, we will briefly explain the NetworkX implementation of Euler's alg
 <!-- #endregion -->
 
 <!-- #region id="ycKexNZnmZp2" -->
-### **1. Eulerian Circuit Implementation**
+### 1. Eulerian Circuit Implementation
 <!-- #endregion -->
 
 <!-- #region id="VIOHmRY_pG9D" -->
@@ -200,7 +200,7 @@ print("-> ".join(list(map(str, circuit))))
 ```
 
 <!-- #region id="I_pwuXa_mQJY" -->
-### **2. Eulerian Path Implementation**
+### 2. Eulerian Path Implementation
 <!-- #endregion -->
 
 <!-- #region id="X8H-GT3JqUwk" -->
@@ -215,11 +215,11 @@ def has_eulerian_path(G, source=None):
 ```
 
 <!-- #region id="eLNvmeFdW75x" -->
-If an undirected graph is not Eulerian, it can still be `semi_eulerian` meaning that it might have an Eulerian Path with different starting and ending vertices. As explained above, this is possible if and only if
-- there are exactly two vertices of odd degree, and
-- all of its vertices with non-zero degree belong to a single connected component.
-
-If source vertex is given by the user, it must have an odd degree. Otherwise, there cannot be a Euler Path starting from this source.
+    # If an undirected graph is not Eulerian, it can still be `semi_eulerian` meaning that it might have an Eulerian Path with different starting and ending vertices. As explained above, this is possible if and only if
+    # - there are exactly two vertices of odd degree, and
+    # - all of its vertices with non-zero degree belong to a single connected component.
+    #
+    # If source vertex is given by the user, it must have an odd degree. Otherwise, there cannot be a Euler Path starting from this source.
 <!-- #endregion -->
 
 ```python id="VFfGgN-1qlZ_"
@@ -230,11 +230,11 @@ If source vertex is given by the user, it must have an odd degree. Otherwise, th
 ```
 
 <!-- #region id="hDN2WSX2YFgG" -->
-For a directed graph to has an Euler Path (i.e. to be `semi_eulerian`), it must have
-- at most one vertex has out_degree - in_degree = 1,
-- at most one vertex has in_degree - out_degree = 1,
-- every other vertex has equal in_degree and out_degree, and
-- all of its vertices with non-zero degree belong to a single connected component of the underlying undirected graph *(I.e. Should be weakly connected)*.
+    # For a directed graph to has an Euler Path (i.e. to be `semi_eulerian`), it must have
+    # - at most one vertex has out_degree - in_degree = 1,
+    # - at most one vertex has in_degree - out_degree = 1,
+    # - every other vertex has equal in_degree and out_degree, and
+    # - all of its vertices with non-zero degree belong to a single connected component of the underlying undirected graph *(I.e. Should be weakly connected)*.
 <!-- #endregion -->
 
 ```python id="kn8dLkeIX0RX"
@@ -285,7 +285,7 @@ nx.has_eulerian_path(W)
 ```
 
 <!-- #region id="UYsaFBwoPotR" -->
-## **Euler is everywhere!**
+## Euler is everywhere!
 
 Euler's algorithm is essential for anyone or anything that uses paths. Some examples of its real applications:
 - To solve many complex problems, like the Konigsberg Seven Bridges Problem explained above.
@@ -294,7 +294,7 @@ Euler's algorithm is essential for anyone or anything that uses paths. Some exam
 <!-- #endregion -->
 
 <!-- #region id="RYkIg8mpRm04" -->
-## **References**
+## Reference
 
 Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.
 <!-- #endregion -->
