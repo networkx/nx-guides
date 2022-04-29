@@ -13,7 +13,7 @@ jupyter:
 ---
 
 <!-- #region id="i-92gMF2dsgF" -->
-# **Euler's Algorithm**
+# Euler's Algorithm
 <!-- #endregion -->
 
 <!-- #region id="1Jly-15HS1NL" -->
@@ -294,7 +294,7 @@ Euler's algorithm is essential for anyone or anything that uses paths. Some exam
 <!-- #endregion -->
 
 <!-- #region id="RYkIg8mpRm04" -->
-# **References**
+## **References**
 
 Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.
 <!-- #endregion -->
