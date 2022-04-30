@@ -24,10 +24,10 @@ import pandas as pd
 ```
 
 ```python
-G = nx.read_gml("polblogs.gml")
+G = nx.read_gml("data/polblogs.gml")
 ```
 
-## Initial Analysis of the Network
+# Initial Analysis of the Network
 
 ```python
 print("Number of Nodes in the Network is {}".format(nx.number_of_nodes(G)))
@@ -65,7 +65,7 @@ def distribution(func , title, limits):
     plt.show()
 ```
 
-## Degree Centrality
+# Degree Centrality
 
 ```python
 max_vals(nx.degree_centrality(G))
@@ -97,7 +97,7 @@ distribution(nx.out_degree_centrality(G), "In-Degree Centrality", [0,0.2, 0.01])
 3. The Degree Centrality follows a **Scale-Free Distribution**.
 
 
-## Closeness Centrality
+# Closeness Centrality
 
 ```python
 max_vals(nx.closeness_centrality(G))
@@ -109,7 +109,7 @@ distribution(nx.closeness_centrality(G), "Closeness Centrality", [0,0.4, 0.01])
 3. "dailykos.com" has **highest Closeness Centrality**.
 
 
-## Betweenness Centrality
+# Betweenness Centrality
 
 ```python
 max_vals(nx.betweenness_centrality(G))
@@ -121,7 +121,7 @@ distribution(nx.betweenness_centrality(G), "Betweenness Centrality", [0,0.1, 0.0
 3. "blogsforbush.com" has **highest Betweenness Centrality**.
 
 
-## Harmonic Centrality
+# Harmonic Centrality
 
 ```python
 max_vals(nx.harmonic_centrality(G))
@@ -132,7 +132,7 @@ distribution(nx.harmonic_centrality(G), "Harmonic Centrality", [0,650,50])
 2. "dailykos.com" has **highest Harmonic Centrality**.
 
 
-## Reaching
+# Reaching
 
 ```python
 node = ran.choice(list(G.nodes()))
@@ -156,7 +156,7 @@ global_reach_cent = nx.global_reaching_centrality(G)
 print("Global Reach Centrality is {:.2f}".format(global_reach_cent))
 ```
 
-## Load Centrality
+# Load Centrality
 
 ```python
 max_vals(nx.load_centrality(G))
@@ -167,7 +167,7 @@ distribution(nx.load_centrality(G), "Load Centrality", [0,0.1,0.01])
 2. Highest value obtained is 0.09 : for "blogsforbush.com".
 
 
-## Group Centrality
+# Group Centrality
 
 3 Random nodes are taken from the Network and its Group Centrality is seen.
 
@@ -181,7 +181,7 @@ print("In-degree Centrality of these are {:.2f}".format(nx.group_in_degree_centr
 print("Out-degree Centrality of these are {:.2f}".format(nx.group_out_degree_centrality(G, sources)))
 ```
 
-## Dispersion
+# Dispersion
 
 ```python
 largest = max(nx.strongly_connected_components(G), key=len)
@@ -204,7 +204,7 @@ sns.heatmap(values, annot=True)
 The Figure above shows the dispersion between any two nodes that are randomly chosen from the most strongly connected Component within the Network. Higher the Dispersion, less connected will be their Mutual Ties. 
 
 
-## Voterank
+# Voterank
 
 ```python
 nx.voterank(G, 10)
@@ -215,7 +215,7 @@ nx.voterank(G, 10)
 3. "blogsforbush.com" is the **most Influential** in the Network.
 
 
-## Summary
+# Summary
 
 Based on all the Centrality Algorithms that can be used for this type of Network, the Blogs that had highest values in each case are:
 
