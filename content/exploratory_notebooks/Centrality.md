@@ -82,7 +82,7 @@ max_vals(nx.out_degree_centrality(G))
 distribution(nx.out_degree_centrality(G), "In-Degree Centrality", [0,0.2, 0.01])
 ```
 
-### Analysis of Degree Centrality
+## Analysis of Degree Centrality
 
 | Rank  | **Degree**            | **Value** | **In-degree**         | **Value** | **Out-degree**            | **Value** |
 |-------|-----------------------|-----------|-----------------------|-----------|---------------------------|-----------|
