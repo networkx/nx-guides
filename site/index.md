@@ -37,6 +37,6 @@ maxdepth: 1
 
 content/algorithms/index
 content/generators/index
-content/exploratory_notebooks/facebook_notebook
+content/exploratory_notebooks/index
 ```
 
