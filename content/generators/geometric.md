@@ -193,7 +193,7 @@ Next, we load the data and construct the graph.
 import json
 
 # load json-ed networkx datafile
-with open("data/tesla_network.json", "r") as infile:
+with open("data/tesla_network.json") as infile:
     G = nx.json_graph.node_link_graph(json.load(infile))
 ```
 
