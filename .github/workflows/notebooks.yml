@@ -42,7 +42,7 @@ jobs:
         pip install nbqa black
     - name: Test with nbval
       run: |
-        pip install pytest
+        pip install pytest pre-commit
         find content/ -name "*.md" -exec jupytext --to notebook {} \;
-        nbqa black .
+        pre-commit run --all-files --show-diff-on-failure --color always
         pytest --nbval-lax content/
