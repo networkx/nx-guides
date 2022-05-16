@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.11.1
+    jupytext_version: 1.13.8
 kernelspec:
   display_name: Python 3
   language: python
@@ -45,14 +45,19 @@ from random import randint
 * The edges are loaded from the `data` folder and saved in a dataframe. Each edge is a new row and for each edge there is a `start_node` and an `end_node` column
 
 ```{code-cell} ipython3
-facebook = pd.read_csv('data/facebook_combined.txt.gz', compression='gzip', sep=' ', names=['start_node', 'end_node'])
+facebook = pd.read_csv(
+    "data/facebook_combined.txt.gz",
+    compression="gzip",
+    sep=" ",
+    names=["start_node", "end_node"],
+)
 facebook
 ```
 
 * The graph is created from the `facebook` dataframe of the edges:
 
 ```{code-cell} ipython3
-G = nx.from_pandas_edgelist(facebook, 'start_node', 'end_node')
+G = nx.from_pandas_edgelist(facebook, "start_node", "end_node")
 ```
 
 ## Visualizing the graph
@@ -67,7 +72,7 @@ functions.
 
 ```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(15, 9))
-ax.axis('off')
+ax.axis("off")
 plot_options = {"node_size": 10, "with_labels": False, "width": 0.15}
 nx.draw_networkx(G, pos=nx.random_layout(G), ax=ax, **plot_options)
 ```
@@ -92,7 +97,7 @@ visualizations.
 ```{code-cell} ipython3
 pos = nx.spring_layout(G, iterations=15, seed=1721)
 fig, ax = plt.subplots(figsize=(15, 9))
-ax.axis('off')
+ax.axis("off")
 nx.draw_networkx(G, pos=pos, ax=ax, **plot_options)
 ```
 
@@ -152,7 +157,6 @@ to all other nodes in the network, where the inner-most mapping returns the
 length of the shortest path between the two nodes.
 In other words, `shortest_path_lengths[u][v]` will return the shortest path
 length between any two pair of nodes `u` and `v`:
-
 
 ```{code-cell} ipython3
 shortest_path_lengths[0][42]  # Length of shortest path between nodes 0 and 42
@@ -218,10 +222,10 @@ freq_percent = 100 * path_lengths[1:] / path_lengths[1:].sum()
 fig, ax = plt.subplots(figsize=(15, 8))
 ax.bar(np.arange(1, diameter + 1), height=freq_percent)
 ax.set_title(
-    'Distribution of shortest path length in G', fontdict ={'size': 35}, loc='center'
+    "Distribution of shortest path length in G", fontdict={"size": 35}, loc="center"
 )
-ax.set_xlabel('Shortest Path Length', fontdict ={'size': 22})
-ax.set_ylabel('Frequency (%)', fontdict ={'size': 22})
+ax.set_xlabel("Shortest Path Length", fontdict={"size": 22})
+ax.set_ylabel("Frequency (%)", fontdict={"size": 22})
 ```
 
 The majority of the shortest path lengths are from $2$ to $5$ edges long.
@@ -249,7 +253,9 @@ Degree centrality assigns an importance score based simply on the number of link
 * Starting, we find the nodes with the highest degree centralities. Specifically, the nodes with the 8 highest degree centralities are shown below together with the degree centrality:
 
 ```{code-cell} ipython3
-degree_centrality = nx.centrality.degree_centrality(G)  # save results in a variable to use again 
+degree_centrality = nx.centrality.degree_centrality(
+    G
+)  # save results in a variable to use again
 (sorted(degree_centrality.items(), key=lambda item: item[1], reverse=True))[:8]
 ```
 
@@ -266,12 +272,12 @@ As expected, node $107$ has $1045$ facebook friends which is the most any facebo
 Now the distribution of degree centralities will be plotted:
 
 ```{code-cell} ipython3
-plt.figure(figsize=(15,8))
+plt.figure(figsize=(15, 8))
 plt.hist(degree_centrality.values(), bins=25)
 plt.xticks(ticks=[0, 0.025, 0.05, 0.1, 0.15, 0.2])  # set the x axis ticks
-plt.title('Degree Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
-plt.xlabel('Degree Centrality', fontdict ={'size': 20})
-plt.ylabel('Counts',fontdict ={'size': 20})
+plt.title("Degree Centrality Histogram ", fontdict={"size": 35}, loc="center")
+plt.xlabel("Degree Centrality", fontdict={"size": 20})
+plt.ylabel("Counts", fontdict={"size": 20})
 ```
 
 It is visible that the vast majority of facebook users have degree centralities of less than $0.05$. In fact the majority has less than $0.0125$. Actually, that makes sense because the network consists of friends lists of particular nodes, which are obviously the ones with the highest degree centralities. In other words, because only the friends list of particular nodes were used to create this particular network, plenty of nodes have extremely low degree centralities as they are not very interconnected in this network
@@ -279,10 +285,12 @@ It is visible that the vast majority of facebook users have degree centralities 
 Now let's check the users with highest degree centralities from the size of their nodes:
 
 ```{code-cell} ipython3
-node_size =  [v * 1000 for v in degree_centrality.values()]  # set up nodes size for a nice graph representation
-plt.figure(figsize=(15,8))
+node_size = [
+    v * 1000 for v in degree_centrality.values()
+]  # set up nodes size for a nice graph representation
+plt.figure(figsize=(15, 8))
 nx.draw_networkx(G, pos=pos, node_size=node_size, with_labels=False, width=0.15)
-plt.axis('off')
+plt.axis("off")
 ```
 
 ### Betweenness Centrality
@@ -290,7 +298,9 @@ Betweenness centrality measures the number of times a node lies on the shortest 
 * Now, the nodes with the $8$ highest betweenness centralities will be calculated and shown with their centrality values:
 
 ```{code-cell} ipython3
-betweenness_centrality = nx.centrality.betweenness_centrality(G)  # save results in a variable to use again 
+betweenness_centrality = nx.centrality.betweenness_centrality(
+    G
+)  # save results in a variable to use again
 (sorted(betweenness_centrality.items(), key=lambda item: item[1], reverse=True))[:8]
 ```
 
@@ -302,12 +312,12 @@ Looking at the results, the node $107$ has a betweenness centrality of $0.48$, m
 Moving on, the distribution of betweenness centralities will be plotted:
 
 ```{code-cell} ipython3
-plt.figure(figsize=(15,8))
+plt.figure(figsize=(15, 8))
 plt.hist(betweenness_centrality.values(), bins=100)
 plt.xticks(ticks=[0, 0.02, 0.1, 0.2, 0.3, 0.4, 0.5])  # set the x axis ticks
-plt.title('Betweenness Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
-plt.xlabel('Betweenness Centrality', fontdict ={'size': 20})
-plt.ylabel('Counts',fontdict ={'size': 20})
+plt.title("Betweenness Centrality Histogram ", fontdict={"size": 35}, loc="center")
+plt.xlabel("Betweenness Centrality", fontdict={"size": 20})
+plt.ylabel("Counts", fontdict={"size": 20})
 ```
 
 As we can see, the vast majority of betweenness centralities is below $0.01$. That makes sense as the graph is very sparse and thus most nodes do not act as bridges in shortest paths. However, that also results in some nodes having extremely high betweenness centralities as for example node $107$ with $0.48$ and node $1684$ with $0.34$ betweenness centrality.
@@ -315,10 +325,12 @@ As we can see, the vast majority of betweenness centralities is below $0.01$. Th
 We can also get an image on the nodes with the highest betweenness centralities and where they are located in the network. It is clear that they are the bridges from one community to another:
 
 ```{code-cell} ipython3
-node_size =  [v * 1200 for v in betweenness_centrality.values()]  # set up nodes size for a nice graph representation
-plt.figure(figsize=(15,8))
+node_size = [
+    v * 1200 for v in betweenness_centrality.values()
+]  # set up nodes size for a nice graph representation
+plt.figure(figsize=(15, 8))
 nx.draw_networkx(G, pos=pos, node_size=node_size, with_labels=False, width=0.15)
-plt.axis('off')
+plt.axis("off")
 ```
 
 ### Closeness Centrality
@@ -328,7 +340,9 @@ The closeness centrality measure is very important for the monitoring of the spr
 * The nodes with the highest closeness centralities will be found now:
 
 ```{code-cell} ipython3
-closeness_centrality = nx.centrality.closeness_centrality(G)  # save results in a variable to use again 
+closeness_centrality = nx.centrality.closeness_centrality(
+    G
+)  # save results in a variable to use again
 (sorted(closeness_centrality.items(), key=lambda item: item[1], reverse=True))[:8]
 ```
 
@@ -348,20 +362,22 @@ The distance from node $107$ to a random node is around two hops
 Furthermore, the distribution of the closeness centralities:
 
 ```{code-cell} ipython3
-plt.figure(figsize=(15,8))
+plt.figure(figsize=(15, 8))
 plt.hist(closeness_centrality.values(), bins=60)
-plt.title('Closeness Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
-plt.xlabel('Closeness Centrality', fontdict ={'size': 20})
-plt.ylabel('Counts',fontdict ={'size': 20})
+plt.title("Closeness Centrality Histogram ", fontdict={"size": 35}, loc="center")
+plt.xlabel("Closeness Centrality", fontdict={"size": 20})
+plt.ylabel("Counts", fontdict={"size": 20})
 ```
 
 The closeness centralities are distributed over various values from $0.17$ to $0.46$. In fact, the majority of them are found between $0.25$ and $0.3$. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:
 
 ```{code-cell} ipython3
-node_size =  [v * 50 for v in closeness_centrality.values()]  # set up nodes size for a nice graph representation
-plt.figure(figsize=(15,8))
+node_size = [
+    v * 50 for v in closeness_centrality.values()
+]  # set up nodes size for a nice graph representation
+plt.figure(figsize=(15, 8))
 nx.draw_networkx(G, pos=pos, node_size=node_size, with_labels=False, width=0.15)
-plt.axis('off')
+plt.axis("off")
 ```
 
 ### Eigenvector Centrality
@@ -370,7 +386,9 @@ Eigenvector centrality is the metric to show how connected a node is to other im
 * The nodes with the highest eigenvector centralities will be examined now:
 
 ```{code-cell} ipython3
-eigenvector_centrality = nx.centrality.eigenvector_centrality(G)  # save results in a variable to use again 
+eigenvector_centrality = nx.centrality.eigenvector_centrality(
+    G
+)  # save results in a variable to use again
 (sorted(eigenvector_centrality.items(), key=lambda item: item[1], reverse=True))[:10]
 ```
 
@@ -381,21 +399,29 @@ Checking the results:
 Checking if those nodes are connected to the most important node $1912$, the hypothesis is correct:
 
 ```{code-cell} ipython3
-high_eigenvector_centralities = ((sorted(eigenvector_centrality.items(), key=lambda item: item[1], reverse=True))[1:10])  # 2nd to 10th nodes with heighest eigenvector centralities
-high_eigenvector_nodes = [tuple[0] for tuple in high_eigenvector_centralities]  # set list as [2266, 2206, 2233, 2464, 2142, 2218, 2078, 2123, 1993]
+high_eigenvector_centralities = (
+    sorted(eigenvector_centrality.items(), key=lambda item: item[1], reverse=True)
+)[
+    1:10
+]  # 2nd to 10th nodes with heighest eigenvector centralities
+high_eigenvector_nodes = [
+    tuple[0] for tuple in high_eigenvector_centralities
+]  # set list as [2266, 2206, 2233, 2464, 2142, 2218, 2078, 2123, 1993]
 neighbors_1912 = [n for n in G.neighbors(1912)]  # list with all nodes connected to 1912
-all(item in neighbors_1912 for item in high_eigenvector_nodes)  # check if items in list high_eigenvector_nodes exist in list neighbors_1912
+all(
+    item in neighbors_1912 for item in high_eigenvector_nodes
+)  # check if items in list high_eigenvector_nodes exist in list neighbors_1912
 ```
 
 Let's check the distribution of the eigenvector centralities:
 
 ```{code-cell} ipython3
-plt.figure(figsize=(15,8))
+plt.figure(figsize=(15, 8))
 plt.hist(eigenvector_centrality.values(), bins=60)
 plt.xticks(ticks=[0, 0.01, 0.02, 0.04, 0.06, 0.08])  # set the x axis ticks
-plt.title('Eigenvector Centrality Histogram ', fontdict ={'size': 35}, loc='center') 
-plt.xlabel('Eigenvector Centrality', fontdict ={'size': 20})
-plt.ylabel('Counts',fontdict ={'size': 20})
+plt.title("Eigenvector Centrality Histogram ", fontdict={"size": 35}, loc="center")
+plt.xlabel("Eigenvector Centrality", fontdict={"size": 20})
+plt.ylabel("Counts", fontdict={"size": 20})
 ```
 
 As shown in the distribution histogram, the vast majority of eigenvector centralities are below $0.005$ and are actually almost $0$. However, we can also see different values of eigenvector centralities as there are tiny bins all over the x axis.
@@ -403,10 +429,12 @@ As shown in the distribution histogram, the vast majority of eigenvector central
 Now we can identify the eigenvector centralities of nodes based on their size in the following representation:
 
 ```{code-cell} ipython3
-node_size =  [v * 4000 for v in eigenvector_centrality.values()]  # set up nodes size for a nice graph representation
-plt.figure(figsize=(15,8))
+node_size = [
+    v * 4000 for v in eigenvector_centrality.values()
+]  # set up nodes size for a nice graph representation
+plt.figure(figsize=(15, 8))
 nx.draw_networkx(G, pos=pos, node_size=node_size, with_labels=False, width=0.15)
-plt.axis('off')
+plt.axis("off")
 ```
 
 ## Clustering Effects
@@ -419,11 +447,11 @@ nx.average_clustering(G)
 Now the clustering coefficient distribution will be displayed:
 
 ```{code-cell} ipython3
-plt.figure(figsize=(15,8))
+plt.figure(figsize=(15, 8))
 plt.hist(nx.clustering(G).values(), bins=50)
-plt.title('Clustering Coefficient Histogram ', fontdict ={'size': 35}, loc='center') 
-plt.xlabel('Clustering Coefficient', fontdict ={'size': 20})
-plt.ylabel('Counts',fontdict ={'size': 20})
+plt.title("Clustering Coefficient Histogram ", fontdict={"size": 35}, loc="center")
+plt.xlabel("Clustering Coefficient", fontdict={"size": 20})
+plt.ylabel("Counts", fontdict={"size": 20})
 ```
 
  $50$ bins were used to showcase the distribution. The bin with the highest counts concerns nodes with clustering coefficient close to $1$ as there are more than two-hundred-fifty nodes in that bin. In addition, the bins of clustering coefficient between $0.4$ and $0.8$ contain the majority of nodes by far. 
@@ -432,7 +460,9 @@ plt.ylabel('Counts',fontdict ={'size': 20})
 
 ```{code-cell} ipython3
 triangles_per_node = list(nx.triangles(G).values())
-sum(triangles_per_node) / 3  # divide by 3 because each triangle is counted once for each node
+sum(
+    triangles_per_node
+) / 3  # divide by 3 because each triangle is counted once for each node
 ```
 
  Now the average number of triangles that a node is a part of:
@@ -483,11 +513,15 @@ Showcasing the bridges and local bridges in the network now. The bridges can be 
 * It is clear that all the bridges concern nodes that are only connected to a spotlight node (have a degree of $1$)
 
 ```{code-cell} ipython3
-plt.figure(figsize=(15,8))
+plt.figure(figsize=(15, 8))
 nx.draw_networkx(G, pos=pos, node_size=10, with_labels=False, width=0.15)
-nx.draw_networkx_edges(G, pos, edgelist=local_bridges, width=0.5, edge_color="lawngreen")  # green color for local bridges 
-nx.draw_networkx_edges(G, pos, edgelist=bridges, width=0.5, edge_color="r")  # red color for bridges
-plt.axis('off')
+nx.draw_networkx_edges(
+    G, pos, edgelist=local_bridges, width=0.5, edge_color="lawngreen"
+)  # green color for local bridges
+nx.draw_networkx_edges(
+    G, pos, edgelist=bridges, width=0.5, edge_color="r"
+)  # red color for bridges
+plt.axis("off")
 ```
 
 ## Assortativity
@@ -499,7 +533,9 @@ nx.degree_assortativity_coefficient(G)
 ```
 
 ```{code-cell} ipython3
-nx.degree_pearson_correlation_coefficient(G)  # use the potentially faster scipy.stats.pearsonr function.
+nx.degree_pearson_correlation_coefficient(
+    G
+)  # use the potentially faster scipy.stats.pearsonr function.
 ```
 
 In fact, the assortativity coefficient is the Pearson correlation coefficient of degree between pairs of linked nodes. That means that it takes values from $-1$ to $1$. In detail, a positive assortativity coefficient indicates a correlation between nodes of similar degree, while a negative indicates correlation between nodes of different degrees.
@@ -515,12 +551,14 @@ A community is a group of nodes, so that nodes inside the group are connected wi
 This function determines by itself the number of communities that will be detected. Now the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community. Also, the number of communities is printed:
 
 ```{code-cell} ipython3
-colors = ['' for x in range (G.number_of_nodes())]  # initialize colors list
+colors = ["" for x in range(G.number_of_nodes())]  # initialize colors list
 counter = 0
 for com in nx.community.label_propagation_communities(G):
-    color = '#%06X' % randint(0, 0xFFFFFF)  # creates random RGB color
+    color = "#%06X" % randint(0, 0xFFFFFF)  # creates random RGB color
     counter += 1
-    for node in list(com):  # fill colors list with the particular color for the community nodes
+    for node in list(
+        com
+    ):  # fill colors list with the particular color for the community nodes
         colors[node] = color
 counter
 ```
@@ -528,9 +566,11 @@ counter
 In detail, $44$ communities were detected. Now the communities are showcased in the graph. Each community is depicted with a different color and its nodes are usually located close to each other:
 
 ```{code-cell} ipython3
-plt.figure(figsize=(15,9))
-plt.axis('off') 
-nx.draw_networkx(G, pos=pos, node_size=10, with_labels=False, width=0.15, node_color=colors)
+plt.figure(figsize=(15, 9))
+plt.axis("off")
+nx.draw_networkx(
+    G, pos=pos, node_size=10, with_labels=False, width=0.15, node_color=colors
+)
 ```
 
 * Next, the asynchronous fluid communities algorithm is used. 
@@ -538,9 +578,9 @@ nx.draw_networkx(G, pos=pos, node_size=10, with_labels=False, width=0.15, node_c
 With this function, we can decide the number of communities to be detected. Let's say that $8$ communities is the number we want. Again, the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community.
 
 ```{code-cell} ipython3
-colors = ['' for x in range (G.number_of_nodes())]
+colors = ["" for x in range(G.number_of_nodes())]
 for com in nx.community.asyn_fluidc(G, 8, seed=0):
-    color = '#%06X' % randint(0, 0xFFFFFF)  # creates random RGB color
+    color = "#%06X" % randint(0, 0xFFFFFF)  # creates random RGB color
     for node in list(com):
         colors[node] = color
 ```
@@ -548,9 +588,11 @@ for com in nx.community.asyn_fluidc(G, 8, seed=0):
 Now the $8$ communities are shown in the graph. Again, each community is depicted with a different color:
 
 ```{code-cell} ipython3
-plt.figure(figsize=(15,9))
-plt.axis('off') 
-nx.draw_networkx(G, pos=pos, node_size=10, with_labels=False, width=0.15, node_color=colors)
+plt.figure(figsize=(15, 9))
+plt.axis("off")
+nx.draw_networkx(
+    G, pos=pos, node_size=10, with_labels=False, width=0.15, node_color=colors
+)
 ```
 
 ### References
