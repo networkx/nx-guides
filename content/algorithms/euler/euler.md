@@ -144,7 +144,7 @@ Implementation of `is_eulerian` method is quite simple. In order to have an Eule
 Here is an example:
 <!-- #endregion -->
 
-```python id="ru5RJiG4vYDq" colab={"base_uri": "https://localhost:8080/", "height": 319} outputId="ba83ee61-1d50-4825-dd56-ea0cce50ff0d"
+```python id="ru5RJiG4vYDq" colab={"base_uri": "https://localhost:8080/", "height": 319} outputId="4a0ddf49-3389-4ce8-be95-75777e453dcf"
 import networkx as nx
 G = nx.Graph([(0, 1), (0, 2), (0, 3), (0, 4), (1, 2), (2, 3), (2, 4)])
 nx.draw(G, with_labels=True, node_size = 1000, font_color = "White", node_color="darkorange")
@@ -160,7 +160,7 @@ def is_eulerian(G):
     return(all(d % 2 == 0 for v, d in G.degree()) and nx.is_connected(G))
 ```
 
-```python colab={"base_uri": "https://localhost:8080/"} id="XDBRq3dOkzuR" outputId="12677788-f13c-4dfb-c946-6cbbe4db1f80"
+```python colab={"base_uri": "https://localhost:8080/"} id="XDBRq3dOkzuR" outputId="86a18e3e-8571-4b39-b880-007b2cbfb055"
 is_eulerian(G)
 ```
 
@@ -196,7 +196,7 @@ while vertex_stack:
         G.remove_edge(current_vertex, next_vertex)
 ```
 
-```python id="BJ1xpyfNymtk" colab={"base_uri": "https://localhost:8080/"} outputId="b7655872-daff-4062-a0fe-fa89960ff0c4"
+```python id="BJ1xpyfNymtk" colab={"base_uri": "https://localhost:8080/"} outputId="5d6d9ef9-cb94-4658-d043-1e3134be6bfc"
 print("-> ".join(list(map(str,circuit))))
 ```
 
@@ -270,25 +270,12 @@ def is_semieulerian(G):
     return has_eulerian_path(G) and not is_eulerian(G)
 ```
 
-<!-- #region id="0jOxK66Mf1vM" -->
-We can conclude this section with an example. Do you expect a wheel graph to have an Eulerian Path?
+<!-- #region id="bbEltyC4AnQU" -->
+### **3. Examples**
 <!-- #endregion -->
-
-```python id="kShgKhEAf4mW" colab={"base_uri": "https://localhost:8080/", "height": 319} outputId="bd051638-51d5-4d10-a4a1-740ee45a2257"
-W = nx.wheel_graph(6)
-nx.draw(W, with_labels=True, node_size=1000, font_color="White", node_color="green")
-```
-
-<!-- #region id="-dbWvioLhbQp" -->
-The trivial answer is No! All nodes except for the one in the center have exactly 3 edges in the wheel graph. Thus, it cannot have an Eulerian Path.
-<!-- #endregion -->
-
-```python id="xgbuthHLhImO" colab={"base_uri": "https://localhost:8080/"} outputId="985d7b06-ade5-4988-a328-b424837625ec"
-nx.has_eulerian_path(W)
-```
 
 <!-- #region id="tggzhS3hmRAQ" -->
-Let's also call our methods on the Seven Bridges problem. For this, we first need to create the graph properly.
+Let's call the methods above on the Seven Bridges problem. For this, we first need to create the graph properly.
 <!-- #endregion -->
 
 ```python colab={"base_uri": "https://localhost:8080/", "height": 248} id="zhneg9qMmnyL" outputId="8cd62fff-4dd8-4397-9d18-1f0e4c60f760"
@@ -325,6 +312,23 @@ nx.is_eulerian(G)
 
 ```python colab={"base_uri": "https://localhost:8080/"} id="-YRjgbAHrzNM" outputId="ee645c9e-985b-4240-d2f9-1682842dd488"
 nx.has_eulerian_path(G)
+```
+
+<!-- #region id="0jOxK66Mf1vM" -->
+We can conclude this section with another example. Do you expect a wheel graph to have an Eulerian Path?
+<!-- #endregion -->
+
+```python id="kShgKhEAf4mW" colab={"base_uri": "https://localhost:8080/", "height": 319} outputId="bd051638-51d5-4d10-a4a1-740ee45a2257"
+W = nx.wheel_graph(6)
+nx.draw(W, with_labels=True, node_size=1000, font_color="White", node_color="green")
+```
+
+<!-- #region id="-dbWvioLhbQp" -->
+The trivial answer is No! All nodes except for the one in the center have exactly 3 edges in the wheel graph. Thus, it cannot have an Eulerian Path.
+<!-- #endregion -->
+
+```python id="xgbuthHLhImO" colab={"base_uri": "https://localhost:8080/"} outputId="985d7b06-ade5-4988-a328-b424837625ec"
+nx.has_eulerian_path(W)
 ```
 
 <!-- #region id="UYsaFBwoPotR" -->
