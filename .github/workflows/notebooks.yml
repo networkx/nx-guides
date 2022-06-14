@@ -51,4 +51,4 @@ jobs:
     - name: Test with nbval
       run: |
         pip install pytest
-        pytest --nbval-lax content/
+        pytest --nbval-lax --durations=25 content/
