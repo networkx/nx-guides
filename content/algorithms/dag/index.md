@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.11.1
+    jupytext_version: 1.13.8
 kernelspec:
   display_name: Python 3
   language: python
@@ -44,7 +44,8 @@ triangle_graph = nx.from_edgelist([(1, 2), (2, 3), (3, 1)], create_using=nx.DiGr
 ```
 
 ```{code-cell} ipython3
-nx.draw_planar(triangle_graph,
+nx.draw_planar(
+    triangle_graph,
     with_labels=True,
     node_size=1000,
     node_color="#ffff8f",
@@ -75,7 +76,8 @@ clothing_graph = nx.read_graphml(f"data/clothing_graph.graphml")
 ```{code-cell} ipython3
 plt.figure(figsize=(12, 12), dpi=150)
 
-nx.draw_planar(clothing_graph,
+nx.draw_planar(
+    clothing_graph,
     arrowsize=12,
     with_labels=True,
     node_size=8000,
