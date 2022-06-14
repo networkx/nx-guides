@@ -11,13 +11,13 @@ kernelspec:
   name: python3
 ---
 
-# **Euler's Algorithm**
+# Euler's Algorithm
 
 +++
 
 In this tutorial, we will explore the Euler's algorithm and its implementation in NetworkX under `networkx/algorithms/euler.py`.
 
-## **Seven Bridges of Königsberg**
+## Seven Bridges of Königsberg
 
 What you are seeing below is the beautiful old town of Königsberg which is famous for its seven bridges. Each of these bridges either connect two large islands—Kneiphof and Lomse or two mainland portions of the city.
 
@@ -31,7 +31,7 @@ What gave the town its fame is a question that was asked to mathematician Leonha
 
 Euler's negative resolution to this question laid the foundations of graph theory. Before diving into Euler's solution, let's reformulate the problem.
 
-### **Reformulating the Problem in Abstract Terms**
+### Reformulating the Problem in Abstract Terms
 
 In order to have a clear look, we should first simplify the map a little.
 
@@ -49,7 +49,7 @@ If you can, it means there is an ***Euler Path*** in the graph. If this path sta
 
 Note that every Euler Circuit is also an Euler Path.
 
-### **Euler's Method**
+### Euler's Method
 
 Euler denoted land masses of the town by capital letters $A$, $B$, $C$ and $D$ and bridges by lowercase $a$, $b$, $c$, $d$, $e$, $f$ and $g$.
 
@@ -70,7 +70,7 @@ He also stated the fact that number of appearences of each land mass in the rout
 
 It is obvious that we cannot satisfy both of these conditions at the same time. Therefore, Euler concluded that there is no solution to Seven Bridges of Königsberg problem (I.e. Königsberg does not have an Euler Path). 
 
-### **Generalizing Euler's Solution**
+### Generalizing Euler's Solution
 
 Euler generalized the method he applied for Königsberg problem as follows:
 
@@ -79,7 +79,7 @@ Euler generalized the method he applied for Königsberg problem as follows:
 - If there are two vertices with odd degree, then they are the starting and ending vertices.
 - If there are no vertices with odd degree, any vertex can be starting or ending vertex and the graph has also an Euler Circuit.
 
-## **NetworkX Implementation of Euler's Algorithm**
+## NetworkX Implementation of Euler's Algorithm
 
 NetworkX implemented several methods using the Euler's algorithm. These are:
 - **is_eulerian**      : Whether the graph has an Eulerian circuit
@@ -93,7 +93,7 @@ In this part, we will briefly explain the NetworkX implementation of Euler's alg
 
 **Note**: NetworkX implementation does not allow graphs with isolated nodes to have Eulerian Path and/or Eulerian Circuit. Thus, an Eulerian Path or Eulerian Circuit must visit not only all edges but also all vertices of the graph.
 
-### **1. Eulerian Circuit Implementation**
+### 1. Eulerian Circuit Implementation
 
 Implementation of `is_eulerian` method is quite simple. In order to have an Euler circuit (i.e. to be Eulerian):
 - A directed graph must be strongly connected and every vertex of it must have equal in degree and out degree.
@@ -157,7 +157,7 @@ while vertex_stack:
 print("-> ".join(list(map(str,circuit))))
 ```
 
-### **2. Eulerian Path Implementation**
+### 2. Eulerian Path Implementation
 
 Networkx implementation of `has_eulerian_path` first checks if the graph `is_eulerian` or not. Remember that if a graph is Eulerian (i.e. has Euler Circuit), then it also has Eulerian Path.
 
@@ -219,7 +219,7 @@ def is_semieulerian(G):
     return has_eulerian_path(G) and not is_eulerian(G)
 ```
 
-### **3. Examples**
+### 3. Examples
 
 Let's call the methods above on the Seven Bridges problem. For this, we first need to create the graph properly.
 
@@ -270,13 +270,13 @@ The trivial answer is No! All nodes except for the one in the center have exactl
 nx.has_eulerian_path(W)
 ```
 
-## **Euler is everywhere!**
+## Euler is everywhere!
 
 Euler's algorithm is essential for anyone or anything that uses paths. Some examples of its real applications:
 - To solve many complex problems, like the Konigsberg Seven Bridges Problem explained above.
 - Mail carriers can use Eulerian Paths to have a route where they don’t have to retrace their previous steps.
 - Useful for painters, garbage collections, airplane pilots, GPS developers (*e.g. Google Maps developers*).
 
-# **References**
+# References
 
 Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.
