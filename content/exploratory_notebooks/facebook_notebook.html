@@ -38,6 +38,8 @@
     <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="prev" title="Sudoku and Graph coloring" href="../generators/sudoku.html" />
@@ -544,14 +546,14 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="facebook-network-analysis">
+  <section class="tex2jax_ignore mathjax_ignore" id="facebook-network-analysis">
 <h1>Facebook Network Analysis<a class="headerlink" href="#facebook-network-analysis" title="Permalink to this headline">#</a></h1>
 <p>This notebook contains a social network analysis mainly executed with the library of NetworkX. In detail, the facebook circles (friends lists) of ten people will be examined and scrutinized in order to extract all kinds of valuable information. The dataset can be found in the <a class="reference external" href="http://snap.stanford.edu/data/ego-Facebook.html">stanford website</a>. Moreover, as known, a facebook network is undirected and has no weights because one user can become friends with another user just once. Looking at the dataset from a graph analysis perspective:</p>
 <ul class="simple">
 <li><p>Each node represents an anonymized facebook user that belongs to one of those ten friends lists.</p></li>
 <li><p>Each edge corresponds to the friendship of two facebook users that belong to this network. In other words, two users must become friends on facebook in order for them to be connected in the particular network.</p></li>
 </ul>
-<p>Note: Nodes $0, 107, 348, 414, 686, 698, 1684, 1912, 3437, 3980$ are the ones whose friends list will be examined. That means that they are in the spotlight of this analysis. Those nodes are considered the <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">nodes</span></code></p>
+<p>Note: Nodes <span class="math notranslate nohighlight">\(0, 107, 348, 414, 686, 698, 1684, 1912, 3437, 3980\)</span> are the ones whose friends list will be examined. That means that they are in the spotlight of this analysis. Those nodes are considered the <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">nodes</span></code></p>
 <ul class="simple">
 <li><p>Now, the necessary libraries are imported</p></li>
 </ul>
@@ -694,7 +696,7 @@ functions.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/e2ede90e36d3c38fee24bbc7e765fc41e4d7a02924f3d9100c3f151dfad14023.png" src="../../_images/e2ede90e36d3c38fee24bbc7e765fc41e4d7a02924f3d9100c3f151dfad14023.png" />
+<img alt="../../_images/74a8cbbb51a7a1babafeaebff0cba98b80e32d17edcf2b5da0c77c2bd36e7111.png" src="../../_images/74a8cbbb51a7a1babafeaebff0cba98b80e32d17edcf2b5da0c77c2bd36e7111.png" />
 </div>
 </div>
 <p>The resulting image is… not very useful. Graph visualizations of this kind
@@ -905,10 +907,10 @@ lengths from our pre-computed dict-of-dicts:</p>
 <img alt="../../_images/d68e3e6e8b6a0adb8f351d9ef06a8c212a3708187ca2e02e44df5bb6bf4908a3.png" src="../../_images/d68e3e6e8b6a0adb8f351d9ef06a8c212a3708187ca2e02e44df5bb6bf4908a3.png" />
 </div>
 </div>
-<p>The majority of the shortest path lengths are from $2$ to $5$ edges long.
-Also, it’s highly unlikely for a pair of nodes to have a shortest path of length 8 (diameter length) as the likelihood is less than $0.1$%.</p>
+<p>The majority of the shortest path lengths are from <span class="math notranslate nohighlight">\(2\)</span> to <span class="math notranslate nohighlight">\(5\)</span> edges long.
+Also, it’s highly unlikely for a pair of nodes to have a shortest path of length 8 (diameter length) as the likelihood is less than <span class="math notranslate nohighlight">\(0.1\)</span>%.</p>
 <ul class="simple">
-<li><p>The graph’s density is calculated here. Clearly, the graph is a very sparse one as: $density &lt; 1$</p></li>
+<li><p>The graph’s density is calculated here. Clearly, the graph is a very sparse one as: <span class="math notranslate nohighlight">\(density &lt; 1\)</span></p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -969,7 +971,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 </div>
-<p>That means that node $107$ has the highest degree centrality with $0.259$, meaning that this facebook user is friends with around the 26% of the whole network. Similarly, nodes $1684, 1912, 3437$ and $0$ also have very high degree centralities. However, that is well expected as those nodes are the ones whose facebook circles we examine. Very interesting is the fact that the nodes $2543, 2347, 1888$ have some of the top 8 highest degree centralities even though we do not investigate their circles. In other words, those three nodes are very popular among the circles we examine now, meaning they have the most facebook friends inside this network apart from the spotlight nodes.</p>
+<p>That means that node <span class="math notranslate nohighlight">\(107\)</span> has the highest degree centrality with <span class="math notranslate nohighlight">\(0.259\)</span>, meaning that this facebook user is friends with around the 26% of the whole network. Similarly, nodes <span class="math notranslate nohighlight">\(1684, 1912, 3437\)</span> and <span class="math notranslate nohighlight">\(0\)</span> also have very high degree centralities. However, that is well expected as those nodes are the ones whose facebook circles we examine. Very interesting is the fact that the nodes <span class="math notranslate nohighlight">\(2543, 2347, 1888\)</span> have some of the top 8 highest degree centralities even though we do not investigate their circles. In other words, those three nodes are very popular among the circles we examine now, meaning they have the most facebook friends inside this network apart from the spotlight nodes.</p>
 <ul class="simple">
 <li><p>Now we can also see the number of neighbors for the nodes with the highest degree centralities:</p></li>
 </ul>
@@ -992,7 +994,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 </div>
-<p>As expected, node $107$ has $1045$ facebook friends which is the most any facebook user has in this analysis. Moreover, nodes $1684$ and $1912$ have more than $750$ facebook friends in this network. Also, nodes $3437$ and $0$ have the following highest number of facebook friends in this network with $547$ and $347$ respectively. Lastly, the two most popular friends of spotlight nodes have around $290$ facebook friends in this network.</p>
+<p>As expected, node <span class="math notranslate nohighlight">\(107\)</span> has <span class="math notranslate nohighlight">\(1045\)</span> facebook friends which is the most any facebook user has in this analysis. Moreover, nodes <span class="math notranslate nohighlight">\(1684\)</span> and <span class="math notranslate nohighlight">\(1912\)</span> have more than <span class="math notranslate nohighlight">\(750\)</span> facebook friends in this network. Also, nodes <span class="math notranslate nohighlight">\(3437\)</span> and <span class="math notranslate nohighlight">\(0\)</span> have the following highest number of facebook friends in this network with <span class="math notranslate nohighlight">\(547\)</span> and <span class="math notranslate nohighlight">\(347\)</span> respectively. Lastly, the two most popular friends of spotlight nodes have around <span class="math notranslate nohighlight">\(290\)</span> facebook friends in this network.</p>
 <p>Now the distribution of degree centralities will be plotted:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1012,7 +1014,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <img alt="../../_images/c4c71631e49b2d92b73ba176b2d10eb160a21834b9ef935537c169bd01767a96.png" src="../../_images/c4c71631e49b2d92b73ba176b2d10eb160a21834b9ef935537c169bd01767a96.png" />
 </div>
 </div>
-<p>It is visible that the vast majority of facebook users have degree centralities of less than $0.05$. In fact the majority has less than $0.0125$. Actually, that makes sense because the network consists of friends lists of particular nodes, which are obviously the ones with the highest degree centralities. In other words, because only the friends list of particular nodes were used to create this particular network, plenty of nodes have extremely low degree centralities as they are not very interconnected in this network</p>
+<p>It is visible that the vast majority of facebook users have degree centralities of less than <span class="math notranslate nohighlight">\(0.05\)</span>. In fact the majority has less than <span class="math notranslate nohighlight">\(0.0125\)</span>. Actually, that makes sense because the network consists of friends lists of particular nodes, which are obviously the ones with the highest degree centralities. In other words, because only the friends list of particular nodes were used to create this particular network, plenty of nodes have extremely low degree centralities as they are not very interconnected in this network</p>
 <p>Now let’s check the users with highest degree centralities from the size of their nodes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1038,9 +1040,9 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </section>
 <section id="betweenness-centrality">
 <h3>Betweenness Centrality<a class="headerlink" href="#betweenness-centrality" title="Permalink to this headline">#</a></h3>
-<p>Betweenness centrality measures the number of times a node lies on the shortest path between other nodes, meaning it acts as a bridge. In detail, betweenness centrality of a node $v$ is the percentage of all the shortest paths of any two nodes (apart from $v$), which pass through $v$. Specifically, in the facebook graph this measure is associated with the user’s ability to influence others. A user with a high betweenness centrality acts as a bridge to many users that are not friends and thus has the ability to influence them by conveying information (e.g. by posting something or sharing a post) or even connect them via the user’s circle (which would reduce the user’s betweeness centrality after).</p>
+<p>Betweenness centrality measures the number of times a node lies on the shortest path between other nodes, meaning it acts as a bridge. In detail, betweenness centrality of a node <span class="math notranslate nohighlight">\(v\)</span> is the percentage of all the shortest paths of any two nodes (apart from <span class="math notranslate nohighlight">\(v\)</span>), which pass through <span class="math notranslate nohighlight">\(v\)</span>. Specifically, in the facebook graph this measure is associated with the user’s ability to influence others. A user with a high betweenness centrality acts as a bridge to many users that are not friends and thus has the ability to influence them by conveying information (e.g. by posting something or sharing a post) or even connect them via the user’s circle (which would reduce the user’s betweeness centrality after).</p>
 <ul class="simple">
-<li><p>Now, the nodes with the $8$ highest betweenness centralities will be calculated and shown with their centrality values:</p></li>
+<li><p>Now, the nodes with the <span class="math notranslate nohighlight">\(8\)</span> highest betweenness centralities will be calculated and shown with their centrality values:</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1064,11 +1066,11 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 </div>
-<p>Looking at the results, the node $107$ has a betweenness centrality of $0.48$, meaning it lies on almost half of the total shortest paths between other nodes. Also, combining the knowledge of the degree centrality:</p>
+<p>Looking at the results, the node <span class="math notranslate nohighlight">\(107\)</span> has a betweenness centrality of <span class="math notranslate nohighlight">\(0.48\)</span>, meaning it lies on almost half of the total shortest paths between other nodes. Also, combining the knowledge of the degree centrality:</p>
 <ul class="simple">
-<li><p>Nodes $0, 107, 1684, 1912, 3437$ have both the highest degree and betweenness centralities and are <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">nodes</span></code>. That indicates that those nodes are both the most popular ones in this network and can also influence and spread information in the network. However, those are some of the nodes whose friends list consist the network and as a result it is an expected finding.</p></li>
-<li><p>Nodes $567, 1085$ are not spotlight nodes, have some of the highest betweenness centralities and have not the highest degree centralities. That means that even though those nodes are not the most popular users in the network, they have the most influence in this network among friends of spotlight nodes when it comes to spreading information.</p></li>
-<li><p>Node $698$ is a <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">node</span></code> and has a very high betweenness centrality even though it has not the highest degree centralities. In other words, this node does not have a very large friends list on facebook. However, the user’s whole friend list is a part of the network and thus the user could connect different circles in this network by being the middleman.</p></li>
+<li><p>Nodes <span class="math notranslate nohighlight">\(0, 107, 1684, 1912, 3437\)</span> have both the highest degree and betweenness centralities and are <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">nodes</span></code>. That indicates that those nodes are both the most popular ones in this network and can also influence and spread information in the network. However, those are some of the nodes whose friends list consist the network and as a result it is an expected finding.</p></li>
+<li><p>Nodes <span class="math notranslate nohighlight">\(567, 1085\)</span> are not spotlight nodes, have some of the highest betweenness centralities and have not the highest degree centralities. That means that even though those nodes are not the most popular users in the network, they have the most influence in this network among friends of spotlight nodes when it comes to spreading information.</p></li>
+<li><p>Node <span class="math notranslate nohighlight">\(698\)</span> is a <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">node</span></code> and has a very high betweenness centrality even though it has not the highest degree centralities. In other words, this node does not have a very large friends list on facebook. However, the user’s whole friend list is a part of the network and thus the user could connect different circles in this network by being the middleman.</p></li>
 </ul>
 <p>Moving on, the distribution of betweenness centralities will be plotted:</p>
 <div class="cell docutils container">
@@ -1089,7 +1091,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <img alt="../../_images/7b9bed5cb1bf214e42b946f85c084b5d068e7b2c9fe91393ce6bc60331963aea.png" src="../../_images/7b9bed5cb1bf214e42b946f85c084b5d068e7b2c9fe91393ce6bc60331963aea.png" />
 </div>
 </div>
-<p>As we can see, the vast majority of betweenness centralities is below $0.01$. That makes sense as the graph is very sparse and thus most nodes do not act as bridges in shortest paths. However, that also results in some nodes having extremely high betweenness centralities as for example node $107$ with $0.48$ and node $1684$ with $0.34$ betweenness centrality.</p>
+<p>As we can see, the vast majority of betweenness centralities is below <span class="math notranslate nohighlight">\(0.01\)</span>. That makes sense as the graph is very sparse and thus most nodes do not act as bridges in shortest paths. However, that also results in some nodes having extremely high betweenness centralities as for example node <span class="math notranslate nohighlight">\(107\)</span> with <span class="math notranslate nohighlight">\(0.48\)</span> and node <span class="math notranslate nohighlight">\(1684\)</span> with <span class="math notranslate nohighlight">\(0.34\)</span> betweenness centrality.</p>
 <p>We can also get an image on the nodes with the highest betweenness centralities and where they are located in the network. It is clear that they are the bridges from one community to another:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1115,7 +1117,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </section>
 <section id="closeness-centrality">
 <h3>Closeness Centrality<a class="headerlink" href="#closeness-centrality" title="Permalink to this headline">#</a></h3>
-<p>Closeness centrality scores each node based on their ‘closeness’ to all other nodes in the network. For a node $v$, its closeness centrality measures the average farness to all other nodes. In other words, the higher the closeness centrality of $v$, the closer it is located to the center of the network.</p>
+<p>Closeness centrality scores each node based on their ‘closeness’ to all other nodes in the network. For a node <span class="math notranslate nohighlight">\(v\)</span>, its closeness centrality measures the average farness to all other nodes. In other words, the higher the closeness centrality of <span class="math notranslate nohighlight">\(v\)</span>, the closer it is located to the center of the network.</p>
 <p>The closeness centrality measure is very important for the monitoring of the spread of false information (e.g. fake news) or viruses (e.g. malicious links that gain control of the facebook account in this case). Let’s examine the example of fake news. If the user with the highest closeness centrality measure started spreading some fake news information (sharing or creating a post), the whole network would get missinformed the quickest possible. However, if a user with very low closeness centrality would try the same, the spread of the missinformation to the whole network would be much slower. That is because the false information would have to firstly reach a user with high closeness centrality that would spread it to many different parts of the network.</p>
 <ul class="simple">
 <li><p>The nodes with the highest closeness centralities will be found now:</p></li>
@@ -1142,9 +1144,10 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 </div>
-<p>Inspecting the users with the highest closeness centralities, we understand that there is not a huge gap between them in contrast to the previous metrics. Also, the nodes $107, 1684, 348$ are the only <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">nodes</span></code> found in the ones with the highest closeness centralities. That means that a node that has many friends is not necessary close to the center of the network.</p>
-<p>Also, the average distance of a particular node $v$ to any other node can be found easily with the formula:</p>
-<p>$$\frac{1}{closeness,centrality(v)}$$</p>
+<p>Inspecting the users with the highest closeness centralities, we understand that there is not a huge gap between them in contrast to the previous metrics. Also, the nodes <span class="math notranslate nohighlight">\(107, 1684, 348\)</span> are the only <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">nodes</span></code> found in the ones with the highest closeness centralities. That means that a node that has many friends is not necessary close to the center of the network.</p>
+<p>Also, the average distance of a particular node <span class="math notranslate nohighlight">\(v\)</span> to any other node can be found easily with the formula:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{closeness\,centrality(v)}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">/</span> <span class="n">closeness_centrality</span><span class="p">[</span><span class="mi">107</span><span class="p">]</span>
@@ -1157,7 +1160,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 </div>
-<p>The distance from node $107$ to a random node is around two hops</p>
+<p>The distance from node <span class="math notranslate nohighlight">\(107\)</span> to a random node is around two hops</p>
 <p>Furthermore, the distribution of the closeness centralities:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1176,7 +1179,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <img alt="../../_images/8e2dff6434d05ca83cc6b467532e2512e268d51fcf5072b16a6065044b09c8a3.png" src="../../_images/8e2dff6434d05ca83cc6b467532e2512e268d51fcf5072b16a6065044b09c8a3.png" />
 </div>
 </div>
-<p>The closeness centralities are distributed over various values from $0.17$ to $0.46$. In fact, the majority of them are found between $0.25$ and $0.3$. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:</p>
+<p>The closeness centralities are distributed over various values from <span class="math notranslate nohighlight">\(0.17\)</span> to <span class="math notranslate nohighlight">\(0.46\)</span>. In fact, the majority of them are found between <span class="math notranslate nohighlight">\(0.25\)</span> and <span class="math notranslate nohighlight">\(0.3\)</span>. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span> <span class="p">[</span>
@@ -1231,10 +1234,10 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 <p>Checking the results:</p>
 <ul class="simple">
-<li><p>Node $1912$ has the highest eigenvector centrality with $0.095$. This node is also a <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">node</span></code> and can surely be considered the most important node in this network in terms of overall influence to the whole network. In fact, this node also has some of the highest degree centralities and  betweenness centralities, making the user very popular and influencious to other nodes.</p></li>
-<li><p>Nodes $1993, 2078, 2206, 2123, 2142, 2218, 2233, 2266, 2464$, even though they are not spotlight nodes, have some of the highest eigenvector centralities with around $0.83-0.87$. Very interesting is the fact that all those nodes are identified for the first time, meaning they have neither the heighest degree, betweenness or closeness centralities in this graph. That leads to the conclusion that those nodes are very likely to be connected to the node $1912$ and as a result have very high eigenvector centralities.</p></li>
+<li><p>Node <span class="math notranslate nohighlight">\(1912\)</span> has the highest eigenvector centrality with <span class="math notranslate nohighlight">\(0.095\)</span>. This node is also a <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">node</span></code> and can surely be considered the most important node in this network in terms of overall influence to the whole network. In fact, this node also has some of the highest degree centralities and  betweenness centralities, making the user very popular and influencious to other nodes.</p></li>
+<li><p>Nodes <span class="math notranslate nohighlight">\(1993, 2078, 2206, 2123, 2142, 2218, 2233, 2266, 2464\)</span>, even though they are not spotlight nodes, have some of the highest eigenvector centralities with around <span class="math notranslate nohighlight">\(0.83-0.87\)</span>. Very interesting is the fact that all those nodes are identified for the first time, meaning they have neither the heighest degree, betweenness or closeness centralities in this graph. That leads to the conclusion that those nodes are very likely to be connected to the node <span class="math notranslate nohighlight">\(1912\)</span> and as a result have very high eigenvector centralities.</p></li>
 </ul>
-<p>Checking if those nodes are connected to the most important node $1912$, the hypothesis is correct:</p>
+<p>Checking if those nodes are connected to the most important node <span class="math notranslate nohighlight">\(1912\)</span>, the hypothesis is correct:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">high_eigenvector_centralities</span> <span class="o">=</span> <span class="p">(</span>
@@ -1277,7 +1280,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <img alt="../../_images/ddac126137ef235604bcd34cafe7e0cee573dbfffa1f2c4e73d6e560140ffb1d.png" src="../../_images/ddac126137ef235604bcd34cafe7e0cee573dbfffa1f2c4e73d6e560140ffb1d.png" />
 </div>
 </div>
-<p>As shown in the distribution histogram, the vast majority of eigenvector centralities are below $0.005$ and are actually almost $0$. However, we can also see different values of eigenvector centralities as there are tiny bins all over the x axis.</p>
+<p>As shown in the distribution histogram, the vast majority of eigenvector centralities are below <span class="math notranslate nohighlight">\(0.005\)</span> and are actually almost <span class="math notranslate nohighlight">\(0\)</span>. However, we can also see different values of eigenvector centralities as there are tiny bins all over the x axis.</p>
 <p>Now we can identify the eigenvector centralities of nodes based on their size in the following representation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1304,7 +1307,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </section>
 <section id="clustering-effects">
 <h2>Clustering Effects<a class="headerlink" href="#clustering-effects" title="Permalink to this headline">#</a></h2>
-<p>The clustering coefficient of a node $v$ is defined as the probability that two randomly selected friends of $v$ are friends with each other. As a result, the average clustering coefficient is the average of clustering coefficients of all the nodes. The closer the average clustering coefficient is to $1$, the more complete the graph will be because there’s just one giant component. Lastly, it is a sign of triadic closure because the more complete the graph is, the more triangles will usually arise.</p>
+<p>The clustering coefficient of a node <span class="math notranslate nohighlight">\(v\)</span> is defined as the probability that two randomly selected friends of <span class="math notranslate nohighlight">\(v\)</span> are friends with each other. As a result, the average clustering coefficient is the average of clustering coefficients of all the nodes. The closer the average clustering coefficient is to <span class="math notranslate nohighlight">\(1\)</span>, the more complete the graph will be because there’s just one giant component. Lastly, it is a sign of triadic closure because the more complete the graph is, the more triangles will usually arise.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
@@ -1335,7 +1338,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <img alt="../../_images/24d9ef65144d229d1081ab2089d5f4811af8ae60b46e3946f8670a178cc3c0b0.png" src="../../_images/24d9ef65144d229d1081ab2089d5f4811af8ae60b46e3946f8670a178cc3c0b0.png" />
 </div>
 </div>
-<p>$50$ bins were used to showcase the distribution. The bin with the highest counts concerns nodes with clustering coefficient close to $1$ as there are more than two-hundred-fifty nodes in that bin. In addition, the bins of clustering coefficient between $0.4$ and $0.8$ contain the majority of nodes by far.</p>
+<p><span class="math notranslate nohighlight">\(50\)</span> bins were used to showcase the distribution. The bin with the highest counts concerns nodes with clustering coefficient close to <span class="math notranslate nohighlight">\(1\)</span> as there are more than two-hundred-fifty nodes in that bin. In addition, the bins of clustering coefficient between <span class="math notranslate nohighlight">\(0.4\)</span> and <span class="math notranslate nohighlight">\(0.8\)</span> contain the majority of nodes by far.</p>
 <p>The number of unique triangles in the network are found next:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1378,9 +1381,9 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 </div>
-<p>In fact, the median value is just $161$ triangles, when the mean is around $1197$ triangles that a node is part of. That means that the majority of nodes of the network belong to extremely few triangles, whereas some nodes are part of a plethora of triangles (which are extreme values that increase the mean)</p>
-<p>In conclusion, the high average clustering coefficient together with the huge number of triangles are signs of the triadic closure. In detail, the triadic closure means that as time goes on, new edges tend to form between two users that have one or more mutual friends. That can be explained by the fact that Facebook usually suggests new friends to a user when there are many mutual friends between the user and the new friend to be added. Also, there is a source of latent stress. For example, if node $A$ is friends with
-node $B$ and $C$,  some tension builds up if $B$ and $C$ are not friends with each other.</p>
+<p>In fact, the median value is just <span class="math notranslate nohighlight">\(161\)</span> triangles, when the mean is around <span class="math notranslate nohighlight">\(1197\)</span> triangles that a node is part of. That means that the majority of nodes of the network belong to extremely few triangles, whereas some nodes are part of a plethora of triangles (which are extreme values that increase the mean)</p>
+<p>In conclusion, the high average clustering coefficient together with the huge number of triangles are signs of the triadic closure. In detail, the triadic closure means that as time goes on, new edges tend to form between two users that have one or more mutual friends. That can be explained by the fact that Facebook usually suggests new friends to a user when there are many mutual friends between the user and the new friend to be added. Also, there is a source of latent stress. For example, if node <span class="math notranslate nohighlight">\(A\)</span> is friends with
+node <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span>,  some tension builds up if <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span> are not friends with each other.</p>
 </section>
 <section id="bridges">
 <h2>Bridges<a class="headerlink" href="#bridges" title="Permalink to this headline">#</a></h2>
@@ -1412,8 +1415,8 @@ node $B$ and $C$,  some tension builds up if $B$ and $C$ are not friends with ea
 </div>
 </div>
 <p>The existence of so many bridges is due to the fact that this network only contains the spotlight nodes and the friends of them. As a result, some friends of spotlight nodes are only connected to a spotlight node, making that edge a bridge.</p>
-<p>Also, the edges that are local bridges are saved in a list and their number is printed. In detaill, an edge joining two nodes $C$ and $D$
-in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in common. Very importantly, an edge that is a bridge is also a local bridge. Thus, this list contains all the above bridges as well:</p>
+<p>Also, the edges that are local bridges are saved in a list and their number is printed. In detaill, an edge joining two nodes <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(D\)</span>
+in a graph is a local bridge, if its endpoints <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(D\)</span> have no friends in common. Very importantly, an edge that is a bridge is also a local bridge. Thus, this list contains all the above bridges as well:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">local_bridges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">local_bridges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_span</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
@@ -1429,7 +1432,7 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 </div>
 <p>Showcasing the bridges and local bridges in the network now. The bridges can be seen with the red color and the local bridges with the green color. Black edges are neither local bridges nor bridges.</p>
 <ul class="simple">
-<li><p>It is clear that all the bridges concern nodes that are only connected to a spotlight node (have a degree of $1$)</p></li>
+<li><p>It is clear that all the bridges concern nodes that are only connected to a spotlight node (have a degree of <span class="math notranslate nohighlight">\(1\)</span>)</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1488,8 +1491,8 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 </div>
 </div>
 </div>
-<p>In fact, the assortativity coefficient is the Pearson correlation coefficient of degree between pairs of linked nodes. That means that it takes values from $-1$ to $1$. In detail, a positive assortativity coefficient indicates a correlation between nodes of similar degree, while a negative indicates correlation between nodes of different degrees.</p>
-<p>In our case the assortativity coefficient is around $0.064$, which is almost 0. That means that the network is almost non-assortative, and we cannot correlate linked nodes based on their degrees. In other words, we can not draw conclusions on the number of friends of a user from his/her friends’ number of friends (friends degree). That makes sense since we only use the friends list of spotlight nodes, non spotlight nodes will tend to have much fewer friends.</p>
+<p>In fact, the assortativity coefficient is the Pearson correlation coefficient of degree between pairs of linked nodes. That means that it takes values from <span class="math notranslate nohighlight">\(-1\)</span> to <span class="math notranslate nohighlight">\(1\)</span>. In detail, a positive assortativity coefficient indicates a correlation between nodes of similar degree, while a negative indicates correlation between nodes of different degrees.</p>
+<p>In our case the assortativity coefficient is around <span class="math notranslate nohighlight">\(0.064\)</span>, which is almost 0. That means that the network is almost non-assortative, and we cannot correlate linked nodes based on their degrees. In other words, we can not draw conclusions on the number of friends of a user from his/her friends’ number of friends (friends degree). That makes sense since we only use the friends list of spotlight nodes, non spotlight nodes will tend to have much fewer friends.</p>
 </section>
 <section id="network-communities">
 <h2>Network Communities<a class="headerlink" href="#network-communities" title="Permalink to this headline">#</a></h2>
@@ -1519,7 +1522,7 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 </div>
 </div>
 </div>
-<p>In detail, $44$ communities were detected. Now the communities are showcased in the graph. Each community is depicted with a different color and its nodes are usually located close to each other:</p>
+<p>In detail, <span class="math notranslate nohighlight">\(44\)</span> communities were detected. Now the communities are showcased in the graph. Each community is depicted with a different color and its nodes are usually located close to each other:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
@@ -1531,13 +1534,13 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/78592244a5d660d228e62b2c08b6c36c873df75aca6a9ab590f90ce6cd901b23.png" src="../../_images/78592244a5d660d228e62b2c08b6c36c873df75aca6a9ab590f90ce6cd901b23.png" />
+<img alt="../../_images/5bb56c384f57af8af94c64a4142adeb2b84d8960036c1d9ce61f208a763b418d.png" src="../../_images/5bb56c384f57af8af94c64a4142adeb2b84d8960036c1d9ce61f208a763b418d.png" />
 </div>
 </div>
 <ul class="simple">
 <li><p>Next, the asynchronous fluid communities algorithm is used.</p></li>
 </ul>
-<p>With this function, we can decide the number of communities to be detected. Let’s say that $8$ communities is the number we want. Again, the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community.</p>
+<p>With this function, we can decide the number of communities to be detected. Let’s say that <span class="math notranslate nohighlight">\(8\)</span> communities is the number we want. Again, the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())]</span>
@@ -1549,7 +1552,7 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 </div>
 </div>
 </div>
-<p>Now the $8$ communities are shown in the graph. Again, each community is depicted with a different color:</p>
+<p>Now the <span class="math notranslate nohighlight">\(8\)</span> communities are shown in the graph. Again, each community is depicted with a different color:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
@@ -1561,7 +1564,7 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/1aa1b8bafd606ffcf2a653d915a8608dcca5a3c57e243b77f02192509ecd9bb6.png" src="../../_images/1aa1b8bafd606ffcf2a653d915a8608dcca5a3c57e243b77f02192509ecd9bb6.png" />
+<img alt="../../_images/d3021a94f1ee3e623f2b8c92c750470cf7775a5b2fb088e69d3a3591035ee945.png" src="../../_images/d3021a94f1ee3e623f2b8c92c750470cf7775a5b2fb088e69d3a3591035ee945.png" />
 </div>
 </div>
 <section id="references">
@@ -1600,7 +1603,7 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
   
     By NetworkX developers<br/>
   
-      &copy; Copyright 2021, NetworkX developers.<br/>
+      &copy; Copyright 2022, NetworkX developers.<br/>
 </p>
         </footer>
     </div>

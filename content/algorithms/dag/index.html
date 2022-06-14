@@ -38,6 +38,8 @@
     <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Dinitz’s algorithm and its applications" href="../flow/dinitz_alg.html" />
@@ -633,7 +635,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="directed-acyclic-graphs-topological-sort">
+  <section class="tex2jax_ignore mathjax_ignore" id="directed-acyclic-graphs-topological-sort">
 <h1>Directed Acyclic Graphs &amp; Topological Sort<a class="headerlink" href="#directed-acyclic-graphs-topological-sort" title="Permalink to this headline">#</a></h1>
 <p>In this tutorial, we will explore the algorithms related to a directed acyclic graph
 (or a “dag” as it is sometimes called) implemented in networkx under <code class="docutils literal notranslate"><span class="pre">networkx/algorithms/dag.py</span></code>.</p>
@@ -717,15 +719,15 @@ You will see this idea in action in the examples below.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/ca573ba58d02fbe90dc45d3539c12c71ed997b17140c7c6e7e1299f0b2650c43.png" src="../../../_images/ca573ba58d02fbe90dc45d3539c12c71ed997b17140c7c6e7e1299f0b2650c43.png" />
+<img alt="../../../_images/015d8fe278f8b503c8ba34a6efdfd6bfedde054df1ece7252eef430d6ccd5011.png" src="../../../_images/015d8fe278f8b503c8ba34a6efdfd6bfedde054df1ece7252eef430d6ccd5011.png" />
 </div>
 </div>
 <p>Here is a fun example of Professor Bumstead,
 who has a routine for getting dressed in the morning.
 By habit, the professor dons certain garments before others (e.g., socks before shoes).
 Other items may be put on in any order (e.g., socks and pants).</p>
-<p>A directed edge $(u, v)$ in the example indicates that garment $u$
-must be donned before garment $v$.</p>
+<p>A directed edge <span class="math notranslate nohighlight">\((u, v)\)</span> in the example indicates that garment <span class="math notranslate nohighlight">\(u\)</span>
+must be donned before garment <span class="math notranslate nohighlight">\(v\)</span>.</p>
 <p>In this example, the <code class="docutils literal notranslate"><span class="pre">clothing_graph</span></code> is a DAG.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -824,8 +826,8 @@ by arranging the vertices as a linear ordering that is consistent with all edge 
 <h3>Applications<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
 <p>The canonical application of topological sorting is in scheduling a sequence of jobs
 or tasks based on their dependencies.
-The jobs are represented by vertices, and there is an edge from $u$ to $v$
-if job $u$ must be completed before job $v$ can be started
+The jobs are represented by vertices, and there is an edge from <span class="math notranslate nohighlight">\(u\)</span> to <span class="math notranslate nohighlight">\(v\)</span>
+if job <span class="math notranslate nohighlight">\(u\)</span> must be completed before job <span class="math notranslate nohighlight">\(v\)</span> can be started
 (for example, when washing clothes, the washing machine must finish before we put the clothes in the dryer).
 Then, a topological sort gives an order in which to perform the jobs.</p>
 <p>A closely related application of topological sorting algorithms
@@ -845,8 +847,8 @@ It is also used to decide in which order to load tables with foreign keys in dat
 </section>
 <section id="id5">
 <h3>Definition<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
-<p>A topological sort of a directed acyclic graph $G = (V, E)$ is a linear ordering of all its vertices
-such that if $G$ contains an edge $(u, v)$, then $u$ appears before $v$ in the ordering.</p>
+<p>A topological sort of a directed acyclic graph <span class="math notranslate nohighlight">\(G = (V, E)\)</span> is a linear ordering of all its vertices
+such that if <span class="math notranslate nohighlight">\(G\)</span> contains an edge <span class="math notranslate nohighlight">\((u, v)\)</span>, then <span class="math notranslate nohighlight">\(u\)</span> appears before <span class="math notranslate nohighlight">\(v\)</span> in the ordering.</p>
 <p>It is worth noting that if the graph contains a cycle, then no linear ordering is possible.</p>
 <p>It is useful to view a topological sort of a graph as an ordering of its vertices
 along a horizontal line so that all directed edges go from left to right.</p>
@@ -1135,7 +1137,7 @@ We need to check this while the <code class="docutils literal notranslate"><span
   
     By NetworkX developers<br/>
   
-      &copy; Copyright 2021, NetworkX developers.<br/>
+      &copy; Copyright 2022, NetworkX developers.<br/>
 </p>
         </footer>
     </div>

@@ -38,6 +38,8 @@
     <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Graph Generators" href="../../generators/index.html" />
@@ -535,7 +537,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="dinitz-s-algorithm-and-its-applications">
+  <section class="tex2jax_ignore mathjax_ignore" id="dinitz-s-algorithm-and-its-applications">
 <h1>Dinitz’s algorithm and its applications<a class="headerlink" href="#dinitz-s-algorithm-and-its-applications" title="Permalink to this headline">#</a></h1>
 <p>In this notebook, we will introduce the <a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_flow_problem">Maximum flow problem</a>
 and <a class="reference external" href="https://en.wikipedia.org/wiki/Dinic%27s_algorithm">Dinitz’s algorithm</a> <a class="footnote-reference brackets" href="#id2" id="id1">1</a>, which is implemented at
@@ -608,10 +610,10 @@ the original data.</p>
 <section id="formalization">
 <h3>Formalization<a class="headerlink" href="#formalization" title="Permalink to this headline">#</a></h3>
 <p>So how can we model this problem in terms of graphs?</p>
-<p>Let’s say $N=(V, E)$ represents this peer-to-peer network with $V$ as the set of nodes
-where nodes are computers and $E$ as the set of edges where edge $uv \in E$ if there is
-a connection from node $u$ to node $v$ across which we can send data. There are also
-2 special nodes, the first one is you (node $s$) and the second one is your friend (node $t$). We also name them the <em><strong>source</strong></em> and <em><strong>sink</strong></em> nodes respectively.</p>
+<p>Let’s say <span class="math notranslate nohighlight">\(N=(V, E)\)</span> represents this peer-to-peer network with <span class="math notranslate nohighlight">\(V\)</span> as the set of nodes
+where nodes are computers and <span class="math notranslate nohighlight">\(E\)</span> as the set of edges where edge <span class="math notranslate nohighlight">\(uv \in E\)</span> if there is
+a connection from node <span class="math notranslate nohighlight">\(u\)</span> to node <span class="math notranslate nohighlight">\(v\)</span> across which we can send data. There are also
+2 special nodes, the first one is you (node <span class="math notranslate nohighlight">\(s\)</span>) and the second one is your friend (node <span class="math notranslate nohighlight">\(t\)</span>). We also name them the <em><strong>source</strong></em> and <em><strong>sink</strong></em> nodes respectively.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -628,8 +630,8 @@ a connection from node $u$ to node $v$ across which we can send data. There are 
 <img alt="../../../_images/3a753f273d9d0d98e7d9a91fbb71ac34b816d73ace952ab4498f06a8d2c36d38.png" src="../../../_images/3a753f273d9d0d98e7d9a91fbb71ac34b816d73ace952ab4498f06a8d2c36d38.png" />
 </div>
 </div>
-<p>Now say that node $u$ and node $v$ are connected and the maximum data per second that
-you can send from node $u$ to node $v$ is $c_{uv}$, lets call this as capacity of the edge $uv$.</p>
+<p>Now say that node <span class="math notranslate nohighlight">\(u\)</span> and node <span class="math notranslate nohighlight">\(v\)</span> are connected and the maximum data per second that
+you can send from node <span class="math notranslate nohighlight">\(u\)</span> to node <span class="math notranslate nohighlight">\(v\)</span> is <span class="math notranslate nohighlight">\(c_{uv}\)</span>, lets call this as capacity of the edge <span class="math notranslate nohighlight">\(uv\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -651,18 +653,18 @@ you can send from node $u$ to node $v$ is $c_{uv}$, lets call this as capacity o
 we need some way to represent or plan on the network. Observe that any plan will have
 to take up some capacity of the edges, so we can represent the plan by the values of
 the capacity taken by it for each edge in E, let’s call the plan as <strong>flow</strong>. Formally,
-we can define flow as $f: E \to \mathbb{R}$ i.e. a mapping from edges $E$ to real numbers
-denoting that we are sending data at rate $f(uv)$ through edge $uv\in E$.</p>
+we can define flow as <span class="math notranslate nohighlight">\(f: E \to \mathbb{R}\)</span> i.e. a mapping from edges <span class="math notranslate nohighlight">\(E\)</span> to real numbers
+denoting that we are sending data at rate <span class="math notranslate nohighlight">\(f(uv)\)</span> through edge <span class="math notranslate nohighlight">\(uv\in E\)</span>.</p>
 <p>Note that for this plan to be a valid plan it must satisfy the following constraints</p>
 <ul class="simple">
 <li><p><strong>Capacity constraint:</strong>
 The data rate at which we are sending data from any node shouldn’t exceed its
-capacity, formally $f_{uv} \le c_{uv}$</p></li>
+capacity, formally <span class="math notranslate nohighlight">\(f_{uv} \le c_{uv}\)</span></p></li>
 <li><p><strong>Conservation of flow:</strong>
 Rate at which data is sent to a node is same as the rate at which the node is sending
-data to other nodes, except for the source $s$ and sink $t$ nodes. Formally
-$\sum\limits_{u|(u,v) \in E}f_{u,v} = \sum\limits_{w|(v,w) \in E}f_{v,w} $ for
-$v\in V\backslash {s,t}$</p></li>
+data to other nodes, except for the source <span class="math notranslate nohighlight">\(s\)</span> and sink <span class="math notranslate nohighlight">\(t\)</span> nodes. Formally
+<span class="math notranslate nohighlight">\(\sum\limits_{u|(u,v) \in E}f_{u,v} = \sum\limits_{w|(v,w) \in E}f_{v,w} \)</span> for
+<span class="math notranslate nohighlight">\(v\in V\backslash \{s,t\}\)</span></p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -778,13 +780,13 @@ Invalid flow: flow conservation violated at node e
 <p>red color edges dont satisfy capacity constraint and red color nodes dont satisfy the
 conservation of flow</p>
 <p><em>So if we use this plan/flow to send data then at what rate will we be sending the data to friend?</em></p>
-<p>To answer this we need to observe that any data that the sink node $t$ will receive will be
+<p>To answer this we need to observe that any data that the sink node <span class="math notranslate nohighlight">\(t\)</span> will receive will be
 from its neighbors so if we sum over the data rates from plan/flow from those neighbors to
-the sink node we shall get the total data rate at which $t$ will be receiving the data.
-Formally we can say that the <strong>value of the flow</strong> is $|f|=\sum\limits_{u|(u,t) \in E}f_{u,t}$.
-Also note that since flow is conservative $|f|$ would also be equal to $\sum\limits_{u|(s,u) \in E}f_{s,u}$.</p>
+the sink node we shall get the total data rate at which <span class="math notranslate nohighlight">\(t\)</span> will be receiving the data.
+Formally we can say that the <strong>value of the flow</strong> is <span class="math notranslate nohighlight">\(|f|=\sum\limits_{u|(u,t) \in E}f_{u,t}\)</span>.
+Also note that since flow is conservative <span class="math notranslate nohighlight">\(|f|\)</span> would also be equal to <span class="math notranslate nohighlight">\(\sum\limits_{u|(s,u) \in E}f_{s,u}\)</span>.</p>
 <p>Remember our goal was to maximize the rate at which the data is being sent to our friend,
-which is the same as maximizing the flow value $|f|$.</p>
+which is the same as maximizing the flow value <span class="math notranslate nohighlight">\(|f|\)</span>.</p>
 <p>This is the definition of the <strong>Maximum Flow Problem</strong>.</p>
 </section>
 </section>
@@ -793,9 +795,9 @@ which is the same as maximizing the flow value $|f|$.</p>
 <p>Before understanding how Dinitz’s algorithm works and its steps let’s define some terms.</p>
 <section id="residual-capacity-graph">
 <h3>Residual Capacity &amp; Graph<a class="headerlink" href="#residual-capacity-graph" title="Permalink to this headline">#</a></h3>
-<p>If we send $f_{uv}$ flow through edge $uv$ with capacity $c_{uv}$, then we define residual
-capacity by $g_{uv}=c_{uv}-f_{uv}$ and residual network by $N’$ which only considers the
-edges of $N$ if they have non-zero residual capacity.</p>
+<p>If we send <span class="math notranslate nohighlight">\(f_{uv}\)</span> flow through edge <span class="math notranslate nohighlight">\(uv\)</span> with capacity <span class="math notranslate nohighlight">\(c_{uv}\)</span>, then we define residual
+capacity by <span class="math notranslate nohighlight">\(g_{uv}=c_{uv}-f_{uv}\)</span> and residual network by <span class="math notranslate nohighlight">\(N'\)</span> which only considers the
+edges of <span class="math notranslate nohighlight">\(N\)</span> if they have non-zero residual capacity.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">residual_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
@@ -888,15 +890,15 @@ edges of $N$ if they have non-zero residual capacity.</p>
 <img alt="../../../_images/6ee2afac1085e8181c3873efe9dab9f68a36dd903f003bc8dfb068621b086b1a.png" src="../../../_images/6ee2afac1085e8181c3873efe9dab9f68a36dd903f003bc8dfb068621b086b1a.png" />
 </div>
 </div>
-<p>Note: In residual network we consider both the $uv$ and $vu$ edges if any of them is in $N$</p>
+<p>Note: In residual network we consider both the <span class="math notranslate nohighlight">\(uv\)</span> and <span class="math notranslate nohighlight">\(vu\)</span> edges if any of them is in <span class="math notranslate nohighlight">\(N\)</span></p>
 </section>
 <section id="level-network">
 <h3>Level Network<a class="headerlink" href="#level-network" title="Permalink to this headline">#</a></h3>
 <p>The level network is a subgraph of the residual network which we get when we apply
-<a class="reference external" href="https://en.wikipedia.org/wiki/Breadth-first_search">BFS</a> from source node $s$
-considering only the edges for which we have $c_{uv}-f_{uv}&gt;0$ in the residual network
+<a class="reference external" href="https://en.wikipedia.org/wiki/Breadth-first_search">BFS</a> from source node <span class="math notranslate nohighlight">\(s\)</span>
+considering only the edges for which we have <span class="math notranslate nohighlight">\(c_{uv}-f_{uv}&gt;0\)</span> in the residual network
 and divide the nodes into levels then we only consider the edges to be in the level
-network $L$ which connect nodes of 2 different levels</p>
+network <span class="math notranslate nohighlight">\(L\)</span> which connect nodes of 2 different levels</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mapping between node level and color for visualization</span>
@@ -975,20 +977,20 @@ network $L$ which connect nodes of 2 different levels</p>
 <img alt="../../../_images/5ddddec4f90b6e9f5910eaa58ae9c9dfc326c538fa0a53c8d92687e4062a04d9.png" src="../../../_images/5ddddec4f90b6e9f5910eaa58ae9c9dfc326c538fa0a53c8d92687e4062a04d9.png" />
 </div>
 </div>
-<p>Note that if sink node $t$ is not reachable from the source node $s$ that means that no
+<p>Note that if sink node <span class="math notranslate nohighlight">\(t\)</span> is not reachable from the source node <span class="math notranslate nohighlight">\(s\)</span> that means that no
 more flow can be pushed through the residual network.</p>
 </section>
 <section id="augmenting-path-flow">
 <h3>Augmenting Path &amp; Flow<a class="headerlink" href="#augmenting-path-flow" title="Permalink to this headline">#</a></h3>
-<p>An <em>augmenting path</em> $P$ is a path from source node $s$ to sink node $t$ such that all
-the edges on the path have positive residual capacity i.e. $g_{uv}&gt;0$ for $uv \in P$.
-An <em>augmenting flow</em> $\alpha$ for the path $P$ is the minimum value of the residual
-flow across all the edges of $P$. i.e. $\alpha = min{g_{uv}, uv \in P}$.</p>
-<p>And by augmenting the flow along path $P$ we mean that reduce the residual capacities
-of the edges in path $P$ by $\alpha$ which will leave at least one of the edges on the
+<p>An <em>augmenting path</em> <span class="math notranslate nohighlight">\(P\)</span> is a path from source node <span class="math notranslate nohighlight">\(s\)</span> to sink node <span class="math notranslate nohighlight">\(t\)</span> such that all
+the edges on the path have positive residual capacity i.e. <span class="math notranslate nohighlight">\(g_{uv}&gt;0\)</span> for <span class="math notranslate nohighlight">\(uv \in P\)</span>.
+An <em>augmenting flow</em> <span class="math notranslate nohighlight">\(\alpha\)</span> for the path <span class="math notranslate nohighlight">\(P\)</span> is the minimum value of the residual
+flow across all the edges of <span class="math notranslate nohighlight">\(P\)</span>. i.e. <span class="math notranslate nohighlight">\(\alpha = min\{g_{uv}, uv \in P\}\)</span>.</p>
+<p>And by augmenting the flow along path <span class="math notranslate nohighlight">\(P\)</span> we mean that reduce the residual capacities
+of the edges in path <span class="math notranslate nohighlight">\(P\)</span> by <span class="math notranslate nohighlight">\(\alpha\)</span> which will leave at least one of the edges on the
 residual network with zero residual capacity.</p>
 <p>We find augmenting paths by applying <a class="reference external" href="https://en.wikipedia.org/wiki/Depth-first_search">DFS</a>
-on the Level network $L$.</p>
+on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">aug_path_dfs</span><span class="p">(</span><span class="n">parents</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">source_node</span><span class="p">,</span> <span class="n">target_node</span><span class="p">):</span>
@@ -1071,13 +1073,13 @@ maximum flow in a network, summarized below.</p>
 <section id="algorithm">
 <h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">#</a></h3>
 <ol class="arabic simple">
-<li><p>Initialize a flow with zero value, $f_{uv}=0$</p></li>
-<li><p>Construct a residual network  $N’$ from that flow</p></li>
-<li><p>Find the level network $L$ using BFS, if $t$ is not in the level network then break and
+<li><p>Initialize a flow with zero value, <span class="math notranslate nohighlight">\(f_{uv}=0\)</span></p></li>
+<li><p>Construct a residual network  <span class="math notranslate nohighlight">\(N'\)</span> from that flow</p></li>
+<li><p>Find the level network <span class="math notranslate nohighlight">\(L\)</span> using BFS, if <span class="math notranslate nohighlight">\(t\)</span> is not in the level network then break and
 output the flow</p></li>
-<li><p>Find an augmenting path $P$ in level network $L$</p></li>
-<li><p>Augment the flow along the edges of path $P$ which will give a new residual network</p></li>
-<li><p>Repeat from point 3 with new residual network $N’$</p></li>
+<li><p>Find an augmenting path <span class="math notranslate nohighlight">\(P\)</span> in level network <span class="math notranslate nohighlight">\(L\)</span></p></li>
+<li><p>Augment the flow along the edges of path <span class="math notranslate nohighlight">\(P\)</span> which will give a new residual network</p></li>
+<li><p>Repeat from point 3 with new residual network <span class="math notranslate nohighlight">\(N'\)</span></p></li>
 </ol>
 </section>
 </section>
@@ -1146,9 +1148,9 @@ network, <code class="docutils literal notranslate"><span class="pre">G</span></
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Transportation_theory_(mathematics)">Transportation Problem</a></p></li>
 </ul>
 <p>and many others.</p>
-<p>Note that even though Dinitz works in $O(n^2m)$ strongly polynomial time, i.e. to say it
+<p>Note that even though Dinitz works in <span class="math notranslate nohighlight">\(O(n^2m)\)</span> strongly polynomial time, i.e. to say it
 doesn’t depend on the value of flow. It is noteworthy that its performance of bipartite
-graphs is especially fast being $O(\sqrt n m)$ time, where $n = |V|$ &amp; $m = |E|$.</p>
+graphs is especially fast being <span class="math notranslate nohighlight">\(O(\sqrt n m)\)</span> time, where <span class="math notranslate nohighlight">\(n = |V|\)</span> &amp; <span class="math notranslate nohighlight">\(m = |E|\)</span>.</p>
 <p>Let’s consider the example of shipping packages from warehouse to customers through some
 intermediate shipping points, and we can only ship limited number of packages through
 an intermediate shipping point in a day.</p>
@@ -1158,8 +1160,8 @@ packages are shipped in a day?</p>
 <p>Number below each intermediate shipping point is the maximum number of shipping that
 it can do in a day, and if edge connects an intermdiate shipping point and a customer
 only then we can send the package from that shipping point to that customer.</p>
-<p>Note that the warehouse node is named as $W$, intermediate shipping points as
-$lw1, lw2, lw3$, and customers as $c1,c2…c20$.</p>
+<p>Note that the warehouse node is named as <span class="math notranslate nohighlight">\(W\)</span>, intermediate shipping points as
+<span class="math notranslate nohighlight">\(lw1, lw2, lw3\)</span>, and customers as <span class="math notranslate nohighlight">\(c1,c2...c20\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load data</span>
@@ -1192,13 +1194,13 @@ $lw1, lw2, lw3$, and customers as $c1,c2…c20$.</p>
 </div>
 </div>
 </div>
-<p>Let’s add a pseudo node $T$ denoting the ultimate sink node and add edges from
-$ci \to T$, $i\in{1,2,…,20}$. Note that shipping any more than the maximum
-number of packages that any of $lwi$, $i\in{1,2,3}$ can ship on that day is useless.
+<p>Let’s add a pseudo node <span class="math notranslate nohighlight">\(T\)</span> denoting the ultimate sink node and add edges from
+<span class="math notranslate nohighlight">\(ci \to T\)</span>, <span class="math notranslate nohighlight">\(i\in\{1,2,...,20\}\)</span>. Note that shipping any more than the maximum
+number of packages that any of <span class="math notranslate nohighlight">\(lwi\)</span>, <span class="math notranslate nohighlight">\(i\in\{1,2,3\}\)</span> can ship on that day is useless.
 So we can transfer that maximum number of shipping to a maximum capacity of the
-edges $W\to lwi$, $i\in{1,2,3}$ and for all other edges, we can assign its capacity
+edges <span class="math notranslate nohighlight">\(W\to lwi\)</span>, <span class="math notranslate nohighlight">\(i\in\{1,2,3\}\)</span> and for all other edges, we can assign its capacity
 as 1 we only need to do one shipment per customer.</p>
-<p>Note: We have already assigned the position to node $T$ in <code class="docutils literal notranslate"><span class="pre">pos</span></code> which was loaded earlier.</p>
+<p>Note: We have already assigned the position to node <span class="math notranslate nohighlight">\(T\)</span> in <code class="docutils literal notranslate"><span class="pre">pos</span></code> which was loaded earlier.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># adding node T and edges to T from c1,c2,...c20</span>
@@ -1290,7 +1292,7 @@ Volume 3895. pp 218-240. <a class="reference external" href="https://doi.org/10.
   
     By NetworkX developers<br/>
   
-      &copy; Copyright 2021, NetworkX developers.<br/>
+      &copy; Copyright 2022, NetworkX developers.<br/>
 </p>
         </footer>
     </div>
