@@ -176,7 +176,7 @@ If an undirected graph is not Eulerian, it can still be `semi_eulerian` meaning 
 
 If source vertex is given by the user, it must have an odd degree. Otherwise, there cannot be an Eulerian Path starting from the given source.
 
-```{code-cell}
+```python
   if G.is_directed() == False:
     if source is not None and G.degree[source] % 2 != 1:
       return False
@@ -189,7 +189,7 @@ For a directed graph to has an Eulerian Path, it must have
 - every other vertex has equal in_degree and out_degree, and 
 - all of its vertices belong to a single connected component of the underlying undirected graph *(I.e. Should be weakly connected)*.
 
-```{code-cell}
+```python
   if G.is_directed():
       ins = G.in_degree
       outs = G.out_degree
