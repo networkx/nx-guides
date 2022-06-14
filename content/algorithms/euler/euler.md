@@ -102,20 +102,12 @@ Implementation of `is_eulerian` method is quite simple. In order to have an Eule
 Here is an example:
 
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-  height: 319
-id: ru5RJiG4vYDq
-outputId: 4a0ddf49-3389-4ce8-be95-75777e453dcf
----
 import networkx as nx
 G = nx.Graph([(0, 1), (0, 2), (0, 3), (0, 4), (1, 2), (2, 3), (2, 4)])
 nx.draw(G, with_labels=True, node_size = 1000, font_color = "White", node_color="darkorange")
 ```
 
 ```{code-cell}
-:id: wQ8F1KBOr44Z
 
 def is_eulerian(G):
   if G.is_directed():
@@ -127,12 +119,6 @@ def is_eulerian(G):
 ```
 
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-id: XDBRq3dOkzuR
-outputId: 86a18e3e-8571-4b39-b880-007b2cbfb055
----
 is_eulerian(G)
 ```
 
@@ -141,7 +127,6 @@ NetworkX is also implemented `eulerian_circuit` method to determine sequence of 
 The method uses a stack data structure to keep vertices, it starts with the source vertex and pushes into stack. At each following iteration, it pops a vertex from the stack, chooses a neighbor of it, pushes the chosen vertex to the stack and removes the chosen edge from the graph.
 
 ```{code-cell}
-:id: j7L5_zS7t0hA
 
 circuit = []
 
@@ -169,12 +154,6 @@ while vertex_stack:
 ```
 
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-id: BJ1xpyfNymtk
-outputId: 5d6d9ef9-cb94-4658-d043-1e3134be6bfc
----
 print("-> ".join(list(map(str,circuit))))
 ```
 
@@ -183,7 +162,6 @@ print("-> ".join(list(map(str,circuit))))
 Networkx implementation of `has_eulerian_path` first checks if the graph `is_eulerian` or not. Remember that if a graph is Eulerian (i.e. has Euler Circuit), then it also has Eulerian Path.
 
 ```{code-cell}
-:id: iuUz3O9qWvgB
 
 def has_eulerian_path(G, source=None):
   if nx.is_eulerian(G):
@@ -199,13 +177,6 @@ If an undirected graph is not Eulerian, it can still be `semi_eulerian` meaning 
 If source vertex is given by the user, it must have an odd degree. Otherwise, there cannot be an Eulerian Path starting from the given source.
 
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-  height: 130
-id: VFfGgN-1qlZ_
-outputId: 0299072c-6fbe-4cbc-b42c-d1f927885d3e
----
   if G.is_directed() == False:
     if source is not None and G.degree[source] % 2 != 1:
       return False
@@ -219,13 +190,6 @@ For a directed graph to has an Eulerian Path, it must have
 - all of its vertices belong to a single connected component of the underlying undirected graph *(I.e. Should be weakly connected)*.
 
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-  height: 130
-id: kn8dLkeIX0RX
-outputId: 3ecd4d8d-904c-457a-abe9-9f4f08f9eb5e
----
   if G.is_directed():
       ins = G.in_degree
       outs = G.out_degree
@@ -250,7 +214,6 @@ outputId: 3ecd4d8d-904c-457a-abe9-9f4f08f9eb5e
 Using already implemented methods, ```is_semieulerian``` simply checks if the input graph does not have an Eulerian circuit but an Eulerian path with a one line of code.
 
 ```{code-cell}
-:id: JOvsOlaBi9lL
 
 def is_semieulerian(G):
     return has_eulerian_path(G) and not is_eulerian(G)
@@ -261,13 +224,6 @@ def is_semieulerian(G):
 Let's call the methods above on the Seven Bridges problem. For this, we first need to create the graph properly.
 
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-  height: 248
-id: zhneg9qMmnyL
-outputId: 8cd62fff-4dd8-4397-9d18-1f0e4c60f760
----
 import matplotlib.pyplot as plt
 
 G = nx.MultiGraph([("A","B"),("B","A"),("A","C"),("C","A"),("A","D"),("C","D"),("B","D")])
@@ -294,35 +250,16 @@ plt.show()
 For the reasons explained above, we expect our graph to have neither an Eulerian Circuit nor an Eulerian Path.
 
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-id: _1WkCQ7Irv9r
-outputId: f1fedb9a-e2dd-43b3-e954-8cf57b8d890e
----
 nx.is_eulerian(G)
 ```
 
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-id: -YRjgbAHrzNM
-outputId: ee645c9e-985b-4240-d2f9-1682842dd488
----
 nx.has_eulerian_path(G)
 ```
 
 We can conclude this section with another example. Do you expect a wheel graph to have an Eulerian Path?
 
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-  height: 319
-id: kShgKhEAf4mW
-outputId: bd051638-51d5-4d10-a4a1-740ee45a2257
----
 W = nx.wheel_graph(6)
 nx.draw(W, with_labels=True, node_size=1000, font_color="White", node_color="green")
 ```
@@ -330,12 +267,6 @@ nx.draw(W, with_labels=True, node_size=1000, font_color="White", node_color="gre
 The trivial answer is No! All nodes except for the one in the center have exactly 3 edges in the wheel graph. Thus, it cannot have an Eulerian Path.
 
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-id: xgbuthHLhImO
-outputId: 985d7b06-ade5-4988-a328-b424837625ec
----
 nx.has_eulerian_path(W)
 ```
 
