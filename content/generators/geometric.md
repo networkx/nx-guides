@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.11.1
+    jupytext_version: 1.13.8
 kernelspec:
   display_name: Python 3
   language: python
@@ -192,8 +192,8 @@ Next, we load the data and construct the graph.
 # from networkx.readwrite import json_graph
 import json
 
-#load json-ed networkx datafile
-with open('data/tesla_network.json','r') as infile:
+# load json-ed networkx datafile
+with open("data/tesla_network.json") as infile:
     G = nx.json_graph.node_link_graph(json.load(infile))
 ```
 
@@ -202,15 +202,15 @@ print(G)
 ```
 
 ```{code-cell} ipython3
-#example node data structure keyed on geohash of GPS cords
-G.nodes['dr7k46ycwwb8']
+# example node data structure keyed on geohash of GPS cords
+G.nodes["dr7k46ycwwb8"]
 ```
 
 ```{code-cell} ipython3
-#extract pos and weight attributes for use in models
+# extract pos and weight attributes for use in models
 nodes = G.nodes()
-pos = nx.get_node_attributes(G, 'pos')
-weight = nx.get_node_attributes(G, 'weight')
+pos = nx.get_node_attributes(G, "pos")
+weight = nx.get_node_attributes(G, "weight")
 ```
 
 Since we'll be visualizing a lot of graphs, let's define some general
@@ -242,7 +242,7 @@ fig.tight_layout()
 ```
 
 ```{code-cell} ipython3
-# Make edge visualization more prominent (and consistent) for the following 
+# Make edge visualization more prominent (and consistent) for the following
 # examples
 edge_opts["alpha"] = 0.8
 edge_opts["width"] = 0.2
@@ -312,7 +312,7 @@ fig, axes = plt.subplots(1, 3)
 
 pdfs = {
     "default": None,  # default: exponential distribution with `lambda=1`
-    r"$e^{-10d}$": lambda d: math.exp(-10*d),
+    r"$e^{-10d}$": lambda d: math.exp(-10 * d),
     "norm": norm(loc=0.1, scale=0.1).pdf,
 }
 for (title, pdf), ax in zip(pdfs.items(), axes.ravel()):
