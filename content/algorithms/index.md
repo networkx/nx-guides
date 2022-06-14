@@ -8,6 +8,7 @@ provided by NetworkX.
 maxdepth: 1
 ---
 assortativity/correlation
+communities/communities
 dag/index
 flow/dinitz_alg
 ```
