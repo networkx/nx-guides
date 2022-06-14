@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.13.4
+    jupytext_version: 1.13.8
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -162,10 +162,12 @@ def check_valid_flow(G, flow, source_node, target_node):
 def visualize_flow(flow_graph):
     """Visualize flow returned by the `check_valid_flow` funcion."""
     fig, ax = plt.subplots(figsize=(15, 9))
-    
+
     # Draw the full graph for reference
-    nx.draw(G, pos, ax=ax, node_color=node_colors, edge_color="lightgrey", with_labels=True)
-    
+    nx.draw(
+        G, pos, ax=ax, node_color=node_colors, edge_color="lightgrey", with_labels=True
+    )
+
     # Draw the example flow on top
     flow_nc = [
         "skyblue" if n in {"s", "t"} else flow_graph.nodes[n].get("color", "lightgrey")
@@ -248,9 +250,7 @@ def residual_graph(G, flow):
     for (u, v), f in flow.items():
         capacity = G[u][v]["capacity"]
         if f > G[u][v]["capacity"]:
-            raise ValueError(
-                f"Flow {f} exceeds the capacity of edge {u!r}->{v!r}."
-            )
+            raise ValueError(f"Flow {f} exceeds the capacity of edge {u!r}->{v!r}.")
         H[u][v]["capacity"] -= f
         if H.has_edge(v, u):
             H[v][u]["capacity"] += f
@@ -283,18 +283,20 @@ def draw_residual_graph(R, ax=None):
     # Draw edges
     nx.draw_networkx_edges(R, pos, edgelist=orig_edges)
     nx.draw_networkx_edges(
-        R, pos, edgelist=rev_edges, edge_color="goldenrod", connectionstyle="arc3,rad=0.2"
+        R,
+        pos,
+        edgelist=rev_edges,
+        edge_color="goldenrod",
+        connectionstyle="arc3,rad=0.2",
     )
-    nx.draw_networkx_edges(R, pos, edgelist=zero_edges, style="--", edge_color="lightgrey")
-    
+    nx.draw_networkx_edges(
+        R, pos, edgelist=zero_edges, style="--", edge_color="lightgrey"
+    )
+
     # Label edges by capacity
     rv = set(rev_edges)
-    fwd_caps = {
-        (u, v): c for u, v, c in R.edges(data="capacity") if (u, v) not in rv
-    }
-    rev_caps = {
-        (u, v): c for u, v, c in R.edges(data="capacity") if (u, v) in rv
-    }
+    fwd_caps = {(u, v): c for u, v, c in R.edges(data="capacity") if (u, v) not in rv}
+    rev_caps = {(u, v): c for u, v, c in R.edges(data="capacity") if (u, v) in rv}
     nx.draw_networkx_edge_labels(R, pos, edge_labels=fwd_caps, label_pos=0.667)
     nx.draw_networkx_edge_labels(
         R, pos, edge_labels=rev_caps, label_pos=0.667, font_color="goldenrod"
@@ -333,8 +335,14 @@ network $L$ which connect nodes of 2 different levels
 ```{code-cell} ipython3
 # Mapping between node level and color for visualization
 level_colors = {
-    1:'aqua', 2:'lightgreen', 3:'yellow', 4:'orange', 5:'lightpink', 6:'violet'
+    1: "aqua",
+    2: "lightgreen",
+    3: "yellow",
+    4: "orange",
+    5: "lightpink",
+    6: "violet",
 }
+
 
 def level_bfs(R, flow, source_node, target_node):
     """BFS to construct the level network from residual network for given flow."""
@@ -453,7 +461,7 @@ aug_path = residual_graph(R.subgraph(path), aug_flow)
 # Node ordering in the subgraph can be different than `path`
 nodes = list(aug_path.nodes)
 node_colors = [level_colors[level[n]] for n in nodes]
-node_colors[nodes.index('s')] = node_colors[nodes.index('t')] = "skyblue"
+node_colors[nodes.index("s")] = node_colors[nodes.index("t")] = "skyblue"
 
 draw_residual_graph(aug_path, ax=plt.gca())
 ```
@@ -509,9 +517,7 @@ for cutoff, ax in zip(cutoff_list, axes.ravel()):
     R = nx.flow.dinitz(G, s="s", t="t", capacity="capacity", cutoff=cutoff)
 
     # coloring and labeling edges depending on if they have non-zero flow value or not
-    edge_colors = [
-        "lightgray" if R[u][v]["flow"] == 0 else "black" for u, v in G.edges
-    ]
+    edge_colors = ["lightgray" if R[u][v]["flow"] == 0 else "black" for u, v in G.edges]
     edge_labels = {
         (u, v): f"{R[u][v]['flow']}/{G[u][v]['capacity']}"
         for u, v in G.edges

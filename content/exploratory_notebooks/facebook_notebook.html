@@ -572,7 +572,12 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">facebook</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/facebook_combined.txt.gz&#39;</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s1">&#39;gzip&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;start_node&#39;</span><span class="p">,</span> <span class="s1">&#39;end_node&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">facebook</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;data/facebook_combined.txt.gz&quot;</span><span class="p">,</span>
+    <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span>
+    <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;start_node&quot;</span><span class="p">,</span> <span class="s2">&quot;end_node&quot;</span><span class="p">],</span>
+<span class="p">)</span>
 <span class="n">facebook</span>
 </pre></div>
 </div>
@@ -666,7 +671,7 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_pandas_edgelist</span><span class="p">(</span><span class="n">facebook</span><span class="p">,</span> <span class="s1">&#39;start_node&#39;</span><span class="p">,</span> <span class="s1">&#39;end_node&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_pandas_edgelist</span><span class="p">(</span><span class="n">facebook</span><span class="p">,</span> <span class="s2">&quot;start_node&quot;</span><span class="p">,</span> <span class="s2">&quot;end_node&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -682,14 +687,14 @@ functions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 <span class="n">plot_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;node_size&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;with_labels&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">}</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">random_layout</span><span class="p">(</span><span class="n">G</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">plot_options</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/b53a7302461592e51d4e426c5f86ae9e51feeb11492112f635ff12af3a9ca776.png" src="../../_images/b53a7302461592e51d4e426c5f86ae9e51feeb11492112f635ff12af3a9ca776.png" />
+<img alt="../../_images/e2ede90e36d3c38fee24bbc7e765fc41e4d7a02924f3d9100c3f151dfad14023.png" src="../../_images/e2ede90e36d3c38fee24bbc7e765fc41e4d7a02924f3d9100c3f151dfad14023.png" />
 </div>
 </div>
 <p>The resulting image is… not very useful. Graph visualizations of this kind
@@ -710,13 +715,13 @@ visualizations.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1721</span><span class="p">)</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">plot_options</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/0adebfaec6dc3f53bd3c45899a49ec82b35c375f8fdbd1e6bc8bc19d88ea8ffc.png" src="../../_images/0adebfaec6dc3f53bd3c45899a49ec82b35c375f8fdbd1e6bc8bc19d88ea8ffc.png" />
+<img alt="../../_images/ab842817c2bebc4f8191b42bd1aaee431d226ec2dfa6f2eb694fe854ede7811b.png" src="../../_images/ab842817c2bebc4f8191b42bd1aaee431d226ec2dfa6f2eb694fe854ede7811b.png" />
 </div>
 </div>
 <p>This visualization is much more useful than the previous one! Already we can
@@ -886,10 +891,10 @@ lengths from our pre-computed dict-of-dicts:</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">diameter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">height</span><span class="o">=</span><span class="n">freq_percent</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
-    <span class="s1">&#39;Distribution of shortest path length in G&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span>
+    <span class="s2">&quot;Distribution of shortest path length in G&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center&quot;</span>
 <span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Shortest Path Length&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency (%)&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Shortest Path Length&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency (%)&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -897,7 +902,7 @@ lengths from our pre-computed dict-of-dicts:</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Frequency (%)&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/182b441e5beb5045da87184ab480235c2f740fa6eb9ee0eeaa3cf5108d47f691.png" src="../../_images/182b441e5beb5045da87184ab480235c2f740fa6eb9ee0eeaa3cf5108d47f691.png" />
+<img alt="../../_images/d68e3e6e8b6a0adb8f351d9ef06a8c212a3708187ca2e02e44df5bb6bf4908a3.png" src="../../_images/d68e3e6e8b6a0adb8f351d9ef06a8c212a3708187ca2e02e44df5bb6bf4908a3.png" />
 </div>
 </div>
 <p>The majority of the shortest path lengths are from $2$ to $5$ edges long.
@@ -944,7 +949,9 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degree_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">degree_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># save results in a variable to use again </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degree_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">degree_centrality</span><span class="p">(</span>
+    <span class="n">G</span>
+<span class="p">)</span>  <span class="c1"># save results in a variable to use again</span>
 <span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">degree_centrality</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[:</span><span class="mi">8</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -989,12 +996,12 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <p>Now the distribution of degree centralities will be plotted:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">degree_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>  <span class="c1"># set the x axis ticks</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Degree Centrality Histogram &#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span> 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Degree Centrality&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">,</span><span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Degree Centrality Histogram &quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Degree Centrality&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -1002,17 +1009,19 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/bde3703d3ce389a4e3f9752da85adfda2d52e137009088596458fe44c5d09b00.png" src="../../_images/bde3703d3ce389a4e3f9752da85adfda2d52e137009088596458fe44c5d09b00.png" />
+<img alt="../../_images/c4c71631e49b2d92b73ba176b2d10eb160a21834b9ef935537c169bd01767a96.png" src="../../_images/c4c71631e49b2d92b73ba176b2d10eb160a21834b9ef935537c169bd01767a96.png" />
 </div>
 </div>
 <p>It is visible that the vast majority of facebook users have degree centralities of less than $0.05$. In fact the majority has less than $0.0125$. Actually, that makes sense because the network consists of friends lists of particular nodes, which are obviously the ones with the highest degree centralities. In other words, because only the friends list of particular nodes were used to create this particular network, plenty of nodes have extremely low degree centralities as they are not very interconnected in this network</p>
 <p>Now let’s check the users with highest degree centralities from the size of their nodes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span>  <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="mi">1000</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">degree_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>  <span class="c1"># set up nodes size for a nice graph representation</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">v</span> <span class="o">*</span> <span class="mi">1000</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">degree_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="p">]</span>  <span class="c1"># set up nodes size for a nice graph representation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1023,7 +1032,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  0.7322099342942238)
 </pre></div>
 </div>
-<img alt="../../_images/9f87ad758fb0a4e975267823a2cd96d61e34b213976967ecc7204c1b21a8b465.png" src="../../_images/9f87ad758fb0a4e975267823a2cd96d61e34b213976967ecc7204c1b21a8b465.png" />
+<img alt="../../_images/131faf32562dcd4029e0bcebca7906d0a1357b34415638c3cfa4f79a9eccaaef.png" src="../../_images/131faf32562dcd4029e0bcebca7906d0a1357b34415638c3cfa4f79a9eccaaef.png" />
 </div>
 </div>
 </section>
@@ -1035,7 +1044,9 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">betweenness_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># save results in a variable to use again </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">betweenness_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span>
+    <span class="n">G</span>
+<span class="p">)</span>  <span class="c1"># save results in a variable to use again</span>
 <span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">betweenness_centrality</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[:</span><span class="mi">8</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1062,12 +1073,12 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <p>Moving on, the distribution of betweenness centralities will be plotted:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">betweenness_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>  <span class="c1"># set the x axis ticks</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Betweenness Centrality Histogram &#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span> 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Betweenness Centrality&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">,</span><span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Betweenness Centrality Histogram &quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Betweenness Centrality&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -1075,17 +1086,19 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/25a62c03767a9ea3f939a2e806128d6ff324877bd700769052abad860d40a465.png" src="../../_images/25a62c03767a9ea3f939a2e806128d6ff324877bd700769052abad860d40a465.png" />
+<img alt="../../_images/7b9bed5cb1bf214e42b946f85c084b5d068e7b2c9fe91393ce6bc60331963aea.png" src="../../_images/7b9bed5cb1bf214e42b946f85c084b5d068e7b2c9fe91393ce6bc60331963aea.png" />
 </div>
 </div>
 <p>As we can see, the vast majority of betweenness centralities is below $0.01$. That makes sense as the graph is very sparse and thus most nodes do not act as bridges in shortest paths. However, that also results in some nodes having extremely high betweenness centralities as for example node $107$ with $0.48$ and node $1684$ with $0.34$ betweenness centrality.</p>
 <p>We can also get an image on the nodes with the highest betweenness centralities and where they are located in the network. It is clear that they are the bridges from one community to another:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span>  <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="mi">1200</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">betweenness_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>  <span class="c1"># set up nodes size for a nice graph representation</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">v</span> <span class="o">*</span> <span class="mi">1200</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">betweenness_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="p">]</span>  <span class="c1"># set up nodes size for a nice graph representation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1096,7 +1109,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  0.7322099342942238)
 </pre></div>
 </div>
-<img alt="../../_images/79d99b2012c423f3c2d8d10e9a29a788ff3abb9ac434ae5d58bf74117acfacfb.png" src="../../_images/79d99b2012c423f3c2d8d10e9a29a788ff3abb9ac434ae5d58bf74117acfacfb.png" />
+<img alt="../../_images/85ee3f0418f39850235cb5dd35682832ca4d7d7039cf2e1d03c5f59e68e36455.png" src="../../_images/85ee3f0418f39850235cb5dd35682832ca4d7d7039cf2e1d03c5f59e68e36455.png" />
 </div>
 </div>
 </section>
@@ -1109,7 +1122,9 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">closeness_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">closeness_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># save results in a variable to use again </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">closeness_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">closeness_centrality</span><span class="p">(</span>
+    <span class="n">G</span>
+<span class="p">)</span>  <span class="c1"># save results in a variable to use again</span>
 <span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">closeness_centrality</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[:</span><span class="mi">8</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1146,11 +1161,11 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <p>Furthermore, the distribution of the closeness centralities:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">closeness_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Closeness Centrality Histogram &#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span> 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Closeness Centrality&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">,</span><span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Closeness Centrality Histogram &quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Closeness Centrality&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -1158,16 +1173,18 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/b6f38c992845631721f84d670587c6488f2651c0c9841d474598d73957540501.png" src="../../_images/b6f38c992845631721f84d670587c6488f2651c0c9841d474598d73957540501.png" />
+<img alt="../../_images/8e2dff6434d05ca83cc6b467532e2512e268d51fcf5072b16a6065044b09c8a3.png" src="../../_images/8e2dff6434d05ca83cc6b467532e2512e268d51fcf5072b16a6065044b09c8a3.png" />
 </div>
 </div>
 <p>The closeness centralities are distributed over various values from $0.17$ to $0.46$. In fact, the majority of them are found between $0.25$ and $0.3$. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span>  <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="mi">50</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">closeness_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>  <span class="c1"># set up nodes size for a nice graph representation</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">v</span> <span class="o">*</span> <span class="mi">50</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">closeness_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="p">]</span>  <span class="c1"># set up nodes size for a nice graph representation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1178,7 +1195,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  0.7322099342942238)
 </pre></div>
 </div>
-<img alt="../../_images/44f4ff26c81be1541b3be90a78a759d41b2b89caff36bcbb746f43a05fed0204.png" src="../../_images/44f4ff26c81be1541b3be90a78a759d41b2b89caff36bcbb746f43a05fed0204.png" />
+<img alt="../../_images/b64a26ae443c6136ec8ec5ee8f27f128c13d2e21ab57edac6e3ba941a7ba7bfe.png" src="../../_images/b64a26ae443c6136ec8ec5ee8f27f128c13d2e21ab57edac6e3ba941a7ba7bfe.png" />
 </div>
 </div>
 </section>
@@ -1190,7 +1207,9 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigenvector_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># save results in a variable to use again </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigenvector_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span>
+    <span class="n">G</span>
+<span class="p">)</span>  <span class="c1"># save results in a variable to use again</span>
 <span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">eigenvector_centrality</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1218,10 +1237,18 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <p>Checking if those nodes are connected to the most important node $1912$, the hypothesis is correct:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">high_eigenvector_centralities</span> <span class="o">=</span> <span class="p">((</span><span class="nb">sorted</span><span class="p">(</span><span class="n">eigenvector_centrality</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span>  <span class="c1"># 2nd to 10th nodes with heighest eigenvector centralities</span>
-<span class="n">high_eigenvector_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="nb">tuple</span> <span class="ow">in</span> <span class="n">high_eigenvector_centralities</span><span class="p">]</span>  <span class="c1"># set list as [2266, 2206, 2233, 2464, 2142, 2218, 2078, 2123, 1993]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">high_eigenvector_centralities</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="nb">sorted</span><span class="p">(</span><span class="n">eigenvector_centrality</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)[</span>
+    <span class="mi">1</span><span class="p">:</span><span class="mi">10</span>
+<span class="p">]</span>  <span class="c1"># 2nd to 10th nodes with heighest eigenvector centralities</span>
+<span class="n">high_eigenvector_nodes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nb">tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="nb">tuple</span> <span class="ow">in</span> <span class="n">high_eigenvector_centralities</span>
+<span class="p">]</span>  <span class="c1"># set list as [2266, 2206, 2233, 2464, 2142, 2218, 2078, 2123, 1993]</span>
 <span class="n">neighbors_1912</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="mi">1912</span><span class="p">)]</span>  <span class="c1"># list with all nodes connected to 1912</span>
-<span class="nb">all</span><span class="p">(</span><span class="n">item</span> <span class="ow">in</span> <span class="n">neighbors_1912</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">high_eigenvector_nodes</span><span class="p">)</span>  <span class="c1"># check if items in list high_eigenvector_nodes exist in list neighbors_1912</span>
+<span class="nb">all</span><span class="p">(</span>
+    <span class="n">item</span> <span class="ow">in</span> <span class="n">neighbors_1912</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">high_eigenvector_nodes</span>
+<span class="p">)</span>  <span class="c1"># check if items in list high_eigenvector_nodes exist in list neighbors_1912</span>
 </pre></div>
 </div>
 </div>
@@ -1234,12 +1261,12 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <p>Let’s check the distribution of the eigenvector centralities:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">eigenvector_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">])</span>  <span class="c1"># set the x axis ticks</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Eigenvector Centrality Histogram &#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span> 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Eigenvector Centrality&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">,</span><span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Eigenvector Centrality Histogram &quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Eigenvector Centrality&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -1247,17 +1274,19 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/c97d831b857768fe48d2028cf8d3ce1b66a8338eb4659a54de993c72bab805fb.png" src="../../_images/c97d831b857768fe48d2028cf8d3ce1b66a8338eb4659a54de993c72bab805fb.png" />
+<img alt="../../_images/ddac126137ef235604bcd34cafe7e0cee573dbfffa1f2c4e73d6e560140ffb1d.png" src="../../_images/ddac126137ef235604bcd34cafe7e0cee573dbfffa1f2c4e73d6e560140ffb1d.png" />
 </div>
 </div>
 <p>As shown in the distribution histogram, the vast majority of eigenvector centralities are below $0.005$ and are actually almost $0$. However, we can also see different values of eigenvector centralities as there are tiny bins all over the x axis.</p>
 <p>Now we can identify the eigenvector centralities of nodes based on their size in the following representation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span>  <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="mi">4000</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">eigenvector_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>  <span class="c1"># set up nodes size for a nice graph representation</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_size</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">v</span> <span class="o">*</span> <span class="mi">4000</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">eigenvector_centrality</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="p">]</span>  <span class="c1"># set up nodes size for a nice graph representation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1268,7 +1297,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  0.7322099342942238)
 </pre></div>
 </div>
-<img alt="../../_images/d1303b1c1fa7a64a12bdc1c2555184071fdb867870be05e427d39ea37f29512b.png" src="../../_images/d1303b1c1fa7a64a12bdc1c2555184071fdb867870be05e427d39ea37f29512b.png" />
+<img alt="../../_images/f12817f5a09548557fe701798635817d48b7ff765fc19aebedb937e89213cbbc.png" src="../../_images/f12817f5a09548557fe701798635817d48b7ff765fc19aebedb937e89213cbbc.png" />
 </div>
 </div>
 </section>
@@ -1291,11 +1320,11 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <p>Now the clustering coefficient distribution will be displayed:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Clustering Coefficient Histogram &#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span> 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Clustering Coefficient&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">,</span><span class="n">fontdict</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Clustering Coefficient Histogram &quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Clustering Coefficient&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -1303,7 +1332,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/0d9193d9494af7914a309c390f85288ee5c2c3cb48376a9dcf72e0a918d73aae.png" src="../../_images/0d9193d9494af7914a309c390f85288ee5c2c3cb48376a9dcf72e0a918d73aae.png" />
+<img alt="../../_images/24d9ef65144d229d1081ab2089d5f4811af8ae60b46e3946f8670a178cc3c0b0.png" src="../../_images/24d9ef65144d229d1081ab2089d5f4811af8ae60b46e3946f8670a178cc3c0b0.png" />
 </div>
 </div>
 <p>$50$ bins were used to showcase the distribution. The bin with the highest counts concerns nodes with clustering coefficient close to $1$ as there are more than two-hundred-fifty nodes in that bin. In addition, the bins of clustering coefficient between $0.4$ and $0.8$ contain the majority of nodes by far.</p>
@@ -1311,7 +1340,9 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">triangles_per_node</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">triangles</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-<span class="nb">sum</span><span class="p">(</span><span class="n">triangles_per_node</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>  <span class="c1"># divide by 3 because each triangle is counted once for each node</span>
+<span class="nb">sum</span><span class="p">(</span>
+    <span class="n">triangles_per_node</span>
+<span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>  <span class="c1"># divide by 3 because each triangle is counted once for each node</span>
 </pre></div>
 </div>
 </div>
@@ -1402,11 +1433,15 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">local_bridges</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;lawngreen&quot;</span><span class="p">)</span>  <span class="c1"># green color for local bridges </span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">bridges</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>  <span class="c1"># red color for bridges</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">local_bridges</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;lawngreen&quot;</span>
+<span class="p">)</span>  <span class="c1"># green color for local bridges</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">bridges</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span>
+<span class="p">)</span>  <span class="c1"># red color for bridges</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1417,7 +1452,7 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
  0.7322099342942238)
 </pre></div>
 </div>
-<img alt="../../_images/e7264778a6bafee08231693e8114aac2f060639280acd353404be25791165758.png" src="../../_images/e7264778a6bafee08231693e8114aac2f060639280acd353404be25791165758.png" />
+<img alt="../../_images/8c646e7b19c669dbbdd03d797b0dcf68b013d16411e6f54e3400604388fa086c.png" src="../../_images/8c646e7b19c669dbbdd03d797b0dcf68b013d16411e6f54e3400604388fa086c.png" />
 </div>
 </div>
 </section>
@@ -1441,7 +1476,9 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">degree_pearson_correlation_coefficient</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># use the potentially faster scipy.stats.pearsonr function.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">degree_pearson_correlation_coefficient</span><span class="p">(</span>
+    <span class="n">G</span>
+<span class="p">)</span>  <span class="c1"># use the potentially faster scipy.stats.pearsonr function.</span>
 </pre></div>
 </div>
 </div>
@@ -1463,12 +1500,14 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 <p>This function determines by itself the number of communities that will be detected. Now the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community. Also, the number of communities is printed:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())]</span>  <span class="c1"># initialize colors list</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())]</span>  <span class="c1"># initialize colors list</span>
 <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">com</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">community</span><span class="o">.</span><span class="n">label_propagation_communities</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
-    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#</span><span class="si">%06X</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0xFFFFFF</span><span class="p">)</span>  <span class="c1"># creates random RGB color</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#</span><span class="si">%06X</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0xFFFFFF</span><span class="p">)</span>  <span class="c1"># creates random RGB color</span>
     <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">com</span><span class="p">):</span>  <span class="c1"># fill colors list with the particular color for the community nodes</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span>
+        <span class="n">com</span>
+    <span class="p">):</span>  <span class="c1"># fill colors list with the particular color for the community nodes</span>
         <span class="n">colors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
 <span class="n">counter</span>
 </pre></div>
@@ -1483,14 +1522,16 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 <p>In detail, $44$ communities were detected. Now the communities are showcased in the graph. Each community is depicted with a different color and its nodes are usually located close to each other:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span> 
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">colors</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/5fcbd41ef5660c5b4464c5622ad2cd9eb5f79e917b4c424d1de853914f66ca66.png" src="../../_images/5fcbd41ef5660c5b4464c5622ad2cd9eb5f79e917b4c424d1de853914f66ca66.png" />
+<img alt="../../_images/78592244a5d660d228e62b2c08b6c36c873df75aca6a9ab590f90ce6cd901b23.png" src="../../_images/78592244a5d660d228e62b2c08b6c36c873df75aca6a9ab590f90ce6cd901b23.png" />
 </div>
 </div>
 <ul class="simple">
@@ -1499,9 +1540,9 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 <p>With this function, we can decide the number of communities to be detected. Let’s say that $8$ communities is the number we want. Again, the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())]</span>
 <span class="k">for</span> <span class="n">com</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">community</span><span class="o">.</span><span class="n">asyn_fluidc</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#</span><span class="si">%06X</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0xFFFFFF</span><span class="p">)</span>  <span class="c1"># creates random RGB color</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#</span><span class="si">%06X</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0xFFFFFF</span><span class="p">)</span>  <span class="c1"># creates random RGB color</span>
     <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">com</span><span class="p">):</span>
         <span class="n">colors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
 </pre></div>
@@ -1511,14 +1552,16 @@ in a graph is a local bridge, if its endpoints $C$ and $D$ have no friends in co
 <p>Now the $8$ communities are shown in the graph. Again, each community is depicted with a different color:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span> 
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">colors</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/7aec36ae6f65367ecf41d0a97ef32ed32f6e965416620caf3875a545b61b9876.png" src="../../_images/7aec36ae6f65367ecf41d0a97ef32ed32f6e965416620caf3875a545b61b9876.png" />
+<img alt="../../_images/1aa1b8bafd606ffcf2a653d915a8608dcca5a3c57e243b77f02192509ecd9bb6.png" src="../../_images/1aa1b8bafd606ffcf2a653d915a8608dcca5a3c57e243b77f02192509ecd9bb6.png" />
 </div>
 </div>
 <section id="references">

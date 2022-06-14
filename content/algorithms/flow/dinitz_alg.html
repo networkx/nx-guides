@@ -596,7 +596,7 @@ you can send between a pair of nodes in this network.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/f24d3dbebd0224a4e868045bbcf08bdc9e85b24199facf4935ccf0d4d6706244.png" src="../../../_images/f24d3dbebd0224a4e868045bbcf08bdc9e85b24199facf4935ccf0d4d6706244.png" />
+<img alt="../../../_images/525863ddf4c08a6d75d370b994ecde7d66067bba18c44f895418fa8ebca8c32f.png" src="../../../_images/525863ddf4c08a6d75d370b994ecde7d66067bba18c44f895418fa8ebca8c32f.png" />
 </div>
 </div>
 <p>So how shall you plan the paths of the data packets to send them in the least amount
@@ -625,7 +625,7 @@ a connection from node $u$ to node $v$ across which we can send data. There are 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/5b1809ad542a1b12763307e656a61f6ae559e39cdf788350ab9e60941dee2e32.png" src="../../../_images/5b1809ad542a1b12763307e656a61f6ae559e39cdf788350ab9e60941dee2e32.png" />
+<img alt="../../../_images/3a753f273d9d0d98e7d9a91fbb71ac34b816d73ace952ab4498f06a8d2c36d38.png" src="../../../_images/3a753f273d9d0d98e7d9a91fbb71ac34b816d73ace952ab4498f06a8d2c36d38.png" />
 </div>
 </div>
 <p>Now say that node $u$ and node $v$ are connected and the maximum data per second that
@@ -644,7 +644,7 @@ you can send from node $u$ to node $v$ is $c_{uv}$, lets call this as capacity o
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/24c0acc0299fe438dc5f22391ea111f2420bcd470804bf2380454385aef43d2e.png" src="../../../_images/24c0acc0299fe438dc5f22391ea111f2420bcd470804bf2380454385aef43d2e.png" />
+<img alt="../../../_images/8505940959d670dcd2d89fd3f96c6522081c4d1aca8d4db199a73fcbecdfc1be.png" src="../../../_images/8505940959d670dcd2d89fd3f96c6522081c4d1aca8d4db199a73fcbecdfc1be.png" />
 </div>
 </div>
 <p>So before go ahead and plan the paths on which we will be sending the data packets,
@@ -694,10 +694,12 @@ $v\in V\backslash {s,t}$</p></li>
 <span class="k">def</span> <span class="nf">visualize_flow</span><span class="p">(</span><span class="n">flow_graph</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Visualize flow returned by the `check_valid_flow` funcion.&quot;&quot;&quot;</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
-    
+
     <span class="c1"># Draw the full graph for reference</span>
-    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+        <span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
     <span class="c1"># Draw the example flow on top</span>
     <span class="n">flow_nc</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s2">&quot;skyblue&quot;</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">}</span> <span class="k">else</span> <span class="n">flow_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;lightgrey&quot;</span><span class="p">)</span>
@@ -736,7 +738,7 @@ $v\in V\backslash {s,t}$</p></li>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/d2df216ccc718e24f56864f0e77cee6a6e7874ba3fa8bc01894f92310f95b1f3.png" src="../../../_images/d2df216ccc718e24f56864f0e77cee6a6e7874ba3fa8bc01894f92310f95b1f3.png" />
+<img alt="../../../_images/49505ca465cc51e9d6cb94c2dd3deaf60c55ddbc825bc5f0868b3a330bcd23b8.png" src="../../../_images/49505ca465cc51e9d6cb94c2dd3deaf60c55ddbc825bc5f0868b3a330bcd23b8.png" />
 </div>
 </div>
 <p>example of invalid flow:</p>
@@ -770,7 +772,7 @@ Invalid flow: flow conservation violated at node e
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/47972973f1f34673b680c5a1f75a4f700df5dea9867f88c21247330c447bf7c9.png" src="../../../_images/47972973f1f34673b680c5a1f75a4f700df5dea9867f88c21247330c447bf7c9.png" />
+<img alt="../../../_images/ff835d73bb24298816ee2df1f9c2b77bdd85032d0f8e50d90b36dfdad935f994.png" src="../../../_images/ff835d73bb24298816ee2df1f9c2b77bdd85032d0f8e50d90b36dfdad935f994.png" />
 </div>
 </div>
 <p>red color edges dont satisfy capacity constraint and red color nodes dont satisfy the
@@ -801,9 +803,7 @@ edges of $N$ if they have non-zero residual capacity.</p>
     <span class="k">for</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">),</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">flow</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">capacity</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">f</span> <span class="o">&gt;</span> <span class="n">G</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Flow </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> exceeds the capacity of edge </span><span class="si">{</span><span class="n">u</span><span class="si">!r}</span><span class="s2">-&gt;</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">.&quot;</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Flow </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> exceeds the capacity of edge </span><span class="si">{</span><span class="n">u</span><span class="si">!r}</span><span class="s2">-&gt;</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">)</span>
         <span class="n">H</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">f</span>
         <span class="k">if</span> <span class="n">H</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
             <span class="n">H</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">u</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">f</span>
@@ -836,18 +836,20 @@ edges of $N$ if they have non-zero residual capacity.</p>
     <span class="c1"># Draw edges</span>
     <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">orig_edges</span><span class="p">)</span>
     <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
-        <span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">rev_edges</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;goldenrod&quot;</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=0.2&quot;</span>
+        <span class="n">R</span><span class="p">,</span>
+        <span class="n">pos</span><span class="p">,</span>
+        <span class="n">edgelist</span><span class="o">=</span><span class="n">rev_edges</span><span class="p">,</span>
+        <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;goldenrod&quot;</span><span class="p">,</span>
+        <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=0.2&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">zero_edges</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">)</span>
-    
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
+        <span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">zero_edges</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span>
+    <span class="p">)</span>
+
     <span class="c1"># Label edges by capacity</span>
     <span class="n">rv</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">rev_edges</span><span class="p">)</span>
-    <span class="n">fwd_caps</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="n">c</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">R</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;capacity&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rv</span>
-    <span class="p">}</span>
-    <span class="n">rev_caps</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="n">c</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">R</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;capacity&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">rv</span>
-    <span class="p">}</span>
+    <span class="n">fwd_caps</span> <span class="o">=</span> <span class="p">{(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="n">c</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">R</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;capacity&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rv</span><span class="p">}</span>
+    <span class="n">rev_caps</span> <span class="o">=</span> <span class="p">{(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="n">c</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">R</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;capacity&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">rv</span><span class="p">}</span>
     <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">fwd_caps</span><span class="p">,</span> <span class="n">label_pos</span><span class="o">=</span><span class="mf">0.667</span><span class="p">)</span>
     <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span>
         <span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">rev_caps</span><span class="p">,</span> <span class="n">label_pos</span><span class="o">=</span><span class="mf">0.667</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s2">&quot;goldenrod&quot;</span>
@@ -871,7 +873,7 @@ edges of $N$ if they have non-zero residual capacity.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/ba888b9155027e2294faca0dcb43e900dbf0e819028c449f9ea5dcbcbaadb7be.png" src="../../../_images/ba888b9155027e2294faca0dcb43e900dbf0e819028c449f9ea5dcbcbaadb7be.png" />
+<img alt="../../../_images/ab3744faf9e6f288de4830f4d4f9391760c9d6b80229ce5e2466da59aedc5588.png" src="../../../_images/ab3744faf9e6f288de4830f4d4f9391760c9d6b80229ce5e2466da59aedc5588.png" />
 </div>
 </div>
 <p>This is the residual network for the flow shown above:</p>
@@ -883,7 +885,7 @@ edges of $N$ if they have non-zero residual capacity.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/21cebdd4ee355f62596b8561dc0b4e198ce3658155c5e1e9d6b6055a6e393c79.png" src="../../../_images/21cebdd4ee355f62596b8561dc0b4e198ce3658155c5e1e9d6b6055a6e393c79.png" />
+<img alt="../../../_images/6ee2afac1085e8181c3873efe9dab9f68a36dd903f003bc8dfb068621b086b1a.png" src="../../../_images/6ee2afac1085e8181c3873efe9dab9f68a36dd903f003bc8dfb068621b086b1a.png" />
 </div>
 </div>
 <p>Note: In residual network we consider both the $uv$ and $vu$ edges if any of them is in $N$</p>
@@ -899,8 +901,14 @@ network $L$ which connect nodes of 2 different levels</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mapping between node level and color for visualization</span>
 <span class="n">level_colors</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="mi">1</span><span class="p">:</span><span class="s1">&#39;aqua&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span><span class="s1">&#39;lightpink&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span><span class="s1">&#39;violet&#39;</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;aqua&quot;</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;lightgreen&quot;</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span>
+    <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;lightpink&quot;</span><span class="p">,</span>
+    <span class="mi">6</span><span class="p">:</span> <span class="s2">&quot;violet&quot;</span><span class="p">,</span>
 <span class="p">}</span>
+
 
 <span class="k">def</span> <span class="nf">level_bfs</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">source_node</span><span class="p">,</span> <span class="n">target_node</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;BFS to construct the level network from residual network for given flow.&quot;&quot;&quot;</span>
@@ -964,7 +972,7 @@ network $L$ which connect nodes of 2 different levels</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/e26127bf18471558e62c3e9029c517a133468adcc1d2deef16ba1360c7da9f69.png" src="../../../_images/e26127bf18471558e62c3e9029c517a133468adcc1d2deef16ba1360c7da9f69.png" />
+<img alt="../../../_images/5ddddec4f90b6e9f5910eaa58ae9c9dfc326c538fa0a53c8d92687e4062a04d9.png" src="../../../_images/5ddddec4f90b6e9f5910eaa58ae9c9dfc326c538fa0a53c8d92687e4062a04d9.png" />
 </div>
 </div>
 <p>Note that if sink node $t$ is not reachable from the source node $s$ that means that no
@@ -1016,7 +1024,7 @@ on the Level network $L$.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/5370a878d7900f4af28dcd0debc56cd7302daadba30cb80aae05ee7bb180b18e.png" src="../../../_images/5370a878d7900f4af28dcd0debc56cd7302daadba30cb80aae05ee7bb180b18e.png" />
+<img alt="../../../_images/6f492fe01e6d1886717371295578b6ec1cad94db2727650ae753e80084b40603.png" src="../../../_images/6f492fe01e6d1886717371295578b6ec1cad94db2727650ae753e80084b40603.png" />
 </div>
 </div>
 <p>Augmenting path after augmenting:</p>
@@ -1032,14 +1040,14 @@ on the Level network $L$.</p>
 <span class="c1"># Node ordering in the subgraph can be different than `path`</span>
 <span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">aug_path</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
 <span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">level_colors</span><span class="p">[</span><span class="n">level</span><span class="p">[</span><span class="n">n</span><span class="p">]]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
-<span class="n">node_colors</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">node_colors</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;skyblue&quot;</span>
+<span class="n">node_colors</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">node_colors</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;skyblue&quot;</span>
 
 <span class="n">draw_residual_graph</span><span class="p">(</span><span class="n">aug_path</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/bc6ad2efa2d1dca4120b54c101322185fc92ae1d508a9c4402e45c57c4ae73de.png" src="../../../_images/bc6ad2efa2d1dca4120b54c101322185fc92ae1d508a9c4402e45c57c4ae73de.png" />
+<img alt="../../../_images/4a3994ee6ea4394526227a920e635c32584cf4dd0bc9ff642a5222aaee003a0f.png" src="../../../_images/4a3994ee6ea4394526227a920e635c32584cf4dd0bc9ff642a5222aaee003a0f.png" />
 </div>
 </div>
 <p>Resulting new residual Network:</p>
@@ -1054,7 +1062,7 @@ on the Level network $L$.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/a98e3d69f90a7e61ba76a99743a4bb4408ad7fa1574658d935ead2478c5c4bc0.png" src="../../../_images/a98e3d69f90a7e61ba76a99743a4bb4408ad7fa1574658d935ead2478c5c4bc0.png" />
+<img alt="../../../_images/8966b0cc7d8d2ee3d29215a51b812d731eaec54307dbbb2680b38d72dcc6a07a.png" src="../../../_images/8966b0cc7d8d2ee3d29215a51b812d731eaec54307dbbb2680b38d72dcc6a07a.png" />
 </div>
 </div>
 <p>Each of the above steps plays a role in Dinitz’s algorithm for finding the
@@ -1100,9 +1108,7 @@ network, <code class="docutils literal notranslate"><span class="pre">G</span></
     <span class="n">R</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">dinitz</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="s2">&quot;capacity&quot;</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">cutoff</span><span class="p">)</span>
 
     <span class="c1"># coloring and labeling edges depending on if they have non-zero flow value or not</span>
-    <span class="n">edge_colors</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;lightgray&quot;</span> <span class="k">if</span> <span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;flow&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span>
-    <span class="p">]</span>
+    <span class="n">edge_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lightgray&quot;</span> <span class="k">if</span> <span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;flow&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">]</span>
     <span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{</span>
         <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s1">&#39;flow&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">G</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s1">&#39;capacity&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span>
@@ -1126,7 +1132,7 @@ network, <code class="docutils literal notranslate"><span class="pre">G</span></
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/b778447a556ab5b6b08870467986e2108ab96915f091eb608a70c4687381a42b.png" src="../../../_images/b778447a556ab5b6b08870467986e2108ab96915f091eb608a70c4687381a42b.png" />
+<img alt="../../../_images/a062c86f2c9a461fa6746b165a1f383490c747a5486c24e492a6ea2b92ebf372.png" src="../../../_images/a062c86f2c9a461fa6746b165a1f383490c747a5486c24e492a6ea2b92ebf372.png" />
 </div>
 </div>
 <p>Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value</p>
@@ -1170,7 +1176,7 @@ $lw1, lw2, lw3$, and customers as $c1,c2…c20$.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/ea6a30632c80c20c1f3400f9c0f6936a6d2cb697fdbf7b801de309b0d4c54e0f.png" src="../../../_images/ea6a30632c80c20c1f3400f9c0f6936a6d2cb697fdbf7b801de309b0d4c54e0f.png" />
+<img alt="../../../_images/5bc0ae8318770a4c094d965d5ece6772b476ccfa4f3256e2ef401328e679ae18.png" src="../../../_images/5bc0ae8318770a4c094d965d5ece6772b476ccfa4f3256e2ef401328e679ae18.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1235,7 +1241,7 @@ as 1 we only need to do one shipment per customer.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/e09e753c5626d8704ed1ff8b0ed80883ace2c500d9426a93b3a810d610456921.png" src="../../../_images/e09e753c5626d8704ed1ff8b0ed80883ace2c500d9426a93b3a810d610456921.png" />
+<img alt="../../../_images/4e05c7c93e38a9578badfbff57c1b91d8c9480d76f843b15a203b7a788587cc6.png" src="../../../_images/4e05c7c93e38a9578badfbff57c1b91d8c9480d76f843b15a203b7a788587cc6.png" />
 </div>
 </div>
 <p>Above we can see a matching of intermediate shipping points and customers which

@@ -710,8 +710,8 @@ networks implemented in networkx.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># from networkx.readwrite import json_graph</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
-<span class="c1">#load json-ed networkx datafile</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/tesla_network.json&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
+<span class="c1"># load json-ed networkx datafile</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/tesla_network.json&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
     <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">json_graph</span><span class="o">.</span><span class="n">node_link_graph</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">infile</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -731,8 +731,8 @@ networks implemented in networkx.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#example node data structure keyed on geohash of GPS cords</span>
-<span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="s1">&#39;dr7k46ycwwb8&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># example node data structure keyed on geohash of GPS cords</span>
+<span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="s2">&quot;dr7k46ycwwb8&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -752,10 +752,10 @@ networks implemented in networkx.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#extract pos and weight attributes for use in models</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># extract pos and weight attributes for use in models</span>
 <span class="n">nodes</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span>
-<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s1">&#39;pos&#39;</span><span class="p">)</span>
-<span class="n">weight</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">)</span>
+<span class="n">weight</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -794,12 +794,12 @@ parameter <code class="docutils literal notranslate"><span class="pre">radius</s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/2d34ffd1dab70e576a37407838904785973c542058e4ddc0331b41c28dc3cec1.png" src="../../_images/2d34ffd1dab70e576a37407838904785973c542058e4ddc0331b41c28dc3cec1.png" />
+<img alt="../../_images/4bc7c7750ace49c4f696d23be3c78e9a955423f412981e136d8327546650f480.png" src="../../_images/4bc7c7750ace49c4f696d23be3c78e9a955423f412981e136d8327546650f480.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make edge visualization more prominent (and consistent) for the following </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make edge visualization more prominent (and consistent) for the following</span>
 <span class="c1"># examples</span>
 <span class="n">edge_opts</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span>
 <span class="n">edge_opts</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.2</span>
@@ -839,7 +839,7 @@ nodes raised to the $-\alpha$ parameter, which has a default value of 2.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/38d4ae3c1742331475d5cac34d5c266d0ede8ae4ce757dfb1740eeebcf3b1023.png" src="../../_images/38d4ae3c1742331475d5cac34d5c266d0ede8ae4ce757dfb1740eeebcf3b1023.png" />
+<img alt="../../_images/5be4ed2aac3d34b5fd5e90c525e14681e5fcb5e03ed2c518ce87d20f4cef4dd9.png" src="../../_images/5be4ed2aac3d34b5fd5e90c525e14681e5fcb5e03ed2c518ce87d20f4cef4dd9.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -867,7 +867,7 @@ nodes raised to the $-\alpha$ parameter, which has a default value of 2.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/1ef915c6805bdc8801f7aed59c4a07678cdd0c0ed56876657512ab79ee6a6302.png" src="../../_images/1ef915c6805bdc8801f7aed59c4a07678cdd0c0ed56876657512ab79ee6a6302.png" />
+<img alt="../../_images/8536b3a1e2706f1581d7bf5a1a140fa486169e9b4182a9897a3271a86b6ec181.png" src="../../_images/8536b3a1e2706f1581d7bf5a1a140fa486169e9b4182a9897a3271a86b6ec181.png" />
 </div>
 </div>
 </section>
@@ -884,7 +884,7 @@ distribution with rate parameter <code class="docutils literal notranslate"><spa
 
 <span class="n">pdfs</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># default: exponential distribution with `lambda=1`</span>
-    <span class="sa">r</span><span class="s2">&quot;$e^{-10d}$&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">d</span><span class="p">),</span>
+    <span class="sa">r</span><span class="s2">&quot;$e^{-10d}$&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span> <span class="o">*</span> <span class="n">d</span><span class="p">),</span>
     <span class="s2">&quot;norm&quot;</span><span class="p">:</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="k">for</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">pdf</span><span class="p">),</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pdfs</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()):</span>
@@ -897,7 +897,7 @@ distribution with rate parameter <code class="docutils literal notranslate"><spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/0803e3d951b48fe6653d24d29b5c9fbe717f36203459e3db13d2b958dc3c229c.png" src="../../_images/0803e3d951b48fe6653d24d29b5c9fbe717f36203459e3db13d2b958dc3c229c.png" />
+<img alt="../../_images/5466172bd93ba11777a929df5cd004e46e5c49e8aec51d1406352a63afb8fb05.png" src="../../_images/5466172bd93ba11777a929df5cd004e46e5c49e8aec51d1406352a63afb8fb05.png" />
 </div>
 </div>
 </section>
@@ -924,7 +924,7 @@ rate parameter <code class="docutils literal notranslate"><span class="pre">lamb
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/3223c592d8495aa8225f6065178e547d3cca9e4e1b7d720438a315f45dd86341.png" src="../../_images/3223c592d8495aa8225f6065178e547d3cca9e4e1b7d720438a315f45dd86341.png" />
+<img alt="../../_images/1e4d6289e1dba60ce770f32ef2eb9b860a7a4dbfc31b2b135cdd5ed7d806cbdf.png" src="../../_images/1e4d6289e1dba60ce770f32ef2eb9b860a7a4dbfc31b2b135cdd5ed7d806cbdf.png" />
 </div>
 </div>
 <dl class="footnote brackets">
