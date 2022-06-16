@@ -5,9 +5,10 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.13.6
+    jupytext_version: 1.13.8
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
+  language: python
   name: python3
 ---
 
@@ -101,24 +102,26 @@ Implementation of `is_eulerian` method is quite simple. In order to have an Eule
 
 Here is an example:
 
-```{code-cell}
+```{code-cell} ipython3
 import networkx as nx
+
 G = nx.Graph([(0, 1), (0, 2), (0, 3), (0, 4), (1, 2), (2, 3), (2, 4)])
-nx.draw(G, with_labels=True, node_size = 1000, font_color = "White", node_color="darkorange")
+nx.draw(
+    G, with_labels=True, node_size=1000, font_color="White", node_color="darkorange"
+)
 ```
 
-```{code-cell}
-
+```{code-cell} ipython3
 def is_eulerian(G):
-  if G.is_directed():
-      return(all(
-          G.in_degree(n) == G.out_degree(n) for n in G
-      ) and nx.is_strongly_connected(G))
-  else:
-    return(all(d % 2 == 0 for v, d in G.degree()) and nx.is_connected(G))
+    if G.is_directed():
+        return all(
+            G.in_degree(n) == G.out_degree(n) for n in G
+        ) and nx.is_strongly_connected(G)
+    else:
+        return all(d % 2 == 0 for v, d in G.degree()) and nx.is_connected(G)
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 is_eulerian(G)
 ```
 
@@ -126,8 +129,7 @@ NetworkX is also implemented `eulerian_circuit` method to determine sequence of 
 
 The method uses a stack data structure to keep vertices, it starts with the source vertex and pushes into stack. At each following iteration, it pops a vertex from the stack, chooses a neighbor of it, pushes the chosen vertex to the stack and removes the chosen edge from the graph.
 
-```{code-cell}
-
+```{code-cell} ipython3
 circuit = []
 
 if G.is_directed():
@@ -139,33 +141,32 @@ else:
 
 vertex_stack = [0]
 last_vertex = None
-while vertex_stack: 
+while vertex_stack:
     current_vertex = vertex_stack[-1]
     circuit.append(current_vertex)
     if G.degree(current_vertex) == 0:
-      if last_vertex is not None:
-          break
-      last_vertex = current_vertex
-      vertex_stack.pop()
+        if last_vertex is not None:
+            break
+        last_vertex = current_vertex
+        vertex_stack.pop()
     else:
         _, next_vertex = next(iter(G.edges(current_vertex)))
         vertex_stack.append(next_vertex)
         G.remove_edge(current_vertex, next_vertex)
 ```
 
-```{code-cell}
-print("-> ".join(list(map(str,circuit))))
+```{code-cell} ipython3
+print("-> ".join(list(map(str, circuit))))
 ```
 
 ### 2. Eulerian Path Implementation
 
 Networkx implementation of `has_eulerian_path` first checks if the graph `is_eulerian` or not. Remember that if a graph is Eulerian (i.e. has Euler Circuit), then it also has Eulerian Path.
 
-```{code-cell}
-
+```{code-cell} ipython3
 def has_eulerian_path(G, source=None):
-  if nx.is_eulerian(G):
-      return True
+    if nx.is_eulerian(G):
+        return True
 ```
 
 If an undirected graph is not Eulerian, it can still be `semi_eulerian` meaning that it might have an Eulerian Path with different starting and ending vertices. As explained above, this is possible if and only if
@@ -213,8 +214,7 @@ For a directed graph to has an Eulerian Path, it must have
 
 Using already implemented methods, ```is_semieulerian``` simply checks if the input graph does not have an Eulerian circuit but an Eulerian path with a one line of code.
 
-```{code-cell}
-
+```{code-cell} ipython3
 def is_semieulerian(G):
     return has_eulerian_path(G) and not is_eulerian(G)
 ```
@@ -223,50 +223,58 @@ def is_semieulerian(G):
 
 Let's call the methods above on the Seven Bridges problem. For this, we first need to create the graph properly.
 
-```{code-cell}
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 
-G = nx.MultiGraph([("A","B"),("B","A"),("A","C"),("C","A"),("A","D"),("C","D"),("B","D")])
+G = nx.MultiGraph(
+    [("A", "B"), ("B", "A"), ("A", "C"), ("C", "A"), ("A", "D"), ("C", "D"), ("B", "D")]
+)
 
 pos = nx.random_layout(G)
-nx.draw_networkx_nodes(G, pos, label=True, node_color = 'b', node_size = 500, alpha = 1)
-nx.draw_networkx_labels(G,pos, font_color="w")
+nx.draw_networkx_nodes(G, pos, label=True, node_color="b", node_size=500, alpha=1)
+nx.draw_networkx_labels(G, pos, font_color="w")
 ax = plt.gca()
 for e in G.edges:
-    ax.annotate("",
-                xy=pos[e[0]], xycoords='data',
-                xytext=pos[e[1]], textcoords='data',
-                arrowprops=dict(arrowstyle="-", color="0.5",
-                                shrinkA=5, shrinkB=5,
-                                patchA=None, patchB=None,
-                                connectionstyle="arc3,rad=rrr".replace('rrr',str(0.3*e[2])
-                                ),
-                                ),
-                )
-plt.axis('off')
+    ax.annotate(
+        "",
+        xy=pos[e[0]],
+        xycoords="data",
+        xytext=pos[e[1]],
+        textcoords="data",
+        arrowprops=dict(
+            arrowstyle="-",
+            color="0.5",
+            shrinkA=5,
+            shrinkB=5,
+            patchA=None,
+            patchB=None,
+            connectionstyle="arc3,rad=rrr".replace("rrr", str(0.3 * e[2])),
+        ),
+    )
+plt.axis("off")
 plt.show()
 ```
 
 For the reasons explained above, we expect our graph to have neither an Eulerian Circuit nor an Eulerian Path.
 
-```{code-cell}
+```{code-cell} ipython3
 nx.is_eulerian(G)
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 nx.has_eulerian_path(G)
 ```
 
 We can conclude this section with another example. Do you expect a wheel graph to have an Eulerian Path?
 
-```{code-cell}
+```{code-cell} ipython3
 W = nx.wheel_graph(6)
 nx.draw(W, with_labels=True, node_size=1000, font_color="White", node_color="green")
 ```
 
 The trivial answer is No! All nodes except for the one in the center have exactly 3 edges in the wheel graph. Thus, it cannot have an Eulerian Path.
 
-```{code-cell}
+```{code-cell} ipython3
 nx.has_eulerian_path(W)
 ```
 
