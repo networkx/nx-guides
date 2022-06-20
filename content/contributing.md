@@ -35,12 +35,12 @@ If you want to contribute to nx-guides and already decided on an algorithm to wo
 <!-- #region id="vt0xsWsIDA1K" -->
 ### 1. Your notebook should be a `.md` file.
 
-Your notebook should be in markdown notebook format. 
+Your notebook should be in the MyST markdown format (See: https://myst-parser.readthedocs.io/en/latest/index.html). 
 
 If you normally use `.ipynb` notebooks to work on, you can convert them to `.md` using the following `jupytext` command:
 
 ```
-jupytext --to markdown <notebook-name>.ipynb
+jupytext  --to md:myst <notebook-name>.ipynb
 ```
 
 
