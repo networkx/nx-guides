@@ -75,7 +75,7 @@ It is obvious that we cannot satisfy both of these conditions at the same time. 
 
 Euler generalized the method he applied for Königsberg problem as follows:
 
-> ***A graph has an Euler Path if and only if the number of vertices with odd degree must be either zero or two.***
+> ***A graph has an Euler Path if and only if the number of vertices with odd degree is either zero or two.***
 
 - If there are two vertices with odd degree, then they are the starting and ending vertices.
 - If there are no vertices with odd degree, any vertex can be starting or ending vertex and the graph has also an Euler Circuit.
