@@ -40,7 +40,24 @@ In order to have a clear look, we should first simplify the map a little.
 
 Euler observed that the choice of route inside each land mass is irrelevant. The only thing that matters is the sequence of bridges to be crossed in order. This observation allows us to abstract the problem even more. In the below graph, blue vertices represent the land masses and edges represent the bridges that connect them.
 
-![image:part2](images/part2.png)
+```{code-cell} ipython3
+import networkx as nx
+
+G = nx.DiGraph()
+G.add_edge("A","B",label="a")
+G.add_edge("B","A",label="b")
+G.add_edge("A","C",label="c")
+G.add_edge("C","A",label="d")
+G.add_edge("A","D",label="e")
+G.add_edge("B","D",label="f")
+G.add_edge("C","D",label="g")
+
+positions = {'A':(0,0),'B':(1,-2), 'C':(1,2), 'D':(2,0)}
+
+nx.draw_networkx_nodes(G, pos=positions, node_size = 500)
+nx.draw_networkx_edges(G, pos=positions, edgelist= [("A","D"),("B","D"),("C","D")], arrowstyle="-")
+nx.draw_networkx_edges(G, pos=positions, edgelist= [("A","B"),("B","A"),("C","A"),("A","C")], arrowstyle="-", connectionstyle="arc3,rad=0.2")
+```
 
 Based on this abstraction, we can paraphrase the problem as follows:
 
@@ -52,9 +69,17 @@ Note that every Euler Circuit is also an Euler Path.
 
 ### Euler's Method
 
-Euler denoted land masses of the town by capital letters $A$, $B$, $C$ and $D$ and bridges by lowercase $a$, $b$, $c$, $d$, $e$, $f$ and $g$.
+Euler denoted land masses of the town by capital letters $A$, $B$, $C$ and $D$ and bridges by lowercase $a$, $b$, $c$, $d$, $e$, $f$ and $g$. Let's draw the graph based on this node and edge labels.
 
-![image:graph](images/graph.jpg)
+```{code-cell} ipython3
+edge_labels = nx.get_edge_attributes(G,"label")
+
+nx.draw_networkx_nodes(G, pos=positions, node_size = 500)
+nx.draw_networkx_labels(G, pos=positions,font_color= "w")
+nx.draw_networkx_edges(G, pos=positions, edgelist= [("A","D"),("B","D"),("C","D")], arrowstyle="-")
+nx.draw_networkx_edges(G, pos=positions, edgelist= [("A","B"),("B","A"),("C","A"),("A","C")], arrowstyle="-", connectionstyle="arc3,rad=0.2")
+nx.draw_networkx_edge_labels(G, pos=positions, edge_labels=edge_labels, label_pos=0.2)
+```
 
 He described his logic as follows:
 - If we cross bridge $a$, we walk from $A$ to $B$. In this case, our travel route is denoted as $AB$. 
@@ -103,11 +128,9 @@ Implementation of `is_eulerian` method is quite simple. In order to have an Eule
 Here is an example:
 
 ```{code-cell} ipython3
-import networkx as nx
-
-G = nx.Graph([(0, 1), (0, 2), (0, 3), (0, 4), (1, 2), (2, 3), (2, 4)])
+T = nx.Graph([(0, 1), (0, 2), (0, 3), (0, 4), (1, 2), (2, 3), (2, 4)])
 nx.draw(
-    G, with_labels=True, node_size=1000, font_color="White", node_color="darkorange"
+    T, with_labels=True, node_size=1000, font_color="White", node_color="darkorange"
 )
 ```
 
@@ -122,7 +145,7 @@ def is_eulerian(G):
 ```
 
 ```{code-cell} ipython3
-is_eulerian(G)
+is_eulerian(T)
 ```
 
 NetworkX is also implemented `eulerian_circuit` method to determine sequence of edges that consist of a Euler Circuit. 
@@ -163,7 +186,7 @@ print("-> ".join(list(map(str, circuit))))
 
 Networkx implementation of `has_eulerian_path` first checks if the graph `is_eulerian` or not. Remember that if a graph is Eulerian (i.e. has Euler Circuit), then it also has Eulerian Path.
 
-```{code-cell} ipython3
+```python
 def has_eulerian_path(G, source=None):
     if nx.is_eulerian(G):
         return True
@@ -221,41 +244,7 @@ def is_semieulerian(G):
 
 ### 3. Examples
 
-Let's call the methods above on the Seven Bridges problem. For this, we first need to create the graph properly.
-
-```{code-cell} ipython3
-import matplotlib.pyplot as plt
-
-G = nx.MultiGraph(
-    [("A", "B"), ("B", "A"), ("A", "C"), ("C", "A"), ("A", "D"), ("C", "D"), ("B", "D")]
-)
-
-pos = nx.random_layout(G)
-nx.draw_networkx_nodes(G, pos, label=True, node_color="b", node_size=500, alpha=1)
-nx.draw_networkx_labels(G, pos, font_color="w")
-ax = plt.gca()
-for e in G.edges:
-    ax.annotate(
-        "",
-        xy=pos[e[0]],
-        xycoords="data",
-        xytext=pos[e[1]],
-        textcoords="data",
-        arrowprops=dict(
-            arrowstyle="-",
-            color="0.5",
-            shrinkA=5,
-            shrinkB=5,
-            patchA=None,
-            patchB=None,
-            connectionstyle="arc3,rad=rrr".replace("rrr", str(0.3 * e[2])),
-        ),
-    )
-plt.axis("off")
-plt.show()
-```
-
-For the reasons explained above, we expect our graph to have neither an Eulerian Circuit nor an Eulerian Path.
+Let's call the methods above on the Seven Bridges problem. For the reasons explained above, we expect our graph to have neither an Eulerian Circuit nor an Eulerian Path.
 
 ```{code-cell} ipython3
 nx.is_eulerian(G)
