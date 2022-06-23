@@ -52,7 +52,7 @@ G.add_edge("A", "D", label="e")
 G.add_edge("B", "D", label="f")
 G.add_edge("C", "D", label="g")
 
-positions = {'A':(0, 0),'B':(1, -2), 'C':(1, 2), 'D':(2, 0)}
+positions = {'A':(0, 0), 'B':(1, -2), 'C':(1, 2), 'D':(2, 0)}
 
 nx.draw_networkx_nodes(G, pos=positions, node_size=500)
 nx.draw_networkx_edges(G, pos=positions, edgelist=[("A", "D"), ("B", "D"), ("C", "D")], arrowstyle="-")
