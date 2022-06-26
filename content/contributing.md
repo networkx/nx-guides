@@ -42,8 +42,6 @@ If you normally use `.ipynb` notebooks to work on, you can convert them to `.md`
 ```
 jupytext  --to md:myst <notebook-name>.ipynb
 ```
-
-
 <!-- #endregion -->
 
 <!-- #region id="XByALcTUDm1X" -->
@@ -92,4 +90,12 @@ One of the aims of nx-guides notebooks is to use different algorithms to explore
 Here is a good source for datasets:
 
 http://snap.stanford.edu/data/index.html
+<!-- #endregion -->
+
+<!-- #region -->
+### 8. What if the tests are still failing?
+
+Once all tests are completed, you can see warnings and errors that prevents your PR from passing the tests. To do that, go to the bottom of "Conversation" page in your PR. There will be red cross signs on the left side of "ci/circleci: build-docs" test suite. Click on the "Details" link on the right side of it to see errors and warnings.
+
+You can also click on the "Details" link on the right side of "ci/circleci: build-docs artifact". If your notebook is built, this will bring you to the full documentation for the project as if this branch was merged. You can then navigate to the notebook you have created and check that your documentation looks good.
 <!-- #endregion -->
