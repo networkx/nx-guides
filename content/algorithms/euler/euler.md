@@ -152,7 +152,7 @@ NetworkX is also implemented `eulerian_circuit` method to determine sequence of 
 
 The method uses a stack data structure to keep vertices, it starts with the source vertex and pushes into stack. At each following iteration, it pops a vertex from the stack, chooses a neighbor of it, pushes the chosen vertex to the stack and removes the chosen edge from the graph.
 
-```{code-cell} ipython3
+```python
 circuit = []
 
 if G.is_directed():
@@ -176,10 +176,6 @@ while vertex_stack:
         _, next_vertex = next(iter(G.edges(current_vertex)))
         vertex_stack.append(next_vertex)
         G.remove_edge(current_vertex, next_vertex)
-```
-
-```{code-cell} ipython3
-print("-> ".join(list(map(str, circuit))))
 ```
 
 ### 2. Eulerian Path Implementation
