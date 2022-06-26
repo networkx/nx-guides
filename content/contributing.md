@@ -12,7 +12,7 @@ jupyter:
 ---
 
 <!-- #region id="QqmEP19zFVew" -->
-# Contributors Guide (DRAFT)
+# Contributors Guide
 <!-- #endregion -->
 
 <!-- #region id="lUOvQg1MGRIo" -->
