@@ -273,3 +273,4 @@ Euler's algorithm is essential for anyone or anything that uses paths. Some exam
 # References
 
 Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.
+https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
