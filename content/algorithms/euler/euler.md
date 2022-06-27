@@ -56,7 +56,7 @@ positions = {'A':(0, 0), 'B':(1, -2), 'C':(1, 2), 'D':(2, 0)}
 
 nx.draw_networkx_nodes(G, pos=positions, node_size=500)
 nx.draw_networkx_edges(G, pos=positions, edgelist=[("A", "D"), ("B", "D"), ("C", "D")], arrowstyle="-")
-nx.draw_networkx_edges(G, pos=positions, edgelist=[("A", "B"), ("B", "A"), ("C", "A"), ("A", "C")], arrowstyle="-", connectionstyle="arc3,rad=0.2")
+nx.draw_networkx_edges(G, pos=positions, edgelist=[("A", "B"), ("B", "A"), ("C", "A"), ("A", "C")], arrowstyle="-", connectionstyle="arc3,rad=0.2");
 ```
 
 Based on this abstraction, we can paraphrase the problem as follows:
@@ -78,7 +78,7 @@ nx.draw_networkx_nodes(G, pos=positions, node_size=500)
 nx.draw_networkx_labels(G, pos=positions,font_color="w")
 nx.draw_networkx_edges(G, pos=positions, edgelist=[("A", "D"), ("B", "D"), ("C", "D")], arrowstyle="-")
 nx.draw_networkx_edges(G, pos=positions, edgelist=[("A", "B"), ("B", "A"), ("C", "A"), ("A", "C")], arrowstyle="-", connectionstyle="arc3,rad=0.2")
-nx.draw_networkx_edge_labels(G, pos=positions, edge_labels=edge_labels, label_pos=0.2)
+nx.draw_networkx_edge_labels(G, pos=positions, edge_labels=edge_labels, label_pos=0.2);
 ```
 
 He described his logic as follows:
