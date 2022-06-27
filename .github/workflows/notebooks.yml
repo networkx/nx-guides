@@ -14,8 +14,8 @@ jobs:
     strategy:
       max-parallel: 12
       matrix:
-        os: [Ubuntu-20.04, macOS-latest]
-        python-version: [3.8, 3.9, "3.10"]
+        os: [Ubuntu-22.04, macOS-latest]
+        python-version: ["3.9", "3.10"]
 
     steps:
     - uses: actions/checkout@v2
@@ -39,8 +39,16 @@ jobs:
       run: |
         pip install pip==21.1.1
         pip install -r requirements.txt
+
+    - name: Lint with precommit
+      run: |
+        pip install pre-commit
+        find content/ -name "*.md" -exec jupytext --to notebook {} \;
+        # pre-commit wants files to be staged
+        git add content/
+        pre-commit run --all-files --show-diff-on-failure --color always
+        
     - name: Test with nbval
       run: |
         pip install pytest
-        find content/ -name "*.md" -exec jupytext --to notebook {} \;
-        pytest --nbval-lax content/
+        pytest --nbval-lax --durations=25 content/

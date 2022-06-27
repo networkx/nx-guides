@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'nx-guides'
-copyright = '2021, NetworkX developers'
+copyright = '2022, NetworkX developers'
 author = 'NetworkX developers'
 
 
@@ -33,6 +33,9 @@ extensions = [
 
 # MyST configuration
 myst_heading_anchors = 2
+myst_enable_extensions = ["dollarmath"]
+# if `True` then a transition line(----) will be placed before any footnotes
+myst_footnote_transition = False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -73,8 +76,5 @@ html_static_path = ['_static']
 # -- Options for MyST-NB configuration -----------------------------------
 
 # Bump up per cell execution timeout to 300 seconds (from default 30 seconds)
-execution_timeout = 300
-
-# if `True` then a transition line(----) will be placed before any footnotes
-myst_footnote_transition = False
-
+nb_execution_timeout = 300
+nb_execution_show_tb = True  # Print tracebacks to stderr
