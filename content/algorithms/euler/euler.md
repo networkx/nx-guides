@@ -26,7 +26,7 @@ What you are seeing below is the beautiful old town of Königsberg which is famo
 
 ![image:map](images/map.png)
 
-What gave the town its fame is a question that was asked to mathematician Leonhard Euler almost 300 years ago:
+What gave the town its fame is a question that was asked to mathematician Leonhard Euler almost 300 years ago [^1]:
 
 > ***Can you take a walk through the Königsberg visiting each land part of it by crossing each bridge once and only once?***
 
@@ -77,7 +77,7 @@ Note that every Euler Circuit is also an Euler Path.
 
 ### Euler's Method
 
-Euler denoted land masses of the town by capital letters $A$, $B$, $C$ and $D$ and bridges by lowercase $a$, $b$, $c$, $d$, $e$, $f$ and $g$. Let's draw the graph based on this node and edge labels.
+Euler[^2] denoted land masses of the town by capital letters $A$, $B$, $C$ and $D$ and bridges by lowercase $a$, $b$, $c$, $d$, $e$, $f$ and $g$. Let's draw the graph based on this node and edge labels.
 
 ```{code-cell}
 edge_labels = nx.get_edge_attributes(G, "label")
@@ -103,12 +103,12 @@ He described his logic as follows:
 - So, sequential use of $n$ bridges is denoted with $n+1$ capital letters.
 - Since we need to cross each of 7 bridges, our route should consist of a sequence of $A$, $B$, $C$ and $D$ of length 8.
 
-He also stated the fact that number of appearences of each land mass in the route depend on the number of bridges it has.
+He also stated the fact that number of appearances of each land mass in the route depend on the number of bridges it has.
 - $A$ has 5 bridges. All these 5 bridges should appear in our Euler Path exactly once. Then, $A$ should appear in our route for 3 times.
 - $B$ has 3 bridges. It should appear in the route for 2 times.
 - $C$ has 3 bridges. It should appear in the route for 2 times.
 - $D$ has 3 bridges. It should appear in the route for 2 times.
-- Then, total length of the route should be 3 + 2 + 2 + 2 = 9.
+- Then, the total length of the route should be 3 + 2 + 2 + 2 = 9.
 
 It is obvious that we cannot satisfy both of these conditions at the same time. Therefore, Euler concluded that there is no solution to Seven Bridges of Königsberg problem (I.e. Königsberg does not have an Euler Path). 
 
@@ -123,7 +123,7 @@ Euler generalized the method he applied for Königsberg problem as follows:
 
 ## NetworkX Implementation of Euler's Algorithm
 
-NetworkX implemented several methods using the Euler's algorithm. These are:
+NetworkX implements several methods using the Euler's algorithm. These are:
 - **is_eulerian**      : Whether the graph has an Eulerian circuit
 - **eulerian_circuit** : Sequence of edges of an Eulerian circuit in the graph.
 - **eulerize**         : Transforms a graph into an Eulerian graph
@@ -133,13 +133,13 @@ NetworkX implemented several methods using the Euler's algorithm. These are:
 
 In this part, we will briefly explain the NetworkX implementation of Euler's algorithm by explaining some of these methods.
 
-**Note**: NetworkX implementation does not allow graphs with isolated nodes to have Eulerian Path and/or Eulerian Circuit. Thus, an Eulerian Path or Eulerian Circuit must visit not only all edges but also all vertices of the graph.
+**Note**: NetworkX implementation does not allow graphs with isolated nodes to have Eulerian Path and/or Eulerian Circuit. Thus, an Eulerian Path or Eulerian Circuit must visit not only all edges, but also all vertices of the graph.
 
 ### 1. Eulerian Circuit Implementation
 
-Implementation of `is_eulerian` method is quite simple. In order to have an Euler circuit (i.e. to be Eulerian):
+Implementation of the `is_eulerian` method is quite simple. In order to have an Euler circuit (i.e. to be Eulerian):
 - A directed graph must be strongly connected and every vertex of it must have equal in degree and out degree.
-- An undirected graph must be connected and it must have no vertices of odd degree.
+- An undirected graph must be connected, and it must have no vertices of odd degree.
 
 Here is an example:
 
@@ -164,7 +164,7 @@ def is_eulerian(G):
 is_eulerian(T)
 ```
 
-NetworkX is also implemented `eulerian_circuit` method to determine sequence of edges that consist of a Euler Circuit. 
+NetworkX has also implemented the `eulerian_circuit` method to determine sequence of edges that consist of a Euler Circuit.
 
 The method uses a stack data structure to keep vertices, it starts with the source vertex and pushes into stack. At each following iteration, it pops a vertex from the stack, chooses a neighbor of it, pushes the chosen vertex to the stack and removes the chosen edge from the graph.
 
@@ -273,7 +273,7 @@ W = nx.wheel_graph(6)
 nx.draw(W, with_labels=True, node_size=1000, font_color="White", node_color="green")
 ```
 
-The trivial answer is No! All nodes except for the one in the center have exactly 3 edges in the wheel graph. Thus, it cannot have an Eulerian Path.
+The answer is No! All nodes except for the one in the center have exactly 3 edges in the wheel graph. Thus, it cannot have an Eulerian Path.
 
 ```{code-cell}
 nx.has_eulerian_path(W)
@@ -288,5 +288,5 @@ Euler's algorithm is essential for anyone or anything that uses paths. Some exam
 
 # References
 
-Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.
-https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
+[^1] https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
+[^2] Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.
