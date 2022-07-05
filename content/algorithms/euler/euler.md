@@ -213,10 +213,10 @@ If an undirected graph is not Eulerian, it can still be `semi_eulerian` meaning 
 If source vertex is given by the user, it must have an odd degree. Otherwise, there cannot be an Eulerian Path starting from the given source.
 
 ```python
-  if G.is_directed() == False:
-    if source is not None and G.degree[source] % 2 != 1:
-      return False
-    return(sum(d % 2 == 1 for v, d in G.degree()) == 2 and nx.is_connected(G))
+    if G.is_directed() == False:
+        if source is not None and G.degree[source] % 2 != 1:
+            return False
+        return(sum(d % 2 == 1 for _, d in G.degree()) == 2 and nx.is_connected(G))
 ```
 
 For a directed graph to has an Eulerian Path, it must have 
@@ -226,25 +226,25 @@ For a directed graph to has an Eulerian Path, it must have
 - all of its vertices belong to a single connected component of the underlying undirected graph *(I.e. Should be weakly connected)*.
 
 ```python
-  if G.is_directed():
-      ins = G.in_degree
-      outs = G.out_degree
-      if source is not None and outs[source] - ins[source] != 1:
-          return False
+    if G.is_directed():
+        ins = G.in_degree
+        outs = G.out_degree
+        if source is not None and outs[source] - ins[source] != 1:
+            return False
 
-      unbalanced_ins = 0
-      unbalanced_outs = 0
-      for v in G:
-          if ins[v] - outs[v] == 1:
-              unbalanced_ins += 1
-          elif outs[v] - ins[v] == 1:
-              unbalanced_outs += 1
-          elif ins[v] != outs[v]:
-              return False
+        unbalanced_ins = 0
+        unbalanced_outs = 0
+        for v in G:
+            if ins[v] - outs[v] == 1:
+                unbalanced_ins += 1
+            elif outs[v] - ins[v] == 1:
+                unbalanced_outs += 1
+            elif ins[v] != outs[v]:
+                return False
 
-      return (
-          unbalanced_ins <= 1 and unbalanced_outs <= 1 and nx.is_weakly_connected(G)
-      )
+        return (
+            unbalanced_ins <= 1 and unbalanced_outs <= 1 and nx.is_weakly_connected(G)
+        )
 ```
 
 Using already implemented methods, ```is_semieulerian``` simply checks if the input graph does not have an Eulerian circuit but an Eulerian path with a one line of code.
