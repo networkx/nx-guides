@@ -20,7 +20,7 @@ In this tutorial, we will explore the Euler's algorithm and its implementation i
 
 ## Seven Bridges of Königsberg
 
-What you are seeing below is the beautiful old town of Königsberg which is famous for its seven bridges. Each of these bridges either connect two large islands—Kneiphof and Lomse or two mainland portions of the city.
+What you are seeing below is the beautiful old town of Königsberg which is famous for its seven bridges. Each of these bridges either connect two large islands — Kneiphof and Lomse — or two mainland portions of the city.
 
 +++
 
@@ -28,7 +28,7 @@ What you are seeing below is the beautiful old town of Königsberg which is famo
 
 What gave the town its fame is a question that was asked to mathematician Leonhard Euler almost 300 years ago [^1]:
 
-> ***Can you take a walk through the Königsberg visiting each land part of it by crossing each bridge once and only once?***
+> ***Can you take a walk through Königsberg visiting each mass by crossing each bridge once and only once?***
 
 Euler's negative resolution to this question laid the foundations of graph theory. Before diving into Euler's solution, let's reformulate the problem.
 
@@ -38,7 +38,7 @@ In order to have a clear look, we should first simplify the map a little.
 
 ![image:part1](images/part1.png)
 
-Euler observed that the choice of route inside each land mass is irrelevant. The only thing that matters is the sequence of bridges to be crossed in order. This observation allows us to abstract the problem even more. In the below graph, blue vertices represent the land masses and edges represent the bridges that connect them.
+Euler observed that the choice of route inside each land mass is irrelevant. The only thing that matters is the sequence of bridges to be crossed. This observation allows us to abstract the problem even more. In the graph below, blue vertices represent the land masses and edges represent the bridges that connect them.
 
 ```{code-cell}
 import networkx as nx
