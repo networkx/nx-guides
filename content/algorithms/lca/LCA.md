@@ -35,35 +35,26 @@ It is always a good idea to learn concepts on an example. Consider the following
 
 ![image:evolutionary tree](images/evolutionary_tree.png)
 
++++ {"id": "-mvVopP42kk9"}
+
+Let's first draw the tree using NetworkX.
+
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-id: FdGHBPT-ublJ
-outputId: 49272870-d3b9-4715-8bff-682def5293ec
----
 import matplotlib.pyplot as plt
 import networkx as nx
 from networkx.drawing.nx_pydot import graphviz_layout
-from itertools import chain, count
+from itertools import chain, count, combinations_with_replacement
 ```
 
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-  height: 258
-id: UDDayA6giYRI
-outputId: 2f453fe6-2809-4587-d6f5-4a445441e352
----
 T = nx.DiGraph()
-T.add_edges_from([("Vertabrate","Lamprey"),("Vertabrate","Jawed V."),
-                  ("Jawed V.","Sunfish"),("Jawed V.","Tetrapod"),
-                  ("Tetrapod","Newt"),("Tetrapod","Amniote"),("Amniote","Lizard"),
-                  ("Amniote","Mammal"),("Mammal","Bear"), ("Mammal", "Chimpanzee")])
+T.add_edges_from([("Vertabrate", "Lamprey"), ("Vertabrate", "Jawed V."), 
+                  ("Jawed V.", "Sunfish"), ("Jawed V.", "Tetrapod"), 
+                  ("Tetrapod", "Newt"), ("Tetrapod", "Amniote"), ("Amniote", "Lizard"), 
+                  ("Amniote", "Mammal"), ("Mammal", "Bear"), ("Mammal", "Chimpanzee")])
 pos = graphviz_layout(T, prog="dot")
-plt.figure(3,figsize=(16,6))
-nx.draw(T, pos, with_labels=True, node_size=4000, node_color='brown', font_size = 11, font_color = "White")
+plt.figure(3, figsize=(16, 6))
+nx.draw(T, pos, with_labels=True, node_size=4000, node_color='brown', font_size=11, font_color="White")
 plt.show()
 ```
 
@@ -71,124 +62,154 @@ plt.show()
 
 Consider the tree above and observe the following relationships:
 
-- **Ancestors of node $Mammal$**:  
-  - For this, we will follow the path from root to node $Mammal$.
-  - Nodes $Vertabrate$, $Jawed$ $Vertabrate$, $Tetrapod$ and $Amniote$ -which are on this path- are ancestors of $Mammal$.
-- **Descendants of node $Mammal$**:
-    - $Bear$ and $Chimpanzee$ are the child of $Mammal$. Thus,they are its descendants.
-- **Lowest Common Ancestor of $Mammal$ and $Newt$**:
-  - Ancestors of $Mammal$ are $Vertabrate$, $Jawed$ $Vertabrate$, $Tetrapod$ and $Amniote$.
-  - Ancestors of $Newt$ are $Vertabrate$, $Jawed$ $Vertabrate$, and $Tetrapod$.
-  - Among the common ancestors, the lowest (i.e. farthest away from the root) one is $Tetrapod$.
+- Ancestors of node Mammal:  
+  - For this, we will follow the path from root to node Mammal.
+  - Nodes Vertabrate, Jawed Vertabrate, Tetrapod and Amniote -which are on this path- are ancestors of Mammal.
+- Descendants of node Mammal:
+    - Bear and Chimpanzee are the child of Mammal. Thus,they are its descendants.
+- Lowest Common Ancestor of Mammal and Newt:
+  - Ancestors of Mammal are Vertabrate, Jawed Vertabrate, Tetrapod and Amniote.
+  - Ancestors of Newt are Vertabrate, Jawed Vertabrate, and Tetrapod.
+  - Among the common ancestors, the lowest (i.e. farthest away from the root) one is Tetrapod.
 
 
-_Note that every node is both an ancestor and descendant of itself._
-
-
-+++ {"id": "8CdjSmPZDn7s"}
-
-It is also possible to find lowest common ancestors for all pairs of nodes using `all_pairs_lowest_common_ancestor()` method implemented in NetworkX. You can run the below cell to see it yourself!
-
+_Note that, in terms of lowest common ancestor algorithms, every node is considered as an ancestor itself._
 
 
 ```{code-cell}
-:id: Q64EdW8EDnb9
-
-dict(nx.all_pairs_lowest_common_ancestor(T))
+dict(nx.naive_all_pairs_lowest_common_ancestor(T))
 ```
 
 +++ {"id": "mjEM8pgNolIo"}
 
-## Ancestor-List Algorithm
+## Naive Lowest Common Ancestor Algorithm
 
-NetworkX uses [Ancestor-List](https://www3.cs.stonybrook.edu/~bender/pub/JALG05-daglca.pdf) algorithm to find lowest common ancestor of all pairs of nodes. We will introduce it here step by step using a simple directed acyclic graph.
+NetworkX uses several algorithms to find lowest common ancestor of given pairs of nodes. Naive algorithm is one of them. In this section, we will introduce this naive algorithm step by step.
+
++++ {"id": "Lx2DUlo7DUdN"}
+
+###Step 1: Check if the type of input graph is DAG.
+
++++ {"id": "sIMW9IoLtNeU"}
+
+Lowest common ancestor algorithms under NetworkX are implemented only for directed acyclic graphs with at least one node. For this, the source code first checks if the input graph is a valid one or not.
+
+```python
+def naive_all_pairs_lowest_common_ancestor(G, pairs=None):
+    if not nx.is_directed_acyclic_graph(G):
+        raise nx.NetworkXError("LCA only defined on directed acyclic graphs.")
+    elif len(G) == 0:
+        raise nx.NetworkXPointlessConcept("LCA meaningless on null graphs.")
+    elif None in G:
+        raise nx.NetworkXError("None is not a valid node.")
+```
+
++++ {"id": "C9wWNKYzzCPb"}
+
+If "pairs" argument is not set, we consider of all unordered pairs of nodes in G by default, e.g. we do not get both (b, a) and (a, b) but only one of them.
+
+```python
+if pairs is None:
+    from itertools import combinations_with_replacement
+
+    pairs = combinations_with_replacement(G, 2)
+```
+
++++ {"id": "vDe5_Ii26aV4"}
+
+We also check if a node that does not exist in the graph is given in any of the pairs.
+
+```python
+for u, v in pairs:
+    for n in (u, v):
+        if n not in G:
+            msg = f"The node {n} is not in the digraph."
+            raise nx.NodeNotFound(msg)
+```
+
++++ {"id": "GGG-GpILHHcj"}
+
+### Step 2: Find ancestors of all nodes in G.
+
++++ {"id": "j2lFxyq-6ixI"}
+
+After checking the validity of inputs, we find all ancestors of every node in the pairs and store these information in a cache.
+
+```python
+ancestor_cache = {}
+
+for v, w in pairs:
+    if v not in ancestor_cache:
+        ancestor_cache[v] = nx.ancestors(G, v)
+        ancestor_cache[v].add(v)
+    if w not in ancestor_cache:
+        ancestor_cache[w] = nx.ancestors(G, w)
+        ancestor_cache[w].add(w)
+```
+
++++ {"id": "hHSvAFp1jW_a"}
+
+###Step 3: Find common ancestors
+
++++ {"id": "ZHWKa9WT60bG"}
+
+For each pair (v, w), we determine nodes that appear ancestor lists of both v and w. (i.e. find all common ancestors)  
+
+```python
+common_ancestors = ancestor_cache[v] & ancestor_cache[w]
+```
+
++++ {"id": "enpNSvkofqqJ"}
+
+### Step 4: Find an ancestor in common ancestors which located at the lowest level in the graph.
+
++++ {"id": "ZY_BBL0c05tp"}
+
+We start with an arbitrary node v from the set of common ancestors.  We follow arbitrary outgoing edges, remaining in the set of common ancestors, until reaching a node with no outgoing edge to another of the common ancestors.
+
+```python
+v = next(iter(common_ancestors))
+while True:
+  successor = None
+  for w in G.successors(v):
+    if w in common_ancestors:
+      successor = w
+      break
+  if successor is None:
+      return v
+  v = successor
+```
+
++++ {"id": "8C-SlZeR7ovl"}
+
+We can see the result of our algorithm for a simple directed acyclic graph. Assume that our graph G is as follows and we wish to find lowest common ancestors for all pairs. For this, we need to call ```naive_all_pairs_lowest_common_ancestor```
+method.
+
 
 ```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-  height: 247
-id: KHfCRDdjipmQ
-outputId: 70dfaeec-a96c-4796-ecca-a66c3077f56f
----
 # Generating and visualizing our DAG
 G = nx.DiGraph()
-G.add_edges_from([(1, 0), (2, 0), (3, 2), (4, 1), (4, 3),(5,6)])
+G.add_edges_from([(1, 0), (2, 0), (3, 2), (3, 1), (4, 2), (4, 3)])
+pairs = combinations_with_replacement(G, 2)
+
 pos = graphviz_layout(G, prog="dot")
-plt.figure(3,figsize=(5,3))
-nx.draw(G, pos, with_labels=True, node_size=1500, node_color='darkgreen', font_size = 14, font_color = "White")
+plt.figure(3, figsize=(5, 3))
+nx.draw(G, pos, with_labels=True, node_size=1500, node_color='darkgreen', font_size=14, font_color="White")
 plt.show()
 ```
 
-+++ {"id": "bnLcpToCnyCj"}
-
-### Step 1
-Add a node $v$ to the directed acyclic graph $G$, and add directed edges from $v$ to sources with no incoming edges in $G$. The addition of $v$ guarantees that every two nodes have an LCA. If $v$ is reported as a representative $LCA$ for a pair of nodes, then these nodes have no common ancestors in $G$.
-
 ```{code-cell}
-:id: 6zJtLRXfcWu0
-
-sources = [n for n, deg in G.in_degree if deg == 0]
-if len(sources) == 1:
-    root = sources[0]
-    super_root = None
-else:
-    G = G.copy()
-    # find unused node
-    root = -1
-    while root in G:
-        root -= 1
-    # use that as the super_root below all sources
-    super_root = root
-    for source in sources:
-        G.add_edge(root, source)
+nx.naive_all_pairs_lowest_common_ancestor(G)
 ```
 
-+++ {"id": "uB7T9PNVnqHa"}
++++ {"id": "K3QvlQd0-sSB"}
 
-Observe that super root $-1$ connected components in our graph. 
+## Time & Space Complexity
 
-```{code-cell}
----
-colab:
-  base_uri: https://localhost:8080/
-  height: 319
-id: KTJgQuB-nrQN
-outputId: c7eaf69a-ebdf-47e3-df84-f6c3259462a4
----
-nx.draw(G, with_labels=True, node_size=1500, node_color='darkgreen', font_size=14, font_color="White")
-```
++++ {"id": "gW37WqW2-yQk"}
 
-+++ {"id": "Je365ItTG7Ri"}
+Naive implementation of lowest common ancestor algorithm finds all ancestors of all nodes in the given pairs. Let number of nodes given in the pairs be P. In the worst case, finding ancestors of a single node will take O(|V|) times where |V| is the number of nodes. Thus, constructing the ancestor cache of a graph will take O(|V|*P) times. This step will dominate the others and determine the worst-case running time of the algorithm.
 
-### Step 2
+The space complexity of the algorithm will also be determined by the ancestor cache.  For each node in the given pairs, there might be O(|V|) ancestors. Thus, space complexity is also O(|V|*P).
 
-Preprocess $G$ by partitioning the set of edges into two sets: $S_1$ is the set of edges of a spanning tree $T$ of $G$, and $S_2$ is composed of the remaining edges, which make up the $DAG$ $D = (V, S_2)$.
-
-```{code-cell}
-:id: A4ze0sRHnfkT
-
-spanning_tree = nx.dfs_tree(G, root)
-dag = nx.DiGraph(
-    (u, v)
-    for u, v in G.edges
-    if u not in spanning_tree or v not in spanning_tree[u]
-)
-
-# Ensure that both the dag and the spanning tree contains all nodes in G,
-# even nodes that are disconnected in the dag.
-spanning_tree.add_nodes_from(G)
-dag.add_nodes_from(G)
-```
-
-```{code-cell}
-:id: tIqgHDjKoxaT
-
-# TO BE CONTINUED
-```
-
-+++ {"id": "h1Njv6-9n6JE"}
-
-## References
-
-M. A. Bender, M. Farach-Colton, G. Pemmasani, S. Skiena, P. Sumazin. “Lowest common ancestors in trees and directed acyclic graphs.” Journal of Algorithms, 57(2): 75-94, 2005.
++++ {"id": "yOyXvbWsU85B"}
