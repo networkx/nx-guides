@@ -1,3 +1,5 @@
+
+
 # Algorithms
 
 A closer look at some of the algorithms and network analysis techniques
@@ -11,4 +13,5 @@ assortativity/correlation
 dag/index
 flow/dinitz_alg
 lca/LCA
+euler/euler
 ```
