@@ -149,7 +149,7 @@ for v, w in pairs:
 
 +++ {"id": "hHSvAFp1jW_a"}
 
-###Step 3: Find common ancestors
+### Step 3: Find common ancestors
 
 +++ {"id": "ZHWKa9WT60bG"}
 
