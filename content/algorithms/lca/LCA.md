@@ -48,29 +48,29 @@ from itertools import chain, count, combinations_with_replacement
 ```{code-cell}
 T = nx.DiGraph()
 T.add_edges_from(
-  [
-    ("Vertabrate", "Lamprey"),
-    ("Vertabrate", "Jawed V."),
-    ("Jawed V.", "Sunfish"),
-    ("Jawed V.", "Tetrapod"),
-    ("Tetrapod", "Newt"),
-    ("Tetrapod", "Amniote"),
-    ("Amniote", "Lizard"),
-    ("Amniote", "Mammal"),
-    ("Mammal", "Bear"),
-    ("Mammal", "Chimpanzee")
-  ]
+    [
+      ("Vertabrate", "Lamprey"),
+      ("Vertabrate", "Jawed V."),
+      ("Jawed V.", "Sunfish"),
+      ("Jawed V.", "Tetrapod"),
+      ("Tetrapod", "Newt"),
+      ("Tetrapod", "Amniote"),
+      ("Amniote", "Lizard"),
+      ("Amniote", "Mammal"),
+      ("Mammal", "Bear"),
+      ("Mammal", "Chimpanzee")
+    ]
 )
 pos = graphviz_layout(T, prog="dot")
 plt.figure(3, figsize=(16, 6))
 nx.draw(
-  T,
-  pos,
-  with_labels=True,
-  node_size=4000,
-  node_color='brown',
-  font_size=11,
-  font_color="White"
+    T,
+    pos,
+    with_labels=True,
+    node_size=4000,
+    node_color='brown',
+    font_size=11,
+    font_color="White"
 )
 plt.show()
 ```
@@ -209,13 +209,13 @@ pairs = combinations_with_replacement(G, 2)
 pos = graphviz_layout(G, prog="dot")
 plt.figure(3, figsize=(5, 3))
 nx.draw(
-  G,
-  pos,
-  with_labels=True,
-  node_size=1500,
-  node_color='darkgreen',
-  font_size=14,
-  font_color="White"
+    G,
+    pos,
+    with_labels=True,
+    node_size=1500,
+    node_color='darkgreen',
+    font_size=14,
+    font_color="White"
 )
 plt.show()
 ```
