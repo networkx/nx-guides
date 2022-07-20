@@ -14,18 +14,17 @@ kernelspec:
 
 # Lowest Common Ancestor
 
-
-In this tutorial, we will explore the lowest common ancestor algorithm implemented in networkx under `networkx/algorithms/lowest_common_ancestor.py`. 
+In this tutorial, we will explore the lowest common ancestor algorithm implemented in networkx under `networkx/algorithms/lowest_common_ancestor.py`.
 
 ## Definitions
 
 Before diving into the algorithm, let's first remember the concepts of an ancestor node and a descendant node.
 
-- **Ancestor:** 
-Given a rooted tree, any node $u$ which is on the path from root node to $v$ is an ancestor of $u$. 
+- **Ancestor:**
+  Given a rooted tree, any node $u$ which is on the path from root node to $v$ is an ancestor of $u$.
 
-- **Descendant:**  A descendant of a node is either a child of the node or a child of some descendant of the node.
-- **Lowest Common Ancestor:** For two of nodes $u$ and $v$ in a tree, the lowest common ancestor is the lowest (i.e. deepest) node which is an ancestor of both $u$ and $v$. 
+- **Descendant:** A descendant of a node is either a child of the node or a child of some descendant of the node.
+- **Lowest Common Ancestor:** For two of nodes $u$ and $v$ in a tree, the lowest common ancestor is the lowest (i.e. deepest) node which is an ancestor of both $u$ and $v$.
 
 +++ {"id": "Z5VJ4S_mlMiI"}
 
@@ -48,13 +47,31 @@ from itertools import chain, count, combinations_with_replacement
 
 ```{code-cell}
 T = nx.DiGraph()
-T.add_edges_from([("Vertabrate", "Lamprey"), ("Vertabrate", "Jawed V."), 
-                  ("Jawed V.", "Sunfish"), ("Jawed V.", "Tetrapod"), 
-                  ("Tetrapod", "Newt"), ("Tetrapod", "Amniote"), ("Amniote", "Lizard"), 
-                  ("Amniote", "Mammal"), ("Mammal", "Bear"), ("Mammal", "Chimpanzee")])
+T.add_edges_from(
+  [
+    ("Vertabrate", "Lamprey"),
+    ("Vertabrate", "Jawed V."),
+    ("Jawed V.", "Sunfish"),
+    ("Jawed V.", "Tetrapod"),
+    ("Tetrapod", "Newt"),
+    ("Tetrapod", "Amniote"),
+    ("Amniote", "Lizard"),
+    ("Amniote", "Mammal"),
+    ("Mammal", "Bear"),
+    ("Mammal", "Chimpanzee")
+  ]
+)
 pos = graphviz_layout(T, prog="dot")
 plt.figure(3, figsize=(16, 6))
-nx.draw(T, pos, with_labels=True, node_size=4000, node_color='brown', font_size=11, font_color="White")
+nx.draw(
+  T,
+  pos,
+  with_labels=True,
+  node_size=4000,
+  node_color='brown',
+  font_size=11,
+  font_color="White"
+)
 plt.show()
 ```
 
@@ -62,19 +79,17 @@ plt.show()
 
 Consider the tree above and observe the following relationships:
 
-- Ancestors of node Mammal:  
+- Ancestors of node Mammal:
   - For this, we will follow the path from root to node Mammal.
   - Nodes Vertabrate, Jawed Vertabrate, Tetrapod and Amniote -which are on this path- are ancestors of Mammal.
 - Descendants of node Mammal:
-    - Bear and Chimpanzee are the child of Mammal. Thus,they are its descendants.
+  - Bear and Chimpanzee are the child of Mammal. Thus,they are its descendants.
 - Lowest Common Ancestor of Mammal and Newt:
   - Ancestors of Mammal are Vertabrate, Jawed Vertabrate, Tetrapod and Amniote.
   - Ancestors of Newt are Vertabrate, Jawed Vertabrate, and Tetrapod.
   - Among the common ancestors, the lowest (i.e. farthest away from the root) one is Tetrapod.
 
-
 _Note that, in terms of lowest common ancestor algorithms, every node is considered as an ancestor itself._
-
 
 ```{code-cell}
 dict(nx.naive_all_pairs_lowest_common_ancestor(T))
@@ -153,7 +168,7 @@ for v, w in pairs:
 
 +++ {"id": "ZHWKa9WT60bG"}
 
-For each pair (v, w), we determine nodes that appear ancestor lists of both v and w. (i.e. find all common ancestors)  
+For each pair (v, w), we determine nodes that appear ancestor lists of both v and w. (i.e. find all common ancestors)
 
 ```python
 common_ancestors = ancestor_cache[v] & ancestor_cache[w]
@@ -165,7 +180,7 @@ common_ancestors = ancestor_cache[v] & ancestor_cache[w]
 
 +++ {"id": "ZY_BBL0c05tp"}
 
-We start with an arbitrary node v from the set of common ancestors.  We follow arbitrary outgoing edges, remaining in the set of common ancestors, until reaching a node with no outgoing edge to another of the common ancestors.
+We start with an arbitrary node v from the set of common ancestors. We follow arbitrary outgoing edges, remaining in the set of common ancestors, until reaching a node with no outgoing edge to another of the common ancestors.
 
 ```python
 v = next(iter(common_ancestors))
@@ -182,9 +197,8 @@ while True:
 
 +++ {"id": "8C-SlZeR7ovl"}
 
-We can see the result of our algorithm for a simple directed acyclic graph. Assume that our graph G is as follows and we wish to find lowest common ancestors for all pairs. For this, we need to call ```naive_all_pairs_lowest_common_ancestor```
+We can see the result of our algorithm for a simple directed acyclic graph. Assume that our graph G is as follows and we wish to find lowest common ancestors for all pairs. For this, we need to call `naive_all_pairs_lowest_common_ancestor`
 method.
-
 
 ```{code-cell}
 # Generating and visualizing our DAG
@@ -194,7 +208,15 @@ pairs = combinations_with_replacement(G, 2)
 
 pos = graphviz_layout(G, prog="dot")
 plt.figure(3, figsize=(5, 3))
-nx.draw(G, pos, with_labels=True, node_size=1500, node_color='darkgreen', font_size=14, font_color="White")
+nx.draw(
+  G,
+  pos,
+  with_labels=True,
+  node_size=1500,
+  node_color='darkgreen',
+  font_size=14,
+  font_color="White"
+)
 plt.show()
 ```
 
@@ -208,8 +230,8 @@ nx.naive_all_pairs_lowest_common_ancestor(G)
 
 +++ {"id": "gW37WqW2-yQk"}
 
-Naive implementation of lowest common ancestor algorithm finds all ancestors of all nodes in the given pairs. Let number of nodes given in the pairs be P. In the worst case, finding ancestors of a single node will take O(|V|) times where |V| is the number of nodes. Thus, constructing the ancestor cache of a graph will take O(|V|*P) times. This step will dominate the others and determine the worst-case running time of the algorithm.
+Naive implementation of lowest common ancestor algorithm finds all ancestors of all nodes in the given pairs. Let number of nodes given in the pairs be P. In the worst case, finding ancestors of a single node will take O(|V|) times where |V| is the number of nodes. Thus, constructing the ancestor cache of a graph will take O(|V|\*P) times. This step will dominate the others and determine the worst-case running time of the algorithm.
 
-The space complexity of the algorithm will also be determined by the ancestor cache.  For each node in the given pairs, there might be O(|V|) ancestors. Thus, space complexity is also O(|V|*P).
+The space complexity of the algorithm will also be determined by the ancestor cache. For each node in the given pairs, there might be O(|V|) ancestors. Thus, space complexity is also O(|V|\*P).
 
 +++ {"id": "yOyXvbWsU85B"}
