@@ -91,10 +91,6 @@ Consider the tree above and observe the following relationships:
 
 _Note that, in terms of lowest common ancestor algorithms, every node is considered as an ancestor itself._
 
-```{code-cell}
-dict(nx.naive_all_pairs_lowest_common_ancestor(T))
-```
-
 +++ {"id": "mjEM8pgNolIo"}
 
 ## Naive Lowest Common Ancestor Algorithm
@@ -103,7 +99,7 @@ NetworkX uses several algorithms to find lowest common ancestor of given pairs o
 
 +++ {"id": "Lx2DUlo7DUdN"}
 
-###Step 1: Check if the type of input graph is DAG.
+### Step 1: Check if the type of input graph is DAG.
 
 +++ {"id": "sIMW9IoLtNeU"}
 
@@ -221,7 +217,7 @@ plt.show()
 ```
 
 ```{code-cell}
-nx.naive_all_pairs_lowest_common_ancestor(G)
+dict(nx.naive_all_pairs_lowest_common_ancestor(G))
 ```
 
 +++ {"id": "K3QvlQd0-sSB"}
