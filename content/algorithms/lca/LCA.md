@@ -49,16 +49,16 @@ from itertools import chain, count, combinations_with_replacement
 T = nx.DiGraph()
 T.add_edges_from(
     [
-      ("Vertabrate", "Lamprey"),
-      ("Vertabrate", "Jawed V."),
-      ("Jawed V.", "Sunfish"),
-      ("Jawed V.", "Tetrapod"),
-      ("Tetrapod", "Newt"),
-      ("Tetrapod", "Amniote"),
-      ("Amniote", "Lizard"),
-      ("Amniote", "Mammal"),
-      ("Mammal", "Bear"),
-      ("Mammal", "Chimpanzee")
+        ("Vertabrate", "Lamprey"),
+        ("Vertabrate", "Jawed V."),
+        ("Jawed V.", "Sunfish"),
+        ("Jawed V.", "Tetrapod"),
+        ("Tetrapod", "Newt"),
+        ("Tetrapod", "Amniote"),
+        ("Amniote", "Lizard"),
+        ("Amniote", "Mammal"),
+        ("Mammal", "Bear"),
+        ("Mammal", "Chimpanzee"),
     ]
 )
 pos = graphviz_layout(T, prog="dot")
@@ -68,9 +68,9 @@ nx.draw(
     pos,
     with_labels=True,
     node_size=4000,
-    node_color='brown',
+    node_color="brown",
     font_size=11,
-    font_color="White"
+    font_color="White",
 )
 plt.show()
 ```
@@ -209,9 +209,9 @@ nx.draw(
     pos,
     with_labels=True,
     node_size=1500,
-    node_color='darkgreen',
+    node_color="darkgreen",
     font_size=14,
-    font_color="White"
+    font_color="White",
 )
 plt.show()
 ```
@@ -229,5 +229,3 @@ dict(nx.naive_all_pairs_lowest_common_ancestor(G))
 Naive implementation of lowest common ancestor algorithm finds all ancestors of all nodes in the given pairs. Let number of nodes given in the pairs be P. In the worst case, finding ancestors of a single node will take O(|V|) times where |V| is the number of nodes. Thus, constructing the ancestor cache of a graph will take O(|V|\*P) times. This step will dominate the others and determine the worst-case running time of the algorithm.
 
 The space complexity of the algorithm will also be determined by the ancestor cache. For each node in the given pairs, there might be O(|V|) ancestors. Thus, space complexity is also O(|V|\*P).
-
-+++ {"id": "yOyXvbWsU85B"}
