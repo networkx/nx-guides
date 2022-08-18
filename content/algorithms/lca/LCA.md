@@ -93,9 +93,9 @@ _Note that, in terms of lowest common ancestor algorithms, every node is conside
 
 +++ {"id": "mjEM8pgNolIo"}
 
-## Naive Lowest Common Ancestor Algorithm
+## NetworkX's Implementation of Lowest Common Ancestor Algorithm
 
-NetworkX uses several algorithms to find lowest common ancestor of given pairs of nodes. Naive algorithm is one of them. In this section, we will introduce this naive algorithm step by step.
+NetworkX uses naive algorithm to find lowest common ancestor of given pairs of nodes. In this section, we will introduce it step by step.
 
 +++ {"id": "Lx2DUlo7DUdN"}
 
@@ -111,31 +111,24 @@ def naive_all_pairs_lowest_common_ancestor(G, pairs=None):
         raise nx.NetworkXError("LCA only defined on directed acyclic graphs.")
     elif len(G) == 0:
         raise nx.NetworkXPointlessConcept("LCA meaningless on null graphs.")
-    elif None in G:
-        raise nx.NetworkXError("None is not a valid node.")
 ```
 
 +++ {"id": "C9wWNKYzzCPb"}
 
-If "pairs" argument is not set, we consider of all unordered pairs of nodes in G by default, e.g. we do not get both (b, a) and (a, b) but only one of them.
+If "pairs" argument is not set, we consider of all unordered pairs of nodes in G by default, e.g. we do not get both (b, a) and (a, b) but only one of them. If pairs are already specified, we check if every node in pairs exists in the input graph.
 
 ```python
 if pairs is None:
     from itertools import combinations_with_replacement
-
     pairs = combinations_with_replacement(G, 2)
-```
-
-+++ {"id": "vDe5_Ii26aV4"}
-
-We also check if a node that does not exist in the graph is given in any of the pairs.
-
-```python
-for u, v in pairs:
-    for n in (u, v):
-        if n not in G:
-            msg = f"The node {n} is not in the digraph."
-            raise nx.NodeNotFound(msg)
+else:
+  pairs = dict.fromkeys(pairs)
+  nodeset = set(G)
+  for pair in pairs:
+      if set(pair) - nodeset:
+          raise nx.NodeNotFound(
+              f"Node(s) {set(pair) - nodeset} from pair {pair} not in G."
+          )
 ```
 
 +++ {"id": "GGG-GpILHHcj"}
@@ -144,7 +137,7 @@ for u, v in pairs:
 
 +++ {"id": "j2lFxyq-6ixI"}
 
-After checking the validity of inputs, we find all ancestors of every node in the pairs and store these information in a cache.
+Once the input validation is done, we find all ancestors of every node in the pairs and store these information in a cache.
 
 ```python
 ancestor_cache = {}
@@ -193,7 +186,7 @@ while True:
 
 +++ {"id": "8C-SlZeR7ovl"}
 
-We can see the result of our algorithm for a simple directed acyclic graph. Assume that our graph G is as follows and we wish to find lowest common ancestors for all pairs. For this, we need to call `naive_all_pairs_lowest_common_ancestor`
+We can see the result of our algorithm for a simple directed acyclic graph. Assume that our graph G is as follows and we wish to find lowest common ancestors for all pairs. For this, we need to call `all_pairs_lowest_common_ancestor`
 method.
 
 ```{code-cell}
@@ -217,7 +210,7 @@ plt.show()
 ```
 
 ```{code-cell}
-dict(nx.naive_all_pairs_lowest_common_ancestor(G))
+dict(nx.all_pairs_lowest_common_ancestor(G))
 ```
 
 +++ {"id": "K3QvlQd0-sSB"}
