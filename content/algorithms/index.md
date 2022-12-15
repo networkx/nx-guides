@@ -19,4 +19,5 @@ dag/index
 flow/dinitz_alg
 lca/LCA
 euler/euler
+isomorphism/isomorphism
 ```
