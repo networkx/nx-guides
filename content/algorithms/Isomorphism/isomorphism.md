@@ -47,7 +47,7 @@ These graphs' spatial representations are very different yet they are isomorphic
 
 G and H are isomorphic if we can establish a bijection between the vertex sets of G and H. 
 
-$${\displaystyle f\colon V(G)\to V(H)}$$
+$${\displaystyle f\colon N(G)\to N(H)}$$
 such as if $$ $$
 
 <center> $v$  and $ w $ are  adjacent  in G $\iff$ $f(v)$ and $f(w)$ are adjacent in H </center>
@@ -67,10 +67,11 @@ In fact, isomorphism is part of the problems known as NP. This means that we don
 
 ### Applications (TODO: Should I move this to the end?)
 
-Ideas:
-- Test if 2 electronic chips are the same
-- Image recognition
-- Research: computer and information system, chemistry, social media, images, protein structure
+- Verification of equivalence of different representations of the design of an electronic circuit and communication networks. 
+- Image recognition.
+- Identification of chemical compounds and proteins.
+- Algorithms for fingerprint, facial and retina matching. 
+-  Clustering Algorithms on social networks.
 
 +++
 
@@ -143,24 +144,78 @@ These graphs meet all the necessary conditions but they're not isomorphic.
 
 +++
 
-### TODO: add classes of graphs with solution in polynomial time
+### Some classes of graphs with solution in polynomial time
+- Trees
+- Planar graphs(In fact, planar graph isomorphism is O(log(n)))
+- Interval graphs
+- Permutation graphs
+- Circulant graphs
+- Bounded-parameter graphs
+    - Graphs of bounded treewidth
+    - Graphs of bounded genus
+    - Graphs of bounded degree
+    - Graphs with bounded eigenvalue multiplicity
+    - k-Contractible graphs (a generalization of bounded degree and bounded genus)
 
 +++
 
-**Advanced Algorithms**
+# **Advanced Algorithms**
 
 +++
 
-**vf2**
+## **VF2**
 
-```{code-cell} ipython3
+This algorithm is used to solve graph isomorphism and sub-graph isomorphism as well. 
 
-```
+VF2 is a recursive algorithm where in each step we extend the current matching function to cover more nodes of both graphs until there are no more nodes to match. This is not a brute-force approach because there are some feasibility rules to avoid exploring the whole recursion tree. 
 
-## Todo: State of the art 
+
+Formally, We have a function $ M: s -> N(G) \times N(H) $. $M$ is a matching function between the subsets of nodes from $G$ and $H$ at the current state $s$. We start with an initial state $s_0$ with $M(s_0) = \emptyset$. In each step we consider a set of nodes to expand the current state $s$ to the following state $s'$. In this new state $M(s') = M(s) \cup {(g, h)} , g\in N(G), h\in N(H)$. The consistency condition is that the partial graphs $G$ and $H$ associated with $M(s)$ are isomorphic. There are two types of feasibility checks: 
+- syntactic (graph structure): consist of checking the consistency condition and also the k-look-ahead rules, for checking in advance if a consistent state $s$ has no consistent successors after k steps.
+- semantic(attributes). 
+
+Pseudocode:
 
 +++
 
-# Sources (TODO: check formatting)
+
+Match(s)
+    
+    Input: Intermediate state
+    
+    Output: The mapping between the 2 graphs
+    
+    IF M(s) covers all nodes of H THEN:
+        RETURN M(s)
+    ELSE:
+        Compute P = {(g, h)...} the set of candidates for inclusion in M(s). 
+        FOR each p in P:
+            IF the feasibility rules succeed for the inclusion of p in M(s) THEN:
+                Compute the state of s'
+                MATCH(s')
+           ENDIF
+       ENDFOR
+       Restore data structures
+   ENDIF
+
++++
+
+**Time Complexity**
+
+
+- Best Case $\in \theta(n²)$
+- Wost Case $\in \theta(n!n)$
+
++++
+
+## State of the art 
+- VF2++ and VF2 Plus. They include some optimizations over the algorithm VF2. 
+- There are some new algorithms: QuickSI, GraphQL, TurboISO, BoostISO, CFL-Match, VF3, CECI, and DAF. 
+
++++
+
+# References(TODO: check formatting)
 - Graph Theory and Its applications
 - https://www.ijcaonline.org/archives/volume162/number7/somkunwar-2017-ijca-913414.pdf
+- A (Sub)Graph Isomorphism Algorithm for Matching Large Graphs(paper)
+- https://en.wikipedia.org/wiki/Graph_isomorphism_problem
