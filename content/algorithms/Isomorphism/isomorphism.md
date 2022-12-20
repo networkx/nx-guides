@@ -137,7 +137,7 @@ plt.show()
 ```
 
 ```{code-cell} ipython3
-nx.could_be_isomorphic(G1, G2)
+nx.could_be_isomorphic(G, H)
 ```
 
 These graphs meet all the necessary conditions but they're not isomorphic.
