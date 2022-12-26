@@ -122,7 +122,7 @@ This new property allows us to detect that the graphs from the previous example 
 We can go one step further and check: 
 - The same number of maximal cliques. 
 
-We can use the function *could_be_isomorphic()* to check if the graphs have the same degree, triangle, and clique sequence. The clique sequence contains for each node the size of the maximal clique involving that node. 
+We can use the function *could_be_isomorphic()* to check if the graphs have the same degree, triangle, and clique sequence. The clique sequence contains for each node the number of the maximal clique involving that node. 
 
 ```{code-cell} ipython3
 nx.could_be_isomorphic(G, H)
