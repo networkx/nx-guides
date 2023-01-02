@@ -13,4 +13,5 @@ assortativity/correlation
 dag/index
 flow/dinitz_alg
 euler/euler
+sub_isomorphism/subgraph_iso_img
 ```
