@@ -1,16 +1,14 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Directed Acyclic Graphs &amp; Topological Sort &#8212; NetworkX Notebooks</title>
     
-  <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -20,92 +18,68 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.d3f166471bb80abb5163.js">
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../_static/togglebutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Dinitz’s algorithm and its applications" href="../flow/dinitz_alg.html" />
     <link rel="prev" title="Node assortativity coefficients and correlation measures" href="../assortativity/correlation.html" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
+    <meta name="docsearch:language" content="en" />
 
-    <!-- Google Analytics -->
-    
+
+
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
-
-    
-    <div class="container-fluid" id="banner"></div>
-
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
 
     <div class="container-xl">
       <div class="row">
           
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../../../index.html">
-      
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
-        
-      
-      
-      <img src="../../../_static/networkx_logo.svg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">NetworkX Notebooks</h1>
-      
-    </a>
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/networkx_logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">NetworkX Notebooks</h1>
+  
+</a>
 </div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active collapsible-parent">
   <a class="reference internal" href="../index.html">
    Algorithms
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
+  <ul class="current collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="../assortativity/correlation.html">
      Node assortativity coefficients and correlation measures
@@ -126,18 +100,20 @@
      Euler’s Algorithm
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../euler/euler.html#references">
+     References
+    </a>
+   </li>
   </ul>
+  <i class="fas fa-chevron-down">
+  </i>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../../generators/index.html">
    Graph Generators
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
+  <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="../../generators/geometric.html">
      Geometric Generator Models
@@ -149,6 +125,8 @@
     </a>
    </li>
   </ul>
+  <i class="fas fa-chevron-down">
+  </i>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../exploratory_notebooks/facebook_notebook.html">
@@ -157,18 +135,12 @@
  </li>
 </ul>
 
-    </div>
-</nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-            </div>
-            
-        </div>
-    </div>
-    <div id="rtd-footer-container"></div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
 </div>
 
 
@@ -176,225 +148,99 @@
 
 
           
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=tree/site/content/algorithms/dag/index.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
-  
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../../../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/networkx/nx-guides/"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/networkx/nx-guides//issues/new?title=Issue%20on%20page%20%2Fcontent/algorithms/dag/index.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/networkx/nx-guides/edit/main/site/content/algorithms/dag/index.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Edit this page"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-pencil-alt"></i>
-  </span>
-<span class="headerbtn__text-container">suggest edit</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../../../_sources/content/algorithms/dag/index.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download notebook file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="../../../_sources/content/algorithms/dag/index.md.txt"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
+    <div class="col pl-2 topbar-main">
         
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../../../_sources/content/algorithms/dag/index.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/content/algorithms/dag/index.md.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/networkx/nx-guides/"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/networkx/nx-guides//issues/new?title=Issue%20on%20page%20%2Fcontent/algorithms/dag/index.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/networkx/nx-guides/edit/main/site/content/algorithms/dag/index.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=tree/site/content/algorithms/dag/index.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#directed-graph">
    Directed Graph
@@ -505,150 +351,24 @@ title="Print to PDF"
  </li>
 </ul>
 
-    </nav>
-</div>
+        </nav>
+        
     </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Directed Acyclic Graphs & Topological Sort</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#directed-graph">
-   Directed Graph
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example">
-     Example
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#definition">
-     Definition
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#directed-acyclic-graph">
-   Directed Acyclic Graph
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     Example
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#applications">
-     Applications
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
-     Definition
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#topological-sort">
-   Topological sort
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     Example
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     Applications
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     Definition
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#kahn-s-algorithm">
-     Kahn’s algorithm
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#networkx-implementation">
-     NetworkX implementation
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#step-1-initialize-indegrees">
-       Step 1. Initialize indegrees.
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#step-2-initialize-first-level">
-       Step 2. Initialize first level.
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#step-3-move-from-one-level-to-the-next">
-       Step 3. Move from one level to the next.
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#step-4-check-if-there-is-a-cycle-in-the-graph">
-       Step 4. Check if there is a cycle in the graph.
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#addendum-topological-sort-works-on-multigraphs-as-well">
-       Addendum: Topological sort works on multigraphs as well.
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#addendum-the-graph-may-have-changed-during-the-iteration">
-       Addendum: The graph may have changed during the iteration.
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#combine-all-steps">
-       Combine all steps.
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
-</ul>
-
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <main id="main-content" role="main">
-                
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="directed-acyclic-graphs-topological-sort">
-<h1>Directed Acyclic Graphs &amp; Topological Sort<a class="headerlink" href="#directed-acyclic-graphs-topological-sort" title="Permalink to this headline">#</a></h1>
+<h1>Directed Acyclic Graphs &amp; Topological Sort<a class="headerlink" href="#directed-acyclic-graphs-topological-sort" title="Permalink to this heading">¶</a></h1>
 <p>In this tutorial, we will explore the algorithms related to a directed acyclic graph
 (or a “dag” as it is sometimes called) implemented in networkx under <code class="docutils literal notranslate"><span class="pre">networkx/algorithms/dag.py</span></code>.</p>
 <p>First of all, we need to understand what a directed graph is.</p>
 <section id="directed-graph">
-<h2>Directed Graph<a class="headerlink" href="#directed-graph" title="Permalink to this headline">#</a></h2>
+<h2>Directed Graph<a class="headerlink" href="#directed-graph" title="Permalink to this heading">¶</a></h2>
 <section id="example">
-<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">#</a></h3>
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -679,12 +399,12 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/84b570da36a717691581cc79fc861a21757250678a0e108a71cffe97759b8ae5.png" src="../../../_images/84b570da36a717691581cc79fc861a21757250678a0e108a71cffe97759b8ae5.png" />
+<img alt="../../../_images/4a57a58ff85fd33831b29356f1a89b97ee031894d01ecd83e218cbe8d101cfdf.png" src="../../../_images/4a57a58ff85fd33831b29356f1a89b97ee031894d01ecd83e218cbe8d101cfdf.png" />
 </div>
 </div>
 </section>
 <section id="definition">
-<h3>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">#</a></h3>
+<h3>Definition<a class="headerlink" href="#definition" title="Permalink to this heading">¶</a></h3>
 <p>In mathematics, and more specifically in graph theory,
 a directed graph (or DiGraph) is a graph that is made up of a set of vertices
 connected by directed edges often called arcs.
@@ -696,9 +416,9 @@ You will see this idea in action in the examples below.</p>
 </section>
 </section>
 <section id="directed-acyclic-graph">
-<h2>Directed Acyclic Graph<a class="headerlink" href="#directed-acyclic-graph" title="Permalink to this headline">#</a></h2>
+<h2>Directed Acyclic Graph<a class="headerlink" href="#directed-acyclic-graph" title="Permalink to this heading">¶</a></h2>
 <section id="id1">
-<h3>Example<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<h3>Example<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clothing_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_graphml</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;data/clothing_graph.graphml&quot;</span><span class="p">)</span>
@@ -724,7 +444,7 @@ You will see this idea in action in the examples below.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/77abf4f9e756686c640841a7e641b66e1e564469066526d4c5719b54657b1229.png" src="../../../_images/77abf4f9e756686c640841a7e641b66e1e564469066526d4c5719b54657b1229.png" />
+<img alt="../../../_images/e4c2b4c4bf6f4376080f23f795b06a13cbb147ad94c51eff4a5243de07cc4b8b.png" src="../../../_images/e4c2b4c4bf6f4376080f23f795b06a13cbb147ad94c51eff4a5243de07cc4b8b.png" />
 </div>
 </div>
 <p>Here is a fun example of Professor Bumstead,
@@ -774,7 +494,7 @@ must be donned before garment <span class="math notranslate nohighlight">\(v\)</
 </div>
 </section>
 <section id="applications">
-<h3>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">#</a></h3>
+<h3>Applications<a class="headerlink" href="#applications" title="Permalink to this heading">¶</a></h3>
 <p>Directed acyclic graphs representations of partial orderings have many applications in scheduling
 of systems of tasks with ordering constraints.
 An important class of problems of this type concern collections of objects that need to be updated,
@@ -793,7 +513,7 @@ can be represented as an acyclic system of logic gates that computes a function 
 where the input and output of the function are represented as individual bits.</p>
 </section>
 <section id="id2">
-<h3>Definition<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<h3>Definition<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <p>A directed acyclic graph (“DAG” or “dag”) is a directed graph with no directed cycles.
 That is, it consists of vertices and edges (also called arcs), with each edge directed from one vertex to another,
 such that following those directions will never form a closed loop.</p>
@@ -802,10 +522,10 @@ by arranging the vertices as a linear ordering that is consistent with all edge 
 </section>
 </section>
 <section id="topological-sort">
-<h2>Topological sort<a class="headerlink" href="#topological-sort" title="Permalink to this headline">#</a></h2>
+<h2>Topological sort<a class="headerlink" href="#topological-sort" title="Permalink to this heading">¶</a></h2>
 <p>Let’s now introduce what the topological sort is.</p>
 <section id="id3">
-<h3>Example<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
+<h3>Example<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">topological_sort</span><span class="p">(</span><span class="n">clothing_graph</span><span class="p">))</span>
@@ -828,7 +548,7 @@ by arranging the vertices as a linear ordering that is consistent with all edge 
 </div>
 </section>
 <section id="id4">
-<h3>Applications<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+<h3>Applications<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>The canonical application of topological sorting is in scheduling a sequence of jobs
 or tasks based on their dependencies.
 The jobs are represented by vertices, and there is an edge from <span class="math notranslate nohighlight">\(u\)</span> to <span class="math notranslate nohighlight">\(v\)</span>
@@ -851,7 +571,7 @@ data serialization, and resolving symbol dependencies in linkers.
 It is also used to decide in which order to load tables with foreign keys in databases.</p>
 </section>
 <section id="id5">
-<h3>Definition<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
+<h3>Definition<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <p>A topological sort of a directed acyclic graph <span class="math notranslate nohighlight">\(G = (V, E)\)</span> is a linear ordering of all its vertices
 such that if <span class="math notranslate nohighlight">\(G\)</span> contains an edge <span class="math notranslate nohighlight">\((u, v)\)</span>, then <span class="math notranslate nohighlight">\(u\)</span> appears before <span class="math notranslate nohighlight">\(v\)</span> in the ordering.</p>
 <p>It is worth noting that if the graph contains a cycle, then no linear ordering is possible.</p>
@@ -859,7 +579,7 @@ such that if <span class="math notranslate nohighlight">\(G\)</span> contains an
 along a horizontal line so that all directed edges go from left to right.</p>
 </section>
 <section id="kahn-s-algorithm">
-<h3>Kahn’s algorithm<a class="headerlink" href="#kahn-s-algorithm" title="Permalink to this headline">#</a></h3>
+<h3>Kahn’s algorithm<a class="headerlink" href="#kahn-s-algorithm" title="Permalink to this heading">¶</a></h3>
 <p>NetworkX uses Kahn’s algorithm to perform topological sorting.
 We will introduce it briefly here.</p>
 <p>First, find a list of “start nodes” which have no incoming edges and insert them into a set S;
@@ -883,7 +603,7 @@ at least one such node must exist in a non-empty acyclic graph. Then:</p>
 </div>
 </section>
 <section id="networkx-implementation">
-<h3>NetworkX implementation<a class="headerlink" href="#networkx-implementation" title="Permalink to this headline">#</a></h3>
+<h3>NetworkX implementation<a class="headerlink" href="#networkx-implementation" title="Permalink to this heading">¶</a></h3>
 <p>Finally, let’s take a look at how the topological sorting is implemented in NetworkX.</p>
 <p>We can see that Kahn’s algorithm <em>stratifies</em> the graph such that each level contains all the nodes
 whose dependencies have been satisfied by the nodes in a previous level.
@@ -897,7 +617,7 @@ Thus, topological sorting is reduced to correctly stratifying the graph in this 
 <p>This procedure is implemented in the <code class="docutils literal notranslate"><span class="pre">topological_generations()</span></code> function, on which the <code class="docutils literal notranslate"><span class="pre">topological_sort()</span></code> function is based.</p>
 <p>Let’s see how the <code class="docutils literal notranslate"><span class="pre">topological_generations()</span></code> function is implemented in NetworkX step by step.</p>
 <section id="step-1-initialize-indegrees">
-<h4>Step 1. Initialize indegrees.<a class="headerlink" href="#step-1-initialize-indegrees" title="Permalink to this headline">#</a></h4>
+<h4>Step 1. Initialize indegrees.<a class="headerlink" href="#step-1-initialize-indegrees" title="Permalink to this heading">¶</a></h4>
 <p>Since in Kahn’s algorithm we are only interested in the indegrees of the vertices,
 in order to preserve the structure of the graph as it is passed in,
 instead of removing the edges, we will decrease the indegree of the corresponding vertex.
@@ -907,7 +627,7 @@ Therefore, we will save these values in a separate <em>dictionary</em> <code cla
 </div>
 </section>
 <section id="step-2-initialize-first-level">
-<h4>Step 2. Initialize first level.<a class="headerlink" href="#step-2-initialize-first-level" title="Permalink to this headline">#</a></h4>
+<h4>Step 2. Initialize first level.<a class="headerlink" href="#step-2-initialize-first-level" title="Permalink to this heading">¶</a></h4>
 <p>At each step of Kahn’s algorithm, we seek out vertices with an in-degree of zero.
 In preparation for the first loop iteration of the algorithm,
 we can initialize a list called <code class="docutils literal notranslate"><span class="pre">zero_indegree</span></code> that houses these nodes:</p>
@@ -916,7 +636,7 @@ we can initialize a list called <code class="docutils literal notranslate"><span
 </div>
 </section>
 <section id="step-3-move-from-one-level-to-the-next">
-<h4>Step 3. Move from one level to the next.<a class="headerlink" href="#step-3-move-from-one-level-to-the-next" title="Permalink to this headline">#</a></h4>
+<h4>Step 3. Move from one level to the next.<a class="headerlink" href="#step-3-move-from-one-level-to-the-next" title="Permalink to this heading">¶</a></h4>
 <p>Now, we will show how the algorithm moves from one level to the next.</p>
 <p>Inside the loop, the first generation to be considered (<code class="docutils literal notranslate"><span class="pre">this_generation</span></code>)
 is the collection of nodes that have zero in-degrees.</p>
@@ -944,7 +664,7 @@ and remove it from the <code class="docutils literal notranslate"><span class="p
 </div>
 </section>
 <section id="step-4-check-if-there-is-a-cycle-in-the-graph">
-<h4>Step 4. Check if there is a cycle in the graph.<a class="headerlink" href="#step-4-check-if-there-is-a-cycle-in-the-graph" title="Permalink to this headline">#</a></h4>
+<h4>Step 4. Check if there is a cycle in the graph.<a class="headerlink" href="#step-4-check-if-there-is-a-cycle-in-the-graph" title="Permalink to this heading">¶</a></h4>
 <p>If, after completing the loop there are still vertices in the graph,
 then there is a cycle in it and the graph is not a DAG.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">indegree_map</span><span class="p">:</span>
@@ -955,7 +675,7 @@ then there is a cycle in it and the graph is not a DAG.</p>
 </div>
 </section>
 <section id="addendum-topological-sort-works-on-multigraphs-as-well">
-<h4>Addendum: Topological sort works on multigraphs as well.<a class="headerlink" href="#addendum-topological-sort-works-on-multigraphs-as-well" title="Permalink to this headline">#</a></h4>
+<h4>Addendum: Topological sort works on multigraphs as well.<a class="headerlink" href="#addendum-topological-sort-works-on-multigraphs-as-well" title="Permalink to this heading">¶</a></h4>
 <p>This is possible to do by slightly modifying the algorithm above.</p>
 <ul>
 <li><p>Firstly, check if <code class="docutils literal notranslate"><span class="pre">G</span></code> is a multigraph</p>
@@ -975,7 +695,7 @@ then there is a cycle in it and the graph is not a DAG.</p>
 </ul>
 </section>
 <section id="addendum-the-graph-may-have-changed-during-the-iteration">
-<h4>Addendum: The graph may have changed during the iteration.<a class="headerlink" href="#addendum-the-graph-may-have-changed-during-the-iteration" title="Permalink to this headline">#</a></h4>
+<h4>Addendum: The graph may have changed during the iteration.<a class="headerlink" href="#addendum-the-graph-may-have-changed-during-the-iteration" title="Permalink to this heading">¶</a></h4>
 <p>Between passing different levels in a topological sort, the graph could change.
 We need to check this while the <code class="docutils literal notranslate"><span class="pre">while</span></code> loop is running.</p>
 <ul>
@@ -1000,7 +720,7 @@ We need to check this while the <code class="docutils literal notranslate"><span
 </ul>
 </section>
 <section id="combine-all-steps">
-<h4>Combine all steps.<a class="headerlink" href="#combine-all-steps" title="Permalink to this headline">#</a></h4>
+<h4>Combine all steps.<a class="headerlink" href="#combine-all-steps" title="Permalink to this heading">¶</a></h4>
 <p>Combining all of the above gives the current implementation of the <code class="docutils literal notranslate"><span class="pre">topological_generations()</span></code> function in NetworkX.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1114,48 +834,36 @@ We need to check this while the <code class="docutils literal notranslate"><span
 
               </div>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../assortativity/correlation.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Node assortativity coefficients and correlation measures</p>
         </div>
-    </a>
-    <a class='right-next' id="next-link" href="../flow/dinitz_alg.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Dinitz’s algorithm and its applications</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By NetworkX developers<br/>
-  
-      &copy; Copyright 2022, NetworkX developers.<br/>
-</p>
-        </footer>
     </div>
     
-</div>
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../assortativity/correlation.html" title="previous page">Node assortativity coefficients and correlation measures</a>
+    <a class='right-next' id="next-link" href="../flow/dinitz_alg.html" title="next page">Dinitz’s algorithm and its applications</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By NetworkX developers<br/>
+        
+            &copy; Copyright 2022, NetworkX developers.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
 
 
       </div>
     </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+    
+  <script src="../../../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
+    
   </body>
 </html>

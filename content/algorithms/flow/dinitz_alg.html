@@ -1,16 +1,14 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Dinitz’s algorithm and its applications &#8212; NetworkX Notebooks</title>
     
-  <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -20,92 +18,68 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.d3f166471bb80abb5163.js">
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../_static/togglebutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Euler’s Algorithm" href="../euler/euler.html" />
     <link rel="prev" title="Directed Acyclic Graphs &amp; Topological Sort" href="../dag/index.html" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
+    <meta name="docsearch:language" content="en" />
 
-    <!-- Google Analytics -->
-    
+
+
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
-
-    
-    <div class="container-fluid" id="banner"></div>
-
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
 
     <div class="container-xl">
       <div class="row">
           
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../../../index.html">
-      
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
-        
-      
-      
-      <img src="../../../_static/networkx_logo.svg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">NetworkX Notebooks</h1>
-      
-    </a>
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/networkx_logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">NetworkX Notebooks</h1>
+  
+</a>
 </div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active collapsible-parent">
   <a class="reference internal" href="../index.html">
    Algorithms
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
+  <ul class="current collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="../assortativity/correlation.html">
      Node assortativity coefficients and correlation measures
@@ -126,18 +100,20 @@
      Euler’s Algorithm
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../euler/euler.html#references">
+     References
+    </a>
+   </li>
   </ul>
+  <i class="fas fa-chevron-down">
+  </i>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../../generators/index.html">
    Graph Generators
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
+  <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="../../generators/geometric.html">
      Geometric Generator Models
@@ -149,6 +125,8 @@
     </a>
    </li>
   </ul>
+  <i class="fas fa-chevron-down">
+  </i>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../exploratory_notebooks/facebook_notebook.html">
@@ -157,18 +135,12 @@
  </li>
 </ul>
 
-    </div>
-</nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-            </div>
-            
-        </div>
-    </div>
-    <div id="rtd-footer-container"></div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
 </div>
 
 
@@ -176,225 +148,99 @@
 
 
           
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=tree/site/content/algorithms/flow/dinitz_alg.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
-  
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../../../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/networkx/nx-guides/"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/networkx/nx-guides//issues/new?title=Issue%20on%20page%20%2Fcontent/algorithms/flow/dinitz_alg.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/networkx/nx-guides/edit/main/site/content/algorithms/flow/dinitz_alg.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Edit this page"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-pencil-alt"></i>
-  </span>
-<span class="headerbtn__text-container">suggest edit</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../../../_sources/content/algorithms/flow/dinitz_alg.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download notebook file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="../../../_sources/content/algorithms/flow/dinitz_alg.md.txt"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
+    <div class="col pl-2 topbar-main">
         
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../../../_sources/content/algorithms/flow/dinitz_alg.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/content/algorithms/flow/dinitz_alg.md.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/networkx/nx-guides/"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/networkx/nx-guides//issues/new?title=Issue%20on%20page%20%2Fcontent/algorithms/flow/dinitz_alg.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/networkx/nx-guides/edit/main/site/content/algorithms/flow/dinitz_alg.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=tree/site/content/algorithms/flow/dinitz_alg.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#maximum-flow-problem">
    Maximum flow problem
@@ -456,100 +302,23 @@ title="Print to PDF"
  </li>
 </ul>
 
-    </nav>
-</div>
+        </nav>
+        
     </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Dinitz’s algorithm and its applications</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#maximum-flow-problem">
-   Maximum flow problem
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#motivation">
-     Motivation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#formalization">
-     Formalization
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dinitz-s-algorithm">
-   Dinitz’s algorithm
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#residual-capacity-graph">
-     Residual Capacity &amp; Graph
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#level-network">
-     Level Network
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#augmenting-path-flow">
-     Augmenting Path &amp; Flow
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#algorithm">
-     Algorithm
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#maximum-flow-in-networkx">
-   Maximum flow in NetworkX
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reductions-and-applications">
-   Reductions and Applications
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references">
-   References
-  </a>
- </li>
-</ul>
-
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <main id="main-content" role="main">
-                
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="dinitz-s-algorithm-and-its-applications">
-<h1>Dinitz’s algorithm and its applications<a class="headerlink" href="#dinitz-s-algorithm-and-its-applications" title="Permalink to this headline">#</a></h1>
+<h1>Dinitz’s algorithm and its applications<a class="headerlink" href="#dinitz-s-algorithm-and-its-applications" title="Permalink to this heading">¶</a></h1>
 <p>In this notebook, we will introduce the <a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_flow_problem">Maximum flow problem</a>
-and <a class="reference external" href="https://en.wikipedia.org/wiki/Dinic%27s_algorithm">Dinitz’s algorithm</a> <a class="footnote-reference brackets" href="#id2" id="id1">1</a>, which is implemented at
+and <a class="reference external" href="https://en.wikipedia.org/wiki/Dinic%27s_algorithm">Dinitz’s algorithm</a> <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, which is implemented at
 <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py">algorithms/flow/dinitz_alg.py</a>
 in NetworkX. We will also see how it can be used to solve some interesting problems.</p>
 <section id="maximum-flow-problem">
-<h2>Maximum flow problem<a class="headerlink" href="#maximum-flow-problem" title="Permalink to this headline">#</a></h2>
+<h2>Maximum flow problem<a class="headerlink" href="#maximum-flow-problem" title="Permalink to this heading">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
@@ -564,7 +333,7 @@ in NetworkX. We will also see how it can be used to solve some interesting probl
 </div>
 </div>
 <section id="motivation">
-<h3>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">#</a></h3>
+<h3>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading">¶</a></h3>
 <p>Let’s say you want to send your friend some data as soon as possible, but the only way
 of communication/sending data between you two is through a peer-to-peer network. An
 interesting thing about this peer-to-peer network is that it allows you to send data
@@ -603,7 +372,7 @@ you can send between a pair of nodes in this network.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/525863ddf4c08a6d75d370b994ecde7d66067bba18c44f895418fa8ebca8c32f.png" src="../../../_images/525863ddf4c08a6d75d370b994ecde7d66067bba18c44f895418fa8ebca8c32f.png" />
+<img alt="../../../_images/6ce88566fbe9ce0b5cff3f427abd66c722455224558e3edfc8bc742941b9b80d.png" src="../../../_images/6ce88566fbe9ce0b5cff3f427abd66c722455224558e3edfc8bc742941b9b80d.png" />
 </div>
 </div>
 <p>So how shall you plan the paths of the data packets to send them in the least amount
@@ -613,7 +382,7 @@ network and the receiver will be able to rearrange the data packets to reconstru
 the original data.</p>
 </section>
 <section id="formalization">
-<h3>Formalization<a class="headerlink" href="#formalization" title="Permalink to this headline">#</a></h3>
+<h3>Formalization<a class="headerlink" href="#formalization" title="Permalink to this heading">¶</a></h3>
 <p>So how can we model this problem in terms of graphs?</p>
 <p>Let’s say <span class="math notranslate nohighlight">\(N=(V, E)\)</span> represents this peer-to-peer network with <span class="math notranslate nohighlight">\(V\)</span> as the set of nodes
 where nodes are computers and <span class="math notranslate nohighlight">\(E\)</span> as the set of edges where edge <span class="math notranslate nohighlight">\(uv \in E\)</span> if there is
@@ -632,7 +401,7 @@ a connection from node <span class="math notranslate nohighlight">\(u\)</span> t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/3a753f273d9d0d98e7d9a91fbb71ac34b816d73ace952ab4498f06a8d2c36d38.png" src="../../../_images/3a753f273d9d0d98e7d9a91fbb71ac34b816d73ace952ab4498f06a8d2c36d38.png" />
+<img alt="../../../_images/a3a90693224a0f6edb83419f267a67c104dfe30e77ee7451520e60d6c90782ac.png" src="../../../_images/a3a90693224a0f6edb83419f267a67c104dfe30e77ee7451520e60d6c90782ac.png" />
 </div>
 </div>
 <p>Now say that node <span class="math notranslate nohighlight">\(u\)</span> and node <span class="math notranslate nohighlight">\(v\)</span> are connected and the maximum data per second that
@@ -651,7 +420,7 @@ you can send from node <span class="math notranslate nohighlight">\(u\)</span> t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/8505940959d670dcd2d89fd3f96c6522081c4d1aca8d4db199a73fcbecdfc1be.png" src="../../../_images/8505940959d670dcd2d89fd3f96c6522081c4d1aca8d4db199a73fcbecdfc1be.png" />
+<img alt="../../../_images/e06ad26dc067dfaa6bdc35e0a39dc5fe5a26913d0ca8464b33c65b321bd9c027.png" src="../../../_images/e06ad26dc067dfaa6bdc35e0a39dc5fe5a26913d0ca8464b33c65b321bd9c027.png" />
 </div>
 </div>
 <p>So before go ahead and plan the paths on which we will be sending the data packets,
@@ -699,7 +468,7 @@ data to other nodes, except for the source <span class="math notranslate nohighl
 
 
 <span class="k">def</span> <span class="nf">visualize_flow</span><span class="p">(</span><span class="n">flow_graph</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Visualize flow returned by the `check_valid_flow` funcion.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Visualize flow returned by the `check_valid_flow` funcion.&quot;&quot;&quot;</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
 
     <span class="c1"># Draw the full graph for reference</span>
@@ -745,7 +514,7 @@ data to other nodes, except for the source <span class="math notranslate nohighl
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/49505ca465cc51e9d6cb94c2dd3deaf60c55ddbc825bc5f0868b3a330bcd23b8.png" src="../../../_images/49505ca465cc51e9d6cb94c2dd3deaf60c55ddbc825bc5f0868b3a330bcd23b8.png" />
+<img alt="../../../_images/ffbf9b61a47bba85deeefd3a8660c6d4c7edd3f2c6cbe9527d2a252d4a00b661.png" src="../../../_images/ffbf9b61a47bba85deeefd3a8660c6d4c7edd3f2c6cbe9527d2a252d4a00b661.png" />
 </div>
 </div>
 <p>example of invalid flow:</p>
@@ -779,7 +548,7 @@ Invalid flow: flow conservation violated at node e
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/ff835d73bb24298816ee2df1f9c2b77bdd85032d0f8e50d90b36dfdad935f994.png" src="../../../_images/ff835d73bb24298816ee2df1f9c2b77bdd85032d0f8e50d90b36dfdad935f994.png" />
+<img alt="../../../_images/10d68f91f7b0b8e38ed84e1a32ac82169a32a974ba6de91ada0eb1bdda0b98c4.png" src="../../../_images/10d68f91f7b0b8e38ed84e1a32ac82169a32a974ba6de91ada0eb1bdda0b98c4.png" />
 </div>
 </div>
 <p>red color edges dont satisfy capacity constraint and red color nodes dont satisfy the
@@ -796,10 +565,10 @@ which is the same as maximizing the flow value <span class="math notranslate noh
 </section>
 </section>
 <section id="dinitz-s-algorithm">
-<h2>Dinitz’s algorithm<a class="headerlink" href="#dinitz-s-algorithm" title="Permalink to this headline">#</a></h2>
+<h2>Dinitz’s algorithm<a class="headerlink" href="#dinitz-s-algorithm" title="Permalink to this heading">¶</a></h2>
 <p>Before understanding how Dinitz’s algorithm works and its steps let’s define some terms.</p>
 <section id="residual-capacity-graph">
-<h3>Residual Capacity &amp; Graph<a class="headerlink" href="#residual-capacity-graph" title="Permalink to this headline">#</a></h3>
+<h3>Residual Capacity &amp; Graph<a class="headerlink" href="#residual-capacity-graph" title="Permalink to this heading">¶</a></h3>
 <p>If we send <span class="math notranslate nohighlight">\(f_{uv}\)</span> flow through edge <span class="math notranslate nohighlight">\(uv\)</span> with capacity <span class="math notranslate nohighlight">\(c_{uv}\)</span>, then we define residual
 capacity by <span class="math notranslate nohighlight">\(g_{uv}=c_{uv}-f_{uv}\)</span> and residual network by <span class="math notranslate nohighlight">\(N'\)</span> which only considers the
 edges of <span class="math notranslate nohighlight">\(N\)</span> if they have non-zero residual capacity.</p>
@@ -820,7 +589,7 @@ edges of <span class="math notranslate nohighlight">\(N\)</span> if they have no
 
 
 <span class="k">def</span> <span class="nf">draw_residual_graph</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Visualize residual graph returned by `residual_graph`.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Visualize residual graph returned by `residual_graph`.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ax</span><span class="p">:</span>
         <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
@@ -880,7 +649,7 @@ edges of <span class="math notranslate nohighlight">\(N\)</span> if they have no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/ab3744faf9e6f288de4830f4d4f9391760c9d6b80229ce5e2466da59aedc5588.png" src="../../../_images/ab3744faf9e6f288de4830f4d4f9391760c9d6b80229ce5e2466da59aedc5588.png" />
+<img alt="../../../_images/46da323976c0b98e03c687f3eabfdd37aef93b0771bbd7b49bf12c3926897816.png" src="../../../_images/46da323976c0b98e03c687f3eabfdd37aef93b0771bbd7b49bf12c3926897816.png" />
 </div>
 </div>
 <p>This is the residual network for the flow shown above:</p>
@@ -892,13 +661,13 @@ edges of <span class="math notranslate nohighlight">\(N\)</span> if they have no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/6ee2afac1085e8181c3873efe9dab9f68a36dd903f003bc8dfb068621b086b1a.png" src="../../../_images/6ee2afac1085e8181c3873efe9dab9f68a36dd903f003bc8dfb068621b086b1a.png" />
+<img alt="../../../_images/9a1a05fa16c44f125b51f5e4ebaa926e8be19a7b075e53b8d022a59dab88af09.png" src="../../../_images/9a1a05fa16c44f125b51f5e4ebaa926e8be19a7b075e53b8d022a59dab88af09.png" />
 </div>
 </div>
 <p>Note: In residual network we consider both the <span class="math notranslate nohighlight">\(uv\)</span> and <span class="math notranslate nohighlight">\(vu\)</span> edges if any of them is in <span class="math notranslate nohighlight">\(N\)</span></p>
 </section>
 <section id="level-network">
-<h3>Level Network<a class="headerlink" href="#level-network" title="Permalink to this headline">#</a></h3>
+<h3>Level Network<a class="headerlink" href="#level-network" title="Permalink to this heading">¶</a></h3>
 <p>The level network is a subgraph of the residual network which we get when we apply
 <a class="reference external" href="https://en.wikipedia.org/wiki/Breadth-first_search">BFS</a> from source node <span class="math notranslate nohighlight">\(s\)</span>
 considering only the edges for which we have <span class="math notranslate nohighlight">\(c_{uv}-f_{uv}&gt;0\)</span> in the residual network
@@ -918,7 +687,7 @@ network <span class="math notranslate nohighlight">\(L\)</span> which connect no
 
 
 <span class="k">def</span> <span class="nf">level_bfs</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">source_node</span><span class="p">,</span> <span class="n">target_node</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;BFS to construct the level network from residual network for given flow.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;BFS to construct the level network from residual network for given flow.&quot;&quot;&quot;</span>
     <span class="n">parents</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
     <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">source_node</span><span class="p">])</span>
     <span class="n">level</span><span class="p">[</span><span class="n">source_node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
@@ -979,14 +748,14 @@ network <span class="math notranslate nohighlight">\(L\)</span> which connect no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/5ddddec4f90b6e9f5910eaa58ae9c9dfc326c538fa0a53c8d92687e4062a04d9.png" src="../../../_images/5ddddec4f90b6e9f5910eaa58ae9c9dfc326c538fa0a53c8d92687e4062a04d9.png" />
+<img alt="../../../_images/038250f567e9295578fda05b826f02dbf87a8c8fffcfbaa520cad7c260ddb671.png" src="../../../_images/038250f567e9295578fda05b826f02dbf87a8c8fffcfbaa520cad7c260ddb671.png" />
 </div>
 </div>
 <p>Note that if sink node <span class="math notranslate nohighlight">\(t\)</span> is not reachable from the source node <span class="math notranslate nohighlight">\(s\)</span> that means that no
 more flow can be pushed through the residual network.</p>
 </section>
 <section id="augmenting-path-flow">
-<h3>Augmenting Path &amp; Flow<a class="headerlink" href="#augmenting-path-flow" title="Permalink to this headline">#</a></h3>
+<h3>Augmenting Path &amp; Flow<a class="headerlink" href="#augmenting-path-flow" title="Permalink to this heading">¶</a></h3>
 <p>An <em>augmenting path</em> <span class="math notranslate nohighlight">\(P\)</span> is a path from source node <span class="math notranslate nohighlight">\(s\)</span> to sink node <span class="math notranslate nohighlight">\(t\)</span> such that all
 the edges on the path have positive residual capacity i.e. <span class="math notranslate nohighlight">\(g_{uv}&gt;0\)</span> for <span class="math notranslate nohighlight">\(uv \in P\)</span>.
 An <em>augmenting flow</em> <span class="math notranslate nohighlight">\(\alpha\)</span> for the path <span class="math notranslate nohighlight">\(P\)</span> is the minimum value of the residual
@@ -999,7 +768,7 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">aug_path_dfs</span><span class="p">(</span><span class="n">parents</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">source_node</span><span class="p">,</span> <span class="n">target_node</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Build a path using DFS starting from the target_node&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a path using DFS starting from the target_node&quot;&quot;&quot;</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">u</span> <span class="o">=</span> <span class="n">target_node</span>
     <span class="n">f</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="n">flow</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>  <span class="c1"># Initialize flow to large value</span>
@@ -1031,7 +800,7 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/6f492fe01e6d1886717371295578b6ec1cad94db2727650ae753e80084b40603.png" src="../../../_images/6f492fe01e6d1886717371295578b6ec1cad94db2727650ae753e80084b40603.png" />
+<img alt="../../../_images/280a3b09556fd3e18afe17ccbe65a6964810c28eaef58eec3abf51fb9fb84e3a.png" src="../../../_images/280a3b09556fd3e18afe17ccbe65a6964810c28eaef58eec3abf51fb9fb84e3a.png" />
 </div>
 </div>
 <p>Augmenting path after augmenting:</p>
@@ -1054,7 +823,7 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/4a3994ee6ea4394526227a920e635c32584cf4dd0bc9ff642a5222aaee003a0f.png" src="../../../_images/4a3994ee6ea4394526227a920e635c32584cf4dd0bc9ff642a5222aaee003a0f.png" />
+<img alt="../../../_images/4c471105bdfd9071db49d88098bc55f7bf45fb0393ae328723e38353409d276a.png" src="../../../_images/4c471105bdfd9071db49d88098bc55f7bf45fb0393ae328723e38353409d276a.png" />
 </div>
 </div>
 <p>Resulting new residual Network:</p>
@@ -1069,14 +838,14 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/8966b0cc7d8d2ee3d29215a51b812d731eaec54307dbbb2680b38d72dcc6a07a.png" src="../../../_images/8966b0cc7d8d2ee3d29215a51b812d731eaec54307dbbb2680b38d72dcc6a07a.png" />
+<img alt="../../../_images/8c70fe2f31549dc1e79e2d7d9335fb8f84419d545ee964b4a6c5220cc9f45885.png" src="../../../_images/8c70fe2f31549dc1e79e2d7d9335fb8f84419d545ee964b4a6c5220cc9f45885.png" />
 </div>
 </div>
 <p>Each of the above steps plays a role in Dinitz’s algorithm for finding the
 maximum flow in a network, summarized below.</p>
 </section>
 <section id="algorithm">
-<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">#</a></h3>
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Initialize a flow with zero value, <span class="math notranslate nohighlight">\(f_{uv}=0\)</span></p></li>
 <li><p>Construct a residual network  <span class="math notranslate nohighlight">\(N'\)</span> from that flow</p></li>
@@ -1089,7 +858,7 @@ output the flow</p></li>
 </section>
 </section>
 <section id="maximum-flow-in-networkx">
-<h2>Maximum flow in NetworkX<a class="headerlink" href="#maximum-flow-in-networkx" title="Permalink to this headline">#</a></h2>
+<h2>Maximum flow in NetworkX<a class="headerlink" href="#maximum-flow-in-networkx" title="Permalink to this heading">¶</a></h2>
 <p>In the previous section, we decomposed the Dinitz algorithm into smaller steps
 to better understand the algorithm as a whole.
 In practice however, there’s no need to implement all these steps yourself!
@@ -1139,13 +908,13 @@ network, <code class="docutils literal notranslate"><span class="pre">G</span></
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/a062c86f2c9a461fa6746b165a1f383490c747a5486c24e492a6ea2b92ebf372.png" src="../../../_images/a062c86f2c9a461fa6746b165a1f383490c747a5486c24e492a6ea2b92ebf372.png" />
+<img alt="../../../_images/76a75a0f56c05112b1f289687ea9f6bdaf434cc6a988de1aab61460c25cf39e5.png" src="../../../_images/76a75a0f56c05112b1f289687ea9f6bdaf434cc6a988de1aab61460c25cf39e5.png" />
 </div>
 </div>
 <p>Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value</p>
 </section>
 <section id="reductions-and-applications">
-<h2>Reductions and Applications<a class="headerlink" href="#reductions-and-applications" title="Permalink to this headline">#</a></h2>
+<h2>Reductions and Applications<a class="headerlink" href="#reductions-and-applications" title="Permalink to this heading">¶</a></h2>
 <p>There are many other problems which can be reduced to Maximum flow problem, for example:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Matching_(graph_theory)">Maximum Bipartite Matching</a></p></li>
@@ -1183,7 +952,7 @@ only then we can send the package from that shipping point to that customer.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/5bc0ae8318770a4c094d965d5ece6772b476ccfa4f3256e2ef401328e679ae18.png" src="../../../_images/5bc0ae8318770a4c094d965d5ece6772b476ccfa4f3256e2ef401328e679ae18.png" />
+<img alt="../../../_images/b899b71b6f77d7aadf60033e1b68959bf1056726667ec490eb065253fd093c5a.png" src="../../../_images/b899b71b6f77d7aadf60033e1b68959bf1056726667ec490eb065253fd093c5a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1248,69 +1017,58 @@ as 1 we only need to do one shipment per customer.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/4e05c7c93e38a9578badfbff57c1b91d8c9480d76f843b15a203b7a788587cc6.png" src="../../../_images/4e05c7c93e38a9578badfbff57c1b91d8c9480d76f843b15a203b7a788587cc6.png" />
+<img alt="../../../_images/7b63a185c58261430cf71778e7af85c7e158996a252a6967b4467b3c85c20c6f.png" src="../../../_images/7b63a185c58261430cf71778e7af85c7e158996a252a6967b4467b3c85c20c6f.png" />
 </div>
 </div>
 <p>Above we can see a matching of intermediate shipping points and customers which
 gives the maximum shipping in a day.</p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Dinitz’ Algorithm: The Original Version and Even’s Version. 2006. Yefim Dinitz.
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Dinitz’ Algorithm: The Original Version and Even’s Version. 2006. Yefim Dinitz.
 In Theoretical Computer Science. Lecture Notes in Computer Science.
 Volume 3895. pp 218-240. <a class="reference external" href="https://doi.org/10.1007/11685654_10">https://doi.org/10.1007/11685654_10</a></p>
-</dd>
-</dl>
+</aside>
+</aside>
 </section>
 </section>
 
 
               </div>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../dag/index.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Directed Acyclic Graphs &amp; Topological Sort</p>
         </div>
-    </a>
-    <a class='right-next' id="next-link" href="../euler/euler.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Euler’s Algorithm</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By NetworkX developers<br/>
-  
-      &copy; Copyright 2022, NetworkX developers.<br/>
-</p>
-        </footer>
     </div>
     
-</div>
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../dag/index.html" title="previous page">Directed Acyclic Graphs &amp; Topological Sort</a>
+    <a class='right-next' id="next-link" href="../euler/euler.html" title="next page">Euler’s Algorithm</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By NetworkX developers<br/>
+        
+            &copy; Copyright 2022, NetworkX developers.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
 
 
       </div>
     </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+    
+  <script src="../../../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
+    
   </body>
 </html>
