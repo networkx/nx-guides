@@ -49,7 +49,7 @@ $$ {\displaystyle f\colon N(G)\to N(H)}$$
 
 such as if 
 
-<center> $v$  and $ w $ are  adjacent  in G $\iff$ $f(v)$ and $f(w)$ are adjacent in H 
+<center>  </center> $v$  and $ w $ are  adjacent  in G $\iff$ $f(v)$ and $f(w)$ are adjacent in H 
 
 
 To formally prove that 2 graphs are isomorphic we need to find the bijection between the vertex set. For the previous example that would be: 
