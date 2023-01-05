@@ -42,18 +42,15 @@ These graphs' spatial representations are very different yet they are isomorphic
 
 ### **Formal definition**
 
-<!-- #region -->
+
 G and H are isomorphic if we can establish a bijection between the vertex sets of G and H. 
 
 $$ {\displaystyle f\colon N(G)\to N(H)}$$
 
 such as if 
 
-<center> $v$  and $ w $ are  adjacent  in G $\iff$ $f(v)$ and $f(w)$ are adjacent in H </center>
+<center> $v$  and $ w $ are  adjacent  in G $\iff$ $f(v)$ and $f(w)$ are adjacent in H 
 
-
-<center>Centered text!</center>
-<!-- #endregion -->
 
 To formally prove that 2 graphs are isomorphic we need to find the bijection between the vertex set. For the previous example that would be: 
 
