@@ -1,31 +1,30 @@
 ---
-jupytext:
-  formats: md:myst,ipynb
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.14.4
-kernelspec:
-  display_name: Python 3 (ipykernel)
-  language: python
-  name: python3
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .md
+      format_name: markdown
+      format_version: '1.3'
+      jupytext_version: 1.14.4
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
 ---
 
 # Isomorphism
 
-```{code-cell} ipython3
+```python
 import networkx as nx
 import matplotlib.pyplot as plt
 ```
 
 ## What's isomorphism? Why is it interesting?
 
-+++
 
 As unlabeled graphs can have multiple spatial representations, two graphs are isomorphic if they have the same number of edges, vertices, and same edges connectivity. Let's see an example of two isomorphic graphs,
 
-```{code-cell} ipython3
+```python
 plt.subplot(221)
 G = nx.Graph([(0, 1), (0, 4), (0,2), (1, 3), (1, 5), (2, 3), (2, 6), (3, 7), (4, 5), (5, 7), (6, 7), (6, 4)])
 nx.draw_spectral(G, with_labels = True, node_color = "c")
@@ -40,12 +39,10 @@ plt.show()
 
 These graphs' spatial representations are very different yet they are isomorphic.
 
-+++
 
 ### **Formal definition**
 
-+++
-
+<!-- #region -->
 G and H are isomorphic if we can establish a bijection between the vertex sets of G and H. 
 
 $$ {\displaystyle f\colon N(G)\to N(H)}$$
@@ -54,18 +51,18 @@ such as if
 
 <center> $v$  and $ w $ are  adjacent  in G $\iff$ $f(v)$ and $f(w)$ are adjacent in H </center>
 
-+++
+
+<center>Centered text!</center>
+<!-- #endregion -->
 
 To formally prove that 2 graphs are isomorphic we need to find the bijection between the vertex set. For the previous example that would be: 
 
 $$f(i) = i+1 \hspace{0.5cm} \forall i \in [0, 7]$$
 
-+++
 
 For small examples, isomorphism may seem easy. But it isn't a simple problem. For two graphs G and H of n nodes, there are n! bijections function possible. Checking every combination is not a feasible option for bigger graphs. 
 In fact, isomorphism is part of the problems known as NP. This means that we don't know any algorithm that runs in polynomial time.
 
-+++
 
 ### Applications 
 
@@ -75,12 +72,10 @@ In fact, isomorphism is part of the problems known as NP. This means that we don
 - Algorithms for fingerprint, facial and retina matching. 
 -  Clustering Algorithms on social networks.
 
-+++
 
 ## Isomorphism Algorithms
 **Naive Approach**
 
-+++
 
 There are some initial properties that we can check to decide whether it's possible to have an isomorphism
 - G and H have the same amount of nodes and edges 
@@ -88,7 +83,7 @@ There are some initial properties that we can check to decide whether it's possi
 
 These are necessary conditions but don't guarantee that two graphs are isomorphic. Let's see a small example:
 
-```{code-cell} ipython3
+```python
 plt.subplot(221)
 G = nx.cycle_graph(6)
 nx.draw_circular(G)
@@ -102,20 +97,19 @@ plt.show()
 
 We can use the function *faster_could_be_isomorphic()* that return True if G and H have the same degree secuence.
 
-```{code-cell} ipython3
+```python
 nx.faster_could_be_isomorphic(G, H)
 ```
 
 These graphs are clearly not isomorphic but they have the same degree secuence.
 
-+++
 
 Another property we can check for is: 
 - The same number of cycles of a particular length, for example, triangles. 
 
 We can use the function *fast_could_be_isomorphic()* to check if the graphs have the same degree and triangle sequence. The triangle sequence contains the number of triangles each node is part of.
 
-```{code-cell} ipython3
+```python
 nx.fast_could_be_isomorphic(G, H)
 ```
 
@@ -126,13 +120,13 @@ We can go one step further and check:
 
 We can use the function *could_be_isomorphic()* to check if the graphs have the same degree, triangle, and clique sequence. The clique sequence contains for each node the number of the maximal clique involving that node.
 
-```{code-cell} ipython3
+```python
 nx.could_be_isomorphic(G, H)
 ```
 
 Again we can detect that G and H are not isomorphic. But these conditions are not enough to say that two graphs are isomorphic. Let's look at the following example:
 
-```{code-cell} ipython3
+```python
 plt.subplot(221)
 G = nx.path_graph(5)
 G.add_edge(2,5)
@@ -147,13 +141,12 @@ plt.title("H", fontweight="bold")
 plt.show()
 ```
 
-```{code-cell} ipython3
+```python
 nx.could_be_isomorphic(G, H)
 ```
 
 These graphs meet all the necessary conditions but they're not isomorphic.
 
-+++
 
 ## Some classes of graphs with solution in polynomial time
 - Trees
@@ -168,13 +161,12 @@ These graphs meet all the necessary conditions but they're not isomorphic.
     - Graphs with bounded eigenvalue multiplicity
     - k-Contractible graphs (a generalization of bounded degree and bounded genus)
 
-+++
 
 Let's see an example, we can use the function *tree_isomorphism()* from the isomorphism module to check if two trees are isomorphic in $O(n*log(n))$. This function uses a D&C approach to match the trees once it has found the root of each tree and returns a list with the node matching. 
 
 So let's use it to check that a 2-ary tree of $2^4 - 1$ nodes is a balanced binary tree of height 3.
 
-```{code-cell} ipython3
+```python
 t1 = nx.balanced_tree(2,3)
 t2 = nx.full_rary_tree(2, 15)
 
@@ -185,8 +177,7 @@ iso.tree_isomorphism(t1,t2)
 
 ## Advanced Algorithms
 
-+++
-
+<!-- #region -->
 ### VF2
 
 This algorithm is used to solve graph isomorphism and sub-graph isomorphism as well. 
@@ -199,8 +190,7 @@ Formally, We have a function $ M: s \rightarrow N(G) \times N(H) $. $M$ is a mat
 - semantic(attributes). 
 
 Pseudocode:
-
-+++
+<!-- #endregion -->
 
 **Match(s):**
     
@@ -221,11 +211,10 @@ Pseudocode:
        Restore data structures
     ENDIF
 
-+++
 
 Let's use VF2 to check that the graphs from the previous example that could be isomorphic are not isomorphic.
 
-```{code-cell} ipython3
+```python
 G = nx.path_graph(5)
 G.add_edge(2,5)
 
@@ -239,13 +228,11 @@ nx.is_isomorphic(G, H)
 - Best Case $\in \theta(n²)$ if only $n$ states are explored, for example, if each node is explored once.   
 - Worst Case $\in \theta(n!n)$ if all the possible matchings have to be completely explored.
 
-+++
 
 ## State of the art 
 - VF2++ and VF2 Plus. They include some optimizations over the algorithm VF2. 
 - There are some new algorithms: QuickSI, GraphQL, TurboISO, BoostISO, CFL-Match, VF3, CECI, and DAF.
 
-+++
 
 #### References
 - Gross J., Yellen J., Anderson M. (2018). *Graph Theory and Its applications* (3rd edition). CRC Press. 
