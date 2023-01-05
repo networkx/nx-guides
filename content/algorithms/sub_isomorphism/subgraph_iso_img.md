@@ -322,7 +322,7 @@ g3 = iso.GraphMatcher(p_1EJG, random_graph)
 print("Random graph present in 1EJG", g3.subgraph_is_isomorphic())
 ```
 
-This technique can have many applications, for example, building tree-classification models. But in order to find graphlets and random graphs that are useful to clasify proteins it's important to test multiple proteins and also identify is those graphs are 
+This technique can have many applications, for example, building tree-classification models. But in order to find graphlets and random graphs that are useful to clasify proteins it's important to test multiple proteins and also identify is those graphs are more present in some proteins than in random graphs. 
 
 +++
 
