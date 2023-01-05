@@ -4,7 +4,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.14.2
+    jupytext_version: 1.14.4
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -19,7 +19,7 @@ First let's define the Subgraph Isomorphism problem:
 
 Let $H$ and $G$ be graphs. $H$ is a subgraph of $G = (V, E)$ if
 
-$\exists G_o = (V_o, E_o)$ / $V_o \subseteq  V \wedge E_o \subseteq E \cap V_o \times V_o \land  G_o $and $H$ are isomorphic
+$\exists G_o = (V_o, E_o)$ / $V_o \subseteq  V \wedge E_o \subseteq E \cap V_o \times V_o \land  G_o \hspace{0.1cm}$ and $H$ are isomorphic
 
 Let's see an example,
 
@@ -34,12 +34,11 @@ colors = ["c" for i in range(0, 5)] + ["y" for i in range(5, 7)]
 plt.subplot(121)
 plt.title("G", fontweight="bold")
 nx.draw_spring(G, with_labels = True, node_color =colors)
-plt.rcParams["figure.figsize"] = (10,10)
 
 plt.subplot(122)
 plt.title("Subgraph of G",  fontweight="bold")
-nx.draw_spring(nx.complete_graph(5), with_labels = True, node_color = "c")
-plt.rcParams["figure.figsize"] = (10,5)
+nx.draw_circular(nx.complete_graph(5), with_labels = True, node_color = "c")
+plt.figure(figsize=(2,2))
 ```
 
 Many real-world structures can be represented using graphs. Some of them are involved in problems that can be solved using sub-graph isomorphism algorithms. In this notebook we will study two real-world applications: 
@@ -67,12 +66,12 @@ plt.title("Indestructible phone")
 plt.show()
 ```
 
-Image Source: https://pixabay.com/illustrations/computer-room-desk-toys-game-play-627220/
+Image Source: <https://pixabay.com/illustrations/computer-room-desk-toys-game-play-627220/>
 
 +++
 
 To simplify this problem, let's convert these images into grayscale. After this, the images will be a 2d array where each position represents a pixel. 
-Also, let's define 0 (black pixel) as a null pixel. So we will have to delete all null pixels from our desk image. This will let us easily delete the background in the phone image.  
+Also, let's define 0 (black pixel) as a null pixel. So we will have to delete all null pixels from our desk image. This will let us easily delete the background in the phone image.
 
 ```{code-cell} ipython3
 def rgb2gray(rgb):
@@ -132,7 +131,7 @@ for i in range(0, I2.shape[0]):
             phone_graph.remove_node((i,j))
 ```
 
-Let's see how the phone_graph looks like coloring the nodes. 
+Let's see how the phone_graph looks like coloring the nodes.
 
 ```{code-cell} ipython3
 import matplotlib.cm as cm
@@ -160,7 +159,7 @@ Finally, let's see if we can match our phone graph to the desk graph.
 
 +++
 
-#### TODO: Explaind more about the node match and the graph matcher 
+#### TODO: Explaind more about the node match and the graph matcher
 
 ```{code-cell} ipython3
 import networkx.algorithms.isomorphism as iso
@@ -172,7 +171,7 @@ g = iso.GraphMatcher(desk_graph, phone_graph, node_match=em)
 g.subgraph_is_isomorphic()
 ```
 
-Also, we can check that the desk and phone graphs are not isomorphic. 
+Also, we can check that the desk and phone graphs are not isomorphic.
 
 ```{code-cell} ipython3
 nx.is_isomorphic(desk_graph, phone_graph, node_match=em)
@@ -225,7 +224,7 @@ Many graph representations can be built from the Secondary and Tertiary Structur
 
 We will work on $C_\alpha$ networks. 
 
-Let's see graphs of proteins with PDB codes 1CRN(Plant protein), 1FN3(oxygen storage/transport in the human body) and 1EGJ(Plant Protein). 
+Let's see graphs of proteins with PDB codes 1CRN(Plant protein), 1FN3(oxygen storage/transport in the human body) and 1EGJ(Plant Protein).
 
 ```{code-cell} ipython3
 p_1CRN = nx.read_edgelist("data/1CRN_edgelist.txt", nodetype=str)
@@ -250,7 +249,7 @@ plt.title("1EJG Plant Protein", fontweight = "bold")
 plt.show()
 ```
 
-We can identify graphlets (induced subgraphs) that are present in these graphs and use that to classify proteins. We can extract some subgraphs from the proteins and test if they are present in other proteins. Let's find a subgraph of 1CRN that is also a subgraph of 1EJG but not of 1FN3. This is interenting because 1CRN and 1EJG are both plant proteins but 1FN3 is not. But clearly to decide if this graphlet is particular of plant proteins we should test it in more proteins. 
+We can identify graphlets (induced subgraphs) that are present in these graphs and use that to classify proteins. We can extract some subgraphs from the proteins and test if they are present in other proteins. Let's find a subgraph of 1CRN that is also a subgraph of 1EJG but not of 1FN3. This is interenting because 1CRN and 1EJG are both plant proteins but 1FN3 is not. But clearly to decide if this graphlet is particular of plant proteins we should test it in more proteins.
 
 ```{code-cell} ipython3
 #Get a induced subgraph from 1CRN
@@ -288,7 +287,7 @@ g3 = iso.GraphMatcher(p_1EJG, graphlet)
 print("Graphlet present in 1EJG", g3.subgraph_is_isomorphic())
 ```
 
-Another option is to use randomly generated graphs given a certain number of nodes, for example, using Erdos-graphs generators. *erdos_renyi_graph(n, p, seed)* generates a graph of n nodes in which all possible edges are added with probability p. We can find a random graphs that is present in 1FN3 but not in 1CRN and 1EJG. 
+Another option is to use randomly generated graphs given a certain number of nodes, for example, using Erdos-graphs generators. *erdos_renyi_graph(n, p, seed)* generates a graph of n nodes in which all possible edges are added with probability p. We can find a random graphs that is present in 1FN3 but not in 1CRN and 1EJG.
 
 ```{code-cell} ipython3
 random_graph = nx.erdos_renyi_graph(7, 0.9, seed = 8)
@@ -305,7 +304,7 @@ g3 = iso.GraphMatcher(p_1EJG, random_graph)
 print("Random graph present in 1EJG", g3.subgraph_is_isomorphic())
 ```
 
-Also there are some graphlets ans random graphs that are present in all proteins, for example: 
+Also there are some graphlets ans random graphs that are present in all proteins, for example:
 
 ```{code-cell} ipython3
 random_graph = nx.erdos_renyi_graph(5, 0.9, seed = 8)
@@ -322,16 +321,16 @@ g3 = iso.GraphMatcher(p_1EJG, random_graph)
 print("Random graph present in 1EJG", g3.subgraph_is_isomorphic())
 ```
 
-This technique can have many applications, for example, building tree-classification models. But in order to find graphlets and random graphs that are useful to clasify proteins it's important to test multiple proteins and also identify is those graphs are more present in some proteins than in random graphs. 
+This technique can have many applications, for example, building tree-classification models. But in order to find graphlets and random graphs that are useful to clasify proteins it's important to test multiple proteins and also identify is those graphs are more present in some proteins than in random graphs.
 
 +++
 
 ### References 
-- https://en.wikipedia.org/wiki/Protein
-- https://en.wikipedia.org/wiki/Protein_secondary_structure
-- https://www.rcsb.org/docs/general-help/organization-of-3d-structures-in-the-protein-data-bank
+- <https://en.wikipedia.org/wiki/Protein>
+- <https://en.wikipedia.org/wiki/Protein_secondary_structure>
+- <https://www.rcsb.org/docs/general-help/organization-of-3d-structures-in-the-protein-data-bank>
 - Chakrabarty B. and Parekh N., "NAPS: Network Analysis of Protein Structures", Nucleic Acids Research, 2016, Vol. 44, Web Server issue W375–W382
-https://bioinf.iiit.ac.in/NAPS/index.php
+<https://bioinf.iiit.ac.in/NAPS/index.php>
 - Vishveshwara S.,Brinda K. V. and Kannan N., "Protein Structure: Insights from graph theory", Journal of Theoretical and Computational Chemistry, Vol. 1, No. 1 (2002) 000–000.
 - Henneges C., Röttig M., Kohlbacher O., Zell A., "Graphlet data mining of energetical interaction patterns in protein 3D structures", ICFC-ICNC 2010 - Proceedings of the International Conference on Fuzzy Computation and International Conference on Neural Computation, Valencia, Spain, October 24-26, 2010
-https://www.researchgate.net/publication/221616535_Graphlet_Data_Mining_of_Energetical_Interaction_Patterns_in_Protein_3D_Structures
+<https://www.researchgate.net/publication/221616535_Graphlet_Data_Mining_of_Energetical_Interaction_Patterns_in_Protein_3D_Structures>
