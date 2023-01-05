@@ -202,16 +202,17 @@ plt.show()
 
 ```{code-cell} ipython3
 plt.subplot(121)
+plt.rcParams["figure.figsize"] = (10,10)
 plt.imshow(plt.imread('img/1fn3.png'))
 plt.title("1FN3 Tertiary Structure", fontweight = "bold")
 plt.axis('off')
-plt.rcParams["figure.figsize"] = (10,10)
+
 
 plt.subplot(122)
+plt.rcParams["figure.figsize"] = (10,10)
 plt.imshow(plt.imread('img/1crn.png'))
 plt.title("1CRN Tertiary Structure", fontweight = "bold")
 plt.axis('off')
-plt.rcParams["figure.figsize"] = (10,10)
 plt.show()
 ```
 
@@ -228,87 +229,100 @@ Let's see graphs of proteins with PDB codes 1CRN(Plant protein), 1FN3(oxygen sto
 
 ```{code-cell} ipython3
 p_1CRN = nx.read_edgelist("data/1CRN_edgelist.txt", nodetype=str)
-nx.draw_spring(p_1CRN)
+nx.draw_spring(p_1CRN, node_color ="g")
 plt.rcParams["figure.figsize"] = (10, 10)
+plt.title("1CRN Plant Protein", fontweight = "bold")
+plt.show()
 ```
 
 ```{code-cell} ipython3
 p_1FN3 = nx.read_edgelist("data/1FN3_edgelist.txt", nodetype=str)
-nx.draw_spring(p_1FN3)
+nx.draw_spring(p_1FN3, node_color = "r")
 plt.rcParams["figure.figsize"] = (7,7)
+plt.title("1FN3 oxygen storage/transport Protein", fontweight = "bold")
+plt.show()
 ```
 
 ```{code-cell} ipython3
 p_1EJG = nx.read_edgelist("data/1EJG_edgelist.txt", nodetype=str)
-nx.draw_spring(p_1EJG)
+nx.draw_spring(p_1EJG, node_color = "g")
+plt.title("1EJG Plant Protein", fontweight = "bold")
+plt.show()
 ```
 
 We can identify graphlets (induced subgraphs) that are present in these graphs and use that to classify proteins. We can extract some subgraphs from the proteins and test if they are present in other proteins. Let's find a subgraph of 1CRN that is also a subgraph of 1EJG but not of 1FN3. This is interenting because 1CRN and 1EJG are both plant proteins but 1FN3 is not. But clearly to decide if this graphlet is particular of plant proteins we should test it in more proteins. 
 
 ```{code-cell} ipython3
+#Get a induced subgraph from 1CRN
 graphlet = p_1CRN.subgraph(["A"+str(i) for i in range(0, 30)])
+plt.rcParams["figure.figsize"] = (5,5)
 nx.draw(graphlet)
 
-g = iso.GraphMatcher(p_1CRN, graphlet)
-print(g.subgraph_is_isomorphic())
+#Test if the graphlet is a subgraph of each protein 
+g1 = iso.GraphMatcher(p_1CRN, graphlet)
+print("Graphlet present in 1CRN ", g1.subgraph_is_isomorphic())
 
-g = iso.GraphMatcher(p_1FN3, graphlet)
-print(g.subgraph_is_isomorphic())
+g2 = iso.GraphMatcher(p_1FN3, graphlet)
+print("Graphlet present in 1FN3" ,g2.subgraph_is_isomorphic())
 
-g = iso.GraphMatcher(p_1EJG, graphlet)
-print(g.subgraph_is_isomorphic())
+g3 = iso.GraphMatcher(p_1EJG, graphlet)
+print("Graphlet present in 1EJG", g3.subgraph_is_isomorphic())
 ```
 
-Another option is to use randomly generated graphs given a certain number of nodes using Erdos-graphs generators.
-
-**TODO: Explaind these**
+On a similar way we can find a graphlet in 1FN3 that is not present in 1CRN and 1EJG.
 
 ```{code-cell} ipython3
-#False para la las plant protein
-graphlet = nx.erdos_renyi_graph(7, 0.9, seed = 8)
+#Get a induced subgraph from 1FN3
+graphlet = p_1FN3.subgraph(["A"+str(i) for i in range(100, 110, 1)])
+plt.rcParams["figure.figsize"] = (5,5)
 nx.draw(graphlet)
 
-g = iso.GraphMatcher(p_1CRN, graphlet)
-print(g.subgraph_is_isomorphic())
+#Test if the graphlet is a subgraph of each protein 
+g1 = iso.GraphMatcher(p_1CRN, graphlet)
+print("Graphlet present in 1CRN ", g1.subgraph_is_isomorphic())
 
-g = iso.GraphMatcher(p_1FN3, graphlet)
-print(g.subgraph_is_isomorphic())
+g2 = iso.GraphMatcher(p_1FN3, graphlet)
+print("Graphlet present in 1FN3" ,g2.subgraph_is_isomorphic())
 
-g = iso.GraphMatcher(p_1EJG, graphlet)
-print(g.subgraph_is_isomorphic())
+g3 = iso.GraphMatcher(p_1EJG, graphlet)
+print("Graphlet present in 1EJG", g3.subgraph_is_isomorphic())
 ```
+
+Another option is to use randomly generated graphs given a certain number of nodes, for example, using Erdos-graphs generators. *erdos_renyi_graph(n, p, seed)* generates a graph of n nodes in which all possible edges are added with probability p. We can find a random graphs that is present in 1FN3 but not in 1CRN and 1EJG. 
 
 ```{code-cell} ipython3
-graphlet = nx.erdos_renyi_graph(5, 0.5, seed = 10)
+random_graph = nx.erdos_renyi_graph(7, 0.9, seed = 8)
 nx.draw(graphlet)
 
-g = iso.GraphMatcher(p_1CRN, graphlet)
-print(g.subgraph_is_isomorphic())
+#Test if the random graph is a subgraph of each protein 
+g1 = iso.GraphMatcher(p_1CRN, random_graph)
+print("Random graph present in 1CRN ", g1.subgraph_is_isomorphic())
 
-g = iso.GraphMatcher(p_1FN3, graphlet)
-print(g.subgraph_is_isomorphic())
+g2 = iso.GraphMatcher(p_1FN3, random_graph)
+print("Random graph present in 1FN3" ,g2.subgraph_is_isomorphic())
 
-g = iso.GraphMatcher(p_1EJG, graphlet)
-print(g.subgraph_is_isomorphic())
+g3 = iso.GraphMatcher(p_1EJG, random_graph)
+print("Random graph present in 1EJG", g3.subgraph_is_isomorphic())
 ```
+
+Also there are some graphlets ans random graphs that are present in all proteins, for example: 
 
 ```{code-cell} ipython3
-graphlet = nx.erdos_renyi_graph(5, 0.9, seed = 8)
+random_graph = nx.erdos_renyi_graph(5, 0.9, seed = 8)
 nx.draw(graphlet)
 
-g = iso.GraphMatcher(p_1CRN, graphlet)
-print(g.subgraph_is_isomorphic())
+#Test if the random graph is a subgraph of each protein 
+g1 = iso.GraphMatcher(p_1CRN, random_graph)
+print("Random graph present in 1CRN ", g1.subgraph_is_isomorphic())
 
-g = iso.GraphMatcher(p_1FN3, graphlet)
-print(g.subgraph_is_isomorphic())
+g2 = iso.GraphMatcher(p_1FN3, random_graph)
+print("Random graph present in 1FN3" ,g2.subgraph_is_isomorphic())
 
-g = iso.GraphMatcher(p_1EJG, graphlet)
-print(g.subgraph_is_isomorphic())
+g3 = iso.GraphMatcher(p_1EJG, random_graph)
+print("Random graph present in 1EJG", g3.subgraph_is_isomorphic())
 ```
 
-This technique can have many applications, for example, building tree-classification models.
-
-**TODO: Explaind about random vs graphlets.** 
+This technique can have many applications, for example, building tree-classification models. But in order to find graphlets and random graphs that are useful to clasify proteins it's important to test multiple proteins and also identify is those graphs are 
 
 +++
 
