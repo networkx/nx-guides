@@ -100,11 +100,6 @@
      Euler’s Algorithm
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#references">
-     References
-    </a>
-   </li>
   </ul>
   <i class="fas fa-chevron-down">
   </i>
@@ -241,63 +236,56 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Euler’s Algorithm
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#seven-bridges-of-konigsberg">
+   Seven Bridges of Königsberg
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#seven-bridges-of-konigsberg">
-     Seven Bridges of Königsberg
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reformulating-the-problem-in-abstract-terms">
+     Reformulating the Problem in Abstract Terms
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#reformulating-the-problem-in-abstract-terms">
-       Reformulating the Problem in Abstract Terms
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#euler-s-method">
-       Euler’s Method
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#generalizing-euler-s-solution">
-       Generalizing Euler’s Solution
-      </a>
-     </li>
-    </ul>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#networkx-implementation-of-euler-s-algorithm">
-     NetworkX Implementation of Euler’s Algorithm
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#euler-s-method">
+     Euler’s Method
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#eulerian-circuit-implementation">
-       1. Eulerian Circuit Implementation
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#eulerian-path-implementation">
-       2. Eulerian Path Implementation
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#examples">
-       3. Examples
-      </a>
-     </li>
-    </ul>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#euler-is-everywhere">
-     Euler is everywhere!
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generalizing-euler-s-solution">
+     Generalizing Euler’s Solution
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#networkx-implementation-of-euler-s-algorithm">
+   NetworkX Implementation of Euler’s Algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#eulerian-circuit-implementation">
+     1. Eulerian Circuit Implementation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#eulerian-path-implementation">
+     2. Eulerian Path Implementation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#examples">
+     3. Examples
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#euler-is-everywhere">
+   Euler is everywhere!
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
    References
   </a>
@@ -457,7 +445,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/2a9c2e511d583c5742b9f8acd1912219284bb50c11f8da2bc13165e624547b8e.png" src="../../../_images/2a9c2e511d583c5742b9f8acd1912219284bb50c11f8da2bc13165e624547b8e.png" />
+<img alt="../../../_images/dd180d0f4624e06112ef8eca29613eeb9cf0c800da8676820b1a6105282f12b6.png" src="../../../_images/dd180d0f4624e06112ef8eca29613eeb9cf0c800da8676820b1a6105282f12b6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -607,7 +595,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/c298e6beaed9dc8546c71740fa8b75264ab9a6338d17e096c47e7e164fba016c.png" src="../../../_images/c298e6beaed9dc8546c71740fa8b75264ab9a6338d17e096c47e7e164fba016c.png" />
+<img alt="../../../_images/0365dee2d361840a4e7a91134c23b75192a69be910cf6408001945ec4309288f.png" src="../../../_images/0365dee2d361840a4e7a91134c23b75192a69be910cf6408001945ec4309288f.png" />
 </div>
 </div>
 <p>The answer is No! All nodes except for the one in the center have exactly 3 edges in the wheel graph. Thus, it cannot have an Eulerian Path.</p>
@@ -634,9 +622,8 @@
 <li><p>Useful for painters, garbage collections, airplane pilots, GPS developers (<em>e.g. Google Maps developers</em>).</p></li>
 </ul>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="references">
-<h1>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h1>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id3" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
@@ -647,6 +634,7 @@
 <p>Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.</p>
 </aside>
 </aside>
+</section>
 </section>
 
 
