@@ -200,9 +200,9 @@ plt.show()
 **Tertiary Structure** :  is the 3D shape of a protein. This structure have information of the interactions between the R groups of the amino acids that make up the protein. Let's see how some proteins tertiary structure looks like:
 
 ```{code-cell} ipython3
-plt.subplot(121)
+plt.rcParams["figure.figsize"] = [7,7]
 
-plt.rcParams["figure.figsize"] = [5,5]
+plt.subplot(121)
 plt.imshow(plt.imread('img/1fn3.png'))
 plt.title("1FN3 Tertiary Structure", fontweight = "bold")
 plt.axis('off')
@@ -228,7 +228,6 @@ Let's see graphs of proteins with PDB codes 1CRN(Plant protein), 1FN3(oxygen sto
 ```{code-cell} ipython3
 p_1CRN = nx.read_edgelist("data/1CRN_edgelist.txt", nodetype=str)
 nx.draw_spring(p_1CRN, node_color ="g")
-plt.rcParams["figure.figsize"] = (10, 10)
 plt.title("1CRN Plant Protein", fontweight = "bold")
 plt.show()
 ```
@@ -236,7 +235,6 @@ plt.show()
 ```{code-cell} ipython3
 p_1FN3 = nx.read_edgelist("data/1FN3_edgelist.txt", nodetype=str)
 nx.draw_spring(p_1FN3, node_color = "r")
-plt.rcParams["figure.figsize"] = (7,7)
 plt.title("1FN3 oxygen storage/transport Protein", fontweight = "bold")
 plt.show()
 ```
@@ -253,7 +251,6 @@ We can identify graphlets (induced subgraphs) that are present in these graphs a
 ```{code-cell} ipython3
 #Get a induced subgraph from 1CRN
 graphlet = p_1CRN.subgraph(["A"+str(i) for i in range(0, 30)])
-plt.rcParams["figure.figsize"] = (5,5)
 nx.draw(graphlet)
 
 #Test if the graphlet is a subgraph of each protein 
