@@ -231,7 +231,7 @@ nx.is_isomorphic(G, H)
 - There are some new algorithms: QuickSI, GraphQL, TurboISO, BoostISO, CFL-Match, VF3, CECI, and DAF.
 
 
-#### References
+### References
 - Gross J., Yellen J., Anderson M. (2018). *Graph Theory and Its applications* (3rd edition). CRC Press. 
 - Somkunwar R., Moreshwar Vaze V. *A Comparative Study of Graph Isomorphism Applications*. International Journal of Computer Applications (0975 – 8887). Volume 162 – No 7, (March 2017) <https://www.ijcaonline.org/archives/volume162/number7/somkunwar-2017-ijca-913414.pdf>
 - L. P. Cordella, P. Foggia, C. Sansone, M. Vento, “An Improved Algorithm for Matching Large Graphs”, IEEE Transactions on Pattern Analysis and Machine Intelligence ( Volume: 26, Issue: 10, October 2004) <https://ieeexplore.ieee.org/document/1323804>
