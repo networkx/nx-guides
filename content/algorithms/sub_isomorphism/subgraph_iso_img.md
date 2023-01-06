@@ -35,10 +35,10 @@ plt.subplot(121)
 plt.title("G", fontweight="bold")
 nx.draw_spring(G, with_labels = True, node_color =colors)
 
+
 plt.subplot(122)
 plt.title("Subgraph of G",  fontweight="bold")
 nx.draw_circular(nx.complete_graph(5), with_labels = True, node_color = "c")
-plt.figure(figsize=(2,2))
 ```
 
 Many real-world structures can be represented using graphs. Some of them are involved in problems that can be solved using sub-graph isomorphism algorithms. In this notebook we will study two real-world applications: 
@@ -201,14 +201,13 @@ plt.show()
 
 ```{code-cell} ipython3
 plt.subplot(121)
-plt.rcParams["figure.figsize"] = (10,10)
+
+plt.rcParams["figure.figsize"] = [5,5]
 plt.imshow(plt.imread('img/1fn3.png'))
 plt.title("1FN3 Tertiary Structure", fontweight = "bold")
 plt.axis('off')
 
-
 plt.subplot(122)
-plt.rcParams["figure.figsize"] = (10,10)
 plt.imshow(plt.imread('img/1crn.png'))
 plt.title("1CRN Tertiary Structure", fontweight = "bold")
 plt.axis('off')
