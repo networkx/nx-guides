@@ -1,20 +1,20 @@
 ---
-jupyter:
-  jupytext:
-    text_representation:
-      extension: .md
-      format_name: markdown
-      format_version: '1.3'
-      jupytext_version: 1.14.4
-  kernelspec:
-    display_name: Python 3 (ipykernel)
-    language: python
-    name: python3
+jupytext:
+  main_language: python
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.14.4
+kernelspec:
+  display_name: Python 3 (ipykernel)
+  language: python
+  name: python3
 ---
 
 # Isomorphism
 
-```python
+```{code-cell}
 import networkx as nx
 import matplotlib.pyplot as plt
 ```
@@ -24,7 +24,7 @@ import matplotlib.pyplot as plt
 
 As unlabeled graphs can have multiple spatial representations, two graphs are isomorphic if they have the same number of edges, vertices, and same edges connectivity. Let's see an example of two isomorphic graphs,
 
-```python
+```{code-cell}
 plt.subplot(221)
 G = nx.Graph([(0, 1), (0, 4), (0,2), (1, 3), (1, 5), (2, 3), (2, 6), (3, 7), (4, 5), (5, 7), (6, 7), (6, 4)])
 nx.draw_spectral(G, with_labels = True, node_color = "c")
@@ -80,7 +80,7 @@ There are some initial properties that we can check to decide whether it's possi
 
 These are necessary conditions but don't guarantee that two graphs are isomorphic. Let's see a small example:
 
-```python
+```{code-cell}
 plt.subplot(221)
 G = nx.cycle_graph(6)
 nx.draw_circular(G)
@@ -94,7 +94,7 @@ plt.show()
 
 We can use the function *faster_could_be_isomorphic()* that return True if G and H have the same degree secuence.
 
-```python
+```{code-cell}
 nx.faster_could_be_isomorphic(G, H)
 ```
 
@@ -106,7 +106,7 @@ Another property we can check for is:
 
 We can use the function *fast_could_be_isomorphic()* to check if the graphs have the same degree and triangle sequence. The triangle sequence contains the number of triangles each node is part of.
 
-```python
+```{code-cell}
 nx.fast_could_be_isomorphic(G, H)
 ```
 
@@ -117,13 +117,13 @@ We can go one step further and check:
 
 We can use the function *could_be_isomorphic()* to check if the graphs have the same degree, triangle, and clique sequence. The clique sequence contains for each node the number of the maximal clique involving that node.
 
-```python
+```{code-cell}
 nx.could_be_isomorphic(G, H)
 ```
 
 Again we can detect that G and H are not isomorphic. But these conditions are not enough to say that two graphs are isomorphic. Let's look at the following example:
 
-```python
+```{code-cell}
 plt.subplot(221)
 G = nx.path_graph(5)
 G.add_edge(2,5)
@@ -138,7 +138,7 @@ plt.title("H", fontweight="bold")
 plt.show()
 ```
 
-```python
+```{code-cell}
 nx.could_be_isomorphic(G, H)
 ```
 
@@ -163,7 +163,7 @@ Let's see an example, we can use the function *tree_isomorphism()* from the isom
 
 So let's use it to check that a 2-ary tree of $2^4 - 1$ nodes is a balanced binary tree of height 3.
 
-```python
+```{code-cell}
 t1 = nx.balanced_tree(2,3)
 t2 = nx.full_rary_tree(2, 15)
 
@@ -211,7 +211,7 @@ Pseudocode:
 
 Let's use VF2 to check that the graphs from the previous example that could be isomorphic are not isomorphic.
 
-```python
+```{code-cell}
 G = nx.path_graph(5)
 G.add_edge(2,5)
 
