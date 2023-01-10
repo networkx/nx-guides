@@ -297,7 +297,7 @@ g3 = iso.GraphMatcher(p_1EJG, random_graph)
 print("Random graph present in 1EJG", g3.subgraph_is_isomorphic())
 ```
 
-Also there are some graphlets ans random graphs that are present in all proteins, for example:
+Also there are some graphlets and random graphs that are present in all proteins, for example:
 
 ```{code-cell} ipython3
 random_graph = nx.erdos_renyi_graph(5, 0.9, seed = 8)
