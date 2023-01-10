@@ -214,7 +214,7 @@ plt.show()
 Many graph representations can be built from the Secondary and Tertiary Structure. Each representation capture different information about the protein. For example, 
 - Use α-helix and β-sheet as nodes and the interaction energy between them to define edges. 
 
-- $C_\alpha$ Networks: Cα atom of an amino acid residue is considered a node and an edge are drawn if the Cα distance between a pair of residues is within a threshold distance. Cα atoms are in the α-helix structure. It is one of the simplest and most widely analyzed protein contact networks that captures very well the 3D topology of protein structure.
+- $C_\alpha$ Networks: $C_\alpha$ atom of an amino acid residue is considered a node and an edge are drawn if the $C_\alpha$ distance between a pair of residues is within a threshold distance. $C_\alpha$ atoms are in the α-helix structure. It is one of the simplest and most widely analyzed protein contact networks that captures very well the 3D topology of protein structure.
 
 +++
 
