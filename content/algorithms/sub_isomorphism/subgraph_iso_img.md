@@ -157,14 +157,11 @@ nx.draw_kamada_kawai(phone_graph, node_color =I2_colors)
 
 Finally, let's see if we can match our phone graph to the desk graph.
 
-+++
-
-#### TODO: Explaind more about the node match and the graph matcher
-
 ```{code-cell} ipython3
 import networkx.algorithms.isomorphism as iso
 
-em = iso.numerical_node_match("weight", 10^-10) #Match node weight attributes 
+#Match node weight attributes with tolerance 10^-10
+em = iso.numerical_node_match("weight", 10^-10) 
 
 g = iso.GraphMatcher(desk_graph, phone_graph, node_match=em)
 
