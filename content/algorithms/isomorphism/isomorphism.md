@@ -14,7 +14,7 @@ kernelspec:
 
 # Isomorphism
 
-```{code-cell}
+```{code-cell} ipython3
 import networkx as nx
 import matplotlib.pyplot as plt
 ```
@@ -24,14 +24,44 @@ import matplotlib.pyplot as plt
 
 As unlabeled graphs can have multiple spatial representations, two graphs are isomorphic if they have the same number of edges, vertices, and same edges connectivity. Let's see an example of two isomorphic graphs,
 
-```{code-cell}
+```{code-cell} ipython3
 plt.subplot(221)
-G = nx.Graph([(0, 1), (0, 4), (0,2), (1, 3), (1, 5), (2, 3), (2, 6), (3, 7), (4, 5), (5, 7), (6, 7), (6, 4)])
-nx.draw_spectral(G, with_labels = True, node_color = "c")
+G = nx.Graph(
+    [
+        (0, 1),
+        (0, 4),
+        (0, 2),
+        (1, 3),
+        (1, 5),
+        (2, 3),
+        (2, 6),
+        (3, 7),
+        (4, 5),
+        (5, 7),
+        (6, 7),
+        (6, 4),
+    ]
+)
+nx.draw_spectral(G, with_labels=True, node_color="c")
 plt.title("G", fontweight="bold")
-H = nx.Graph([(1, 2), (1, 5), (1,3), (2, 4), (2, 6), (3, 4), (3, 7), (4, 8), (5, 6), (6, 8), (7, 8), (7, 5)])
+H = nx.Graph(
+    [
+        (1, 2),
+        (1, 5),
+        (1, 3),
+        (2, 4),
+        (2, 6),
+        (3, 4),
+        (3, 7),
+        (4, 8),
+        (5, 6),
+        (6, 8),
+        (7, 8),
+        (7, 5),
+    ]
+)
 plt.subplot(222)
-nx.draw_circular(H, with_labels = True, node_color = "yellow")
+nx.draw_circular(H, with_labels=True, node_color="yellow")
 plt.title("H", fontweight="bold")
 
 plt.show()
@@ -80,21 +110,21 @@ There are some initial properties that we can check to decide whether it's possi
 
 These are necessary conditions but don't guarantee that two graphs are isomorphic. Let's see a small example:
 
-```{code-cell}
+```{code-cell} ipython3
 plt.subplot(221)
 G = nx.cycle_graph(6)
 nx.draw_circular(G)
 plt.title("G", fontweight="bold")
 plt.subplot(222)
-H = nx.union(nx.cycle_graph(3), nx.cycle_graph(3), rename = ("s","d"))
-nx.draw_circular(H, node_color = "r")
+H = nx.union(nx.cycle_graph(3), nx.cycle_graph(3), rename=("s", "d"))
+nx.draw_circular(H, node_color="r")
 plt.title("H", fontweight="bold")
 plt.show()
 ```
 
 We can use the function *faster_could_be_isomorphic()* that return True if G and H have the same degree secuence.
 
-```{code-cell}
+```{code-cell} ipython3
 nx.faster_could_be_isomorphic(G, H)
 ```
 
@@ -106,7 +136,7 @@ Another property we can check for is:
 
 We can use the function *fast_could_be_isomorphic()* to check if the graphs have the same degree and triangle sequence. The triangle sequence contains the number of triangles each node is part of.
 
-```{code-cell}
+```{code-cell} ipython3
 nx.fast_could_be_isomorphic(G, H)
 ```
 
@@ -117,28 +147,28 @@ We can go one step further and check:
 
 We can use the function *could_be_isomorphic()* to check if the graphs have the same degree, triangle, and clique sequence. The clique sequence contains for each node the number of the maximal clique involving that node.
 
-```{code-cell}
+```{code-cell} ipython3
 nx.could_be_isomorphic(G, H)
 ```
 
 Again we can detect that G and H are not isomorphic. But these conditions are not enough to say that two graphs are isomorphic. Let's look at the following example:
 
-```{code-cell}
+```{code-cell} ipython3
 plt.subplot(221)
 G = nx.path_graph(5)
-G.add_edge(2,5)
-nx.draw_circular(G, with_labels = True, node_color="g")
+G.add_edge(2, 5)
+nx.draw_circular(G, with_labels=True, node_color="g")
 plt.title("G", fontweight="bold")
 
 plt.subplot(222)
 H = nx.path_graph(5)
-H.add_edge(3,5)
-nx.draw_circular(H, with_labels = True, node_color = "c")
+H.add_edge(3, 5)
+nx.draw_circular(H, with_labels=True, node_color="c")
 plt.title("H", fontweight="bold")
 plt.show()
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 nx.could_be_isomorphic(G, H)
 ```
 
@@ -163,13 +193,14 @@ Let's see an example, we can use the function *tree_isomorphism()* from the isom
 
 So let's use it to check that a 2-ary tree of $2^4 - 1$ nodes is a balanced binary tree of height 3.
 
-```{code-cell}
-t1 = nx.balanced_tree(2,3)
+```{code-cell} ipython3
+t1 = nx.balanced_tree(2, 3)
 t2 = nx.full_rary_tree(2, 15)
 
 from networkx.algorithms import isomorphism as iso
+
 print("Node matching")
-iso.tree_isomorphism(t1,t2)
+iso.tree_isomorphism(t1, t2)
 ```
 
 ## Advanced Algorithms
@@ -211,12 +242,12 @@ Pseudocode:
 
 Let's use VF2 to check that the graphs from the previous example that could be isomorphic are not isomorphic.
 
-```{code-cell}
+```{code-cell} ipython3
 G = nx.path_graph(5)
-G.add_edge(2,5)
+G.add_edge(2, 5)
 
 H = nx.path_graph(5)
-H.add_edge(3,5)
+H.add_edge(3, 5)
 
 nx.is_isomorphic(G, H)
 ```
