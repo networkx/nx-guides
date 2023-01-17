@@ -1,5 +1,10 @@
 
 
+
++++
+
++++
+
 # Algorithms
 
 A closer look at some of the algorithms and network analysis techniques
@@ -13,4 +18,5 @@ assortativity/correlation
 dag/index
 flow/dinitz_alg
 euler/euler
+sub_isomorphism/subgraph_iso_img
 ```
