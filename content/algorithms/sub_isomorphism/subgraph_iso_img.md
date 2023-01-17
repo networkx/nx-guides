@@ -188,8 +188,7 @@ g = iso.GraphMatcher(desk_graph, phone_graph, node_match=em)
 g.subgraph_is_isomorphic()
 ```
 
-We could succefully match the phone graph in the desk graph. This means that the phone graph is a subgraph isomorphism of the desk graph. 
-**TODO : ADD MORE**
+We could successfully match the phone graph with the desk graph. This means that the phone graph is a subgraph isomorphism of the desk graph. More formally, this means that there's a possible matching function between the nodes of the phone graph and the nodes of the desk graph. We could use the matching to locate the nodes corresponding to the phone in the desk graph then the node labels are the pixel coordinates in the original picture.
 
 +++
 
