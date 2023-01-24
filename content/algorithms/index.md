@@ -13,4 +13,5 @@ assortativity/correlation
 dag/index
 flow/dinitz_alg
 euler/euler
+vf2_vs_vf2pp/vf2_vs_vf2pp
 ```
