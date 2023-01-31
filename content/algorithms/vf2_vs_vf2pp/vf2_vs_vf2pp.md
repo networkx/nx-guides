@@ -523,9 +523,12 @@ g2.remove_edges_from(nx.selfloop_edges(g2))
 print("Are isomorphic? ", nx.is_isomorphic(g1, g2))
 ```
 
-Then we can create two random graphs with the same degree sequence and check that they are not isomorphic. The values of $k$ where chosen because they return a sequence with an even sum using these seeds. 
+Then we can create two random graphs with the same degree sequence and check that they are not isomorphic. The values of $k$ where chosen because they return a sequence with an even sum using these seeds.
 
 ```{code-cell} ipython3
+#TODO: these plots don't look the same when they are runned for the nx-guides. I will test again and make them images
+#if this is an issue
+
 k = [10, 11, 15, 18, 24, 32]  # Network sizes
 
 vf2_all_times_graphs = []  # VF2 time measurements on graphs
@@ -654,6 +657,6 @@ After all the different experiments, We can conclude that
 
 +++
 
-# References
+## References
 - L. P. Cordella, P. Foggia, C. Sansone, M. Vento, “An Improved Algorithm for Matching Large Graphs”, 3rd IAPR-TC15 Workshop on Graph-based Representations in Pattern Recognition, Cuen, pp. 149-159, 2001. <https://www.researchgate.net/publication/200034365_An_Improved_Algorithm_for_Matching_Large_Graphs>
 - Jüttner, Alpár & Madarasi, Péter. (2018). “VF2++—An improved subgraph isomorphism algorithm”. Discrete Applied Mathematics. 242. <https://doi.org/10.1016/j.dam.2018.02.018>
