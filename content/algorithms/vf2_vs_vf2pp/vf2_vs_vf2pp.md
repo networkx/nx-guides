@@ -4,7 +4,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.14.4
+    jupytext_version: 1.14.2
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -28,7 +28,7 @@ VF2 and VF2++ are recursive algorithms that explore all the possible matching fu
 
 Let's see an example of how to use VF2 and VF2++ to test for isomorphism with NetworkX.
 
-```{code-cell} ipython3
+```{code-cell}
 import networkx as nx
 
 G = nx.bull_graph()
@@ -52,7 +52,7 @@ To measure execution time we can use the function *timeit(setup, stmt, number )*
 
 Let's see an example:
 
-```{code-cell} ipython3
+```{code-cell}
 import timeit
 
 sleep_time = timeit.timeit(
@@ -67,7 +67,7 @@ print("I was asleep for " + str(sleep_time) + " seconds")
 Given that the state of the CPU can change the execution time of our code it's important to repeat our measurements many times and the consider some way to summarize our data. We can use the median. To achive this we will use *repeat(setup, stmt, timer, number, repeat)*. 
 Let's measure how much time it takes to create a balanced tree with networkX. We will repeat it 100 times and then take the median of all measumerements.
 
-```{code-cell} ipython3
+```{code-cell}
 import numpy as np
 import time
 
@@ -88,7 +88,7 @@ For more information about timeit: <https://docs.python.org/3/library/timeit.htm
 
 **Disclaimer:** The graphs used in the following examples are going to be small because the execution time grows exponentially as we increase the size of the graphs otherwise the examples are going to take too much time to run. In order to do a more exhaustive benchmarking we need to repeat all the measurements many times and use bigger graphs. This notebook does not intend to be a proper benchmarking but rather a general analysis of the performance of both algorithms.
 
-```{code-cell} ipython3
+```{code-cell}
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 ```
@@ -97,7 +97,7 @@ import matplotlib.ticker as mticker
 We can compare both algorithms on complete graphs as a way to see how these algorithms behave on dense graphs.
 Let's measure how much it takes for both algorithms to run in complete graphs as we increase the number of nodes in the graphs. For these graphs we are interested in identifying positive instances, in other words, we want to test graphs that are isomorphic.
 
-```{code-cell} ipython3
+```{code-cell}
 vf2_all_times_graphs = []  # VF2 time measurements on graphs
 vf2pp_all_times_graphs = []  # VF2++ time measurements on graphs
 
@@ -205,7 +205,7 @@ As expected VF2++ performs better than VF2 as we increase the number of nodes. W
 
 A random $d$-regular graph is a graph randomly selected from all $d$-regular graphs of $n$ vertices, where $3\leq d < n$ and $nr$ is even. A $d$-regular graph is a graph where each node has exactly $d$ neighbors. That means that all nodes have the same degree. These graphs are interesting for our experiments because as we increase $d$ we will have graphs that get denser. This way we can easily test how the algorithms perform as we make graphs denser. In our example, we take a graph of 15 nodes and we will increase $d$. Again We will focus on positive instances.
 
-```{code-cell} ipython3
+```{code-cell}
 vf2_all_times = []
 vf2pp_all_times = []
 
@@ -263,7 +263,7 @@ Once again VF2++ is significantly faster than VF2. It's interesting to analyze t
 A random erdos-renyi graph $G_{n, p}$ is a graph of $n$ nodes where all possible edges are added with probability $p$. With these graphs we can easily create graphs with similar density for multiple values of $n$. We will use them to see how the algorithms behave on graphs with the same density as we increase the number of nodes in positive instances.
 Let's do this experiment for different values of $p$:
 
-```{code-cell} ipython3
+```{code-cell}
 p = [0.1, 0.3, 0.5, 0.6] #Define probabilities 
 
 vf2_all_times = []
@@ -367,7 +367,7 @@ plt.show()
 
 Now we can do the same analysis in DiGraphs.
 
-```{code-cell} ipython3
+```{code-cell}
 p = [0.1, 0.3, 0.5, 0.6] #Define probabilities 
 
 vf2_all_times = []
@@ -477,7 +477,7 @@ In both graphs and digraphs the experiment results are pretty similar. VF2++ kee
 
 To test on negative instances, in other words, graphs that are not isomorphic we need to create graphs with the same degree sequence. For that, we can use *nx.configuration_model(degree_sequence)* that creates a random MultiGraph with the given degree sequence. The degree sequence must have an even sum. Then we can just convert the resulting MultiGraph into a Graph. Let's see in an example how can we experiment with this:
 
-```{code-cell} ipython3
+```{code-cell}
 # Example
 import random
 
@@ -502,7 +502,7 @@ print("Are isomorphic? ", nx.is_isomorphic(g1, g2))
 To do this same experiment on DiGraphs, we need to define an in degree sequence and an out degree sequence.  
 We will have to use the function *nx.directed_configuration_model(in_degree_sequence, out_degree_sequence, create_using, seed)*. Both degree sequences must have the same sum. Again this function returns a MultiDiGraph so we will have to convert it into a DiGraph. Let's do this in an example:
 
-```{code-cell} ipython3
+```{code-cell}
 # Example
 import random
 
@@ -525,7 +525,7 @@ print("Are isomorphic? ", nx.is_isomorphic(g1, g2))
 
 Then we can create two random graphs with the same degree sequence and check that they are not isomorphic. The values of $k$ where chosen because they return a sequence with an even sum using these seeds.
 
-```{code-cell} ipython3
+```{code-cell}
 #TODO: these plots don't look the same when they are runned for the nx-guides. I will test again and make them images
 #if this is an issue
 
@@ -653,7 +653,7 @@ To go one step further with our experiments we can test how the algorithms perfo
 
 The dataset source is: <https://chrsmrrs.github.io/datasets/>
 
-```{code-cell} ipython3
+```{code-cell}
 ##TODO add TuDataset graphs experiment from the experiments notebook
 plt.rcParams["figure.figsize"] = (10, 10)
 img = plt.imread("ex_PROTEINS.png") #Preliminary experiment
