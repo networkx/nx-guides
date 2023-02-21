@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# Isomorphism
+# Isomorphism - How to find if two graphs are similar?
 
 ```{code-cell}
 import networkx as nx
@@ -26,40 +26,10 @@ As unlabeled graphs can have multiple spatial representations, two graphs are is
 
 ```{code-cell}
 plt.subplot(221)
-G = nx.Graph(
-    [
-        (0, 1),
-        (0, 4),
-        (0, 2),
-        (1, 3),
-        (1, 5),
-        (2, 3),
-        (2, 6),
-        (3, 7),
-        (4, 5),
-        (5, 7),
-        (6, 7),
-        (6, 4),
-    ]
-)
+G = nx.cubical_graph()
 nx.draw_spectral(G, with_labels=True, node_color="c")
 plt.title("G", fontweight="bold")
-H = nx.Graph(
-    [
-        (1, 2),
-        (1, 5),
-        (1, 3),
-        (2, 4),
-        (2, 6),
-        (3, 4),
-        (3, 7),
-        (4, 8),
-        (5, 6),
-        (6, 8),
-        (7, 8),
-        (7, 5),
-    ]
-)
+H = nx.cubical_graph()
 plt.subplot(222)
 nx.draw_circular(H, with_labels=True, node_color="yellow")
 plt.title("H", fontweight="bold")
@@ -67,7 +37,7 @@ plt.title("H", fontweight="bold")
 plt.show()
 ```
 
-These graphs' spatial representations are very different yet they are isomorphic.
+These graphs' spatial representations are very different yet they are the same graphs!
 
 
 ### **Formal definition**
@@ -93,12 +63,17 @@ In fact, isomorphism is part of the problems known as NP. This means that we don
 
 ### Applications 
 
-- Verification of equivalence of different representations of the design of an electronic circuit and communication networks. 
-- Image recognition.
-- Identification of chemical compounds and proteins.
-- Algorithms for fingerprint, facial and retina matching. 
--  Clustering Algorithms on social networks.
+There are a lot of applications of the graph isomorphism problem.
 
+- Image recognition: Images can be translated to graphs and by finding (sub)isomorphisms we can compare if two images are similar.
+
+- Verification of equivalence of different representations of the design of an electronic circuit and communication networks. 
+
+- Identification of chemical compounds and proteins.
+
+- Algorithms for fingerprint, facial and retina matching.
+
+- Clustering Algorithms on social networks.
 
 ## Isomorphism Algorithms
 **Naive Approach**
