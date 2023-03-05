@@ -4,9 +4,15 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
+<<<<<<< HEAD
     jupytext_version: 1.14.5
 kernelspec:
   display_name: Python 3 (ipykernel)
+=======
+    jupytext_version: 1.13.8
+kernelspec:
+  display_name: Python 3
+>>>>>>> a54d6e0113fefd354797f404202b9ddcc144b09b
   language: python
   name: python3
 ---
