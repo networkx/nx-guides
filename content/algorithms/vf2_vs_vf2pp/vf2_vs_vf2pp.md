@@ -4,7 +4,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.14.4
+    jupytext_version: 1.14.2
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -29,7 +29,7 @@ Let's see an example of how to use VF2 and VF2++ to test for isomorphism with Ne
 ```{code-cell}
 import networkx as nx
 
-G = nx.bull_graph() #Create a bull graph
+G = nx.bull_graph()  # Create a bull graph
 
 print("VF2:  ", nx.is_isomorphic(G, G))  # VF2
 
@@ -205,8 +205,8 @@ As expected VF2++ performs better than VF2 as we increase the number of nodes. W
 A random $d$-regular graph is a graph randomly selected from all $d$-regular graphs of $n$ vertices, where $3\leq d < n$ and $nr$ is even. A $d$-regular graph is a graph where each node has exactly $d$ neighbors. That means that all nodes have the same degree. These graphs are interesting for our experiments because as we increase $d$ we will have graphs that get denser. This way we can easily test how the algorithms perform as we make graphs denser. In our example, we take a graph of 15 nodes and we will increase $d$. Again We will focus on positive instances.
 
 ```{code-cell}
-vf2_all_times = [] #VF2 time measurements
-vf2pp_all_times = [] #VF2++ time measurements
+vf2_all_times = []  # VF2 time measurements
+vf2pp_all_times = []  # VF2++ time measurements
 
 
 for i in range(0, 10, 2):
@@ -263,10 +263,10 @@ A random erdos-renyi graph $G_{n, p}$ is a graph of $n$ nodes where all possible
 Let's do this experiment for different values of $p$:
 
 ```{code-cell}
-p = [0.1, 0.3, 0.5, 0.6] #Define probabilities
+p = [0.1, 0.3, 0.5, 0.6]  # Define probabilities
 
-vf2_all_times = [] #vf2 time measurements
-vf2pp_all_times = [] #vf2++ time measurements
+vf2_all_times = []  # vf2 time measurements
+vf2pp_all_times = []  # vf2++ time measurements
 
 for j in range(0, len(p)):
     vf2 = []
@@ -367,10 +367,10 @@ plt.show()
 Now we can do the same analysis in DiGraphs.
 
 ```{code-cell}
-p = [0.1, 0.3, 0.5, 0.6] #Define probabilities
+p = [0.1, 0.3, 0.5, 0.6]  # Define probabilities
 
-vf2_all_times = [] #VF2 time measurements
-vf2pp_all_times = [] #VF2++ time measurements
+vf2_all_times = []  # VF2 time measurements
+vf2pp_all_times = []  # VF2++ time measurements
 
 for j in range(0, len(p)):
     vf2 = []
@@ -628,12 +628,12 @@ ax[1].legend(handles=[vf2_line_d, vf2pp_line_d])
 
 fig.tight_layout(pad=3.0)
 """
-#Show plot that was generated beforehand
-fig,ax = plt.subplots(1, figsize = (15, 10))
+# Show plot that was generated beforehand
+fig, ax = plt.subplots(1, figsize=(15, 10))
 img = plt.imread("same_degree_seq.png")
 
 ax.imshow(img)
-plt.axis('off')
+plt.axis("off")
 plt.show()
 ```
 
@@ -657,24 +657,32 @@ The data is divided into 3 text files:
 Let's see how can we read these files and generate NetworkX graphs.
 
 ```{code-cell}
-import pandas as pd 
+import pandas as pd
 
-#Read edgelist
-edgelist=pd.read_csv("datasets/PROTEINS_A.txt", sep=', ', header=None, names=["node a", "node b"])
-#Read graph_indicator
-graph_indicator = pd.read_csv("datasets/PROTEINS_graph_indicator.txt", names = ["graph_ind"])
-#Add the graph indicator into the edgelist dataframe
-edgelist['graph_indicator'] = list(graph_indicator["graph_ind"][edgelist["node a"]-1])
-#Read node attributes
-node_att = list(pd.read_csv("datasets/PROTEINS_node_attributes.txt", names = ["node"])["node"])
+# Read edgelist
+edgelist = pd.read_csv(
+    "datasets/PROTEINS_A.txt", sep=", ", header=None, names=["node a", "node b"]
+)
+# Read graph_indicator
+graph_indicator = pd.read_csv(
+    "datasets/PROTEINS_graph_indicator.txt", names=["graph_ind"]
+)
+# Add the graph indicator into the edgelist dataframe
+edgelist["graph_indicator"] = list(graph_indicator["graph_ind"][edgelist["node a"] - 1])
+# Read node attributes
+node_att = list(
+    pd.read_csv("datasets/PROTEINS_node_attributes.txt", names=["node"])["node"]
+)
 
 graph_dataset = []
-for i in range(1,1114):
-    #Create graph from edgelist
-    G = nx.from_pandas_edgelist(edgelist[edgelist['graph_indicator']==i], source = "node a", target = "node b")
-    #Add node attributes
+for i in range(1, 1114):
+    # Create graph from edgelist
+    G = nx.from_pandas_edgelist(
+        edgelist[edgelist["graph_indicator"] == i], source="node a", target="node b"
+    )
+    # Add node attributes
     for node in G.nodes:
-        G.nodes[node]["weight"] = node_att[node-1]
+        G.nodes[node]["weight"] = node_att[node - 1]
     graph_dataset.append(G)
 ```
 
@@ -750,10 +758,10 @@ plt.show()
 As the previous code takes too much time to run. Let's see the results of the experiment that were generated with the 900 smaller graphs and all measurements were repeated 300 times.
 
 ```{code-cell}
-fig,ax = plt.subplots(1, figsize = (10, 10))
+fig, ax = plt.subplots(1, figsize=(10, 10))
 img = plt.imread("ex_PROTEINS.png")
 plt.imshow(img)
-plt.axis('off')
+plt.axis("off")
 plt.show()
 ```
 
