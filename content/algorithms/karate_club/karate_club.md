@@ -213,11 +213,11 @@ fig.set_size_inches(10, 10)
 
 plt.subplot(221)
 
-nx.draw(K1_naive, with_labels=True, node_color="c", nodelist=solitary1)
+nx.draw(K1_naive, with_labels=True, node_color="c", nodelist=K1_not_isolated)
 plt.title("Group Administrator", fontweight="bold")
 
 plt.subplot(222)
-nx.draw(K2_naive, with_labels=True, nodelist=solitary2, node_color="m")
+nx.draw(K2_naive, with_labels=True, nodelist=K2_not_isolated, node_color="m")
 plt.title("Group Instructor", fontweight="bold")
 
 plt.show()
