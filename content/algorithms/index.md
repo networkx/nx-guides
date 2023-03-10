@@ -13,5 +13,5 @@ assortativity/correlation
 dag/index
 flow/dinitz_alg
 euler/euler
-traversal/graph-traversal-algos
+traversal/index
 ```
