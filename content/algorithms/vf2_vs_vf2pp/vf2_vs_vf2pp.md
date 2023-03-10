@@ -472,7 +472,7 @@ In both graphs and directed graphs, the experimental results are quite similar. 
 
 +++
 
-## Create graphs from a degree secuence
+## Create graphs from a degree sequence
 
 To test on negative instances, in other words, graphs that are not isomorphic we need to create graphs with the same degree sequence. For that, we can use *nx.configuration_model(degree_sequence)* that creates a random MultiGraph with the given degree sequence. The degree sequence must have an even sum. Then we can just convert the resulting MultiGraph into a Graph. Let's see in an example how can we experiment with this:
 
