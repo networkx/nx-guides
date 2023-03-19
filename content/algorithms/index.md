@@ -14,4 +14,5 @@ dag/index
 flow/dinitz_alg
 euler/euler
 traversal/traversal_algos
+shortest-and-simple-paths/shortest-and-simple-paths
 ```
