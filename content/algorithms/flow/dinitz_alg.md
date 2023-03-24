@@ -5,9 +5,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.13.8
+    jupytext_version: 1.14.5
 kernelspec:
-  display_name: Python 3 (ipykernel)
+  display_name: Python 3
   language: python
   name: python3
 language_info:
@@ -19,16 +19,17 @@ language_info:
   name: python
   nbconvert_exporter: python
   pygments_lexer: ipython3
-  version: 3.10.1
+  version: 3.9.4
 ---
 
-# Dinitz's algorithm and its applications
-In this notebook, we will introduce the [Maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)
-and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm) [^1], which is implemented at
-[algorithms/flow/dinitz_alg.py](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py)
+# Dinitz's Algorithm and Applications
+In this tutorial, we will explore the [maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)$^{1}$
+and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm)$^{2}$, which is implemented at
+[`algorithms/flow/dinitz_alg.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py)
 in NetworkX. We will also see how it can be used to solve some interesting problems.
 
-## Maximum flow problem
+
+### Import packages
 
 ```{code-cell} ipython3
 import networkx as nx
@@ -40,6 +41,7 @@ from copy import deepcopy
 from collections import deque
 ```
 
+## Maximum flow problem
 ### Motivation
 Let's say you want to send your friend some data as soon as possible, but the only way
 of communication/sending data between you two is through a peer-to-peer network. An
@@ -50,6 +52,7 @@ you can send between a pair of nodes in this network.
 ```{code-cell} ipython3
 # Load the example graph
 G = nx.read_gml("data/example_graph.gml")
+
 # Extract info about node position from graph (for visualization)
 pos = {k: np.asarray(v) for k, v in G.nodes(data="pos")}
 label_pos = deepcopy(pos)
@@ -95,8 +98,10 @@ a connection from node $u$ to node $v$ across which we can send data. There are 
 ```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(16, 8))
 
+# Color source and sink node
 node_colors = ["skyblue" if n in {"s", "t"} else "lightgray" for n in G.nodes]
 
+# Draw graph
 nx.draw(G, pos, ax=ax, node_color=node_colors, with_labels=True)
 nx.draw_networkx_labels(G, label_pos, labels=labels, ax=ax, font_size=16)
 ax.set_xlim([-1.4, 1.4]);
@@ -108,8 +113,10 @@ you can send from node $u$ to node $v$ is $c_{uv}$, lets call this as capacity o
 ```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(16, 8))
 
+# Label capacities
 capacities = {(u, v): c for u, v, c in G.edges(data="capacity")}
 
+# Draw graph
 nx.draw(G, pos, ax=ax, node_color=node_colors, with_labels=True)
 nx.draw_networkx_edge_labels(G, pos, edge_labels=capacities, ax=ax)
 nx.draw_networkx_labels(G, label_pos, labels=labels, ax=ax, font_size=16)
@@ -540,7 +547,7 @@ fig.tight_layout()
 ```
 
 Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value
-## Reductions and Applications
+## Applications
 There are many other problems which can be reduced to Maximum flow problem, for example:
 * [Maximum Bipartite Matching](https://en.wikipedia.org/wiki/Matching_(graph_theory))
 * [Assignment Problem](https://en.wikipedia.org/wiki/Assignment_problem)
@@ -635,6 +642,7 @@ Above we can see a matching of intermediate shipping points and customers which
 gives the maximum shipping in a day.
 
 ## References
-[^1]: Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz.
+1. [Wikipedia, Maximal Flow Problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)
+2. Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz.
 In Theoretical Computer Science. Lecture Notes in Computer Science.
 Volume 3895. pp 218-240. <https://doi.org/10.1007/11685654_10>

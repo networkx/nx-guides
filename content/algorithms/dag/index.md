@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.13.8
+    jupytext_version: 1.14.5
 kernelspec:
   display_name: Python 3
   language: python
@@ -19,31 +19,35 @@ language_info:
   name: python
   nbconvert_exporter: python
   pygments_lexer: ipython3
-  version: 3.9.2
+  version: 3.9.4
 ---
 
 # Directed Acyclic Graphs & Topological Sort
 
 In this tutorial, we will explore the algorithms related to a directed acyclic graph
-(or a "dag" as it is sometimes called) implemented in networkx under `networkx/algorithms/dag.py`.
+(or a "DAG" as it is sometimes called) implemented in networkx under [`networkx/algorithms/dag.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/dag.py).
 
 First of all, we need to understand what a directed graph is.
 
-## Directed Graph
+## Import packages
 
+```{code-cell} ipython3
+import networkx as nx
+import matplotlib.pyplot as plt
+import inspect
+%matplotlib inline
+```
+
+## Directed Graphs
 ### Example
 
 ```{code-cell} ipython3
-%matplotlib inline
-import networkx as nx
-import matplotlib.pyplot as plt
-```
-
-```{code-cell} ipython3
+# Create graph
 triangle_graph = nx.from_edgelist([(1, 2), (2, 3), (3, 1)], create_using=nx.DiGraph)
 ```
 
 ```{code-cell} ipython3
+# Draw graph
 nx.draw_planar(
     triangle_graph,
     with_labels=True,
@@ -70,12 +74,14 @@ You will see this idea in action in the examples below.
 ### Example
 
 ```{code-cell} ipython3
+#Read in from GraphML file
 clothing_graph = nx.read_graphml(f"data/clothing_graph.graphml")
 ```
 
 ```{code-cell} ipython3
 plt.figure(figsize=(12, 12), dpi=150)
 
+# Draw graph
 nx.draw_planar(
     clothing_graph,
     arrowsize=12,
@@ -164,7 +170,7 @@ Then, a topological sort gives an order in which to perform the jobs.
 
 A closely related application of topological sorting algorithms
 was first studied in the early 1960s in the context of the
-[PERT technique](https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique)
+[PERT technique](https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique)$^{1}$
 for scheduling in project management.
 In this application, the vertices of a graph represent the milestones of a project,
 and the edges represent tasks that must be performed between one milestone and another.
@@ -343,8 +349,6 @@ We need to check this while the `while` loop is running.
 Combining all of the above gives the current implementation of the `topological_generations()` function in NetworkX.
 
 ```{code-cell} ipython3
-import inspect
-
 print(inspect.getsource(nx.topological_generations))
 ```
 
@@ -353,3 +357,9 @@ Let's finally see what the result will be on the `clothing_graph`.
 ```{code-cell} ipython3
 list(nx.topological_generations(clothing_graph))
 ```
+
+## References
+
+1. [Wikipedia, PERT Technique](https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique)
+
+2. Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.

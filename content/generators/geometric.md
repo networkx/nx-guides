@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.13.8
+    jupytext_version: 1.14.5
 kernelspec:
   display_name: Python 3
   language: python
@@ -19,14 +19,25 @@ language_info:
   name: python
   nbconvert_exporter: python
   pygments_lexer: ipython3
-  version: 3.7.4
+  version: 3.9.4
 ---
 
 # Geometric Generator Models
 
 In this tutorial, we'll explore the geometric network generator models
-implemented in networkx under networkx/generators/geometric.py and apply them
+implemented under [`networkx/generators/geometric.py`](https://github.com/networkx/networkx/blob/main/networkx/generators/geometric.py) and apply them
 to a real-world use case to learn how these models can be parameterized and used.
+
+### Import packages
+
+```{code-cell} ipython3
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+import networkx as nx
+```
+
+
 
 ## Geometric/Spatial Networks
 
@@ -48,7 +59,7 @@ The potential application of Spatial Networks to such a wide variety of
 real-world systems has motivated substainial research into these networks,
 with many unique but closely related models being proposed with theoretical
 proofs for many of their network properties.
-The 2010 Spatial Networks review article by Marc Barthélemy[^1] provides a
+The 2010 Spatial Networks review article by Marc Barthélemy$^{1}$ provides a
 comprehensive overview of the field and reviews many of the most important
 theoretical proofs for the most common Spatial Network models.
 Here we explore some of the most typical Spatial Network models which have been
@@ -84,10 +95,10 @@ indicates an edges exists between nodes $i$ and $j$.
 
 A d-dimensional Random Geometric Graph (RGG) is a graph where each of the $N$
 nodes is assigned random coordinates in the box $[0, 1]^{d}$, and only
-nodes "close" to each other are connected by an edge [^2].
+nodes "close" to each other are connected by an edge.$^{2}$
 Any node within or equal to the maximum connection distance, $R$, is a connected
 node and the structure of the network is fully defined by $R$.
-RGGs, similar to Unit Disk Graphs [^3],  have been widely used to model ad-hoc
+RGGs, similar to Unit Disk Graphs,$^{3}$  have been widely used to model ad-hoc
 wireless networks.
 
 $$ E_{ij}: d_{ij} \leq R $$
@@ -95,7 +106,7 @@ $$ E_{ij}: d_{ij} \leq R $$
 #### Waxman Graphs ($\alpha$)
 
 Waxman Graphs are the spatial generalization of Erdős–Rényi random graphs, where the
-probability of connection of nodes depends on a function of the distance between them[^4].
+probability of connection of nodes depends on a function of the distance between them.$^{4}$
 The original edge probabiliy function proposed by Waxman is exponential in
 $d_{ij}$, providing two connection probability tuning parameters, $\alpha$ and $\beta$:
 
@@ -115,7 +126,7 @@ $$ E_{ij} \propto P(d_{ij}) $$
 
 A simple graph G is a threshold graph if we can assign weights to the vertices
 such that a pair of distinct vertices is adjacent exactly when the sum of their
-assigned weights equals or exceeds a specified threshold, $\theta$ [^6].
+assigned weights equals or exceeds a specified threshold ($\theta$).$^{6}$
 Threshold Graphs are not themselves Spatial Networks, as they do not incorporate
 a specific geometry or metric, but they introduce the ability to consider node
 weights as part of the network model which is utilized by other Spatial Network
@@ -129,7 +140,7 @@ Geographical Threshold Graphs are the geographical generalization of Threshold
 Graphs, where a pair of vertices with weights $w_i, w_j$,
 and distance $d_{ij}$ are connected if and only if the product between
 the sum of weights  $w_i$ and $w_j$ with the edge connection
-function, $P(d_{ij})$, is greater than or equal to a threshold value, $\theta$. [^8]
+function, $P(d_{ij})$, is greater than or equal to a threshold value, $\theta$.$^{8}$
 
 $$ E_{ij}: (w_i + w_j) P(d_{ij}) \geq \theta $$
 
@@ -140,8 +151,8 @@ between nodes that are within the maximum connection distance, $R$, to better mo
 real-world systems where node proximity does not necessarily guarantee a
 connection between "close" nodes.
 In Soft Random Geometric Graphs, the probability  of connection between nodes $i$
-and $j$ is a function of their distance, $d_{ij}, if $d_{ij} \leq R$.
-Otherwise, they are disconnected [^7].
+and $j$ is a function of their distance, $d_{ij}$, if $d_{ij} \leq R$.
+Otherwise, they are disconnected.$^{7}$
 
 $$ E_{ij} \propto P(d_{ij}) \textrm{ if } d_{ij} \leq R $$
 
@@ -149,7 +160,7 @@ $$ E_{ij} \propto P(d_{ij}) \textrm{ if } d_{ij} \leq R $$
 
 Thresholded Random Geometric Graphs extend RGGs to incorporate node weights into
 the model, where connections are only made between nodes with sufficiently
-powerful weights, up to a maximum connection distance between nodes [^9].
+powerful weights, up to a maximum connection distance between nodes.$^{9}$
 
 $$ (w_i + w_j) \geq \theta \textrm{ if } d_{ij} \leq R $$
 
@@ -173,11 +184,6 @@ With this dataset, we can model the supercharger network with the various spatia
 networks implemented in networkx.
 
 ```{code-cell} ipython3
-%matplotlib inline
-import numpy as np
-import matplotlib.pyplot as plt
-import networkx as nx
-
 # Some matplotlib settings
 mpl_params = {
     "axes.titlesize": 20,
@@ -344,18 +350,20 @@ for thresh, ax in zip(thresholds, axes):
 fig.tight_layout()
 ```
 
-[^1]: Spatial Networks <https://doi.org/10.1016/j.physrep.2010.11.002>
+## References
 
-[^2]: Random Geometric Graphs <https://doi.org/10.1103/PhysRevE.66.016121>
+1. Spatial Networks <https://doi.org/10.1016/j.physrep.2010.11.002>
 
-[^3]: Unit Disk Graphs <https://doi.org/10.1016/0012-365X(90)90358-O>
+2. Random Geometric Graphs <https://doi.org/10.1103/PhysRevE.66.016121>
 
-[^4]: Waxman Graphs <https://doi.org/10.1109/49.12889>
+3. Unit Disk Graphs <https://doi.org/10.1016/0012-365X(90)90358-O>
 
-[^6]: Threshold Graphs - <https://doi.org/10.37236/219>
+4. Waxman Graphs <https://doi.org/10.1109/49.12889>
 
-[^7]: Soft Geometric Random Graphs - <https://doi.org/10.1214/15-AAP1110>
+6. Threshold Graphs - <https://doi.org/10.37236/219>
 
-[^8]: Geometric Threshold Graphs - <https://doi.org/10.1103/PhysRevE.71.036108>
+7. Soft Geometric Random Graphs - <https://doi.org/10.1214/15-AAP1110>
 
-[^9]: Thresholded Random Geometric Graphs - <http://hdl.handle.net/2117/111425>
+8. Geometric Threshold Graphs - <https://doi.org/10.1103/PhysRevE.71.036108>
+
+9. Thresholded Random Geometric Graphs - <http://hdl.handle.net/2117/111425>
