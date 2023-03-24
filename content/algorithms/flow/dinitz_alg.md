@@ -23,8 +23,8 @@ language_info:
 ---
 
 # Dinitz's Algorithm and Applications
-In this tutorial, we will explore the [maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)$^{1}$
-and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm)$^{2}$, which is implemented at
+In this tutorial, we will explore the [maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem) [^1]
+and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm) [^2], which is implemented at
 [`algorithms/flow/dinitz_alg.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py)
 in NetworkX. We will also see how it can be used to solve some interesting problems.
 
@@ -642,7 +642,8 @@ Above we can see a matching of intermediate shipping points and customers which
 gives the maximum shipping in a day.
 
 ## References
-1. [Wikipedia, Maximal Flow Problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)
-2. Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz.
+[^1]: [Wikipedia, Maximal Flow Problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)
+
+[^2]: Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz.
 In Theoretical Computer Science. Lecture Notes in Computer Science.
 Volume 3895. pp 218-240. <https://doi.org/10.1007/11685654_10>

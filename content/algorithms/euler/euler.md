@@ -33,7 +33,7 @@ What you are seeing below is the beautiful old town of Königsberg which is famo
 
 ![image:map](images/map.png)
 
-What gave the town its fame is a question that was asked to mathematician Leonhard Euler almost 300 years ago$^{2}$:
+What gave the town its fame is a question that was asked to mathematician Leonhard Euler almost 300 years ago [^1]:
 
 > ***Can you take a walk through Königsberg visiting each mass by crossing each bridge once and only once?***
 
@@ -84,7 +84,7 @@ Note that every Euler Circuit is also an Euler Path.
 
 ### Euler's Method
 
-Euler$^{2}$ denoted land masses of the town by capital letters $A$, $B$, $C$ and $D$ and bridges by lowercase $a$, $b$, $c$, $d$, $e$, $f$ and $g$. Let's draw the graph based on this node and edge labels.
+Euler [^2] denoted land masses of the town by capital letters $A$, $B$, $C$ and $D$ and bridges by lowercase $a$, $b$, $c$, $d$, $e$, $f$ and $g$. Let's draw the graph based on this node and edge labels.
 
 ```{code-cell} ipython3
 # Design and draw graph

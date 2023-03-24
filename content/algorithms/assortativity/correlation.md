@@ -24,7 +24,7 @@ language_info:
 
 # Node Assortativity Coefficients and Correlation Measures
 
-In this tutorial, we will explore the theory of [assortativity](https://en.wikipedia.org/wiki/Assortativity)$^{1}$ and its measures. 
+In this tutorial, we will explore the theory of [assortativity](https://en.wikipedia.org/wiki/Assortativity) [^1] and its measures. 
 
 We'll focus on assortativity measures available in NetworkX at [`algorithms/assortativity/correlation.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/assortativity/correlation.py):
 * Attribute assortativity
@@ -92,7 +92,7 @@ Pearson correlation coefficient.
 
 Here the property $P(v)$ is a nominal property assigned to each node.
 As defined above we calculate the normalized mixing matrix $e$ and from that we
-define the attribute assortativity coefficient$^{2}$ as below.
+define the attribute assortativity coefficient [^2] as below.
 
 From here onwards we will use subscript notation to denote indexing, for eg. $P_i = P[i]$ and $e_{ij} = e[i][j]$
 
@@ -105,7 +105,7 @@ It is implemented as `attribute_assortativity_coefficient`.
 Here the property $P(v)$ is a numerical property assigned to each
 node and the definition of the normalized mixing
 matrix $e$, $\sigma_a$, and $\sigma_b$ are same as above.
-From these we define numeric assortativity coefficient $^{2}$ as below.
+From these we define numeric assortativity coefficient [^2] as below.
 
 $$ r = \frac{\sum\limits_{i,j}P_i P_j(e_{ij} -a_i b_j)}{\sigma_a\sigma_b} $$
 
@@ -117,7 +117,7 @@ When it comes to measuring degree assortativity for directed networks we have
 more options compared to assortativity w.r.t a property because we have 2 types
 of degrees, namely in-degree and out-degree.
 Based on the 2 types of degrees we can measure $2 \times 2 =4$ different types
-of degree assortativity$^{3}$:
+of degree assortativity [^3]:
 
 1. r(in,in) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = in-degree(v).
 2. r(in,out) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = out-degree(v).
@@ -266,6 +266,8 @@ are drawn.
 
 ## References
 
-1. [Wikipedia, Assortativity](https://en.wikipedia.org/wiki/Assortativity)
-2. M. E. J. Newman, Mixing patterns in networks <https://doi.org/10.1103/PhysRevE.67.026126>
-3. Foster, J.G., Foster, D.V., Grassberger, P. & Paczuski, M. Edge direction and the structure of networks <https://doi.org/10.1073/pnas.0912671107>
+[^1]: [Wikipedia, Assortativity](https://en.wikipedia.org/wiki/Assortativity)
+
+[^2]: M. E. J. Newman, Mixing patterns in networks <https://doi.org/10.1103/PhysRevE.67.026126>
+
+[3^]: Foster, J.G., Foster, D.V., Grassberger, P. & Paczuski, M. Edge direction and the structure of networks <https://doi.org/10.1073/pnas.0912671107>

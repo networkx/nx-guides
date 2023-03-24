@@ -25,7 +25,7 @@ language_info:
 # Directed Acyclic Graphs & Topological Sort
 
 In this tutorial, we will explore the algorithms related to a directed acyclic graph
-(or a "DAG" as it is sometimes called) implemented in networkx under [`networkx/algorithms/dag.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/dag.py).
+(or a "DAG" as it is sometimes called) implemented in NetworkX under [`networkx/algorithms/dag.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/dag.py).
 
 First of all, we need to understand what a directed graph is.
 
@@ -170,7 +170,7 @@ Then, a topological sort gives an order in which to perform the jobs.
 
 A closely related application of topological sorting algorithms
 was first studied in the early 1960s in the context of the
-[PERT technique](https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique)$^{1}$
+[PERT technique](https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique) [^1]
 for scheduling in project management.
 In this application, the vertices of a graph represent the milestones of a project,
 and the edges represent tasks that must be performed between one milestone and another.
@@ -360,6 +360,4 @@ list(nx.topological_generations(clothing_graph))
 
 ## References
 
-1. [Wikipedia, PERT Technique](https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique)
-
-2. Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.
+[^1]: [Wikipedia, PERT Technique](https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique)
