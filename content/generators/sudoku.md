@@ -22,6 +22,8 @@ language_info:
   version: 3.9.7
 ---
 
++++ {"tags": []}
+
 # Sudoku and Graph Coloring
 
 In this tutorial, we will apply graph theory to the problem of solving a Sudoku with NetworkX.
