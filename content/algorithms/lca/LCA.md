@@ -4,9 +4,10 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.13.8
+    jupytext_version: 1.14.5
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
+  language: python
   name: python3
 ---
 
@@ -14,7 +15,7 @@ kernelspec:
 
 # Lowest Common Ancestor
 
-In this tutorial, we will explore the lowest common ancestor algorithm implemented in networkx under `networkx/algorithms/lowest_common_ancestor.py`.
+In this tutorial, we will explore the python implementation of the lowest common ancestor algorithm in NetworkX at `networkx/algorithms/lowest_common_ancestor.py`. To get a more general overview of Lowest Common Ancestor you can also read the [wikipedia article](https://en.wikipedia.org/wiki/Lowest_common_ancestor). This notebook expects readers to be familiar with the NetworkX API. If you are new to NetworkX, you can go through the [introductory tutorial](https://networkx.org/documentation/latest/tutorial.html).
 
 ## Definitions
 
@@ -24,28 +25,29 @@ Before diving into the algorithm, let's first remember the concepts of an ancest
   Given a rooted tree, any node $u$ which is on the path from root node to $v$ is an ancestor of $u$.
 
 - **Descendant:** A descendant of a node is either a child of the node or a child of some descendant of the node.
+
 - **Lowest Common Ancestor:** For two of nodes $u$ and $v$ in a tree, the lowest common ancestor is the lowest (i.e. deepest) node which is an ancestor of both $u$ and $v$.
 
 +++ {"id": "Z5VJ4S_mlMiI"}
 
 ## Example
 
-It is always a good idea to learn concepts on an example. Consider the following evalutionary tree. We will draw directed version of it and define the ancestor/descendant relationships.
+It is always a good idea to learn concepts with an example. Consider the following evolutionary tree. We will draw a directed version of it and define the ancestor/descendant relationships.
 
-![image:evolutionary tree](images/evolutionary_tree.png)
+![image:evolutionary tree](images/evol_tree.png)
 
 +++ {"id": "-mvVopP42kk9"}
 
 Let's first draw the tree using NetworkX.
 
-```{code-cell}
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 import networkx as nx
-from networkx.drawing.nx_pydot import graphviz_layout
+from networkx.drawing.nx_agraph import graphviz_layout
 from itertools import chain, count, combinations_with_replacement
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 T = nx.DiGraph()
 T.add_edges_from(
     [
@@ -83,7 +85,7 @@ Consider the tree above and observe the following relationships:
   - For this, we will follow the path from root to node Mammal.
   - Nodes Vertabrate, Jawed Vertabrate, Tetrapod and Amniote -which are on this path- are ancestors of Mammal.
 - Descendants of node Mammal:
-  - Bear and Chimpanzee are the child of Mammal. Thus,they are its descendants.
+  - Bear and Chimpanzee are the child of Mammal. Thus, they are its descendants.
 - Lowest Common Ancestor of Mammal and Newt:
   - Ancestors of Mammal are Vertabrate, Jawed Vertabrate, Tetrapod and Amniote.
   - Ancestors of Newt are Vertabrate, Jawed Vertabrate, and Tetrapod.
@@ -95,7 +97,7 @@ _Note that, in terms of lowest common ancestor algorithms, every node is conside
 
 ## NetworkX's Implementation of Lowest Common Ancestor Algorithm
 
-NetworkX uses naive algorithm to find lowest common ancestor of given pairs of nodes. In this section, we will introduce it step by step.
+NetworkX uses a naive algorithm to find the lowest common ancestor of given pairs of nodes. In this section, we will introduce it step by step.
 
 +++ {"id": "Lx2DUlo7DUdN"}
 
@@ -115,7 +117,7 @@ def naive_all_pairs_lowest_common_ancestor(G, pairs=None):
 
 +++ {"id": "C9wWNKYzzCPb"}
 
-If "pairs" argument is not set, we consider of all unordered pairs of nodes in G by default, e.g. we do not get both (b, a) and (a, b) but only one of them. If pairs are already specified, we check if every node in pairs exists in the input graph.
+If the "pairs" argument is not set, we consider all unordered pairs of nodes in G by default, e.g. we do not get both (b, a) and (a, b) but only one of them. If pairs are already specified, we check if every node in pairs exists in the input graph.
 
 ```python
 if pairs is None:
@@ -157,7 +159,7 @@ for v, w in pairs:
 
 +++ {"id": "ZHWKa9WT60bG"}
 
-For each pair (v, w), we determine nodes that appear ancestor lists of both v and w. (i.e. find all common ancestors)
+For each pair (v, w), we determine nodes that appear in both ancestor lists of $v$ and $w$. (i.e. find all common ancestors)
 
 ```python
 common_ancestors = ancestor_cache[v] & ancestor_cache[w]
@@ -165,11 +167,11 @@ common_ancestors = ancestor_cache[v] & ancestor_cache[w]
 
 +++ {"id": "enpNSvkofqqJ"}
 
-### Step 4: Find an ancestor in common ancestors which located at the lowest level in the graph.
+### Step 4: Find a node in common ancestors which is located at the lowest level in the graph.
 
 +++ {"id": "ZY_BBL0c05tp"}
 
-We start with an arbitrary node v from the set of common ancestors. We follow arbitrary outgoing edges, remaining in the set of common ancestors, until reaching a node with no outgoing edge to another of the common ancestors.
+We start with an arbitrary node $v$ from the set of common ancestors. We follow the arbitrary outgoing edges remaining in the set of common ancestors, until reaching a node with no outgoing edge to another of the common ancestors.
 
 ```python
 v = next(iter(common_ancestors))
@@ -186,10 +188,10 @@ while True:
 
 +++ {"id": "8C-SlZeR7ovl"}
 
-We can see the result of our algorithm for a simple directed acyclic graph. Assume that our graph G is as follows and we wish to find lowest common ancestors for all pairs. For this, we need to call `all_pairs_lowest_common_ancestor`
+We can see the result of our algorithm for a simple directed acyclic graph. Assume that our graph G is as follows and we wish to find lowest common ancestors for all pairs. For this, we need to call the `all_pairs_lowest_common_ancestor`
 method.
 
-```{code-cell}
+```{code-cell} ipython3
 # Generating and visualizing our DAG
 G = nx.DiGraph()
 G.add_edges_from([(1, 0), (2, 0), (3, 2), (3, 1), (4, 2), (4, 3)])
@@ -209,7 +211,7 @@ nx.draw(
 plt.show()
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 dict(nx.all_pairs_lowest_common_ancestor(G))
 ```
 
@@ -219,6 +221,6 @@ dict(nx.all_pairs_lowest_common_ancestor(G))
 
 +++ {"id": "gW37WqW2-yQk"}
 
-Naive implementation of lowest common ancestor algorithm finds all ancestors of all nodes in the given pairs. Let number of nodes given in the pairs be P. In the worst case, finding ancestors of a single node will take O(|V|) times where |V| is the number of nodes. Thus, constructing the ancestor cache of a graph will take O(|V|\*P) times. This step will dominate the others and determine the worst-case running time of the algorithm.
+Naive implementation of lowest common ancestor algorithm finds all ancestors of all nodes in the given pairs. Let the number of nodes given in the pairs be P. In the worst case, finding ancestors of a single node will take O(|V|) times where |V| is the number of nodes. Thus, constructing the ancestor cache of a graph will take O(|V|\*P) times. This step will dominate the others and determine the worst-case running time of the algorithm.
 
 The space complexity of the algorithm will also be determined by the ancestor cache. For each node in the given pairs, there might be O(|V|) ancestors. Thus, space complexity is also O(|V|\*P).
