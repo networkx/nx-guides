@@ -35,6 +35,7 @@ First of all, we need to understand what a directed graph is.
 import networkx as nx
 import matplotlib.pyplot as plt
 import inspect
+
 %matplotlib inline
 ```
 
@@ -74,7 +75,7 @@ You will see this idea in action in the examples below.
 ### Example
 
 ```{code-cell} ipython3
-#Read in from GraphML file
+# Read in from GraphML file
 clothing_graph = nx.read_graphml(f"data/clothing_graph.graphml")
 ```
 
