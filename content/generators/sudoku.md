@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.13.8
+    jupytext_version: 1.14.5
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -22,8 +22,6 @@ language_info:
   version: 3.9.7
 ---
 
-+++ {"tags": []}
-
 # Sudoku and Graph Coloring
 
 In this tutorial, we will apply graph theory to the problem of solving a Sudoku with NetworkX.
@@ -36,7 +34,6 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import networkx as nx
 ```
-
 
 ## Introduction and Intuition
 
@@ -80,7 +77,6 @@ Now, from (1) we can get that the graph of a Sudoku grid of rank 3 is a $(V=81, 
 Let's take an example Sudoku Puzzle that we will solve with graph theory (NetworkX and some cool figures as well!)
 
 ```{code-cell} ipython3
-
 # Create Sudoku puzzle
 puzzle = np.asarray(
     [

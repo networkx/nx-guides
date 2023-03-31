@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.13.6
+    jupytext_version: 1.14.5
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -20,7 +20,7 @@ In this tutorial, we will explore the Euler's algorithm and its implementation i
 
 ## Import package
 
-```{code-cell} ipython3
+```{code-cell}
 import networkx as nx
 ```
 
@@ -47,7 +47,7 @@ In order to have a clear look, we should first simplify the map a little.
 
 Euler observed that the choice of route inside each land mass is irrelevant. The only thing that matters is the sequence of bridges to be crossed. This observation allows us to abstract the problem even more. In the graph below, blue vertices represent the land masses and edges represent the bridges that connect them.
 
-```{code-cell} ipython3
+```{code-cell}
 # Create graph
 G = nx.DiGraph()
 G.add_edge("A", "B", label="a")
@@ -86,7 +86,7 @@ Note that every Euler Circuit is also an Euler Path.
 
 Euler [^2] denoted land masses of the town by capital letters $A$, $B$, $C$ and $D$ and bridges by lowercase $a$, $b$, $c$, $d$, $e$, $f$ and $g$. Let's draw the graph based on this node and edge labels.
 
-```{code-cell} ipython3
+```{code-cell}
 # Design and draw graph
 edge_labels = nx.get_edge_attributes(G, "label")
 
@@ -151,14 +151,14 @@ Implementation of the `is_eulerian` method is quite simple. In order to have an 
 
 Here is an example:
 
-```{code-cell} ipython3
+```{code-cell}
 T = nx.Graph([(0, 1), (0, 2), (0, 3), (0, 4), (1, 2), (2, 3), (2, 4)])
 nx.draw(
     T, with_labels=True, node_size=1000, font_color="White", node_color="darkorange"
 )
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 def is_eulerian(G):
     if G.is_directed():
         return all(
@@ -168,7 +168,7 @@ def is_eulerian(G):
         return all(d % 2 == 0 for v, d in G.degree()) and nx.is_connected(G)
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 is_eulerian(T)
 ```
 
@@ -257,7 +257,7 @@ For a directed graph to has an Eulerian Path, it must have
 
 Using already implemented methods, ```is_semieulerian``` simply checks if the input graph does not have an Eulerian circuit but an Eulerian path with a one line of code.
 
-```{code-cell} ipython3
+```{code-cell}
 def is_semieulerian(G):
     return has_eulerian_path(G) and not is_eulerian(G)
 ```
@@ -266,24 +266,24 @@ def is_semieulerian(G):
 
 Let's call the methods above on the Seven Bridges problem. For the reasons explained above, we expect our graph to have neither an Eulerian Circuit nor an Eulerian Path.
 
-```{code-cell} ipython3
+```{code-cell}
 nx.is_eulerian(G)
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 nx.has_eulerian_path(G)
 ```
 
 We can conclude this section with another example. Do you expect a wheel graph to have an Eulerian Path?
 
-```{code-cell} ipython3
+```{code-cell}
 W = nx.wheel_graph(6)
 nx.draw(W, with_labels=True, node_size=1000, font_color="White", node_color="green")
 ```
 
 The answer is No! All nodes except for the one in the center have exactly 3 edges in the wheel graph. Thus, it cannot have an Eulerian Path.
 
-```{code-cell} ipython3
+```{code-cell}
 nx.has_eulerian_path(W)
 ```
 
