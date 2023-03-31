@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.13.8
+    jupytext_version: 1.14.5
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -512,7 +512,6 @@ fig, axes = plt.subplots(4, 2, figsize=(20, 30))
 node_colors = ["skyblue" if n in {"s", "t"} else "lightgray" for n in G.nodes]
 
 for cutoff, ax in zip(cutoff_list, axes.ravel()):
-
     # calculating the maximum flow with the cutoff value
     R = nx.flow.dinitz(G, s="s", t="t", capacity="capacity", cutoff=cutoff)
 
