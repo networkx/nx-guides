@@ -519,7 +519,6 @@ fig, axes = plt.subplots(4, 2, figsize=(20, 30))
 node_colors = ["skyblue" if n in {"s", "t"} else "lightgray" for n in G.nodes]
 
 for cutoff, ax in zip(cutoff_list, axes.ravel()):
-
     # calculating the maximum flow with the cutoff value
     R = nx.flow.dinitz(G, s="s", t="t", capacity="capacity", cutoff=cutoff)
 

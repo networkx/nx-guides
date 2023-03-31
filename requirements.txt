@@ -6,7 +6,6 @@ numpy
 scipy
 matplotlib
 pandas
-# Temporary fix for lexer errors
 ipython!=8.7.0
 
 # For testing and site generation
@@ -15,3 +14,6 @@ sphinx
 myst-nb
 sphinx-book-theme
 jupytext
+
+# Notebook requirements
+pygraphviz
