@@ -286,7 +286,7 @@ Euler's algorithm is essential for anyone or anything that uses paths. Some exam
 - Mail carriers can use Eulerian Paths to have a route where they don’t have to retrace their previous steps.
 - Useful for painters, garbage collections, airplane pilots, GPS developers (*e.g. Google Maps developers*).
 
-# References
+## References
 
 [^1]: <https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg>
 [^2]: Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.
