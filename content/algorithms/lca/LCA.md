@@ -40,14 +40,14 @@ It is always a good idea to learn concepts with an example. Consider the followi
 
 Let's first draw the tree using NetworkX.
 
-```{code-cell} ipython3
+```{code-cell}
 import matplotlib.pyplot as plt
 import networkx as nx
 from networkx.drawing.nx_agraph import graphviz_layout
 from itertools import chain, count, combinations_with_replacement
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 T = nx.DiGraph()
 T.add_edges_from(
     [
@@ -191,7 +191,7 @@ while True:
 We can see the result of our algorithm for a simple directed acyclic graph. Assume that our graph G is as follows and we wish to find lowest common ancestors for all pairs. For this, we need to call the `all_pairs_lowest_common_ancestor`
 method.
 
-```{code-cell} ipython3
+```{code-cell}
 # Generating and visualizing our DAG
 G = nx.DiGraph()
 G.add_edges_from([(1, 0), (2, 0), (3, 2), (3, 1), (4, 2), (4, 3)])
@@ -211,7 +211,7 @@ nx.draw(
 plt.show()
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 dict(nx.all_pairs_lowest_common_ancestor(G))
 ```
 

@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.13.8
+    jupytext_version: 1.14.5
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -21,8 +21,6 @@ language_info:
   pygments_lexer: ipython3
   version: 3.9.7
 ---
-
-+++ {"tags": []}
 
 # Sudoku and Graph coloring
 
