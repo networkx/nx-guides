@@ -31,7 +31,7 @@ We'll focus on assortativity measures available in NetworkX at [`algorithms/asso
 * Numeric assortativity
 * Degree assortativity
 
-as well as mixing matrices, which are closely releated to assortativity measures.
+as well as mixing matrices, which are closely related to assortativity measures.
 
 ## Import packages
 
