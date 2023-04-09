@@ -43,7 +43,7 @@ import inspect
 
 ```{code-cell} ipython3
 # Create graph
-triangle_graph = nx.from_edgelist([(1, 2), (2, 3), (3, 1)], create_using=nx.DiGraph)
+triangle_graph = nx.DiGraph([(1, 2), (2, 3), (3, 1)])
 ```
 
 ```{code-cell} ipython3
