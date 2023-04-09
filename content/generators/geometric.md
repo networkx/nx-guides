@@ -28,7 +28,7 @@ In this tutorial, we'll explore the geometric network generator models
 implemented under [`networkx/generators/geometric.py`](https://github.com/networkx/networkx/blob/main/networkx/generators/geometric.py) and apply them
 to a real-world use case to learn how these models can be parameterized and used.
 
-### Import packages
+## Import packages
 
 ```{code-cell} ipython3
 %matplotlib inline
