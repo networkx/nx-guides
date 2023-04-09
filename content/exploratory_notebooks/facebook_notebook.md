@@ -240,7 +240,7 @@ The graph's density is calculated here. Clearly, the graph is a very sparse one 
 nx.density(G)
 ```
 
-The graph's number of components are found below. As expected, the network consists of one giant compoenent:
+The graph's number of components are found below. As expected, the network consists of one giant component:
 
 ```{code-cell} ipython3
 nx.number_connected_components(G)
