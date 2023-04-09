@@ -24,8 +24,7 @@ In this tutorial, we will explore the Euler's algorithm and its implementation i
 import networkx as nx
 ```
 
-## Eulerian Paths and Circuits
-### Seven Bridges of Königsberg
+## Seven Bridges of Königsberg
 
 What you are seeing below is the beautiful old town of Königsberg which is famous for its seven bridges. Each of these bridges either connect two large islands — Kneiphof and Lomse — or two mainland portions of the city.
 
