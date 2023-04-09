@@ -26,7 +26,7 @@ language_info:
 
 In this tutorial, we will apply graph theory to the problem of solving a Sudoku with NetworkX.
 
-### Import packages
+## Import packages
 
 ```{code-cell} ipython3
 import numpy as np
