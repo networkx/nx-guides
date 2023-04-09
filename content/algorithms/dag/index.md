@@ -39,8 +39,7 @@ import inspect
 %matplotlib inline
 ```
 
-## Directed Graphs
-### Example
+## Example: Directed Graphs
 
 ```{code-cell} ipython3
 # Create graph
