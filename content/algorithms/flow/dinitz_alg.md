@@ -29,7 +29,7 @@ and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm) [^2]
 in NetworkX. We will also see how it can be used to solve some interesting problems.
 
 
-### Import packages
+## Import packages
 
 ```{code-cell} ipython3
 import networkx as nx
@@ -42,7 +42,9 @@ from collections import deque
 ```
 
 ## Maximum flow problem
+
 ### Motivation
+
 Let's say you want to send your friend some data as soon as possible, but the only way
 of communication/sending data between you two is through a peer-to-peer network. An
 interesting thing about this peer-to-peer network is that it allows you to send data
