@@ -150,7 +150,6 @@ it potentally faster.
 Illustrating how value of assortativity changes
 
 ```{code-cell} ipython3
-warnings.filterwarnings("ignore")
 gname = "g2"
 # loading the graph
 G = nx.read_graphml(f"data/{gname}.graphml")
