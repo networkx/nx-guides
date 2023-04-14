@@ -28,8 +28,6 @@ import networkx as nx
 
 What you are seeing below is the beautiful old town of Königsberg which is famous for its seven bridges. Each of these bridges either connect two large islands — Kneiphof and Lomse — or two mainland portions of the city.
 
-+++
-
 ![image:map](images/map.png)
 
 What gave the town its fame is a question that was asked to mathematician Leonhard Euler almost 300 years ago [^1]:
@@ -214,8 +212,6 @@ def has_eulerian_path(G, source=None):
 If an undirected graph is not Eulerian, it can still be `semi_eulerian` meaning that it might have an Eulerian Path with different starting and ending vertices. As explained above, this is possible if and only if
 - there are exactly two vertices of odd degree, and
 - all of its vertices belong to a single connected component.
-
-+++
 
 If source vertex is given by the user, it must have an odd degree. Otherwise, there cannot be an Eulerian Path starting from the given source.
 
