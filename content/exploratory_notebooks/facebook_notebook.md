@@ -47,7 +47,6 @@ from random import randint
 The edges are loaded from the `data` folder and saved in a dataframe. Each edge is a new row and for each edge there is a `start_node` and an `end_node` column
 
 ```{code-cell} ipython3
-# Read in data
 facebook = pd.read_csv(
     "data/facebook_combined.txt.gz",
     compression="gzip",
@@ -315,7 +314,6 @@ Looking at the results, the node $107$ has a betweenness centrality of $0.48$, m
 Moving on, the distribution of betweenness centralities will be plotted:
 
 ```{code-cell} ipython3
-# Set up figure
 plt.figure(figsize=(15, 8))
 plt.hist(betweenness_centrality.values(), bins=100)
 plt.xticks(ticks=[0, 0.02, 0.1, 0.2, 0.3, 0.4, 0.5])  # set the x axis ticks

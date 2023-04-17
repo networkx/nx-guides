@@ -23,8 +23,7 @@ language_info:
 ---
 
 # Dinitz's Algorithm and Applications
-In this tutorial, we will explore the [maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem) [^1]
-and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm) [^2], which is implemented at
+In this tutorial, we will explore the maximum flow problem [^2], which is implemented at
 [`algorithms/flow/dinitz_alg.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py)
 in NetworkX. We will also see how it can be used to solve some interesting problems.
 
@@ -52,7 +51,6 @@ along the paths you specify with certain limits on the sizes of data per second 
 you can send between a pair of nodes in this network.
 
 ```{code-cell} ipython3
-# Load the example graph
 G = nx.read_gml("data/example_graph.gml")
 
 # Extract info about node position from graph (for visualization)

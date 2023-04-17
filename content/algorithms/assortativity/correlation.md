@@ -24,7 +24,7 @@ language_info:
 
 # Node Assortativity Coefficients and Correlation Measures
 
-In this tutorial, we will explore the theory of [assortativity](https://en.wikipedia.org/wiki/Assortativity) [^1] and its measures. 
+In this tutorial, we will explore the theory of assortativity [^1] and its measures. 
 
 We'll focus on assortativity measures available in NetworkX at [`algorithms/assortativity/correlation.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/assortativity/correlation.py):
 * Attribute assortativity
@@ -151,7 +151,6 @@ Illustrating how value of assortativity changes
 
 ```{code-cell} ipython3
 gname = "g2"
-# loading the graph
 G = nx.read_graphml(f"data/{gname}.graphml")
 with open(f"data/pos_{gname}", "rb") as fp:
     pos = pickle.load(fp)

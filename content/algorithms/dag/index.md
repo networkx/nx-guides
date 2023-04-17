@@ -42,12 +42,7 @@ import inspect
 ## Example: Directed Graphs
 
 ```{code-cell} ipython3
-# Create graph
 triangle_graph = nx.DiGraph([(1, 2), (2, 3), (3, 1)])
-```
-
-```{code-cell} ipython3
-# Draw graph
 nx.draw_planar(
     triangle_graph,
     with_labels=True,
@@ -74,14 +69,11 @@ You will see this idea in action in the examples below.
 ### Example
 
 ```{code-cell} ipython3
-# Read in from GraphML file
 clothing_graph = nx.read_graphml(f"data/clothing_graph.graphml")
 ```
 
 ```{code-cell} ipython3
 plt.figure(figsize=(12, 12), dpi=150)
-
-# Draw graph
 nx.draw_planar(
     clothing_graph,
     arrowsize=12,
@@ -170,7 +162,7 @@ Then, a topological sort gives an order in which to perform the jobs.
 
 A closely related application of topological sorting algorithms
 was first studied in the early 1960s in the context of the
-[PERT technique](https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique) [^1]
+PERT technique [^1]
 for scheduling in project management.
 In this application, the vertices of a graph represent the milestones of a project,
 and the edges represent tasks that must be performed between one milestone and another.

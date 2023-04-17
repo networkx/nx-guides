@@ -16,7 +16,7 @@ kernelspec:
 
 +++
 
-In this tutorial, we will explore the Euler's algorithm and its implementation in NetworkX under [`networkx/algorithms/euler.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/euler.py).
+In this tutorial, we will explore Euler's algorithm and its implementation in NetworkX under [`networkx/algorithms/euler.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/euler.py).
 
 ## Import package
 
@@ -128,7 +128,7 @@ Euler generalized the method he applied for Königsberg problem as follows:
 - If there are two vertices with odd degree, then they are the starting and ending vertices.
 - If there are no vertices with odd degree, any vertex can be starting or ending vertex and the graph has also an Euler Circuit.
 
-## Implementations of Euler's Algorithm
+## Euler's Algorithm in NetworkX
 
 NetworkX implements several methods using the Euler's algorithm. These are:
 - **is_eulerian**      : Whether the graph has an Eulerian circuit
@@ -295,6 +295,6 @@ Euler's algorithm is essential for anyone or anything that uses paths. Some exam
 
 ## References
 
-1. [Wikipedia, Seven Bridge of Konigsberg](https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg)
+[^1]:  [Wikipedia, Seven Bridge of Konigsberg](https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg)
 
-2. Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.
+[^2]:  Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.
