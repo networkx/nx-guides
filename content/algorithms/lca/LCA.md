@@ -11,8 +11,6 @@ kernelspec:
   name: python3
 ---
 
-+++ {"id": "jrizb5yufXBG"}
-
 # Lowest Common Ancestor
 
 In this tutorial, we will explore the python implementation of the lowest common ancestor algorithm [^1] in NetworkX at [`networkx/algorithms/lowest_common_ancestor.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/lowest_common_ancestors.py). This notebook expects readers to be familiar with the NetworkX API. If you are new to NetworkX, you can go through the [introductory tutorial](https://networkx.org/documentation/latest/tutorial.html).
@@ -39,14 +37,11 @@ Before diving into the algorithm, let's first remember the concepts of an ancest
 
 - **Lowest Common Ancestor:** For two of nodes $u$ and $v$ in a tree, the lowest common ancestor is the lowest (i.e. deepest) node which is an ancestor of both $u$ and $v$.
 
-
 ## Example
 
 It is always a good idea to learn concepts with an example. Consider the following evolutionary tree. We will draw a directed version of it and define the ancestor/descendant relationships.
 
 ![image:evolutionary tree](images/evol_tree.png)
-
-+++ {"id": "-mvVopP42kk9"}
 
 Let's first draw the tree using NetworkX.
 
@@ -80,8 +75,6 @@ nx.draw(
 plt.show()
 ```
 
-+++ {"id": "MziCQi2akACo"}
-
 Consider the tree above and observe the following relationships:
 
 - Ancestors of node Mammal:
@@ -96,17 +89,11 @@ Consider the tree above and observe the following relationships:
 
 _Note that, in terms of lowest common ancestor algorithms, every node is considered as an ancestor itself._
 
-+++ {"id": "mjEM8pgNolIo"}
-
 ## NetworkX's Implementation of Lowest Common Ancestor Algorithm
 
 NetworkX uses a naive algorithm to find the lowest common ancestor of given pairs of nodes. In this section, we will introduce it step by step.
 
-+++ {"id": "Lx2DUlo7DUdN"}
-
 ### Step 1: Check if the type of input graph is DAG.
-
-+++ {"id": "sIMW9IoLtNeU"}
 
 Lowest common ancestor algorithms under NetworkX are implemented only for directed acyclic graphs with at least one node. For this, the source code first checks if the input graph is a valid one or not.
 
@@ -117,8 +104,6 @@ def naive_all_pairs_lowest_common_ancestor(G, pairs=None):
     elif len(G) == 0:
         raise nx.NetworkXPointlessConcept("LCA meaningless on null graphs.")
 ```
-
-+++ {"id": "C9wWNKYzzCPb"}
 
 If the "pairs" argument is not set, we consider all unordered pairs of nodes in G by default, e.g. we do not get both (b, a) and (a, b) but only one of them. If pairs are already specified, we check if every node in pairs exists in the input graph.
 
@@ -136,11 +121,7 @@ else:
           )
 ```
 
-+++ {"id": "GGG-GpILHHcj"}
-
 ### Step 2: Find ancestors of all nodes in G.
-
-+++ {"id": "j2lFxyq-6ixI"}
 
 Once the input validation is done, we find all ancestors of every node in the pairs and store these information in a cache.
 
@@ -156,11 +137,7 @@ for v, w in pairs:
         ancestor_cache[w].add(w)
 ```
 
-+++ {"id": "hHSvAFp1jW_a"}
-
 ### Step 3: Find common ancestors
-
-+++ {"id": "ZHWKa9WT60bG"}
 
 For each pair (v, w), we determine nodes that appear in both ancestor lists of $v$ and $w$. (i.e. find all common ancestors)
 
@@ -168,11 +145,7 @@ For each pair (v, w), we determine nodes that appear in both ancestor lists of $
 common_ancestors = ancestor_cache[v] & ancestor_cache[w]
 ```
 
-+++ {"id": "enpNSvkofqqJ"}
-
 ### Step 4: Find a node in common ancestors which is located at the lowest level in the graph.
-
-+++ {"id": "ZY_BBL0c05tp"}
 
 We start with an arbitrary node $v$ from the set of common ancestors. We follow the arbitrary outgoing edges remaining in the set of common ancestors, until reaching a node with no outgoing edge to another of the common ancestors.
 
@@ -188,8 +161,6 @@ while True:
       return v
   v = successor
 ```
-
-+++ {"id": "8C-SlZeR7ovl"}
 
 We can see the result of our algorithm for a simple directed acyclic graph. Assume that our graph G is as follows and we wish to find lowest common ancestors for all pairs. For this, we need to call the `all_pairs_lowest_common_ancestor`
 method.
@@ -218,11 +189,7 @@ plt.show()
 dict(nx.all_pairs_lowest_common_ancestor(G))
 ```
 
-+++ {"id": "K3QvlQd0-sSB"}
-
 ## Time & Space Complexity
-
-+++ {"id": "gW37WqW2-yQk"}
 
 Naive implementation of lowest common ancestor algorithm finds all ancestors of all nodes in the given pairs. Let the number of nodes given in the pairs be P. In the worst case, finding ancestors of a single node will take O(|V|) times where |V| is the number of nodes. Thus, constructing the ancestor cache of a graph will take O(|V|\*P) times. This step will dominate the others and determine the worst-case running time of the algorithm.
 
