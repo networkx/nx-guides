@@ -13,4 +13,5 @@ flow/dinitz_alg
 lca/LCA
 euler/euler
 isomorphism/isomorphism
+pagerank/pagerank
 ```
