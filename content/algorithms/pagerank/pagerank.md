@@ -185,7 +185,7 @@ def my_draw_networkx_edge_labels(
     return text_items
 ```
 
-## PageRank: Quantifying Node Importance in Networks
+# PageRank: Quantifying Node Importance in Networks
 
 +++
 
@@ -193,7 +193,7 @@ In this tutorial, we will explore the PageRank algorithm implemented in NetworkX
 
 +++
 
-### Introduction to PageRank
+## Introduction to PageRank
 
 PageRank is a link-analysis algorithm that assigns a numerical weight to each node in a network with the purpose of measuring its relative importance within the node set.
 
@@ -228,7 +228,7 @@ From the plot above, we observe that the node size (which is proportional to the
 
 +++
 
-### Markov Chains
+## Markov Chains
 
 +++
 
@@ -306,7 +306,7 @@ Now that we know how to mathematically model a Markov chain and its transitions,
 
 +++
 
-### Stationary Distributions
+## Stationary Distributions
 
 +++
 
@@ -331,7 +331,7 @@ There exist algebraic methods that can compute stationary distributions in a mor
 
 +++
 
-### Existence of Stationary Distributions
+## Existence of Stationary Distributions
 
 +++
 
@@ -388,7 +388,7 @@ When a Markov chain is both irreducible and aperiodic, it is guaranteed to have 
 
 +++
 
-### PageRank Algorithm
+## PageRank Algorithm
 
 The Pagerank algorithm is fundamentally based on the principle of computing Stationary Distributions of Markov chains. Our methods for computing stationary distributions rely on the assumption that the web network is a reducible and aperiodic Markov chain. However it may not always be true in reality.
 
@@ -450,7 +450,7 @@ Where,
 nx.google_matrix(H, alpha=0.6)
 ```
 
-### Personalization in PageRank
+## Personalization in PageRank
 
 Personalized PageRank is an extension of the traditional PageRank algorithm that incorporates personalization preferences to influence the ranking of nodes in a network. In the standard PageRank algorithm, the ranking of nodes is primarily determined by the network structure, where nodes with many incoming links tend to receive higher rankings. However, personalized PageRank enables us to introduce a bias or preference towards specific nodes, regardless of their link structure.
 
