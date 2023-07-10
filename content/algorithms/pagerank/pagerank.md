@@ -4,15 +4,16 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.14.5
+    jupytext_version: 1.14.7
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
 
-```{code-cell} ipython3
+```{code-cell}
 # this function to be added to networkx
+
 
 def my_draw_networkx_edge_labels(
     G,
@@ -30,7 +31,7 @@ def my_draw_networkx_edge_labels(
     ax=None,
     rotate=True,
     clip_on=True,
-    rad=0
+    rad=0,
 ):
     """Draw edge labels.
 
@@ -124,13 +125,13 @@ def my_draw_networkx_edge_labels(
         )
         pos_1 = ax.transData.transform(np.array(pos[n1]))
         pos_2 = ax.transData.transform(np.array(pos[n2]))
-        linear_mid = 0.5*pos_1 + 0.5*pos_2
+        linear_mid = 0.5 * pos_1 + 0.5 * pos_2
         d_pos = pos_2 - pos_1
-        rotation_matrix = np.array([(0,1), (-1,0)])
-        ctrl_1 = linear_mid + rad*rotation_matrix@d_pos
-        ctrl_mid_1 = 0.5*pos_1 + 0.5*ctrl_1
-        ctrl_mid_2 = 0.5*pos_2 + 0.5*ctrl_1
-        bezier_mid = 0.5*ctrl_mid_1 + 0.5*ctrl_mid_2
+        rotation_matrix = np.array([(0, 1), (-1, 0)])
+        ctrl_1 = linear_mid + rad * rotation_matrix @ d_pos
+        ctrl_mid_1 = 0.5 * pos_1 + 0.5 * ctrl_1
+        ctrl_mid_2 = 0.5 * pos_2 + 0.5 * ctrl_1
+        bezier_mid = 0.5 * ctrl_mid_1 + 0.5 * ctrl_mid_2
         (x, y) = ax.transData.inverted().transform(bezier_mid)
 
         if rotate:
@@ -201,7 +202,7 @@ While the approach behind the PageRank algorithm has been exploited since the la
 
 Consider the World Wide Web as a network of webpages where the hyperlinks act as edges. PageRank works by determining the number and quality of links to a webpage to compute a rough estimate of how important it is. The underlying assumption is that more important pages are likely to receive more links from other pages.
 
-```{code-cell} ipython3
+```{code-cell}
 # imports
 import networkx as nx
 import numpy as np
@@ -209,22 +210,22 @@ import pandas as pd
 import matplotlib.pyplot as plt
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 # run pagerank algorithm on a small graph
 G = nx.karate_club_graph()
 pagerank_dict = nx.pagerank(G)
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 # plot the graph such that node size is proportional to the pagerank value of node
-nsize = [x*25000 for x in pagerank_dict.values()]
-plt.figure(figsize=(10,10))
-pos=nx.circular_layout(G)
-nx.draw(G, pos, with_labels=True, node_size=nsize, node_color='yellow')
+nsize = [x * 25000 for x in pagerank_dict.values()]
+plt.figure(figsize=(10, 10))
+pos = nx.circular_layout(G)
+nx.draw(G, pos, with_labels=True, node_size=nsize, node_color="yellow")
 plt.show()
 ```
 
-From the plot above, we observe that the node size (which is proportional to the pagerank of the node) is proportional to the number of edges connected to the node. 
+From the plot above, we observe that the node size (which is proportional to the pagerank of the node) is proportional to the number of edges connected to the node.
 
 +++
 
@@ -243,26 +244,36 @@ In this context, individual web pages are represented as states, and going from 
 
 It is important to highlight at this point that we deal with two types of probabilities while modelling Markov chains - one is the transition probability between states and the other is the probability distribution over states. Transition probability is the probability of moving from one state to another and remains constant over time. Whereas, the probability distribution over states signifies probability of being in each state at every time step. It changes as time progresses and eventually stabilises (called stationary distribution, which will be further discussed in detail).
 
-```{code-cell} ipython3
+```{code-cell}
 # generate a random Markov Chain with transition probabilities
 H = nx.fast_gnp_random_graph(4, 0.8, seed=237, directed=True)
-pos=nx.kamada_kawai_layout(H)
-nx.draw_kamada_kawai(H, with_labels=True, connectionstyle='arc3, rad = 0.15', node_size=1500, node_color="yellow")
+pos = nx.kamada_kawai_layout(H)
+nx.draw_kamada_kawai(
+    H,
+    with_labels=True,
+    connectionstyle="arc3, rad = 0.15",
+    node_size=1500,
+    node_color="yellow",
+)
 outdeg_dict = dict(H.out_degree)
 transition_probabilities = {}
-for (x, y) in H.edges:
-    transition_probabilities[(x, y)] = round(1/outdeg_dict[x], 2)
-edge_labels = my_draw_networkx_edge_labels(H, pos, edge_labels=transition_probabilities, rotate=False, rad = 0.15)
+for x, y in H.edges:
+    transition_probabilities[(x, y)] = round(1 / outdeg_dict[x], 2)
+edge_labels = my_draw_networkx_edge_labels(
+    H, pos, edge_labels=transition_probabilities, rotate=False, rad=0.15
+)
 ```
 
 In the above plot, we model a simple Markov chain with 4 states. The transition probability is simply based on the incoming links to a state. It is assumed that the user is equally likely to transition to any of the states linked to a state i.e. if a state has 3 outgoing links, the transition probability of each of those will be 0.33.
 
 Transition probability of going from state 1 to state 2 can be represented as $ P(1, 2) = 0.5 $.
 
-```{code-cell} ipython3
+```{code-cell}
 P = np.zeros((4, 4))
-P = np.array([[transition_probabilities.get((i, j), 0) for j in range(4)] for i in range(4)])
-df = pd.DataFrame(P, columns=[i for i in range (4)], index=[i for i in range (4)])
+P = np.array(
+    [[transition_probabilities.get((i, j), 0) for j in range(4)] for i in range(4)]
+)
+df = pd.DataFrame(P, columns=[i for i in range(4)], index=[i for i in range(4)])
 df
 ```
 
@@ -316,7 +327,7 @@ In the context of the PageRank algorithm, the stationary distribution correspond
 
 Considering the Markov chain we plotted above, let's compute the probability distribution across states over time. The initial probability distribution across states is taken as uniform. At each step we perform the operation $\pi_{n+1} = \pi_{n}.P$
 
-```{code-cell} ipython3
+```{code-cell}
 probability_distribution = np.full(4, 0.25)
 for i in range(25):
     print("Step", i, ": ", probability_distribution)
@@ -339,15 +350,22 @@ There exist algebraic methods that can compute stationary distributions in a mor
 
 To answer this question, let us look at two examples.
 
-```{code-cell} ipython3
+```{code-cell}
 I = nx.MultiDiGraph()
 I.add_edges_from([(1, 1), (0, 0)])
 
-plt.figure(figsize=(4,2))
+plt.figure(figsize=(4, 2))
 
-pos={0:(1, 1), 1:(2, 1)}
-nx.draw(I, pos, with_labels=True, node_size=1000, node_color="yellow", connectionstyle='arc3, rad = 0.1')
-el = nx.draw_networkx_edge_labels(I, pos, edge_labels={(1, 1):1.0, (0, 0):1.0})
+pos = {0: (1, 1), 1: (2, 1)}
+nx.draw(
+    I,
+    pos,
+    with_labels=True,
+    node_size=1000,
+    node_color="yellow",
+    connectionstyle="arc3, rad = 0.1",
+)
+el = nx.draw_networkx_edge_labels(I, pos, edge_labels={(1, 1): 1.0, (0, 0): 1.0})
 plt.title("G1", y=-0.2)
 plt.show()
 ```
@@ -356,15 +374,24 @@ Both states in above Markov chain have only one incoming link that too from itse
 
 Here the transition probability matrix is an identity matrix because of which every initial distribution becomes a stationary distribution.
 
-```{code-cell} ipython3
+```{code-cell}
 J = nx.DiGraph()
 J.add_edges_from([(0, 1), (1, 0)])
 
-plt.figure(figsize=(4,2))
+plt.figure(figsize=(4, 2))
 
-pos={0:(1, 1), 1:(2, 1)}
-nx.draw(J, pos, with_labels=True, node_size=1000, node_color="yellow", connectionstyle='arc3, rad = 0.2')
-edge_labels = my_draw_networkx_edge_labels(J, pos, edge_labels={(0, 1):1.0, (1, 0):1.0}, rotate=False, rad = 0.2)
+pos = {0: (1, 1), 1: (2, 1)}
+nx.draw(
+    J,
+    pos,
+    with_labels=True,
+    node_size=1000,
+    node_color="yellow",
+    connectionstyle="arc3, rad = 0.2",
+)
+edge_labels = my_draw_networkx_edge_labels(
+    J, pos, edge_labels={(0, 1): 1.0, (1, 0): 1.0}, rotate=False, rad=0.2
+)
 
 plt.title("G2", y=-0.1)
 plt.show()
@@ -400,38 +427,54 @@ At every step, we transition to a random state with the probability $\frac{1-\al
 
 But it is not sufficient to just add these random transition probabilities because it breaks the assumption of a probability distribution of across states since the distribution no longer sums to one. To solve this problem, we use the damping factor $\alpha$. We first reduce the original transition probability by $\alpha$ and then add the random state transition probability of $\frac{1-\alpha}{N}$.
 
-```{code-cell} ipython3
+```{code-cell}
 H2 = nx.complete_graph(4, create_using=nx.MultiDiGraph())
 H2.add_edges_from([(0, 0), (1, 1), (2, 2), (3, 3)])
-pos=nx.kamada_kawai_layout(H2)
-nx.draw_kamada_kawai(H2, with_labels=True, connectionstyle='arc3, rad = 0.15', node_size=1500, node_color="yellow")
+pos = nx.kamada_kawai_layout(H2)
+nx.draw_kamada_kawai(
+    H2,
+    with_labels=True,
+    connectionstyle="arc3, rad = 0.15",
+    node_size=1500,
+    node_color="yellow",
+)
 outdeg_dict = dict(H.out_degree)
 transition_probabilities = {}
 for x in range(4):
     for y in range(4):
         temp = 0
-        if((x, y) in H.edges):
-            temp += 1/outdeg_dict[x]
-        transition_probabilities[(x, y)] = round(temp+0.1, 2)
-edge_labels = my_draw_networkx_edge_labels(H2, pos, edge_labels=transition_probabilities, rotate=False, rad = 0.15)
+        if (x, y) in H.edges:
+            temp += 1 / outdeg_dict[x]
+        transition_probabilities[(x, y)] = round(temp + 0.1, 2)
+edge_labels = my_draw_networkx_edge_labels(
+    H2, pos, edge_labels=transition_probabilities, rotate=False, rad=0.15
+)
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 H2 = nx.complete_graph(4, create_using=nx.MultiDiGraph())
 H2.add_edges_from([(0, 0), (1, 1), (2, 2), (3, 3)])
-pos=nx.kamada_kawai_layout(H2)
-nx.draw_kamada_kawai(H2, with_labels=True, connectionstyle='arc3, rad = 0.15', node_size=1500, node_color="yellow")
+pos = nx.kamada_kawai_layout(H2)
+nx.draw_kamada_kawai(
+    H2,
+    with_labels=True,
+    connectionstyle="arc3, rad = 0.15",
+    node_size=1500,
+    node_color="yellow",
+)
 outdeg_dict = dict(H.out_degree)
 alpha = 0.6
 transition_probabilities = {}
 for x in range(4):
     for y in range(4):
         temp = 0
-        if((x, y) in H.edges):
-            temp += 1/outdeg_dict[x]
+        if (x, y) in H.edges:
+            temp += 1 / outdeg_dict[x]
             temp *= alpha
-        transition_probabilities[(x, y)] = round(temp+((1-alpha)/4), 2)
-edge_labels = my_draw_networkx_edge_labels(H2, pos, edge_labels=transition_probabilities, rotate=False, rad = 0.15)
+        transition_probabilities[(x, y)] = round(temp + ((1 - alpha) / 4), 2)
+edge_labels = my_draw_networkx_edge_labels(
+    H2, pos, edge_labels=transition_probabilities, rotate=False, rad=0.15
+)
 ```
 
 This prevents any state from permanently becoming an absorbing state amd also prevents users from being stuck in a cycle.
@@ -446,7 +489,7 @@ Where,
 - $\mathbf{1}_{N\times N}$ is an NxN matrix of all ones
 - The term $(\frac{1-\alpha}{N}*\mathbf{1}_{N\times N})$ simulates the idea of picking any random state as the next state during transition.
 
-```{code-cell} ipython3
+```{code-cell}
 nx.google_matrix(H, alpha=0.6)
 ```
 
