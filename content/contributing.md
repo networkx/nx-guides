@@ -19,22 +19,26 @@ kernelspec:
 
 ## A Brief Roadmap for First-time Contributors
 
-The goal of nx-guides is to provide pedagogical notebooks about graph theory, network analysis, and NetworkX implementations (algorithms, etc.). If you want to contribute to nx-guides and already decided on an algorithm to work on, here is a simple roadmap you can follow:
+The goal of nx-guides is to provide pedagogical notebooks about graph theory, network analysis, and NetworkX implementations (algorithms, etc.). This is a great place to get started with open source contribution!
+
+
+If you want to contribute to nx-guides and already decided on a topic to work on, here are next steps:
 
 1.   Clone `nx-guides` repository to your local machine.
-2.   Create a folder with the name of your algorithm under `nx-guides/content/algorithms`.
-3.   Create your markdown notebook under the folder you created in Step 2. Follow the Format Guidelines in this document.
-4.  Create images and data folders under the folder you created in Step 2. If you use any static images and data, please put them under corresponding folders. (Optional)
-5.   Add your notebook's path to index.md file under `nx-guides/content/algorithms`.
-6.  When you complete your work and feel ready, push your changes to the repository and open a PR for review.
-
-Note: If you are interested, you may also contribute a notebook about exploratory analysis or generators. If this is the case, repeat the above steps but contribute to `nx-guides/content/exploratory_notebooks` or `nx-guides/content/generators` respectively. 
+2.   Add your markdown notebook to the appropriate folder (i.e. if you are adding a new algorithm, add a folder with its name in `nx-guides/content/algorithms` following the structure of the other algorithms).
+3.   Ensure you notebook fits the Format Guidelines in this document.
+4.  Use subdirectories for images and data. If you use any static images and data, please put them under corresponding folders. (optional)
+5.   Add your notebook's path to the index.md file.
+6.  When you complete your work and feel ready, push your changes to the repository and open a PR for review. 
+7. Engage in any discussion about your changes. Be sure to clearly communicate your thoughts.
+ 
 
 +++ {"id": "4dKrGBiRIhYZ"}
 
 ## Some Tips
 
 +++ {"id": "vt0xsWsIDA1K"}
+
 
 ### 1. Your notebook should be a `.md` file.
 
@@ -101,6 +105,10 @@ http://snap.stanford.edu/data/index.html
 Once all tests are completed, you can see warnings and errors that prevents your PR from passing the tests. To do that, go to the bottom of "Conversation" page in your PR. There will be red cross signs on the left side of "ci/circleci: build-docs" test suite. Click on the "Details" link on the right side of it to see errors and warnings.
 
 You can also click on the "Details" link on the right side of "ci/circleci: build-docs artifact". If your notebook is built, this will bring you to the full documentation for the project as if this branch was merged. You can then navigate to the notebook you have created and check that your documentation looks good.
+
+### Environment
+
+A good way to go about editing your markdown file is with Jupyter Notebook or other markdown file editors. Just make sure the metadata fits that of the other markdown files in nx-guides. 
 
 +++
 
