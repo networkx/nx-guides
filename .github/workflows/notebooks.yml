@@ -37,15 +37,12 @@ jobs:
   
     - name: Install dependencies
       run: |
-        pip install pip==21.1.1
+        pip install -U pip
         pip install -r requirements.txt
 
     - name: Lint with precommit
       run: |
         pip install pre-commit
-        find content/ -name "*.md" -exec jupytext --to notebook {} \;
-        # pre-commit wants files to be staged
-        git add content/
         pre-commit run --all-files --show-diff-on-failure --color always
         
     - name: Test with nbval
