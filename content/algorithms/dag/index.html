@@ -500,7 +500,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/71d2db9204dd41e1be57bf746a101c4f2a5694904b7d95ae1c0340ec167f7ad0.png" src="../../../_images/71d2db9204dd41e1be57bf746a101c4f2a5694904b7d95ae1c0340ec167f7ad0.png" />
+<img alt="../../../_images/9a3e38f488da906ed3f002d2cd46fa60b5f45fcf814a5186a809a5bd8d55984d.png" src="../../../_images/9a3e38f488da906ed3f002d2cd46fa60b5f45fcf814a5186a809a5bd8d55984d.png" />
 </div>
 </div>
 </section>
@@ -545,7 +545,7 @@ You will see this idea in action in the examples below.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/98e9735d58a5a7a5b36f636499d687d133e4804d163a60252cb659984d5d51da.png" src="../../../_images/98e9735d58a5a7a5b36f636499d687d133e4804d163a60252cb659984d5d51da.png" />
+<img alt="../../../_images/bd2798897e64006e46d352811def9a623ac563c549e6d00fc5f6785276323857.png" src="../../../_images/bd2798897e64006e46d352811def9a623ac563c549e6d00fc5f6785276323857.png" />
 </div>
 </div>
 <p>Here is a fun example of Professor Bumstead,
@@ -832,7 +832,8 @@ We need to check this while the <code class="docutils literal notranslate"><span
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>def topological_generations(G):
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>@nx._dispatch
+def topological_generations(G):
     &quot;&quot;&quot;Stratifies a DAG into generations.
 
     A topological generation is node collection in which ancestors of a node in each
