@@ -4,7 +4,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.14.5
+    jupytext_version: 1.15.0
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -31,47 +31,53 @@ from mpl_toolkits.basemap import Basemap as Basemap
 For the sake of convenience and scope of this tutorial, the data for trade flows of three product categories - Natural Gas (Hs6: 271111), Coffee (Hs6: 090111) and Diamonds (Hs6: 710210) was extracted to three separate CSV files. These are now imported as pandas dataframe, from where they can be converted to NetworkX Graph objects.
 
 ```{code-cell} ipython3
-natural_gas = pd.read_csv('data/natural_gas.csv')
-coffee = pd.read_csv('data/coffee.csv')
-diamonds = pd.read_csv('data/diamonds.csv')
+natural_gas = pd.read_csv("data/natural_gas.csv")
+coffee = pd.read_csv("data/coffee.csv")
+diamonds = pd.read_csv("data/diamonds.csv")
 
 # latitude longitudes information of countries
-country_locations = pd.read_csv('data/locations.csv')
+country_locations = pd.read_csv("data/locations.csv")
 ```
 
 ```{code-cell} ipython3
 edges_natural_gas = pd.DataFrame(
     {
-        "source": list(natural_gas['exporter']),
-        "target": list(natural_gas['importer']),
-        "value": list(natural_gas['value']),
-        "quantity": list(natural_gas['quantity'])
+        "source": list(natural_gas["exporter"]),
+        "target": list(natural_gas["importer"]),
+        "value": list(natural_gas["value"]),
+        "quantity": list(natural_gas["quantity"]),
     }
 )
 
 edges_diamonds = pd.DataFrame(
     {
-        "source": list(diamonds['exporter']),
-        "target": list(diamonds['importer']),
-        "value": list(diamonds['value']),
-        "quantity": list(diamonds['quantity'])
+        "source": list(diamonds["exporter"]),
+        "target": list(diamonds["importer"]),
+        "value": list(diamonds["value"]),
+        "quantity": list(diamonds["quantity"]),
     }
 )
 
 edges_coffee = pd.DataFrame(
     {
-        "source": list(coffee['exporter']),
-        "target": list(coffee['importer']),
-        "value": list(coffee['value']),
-        "quantity": list(coffee['quantity'])
+        "source": list(coffee["exporter"]),
+        "target": list(coffee["importer"]),
+        "value": list(coffee["value"]),
+        "quantity": list(coffee["quantity"]),
     }
 )
 ```
 
 ```{code-cell} ipython3
-G_natural_gas = nx.from_pandas_edgelist(edges_natural_gas, edge_attr=True, create_using=nx.DiGraph())
-G_coffee = nx.from_pandas_edgelist(edges_coffee, edge_attr=True, create_using=nx.DiGraph())
-G_diamonds = nx.from_pandas_edgelist(edges_diamonds, edge_attr=True, create_using=nx.DiGraph())
+G_natural_gas = nx.from_pandas_edgelist(
+    edges_natural_gas, edge_attr=True, create_using=nx.DiGraph()
+)
+G_coffee = nx.from_pandas_edgelist(
+    edges_coffee, edge_attr=True, create_using=nx.DiGraph()
+)
+G_diamonds = nx.from_pandas_edgelist(
+    edges_diamonds, edge_attr=True, create_using=nx.DiGraph()
+)
 ```
 
 The trade network of each commodity is represented as a directed graph comprising countries (vertices) and trade relationships (edges), with the edges starting from the export countries and pointing to the import countries. Each edge consists of two attributes - value of the trade and the quantity of the traded commodity, that can act as weights for the edges.
@@ -99,7 +105,7 @@ Let us look at the trade network of coffee to understand this further.
 outdeg_dict = nx.out_degree_centrality(G_coffee)
 outdeg_dict = dict(sorted(outdeg_dict.items(), key=lambda item: item[1], reverse=True))
 plt.figure(figsize=(25, 10))
-plt.plot(outdeg_dict.keys(), outdeg_dict.values(), marker='o', linestyle='-', color='b')
+plt.plot(outdeg_dict.keys(), outdeg_dict.values(), marker="o", linestyle="-", color="b")
 plt.show()
 ```
 
@@ -124,31 +130,52 @@ A quite natural visualization of trade flows is through the use of a cartogram a
 # parameter "geo" determines whether it will be a geographic or topological view
 # default value of "geo" is False i.e. default view is topological
 
+
 def draw_pretty(G, geo=False):
     indeg_dict = nx.in_degree_centrality(G)
     outdeg_dict = nx.out_degree_centrality(G)
     low, *_, high = sorted(indeg_dict.values())
     norm = mpl.colors.Normalize(vmin=low, vmax=high, clip=True)
     mapper = mpl.cm.ScalarMappable(norm=norm, cmap=mpl.cm.coolwarm)
-    nsize = [x*20000 for x in outdeg_dict.values()]
-    plt.figure(figsize=(40,20))
-    lat_long = dict([(i,[a,b]) for i, a,b in zip(country_locations.country, country_locations.long, country_locations.lat)])
-    if(geo):
-        postemp=lat_long
-        m = Basemap(projection='merc',llcrnrlon=-180,llcrnrlat=-80,urcrnrlon=180, urcrnrlat=80, lat_ts=0, resolution='l',suppress_ticks=True)
-        m.drawcountries(linewidth = 1.5)
-        m.drawstates(linewidth = 0.1)
+    nsize = [x * 20000 for x in outdeg_dict.values()]
+    plt.figure(figsize=(40, 20))
+    lat_long = {
+        i: [a, b]
+        for i, a, b in zip(
+            country_locations.country, country_locations.long, country_locations.lat
+        )
+    }
+    if geo:
+        postemp = lat_long
+        m = Basemap(
+            projection="merc",
+            llcrnrlon=-180,
+            llcrnrlat=-80,
+            urcrnrlon=180,
+            urcrnrlat=80,
+            lat_ts=0,
+            resolution="l",
+            suppress_ticks=True,
+        )
+        m.drawcountries(linewidth=1.5)
+        m.drawstates(linewidth=0.1)
         m.drawcoastlines(linewidth=1.5)
         latitudes = [lat_long[country][1] for country in lat_long]
         longitudes = [lat_long[country][0] for country in lat_long]
         mx, my = m(longitudes, latitudes)
         pos = {}
         for count, (key, value) in enumerate(postemp.items()):
-            if(key in G.nodes):
+            if key in G.nodes:
                 pos[key] = (mx[count], my[count])
     else:
-        pos=nx.spring_layout(G, seed=1231)
-    nx.draw(G, pos, with_labels=True, node_size=nsize, node_color=[mapper.to_rgba(i) for i in indeg_dict.values()])
+        pos = nx.spring_layout(G, seed=1231)
+    nx.draw(
+        G,
+        pos,
+        with_labels=True,
+        node_size=nsize,
+        node_color=[mapper.to_rgba(i) for i in indeg_dict.values()],
+    )
     plt.show()
 ```
 
@@ -197,7 +224,7 @@ Now, when we remove the trade link between Russia and Japan, we can observe chan
 
 ```{code-cell} ipython3
 # removing trade link between Russia and Japan
-G_natural_gas.remove_edge('RUS', 'JPN')
+G_natural_gas.remove_edge("RUS", "JPN")
 draw_pretty(G_natural_gas, geo=False)
 ```
 
@@ -214,7 +241,12 @@ Closeness centrality is an indicator of the distance of a node from other nodes 
 In betweenness centrality, the location of the node in the network is more essential than the number of nodes linked. It indicates how important a country is in terms of connecting other countries. Countries having a high betweenness centrality operate as a commercial bridge with other countries in the trade network. Betweenness centrality therefore quantifies the extent to which a certain node operates as an intermediate or gatekeeper in the network.
 
 ```{code-cell} ipython3
-total_outgoing_weight = {node: sum(data['value']/1000000 for _, _, data in G_coffee.out_edges(node, data=True)) for node in G_coffee}
+total_outgoing_weight = {
+    node: sum(
+        data["value"] / 1000000 for _, _, data in G_coffee.out_edges(node, data=True)
+    )
+    for node in G_coffee
+}
 
 closeness = nx.closeness_centrality(G_coffee)
 betweenness = nx.betweenness_centrality(G_coffee)
@@ -224,21 +256,24 @@ outdegree = nx.out_degree_centrality(G_coffee)
 
 ```{code-cell} ipython3
 # combining both dicts into one dataframe
-df1 = pd.DataFrame(indegree.items(), columns=['country', 'indegree'])
-df2 = pd.DataFrame(outdegree.items(), columns=['country', 'outdegree'])
-df3 = pd.DataFrame(closeness.items(), columns=['country', 'closeness'])
-df4 = pd.DataFrame(betweenness.items(), columns=['country', 'betweenness'])
-df5 = pd.DataFrame(total_outgoing_weight.items(), columns=['country', 'export_value'])
-merged_df = pd.merge(df1, df2, on='country', how='inner')
-merged_df = pd.merge(merged_df, df3, on='country', how='inner')
-merged_df = pd.merge(merged_df, df4, on='country', how='inner')
-merged_df = pd.merge(merged_df, df5, on='country', how='inner')
+df1 = pd.DataFrame(indegree.items(), columns=["country", "indegree"])
+df2 = pd.DataFrame(outdegree.items(), columns=["country", "outdegree"])
+df3 = pd.DataFrame(closeness.items(), columns=["country", "closeness"])
+df4 = pd.DataFrame(betweenness.items(), columns=["country", "betweenness"])
+df5 = pd.DataFrame(total_outgoing_weight.items(), columns=["country", "export_value"])
+merged_df = pd.merge(df1, df2, on="country", how="inner")
+merged_df = pd.merge(merged_df, df3, on="country", how="inner")
+merged_df = pd.merge(merged_df, df4, on="country", how="inner")
+merged_df = pd.merge(merged_df, df5, on="country", how="inner")
 
-merged_df.sort_values(by=['export_value'], inplace=True, ascending=False)
+merged_df.sort_values(by=["export_value"], inplace=True, ascending=False)
 
-with pd.option_context('display.max_rows', None,
-                       'display.max_columns', None,
-                       ):
+with pd.option_context(
+    "display.max_rows",
+    None,
+    "display.max_columns",
+    None,
+):
     print(merged_df)
 ```
 
@@ -269,9 +304,19 @@ Here, we detect communities in the trade network of Diamonds such that the modul
 community = nx.community.greedy_modularity_communities(G_diamonds)
 
 # function to create node colour list
+
+
 def create_community_node_colors(graph, communities):
     number_of_colors = len(communities[0])
-    colors = ["#D4FCB1", "#CDC5FC", "#FFC2C4", "#F2D140", "#F57160", "#2894F5", "#577D32"][:number_of_colors]
+    colors = [
+        "#D4FCB1",
+        "#CDC5FC",
+        "#FFC2C4",
+        "#F2D140",
+        "#F57160",
+        "#2894F5",
+        "#577D32",
+    ][:number_of_colors]
     node_colors = []
     for node in graph:
         current_community_index = 0
@@ -287,16 +332,37 @@ def create_community_node_colors(graph, communities):
 def visualize_communities(graph, communities):
     node_colors = create_community_node_colors(graph, communities)
     # Calculate the total incoming weight for each node
-    total_incoming_weight = {node: sum(data['value'] for _, _, data in graph.out_edges(node, data=True)) for node in graph}
+    total_incoming_weight = {
+        node: sum(data["value"] for _, _, data in graph.out_edges(node, data=True))
+        for node in graph
+    }
     # Get the maximum and minimum incoming weight values
     max_weight = max(total_incoming_weight.values())
     min_weight = min(total_incoming_weight.values())
     # Normalize the incoming weights to the desired node size range
-    normalized_weights = {node: 10 + ((total_incoming_weight[node] - min_weight) / (max_weight - min_weight)) * 90 for node in graph}
-    pos = dict([(i,[a,b]) for i, a,b in zip(country_locations.country, country_locations.long, country_locations.lat)])
-    nx.draw(graph, pos=pos, node_size=[100*normalized_weights[node] for node in graph], node_color=node_colors, with_labels=True, font_size=15, font_color="black")
+    normalized_weights = {
+        node: 10
+        + ((total_incoming_weight[node] - min_weight) / (max_weight - min_weight)) * 90
+        for node in graph
+    }
+    pos = {
+        i: [a, b]
+        for i, a, b in zip(
+            country_locations.country, country_locations.long, country_locations.lat
+        )
+    }
+    nx.draw(
+        graph,
+        pos=pos,
+        node_size=[100 * normalized_weights[node] for node in graph],
+        node_color=node_colors,
+        with_labels=True,
+        font_size=15,
+        font_color="black",
+    )
 
-plt.figure(figsize=(30,20))
+
+plt.figure(figsize=(30, 20))
 visualize_communities(G_diamonds, community)
 plt.show()
 ```
