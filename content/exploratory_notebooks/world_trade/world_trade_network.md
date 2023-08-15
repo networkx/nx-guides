@@ -25,7 +25,12 @@ import networkx as nx
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from mpl_toolkits.basemap import Basemap as Basemap
+try:
+    from mpl_toolkits.basemap import Basemap as Basemap
+    importBasemap = True
+except:
+    print("Basemap cannot be imported, so Geographic visualizations will be plotted without underlying cartograph.")
+    importBasemap = False
 ```
 
 For the sake of convenience and scope of this tutorial, the data for trade flows of three product categories - Natural Gas (Hs6: 271111), Coffee (Hs6: 090111) and Diamonds (Hs6: 710210) was extracted to three separate CSV files. These are now imported as pandas dataframe, from where they can be converted to NetworkX Graph objects.
@@ -146,36 +151,22 @@ def draw_pretty(G, geo=False):
         )
     }
     if geo:
-        postemp = lat_long
-        m = Basemap(
-            projection="merc",
-            llcrnrlon=-180,
-            llcrnrlat=-80,
-            urcrnrlon=180,
-            urcrnrlat=80,
-            lat_ts=0,
-            resolution="l",
-            suppress_ticks=True,
-        )
-        m.drawcountries(linewidth=1.5)
-        m.drawstates(linewidth=0.1)
-        m.drawcoastlines(linewidth=1.5)
+        postemp=lat_long
         latitudes = [lat_long[country][1] for country in lat_long]
         longitudes = [lat_long[country][0] for country in lat_long]
-        mx, my = m(longitudes, latitudes)
+        if(importBasemap):
+            m = Basemap(projection='merc',llcrnrlon=-180,llcrnrlat=-80,urcrnrlon=180, urcrnrlat=80, lat_ts=0, resolution='l',suppress_ticks=True)
+            m.drawcountries(linewidth = 1.5)
+            m.drawstates(linewidth = 0.1)
+            m.drawcoastlines(linewidth=1.5)
+            longitudes, latitudes = m(longitudes, latitudes)
         pos = {}
         for count, (key, value) in enumerate(postemp.items()):
-            if key in G.nodes:
-                pos[key] = (mx[count], my[count])
+            if(key in G.nodes):
+                pos[key] = (longitudes[count], latitudes[count])
     else:
-        pos = nx.spring_layout(G, seed=1231)
-    nx.draw(
-        G,
-        pos,
-        with_labels=True,
-        node_size=nsize,
-        node_color=[mapper.to_rgba(i) for i in indeg_dict.values()],
-    )
+        pos=nx.spring_layout(G, seed=1231)
+    nx.draw(G, pos, with_labels=True, node_size=nsize, node_color=[mapper.to_rgba(i) for i in indeg_dict.values()], alpha = 0.7)
     plt.show()
 ```
 
@@ -359,6 +350,7 @@ def visualize_communities(graph, communities):
         with_labels=True,
         font_size=15,
         font_color="black",
+        alpha=0.8
     )
 
 
