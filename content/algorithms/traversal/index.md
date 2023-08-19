@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.14.5
+    jupytext_version: 1.15.0
 kernelspec:
   display_name: Python 3
   language: python
@@ -41,10 +41,23 @@ A concrete example is below. In the below graph, starting from the green vertex 
 
 ```{code-cell} ipython3
 G = nx.Graph()
-G.add_edges_from([(0, 1), (0, 2), (0, 3), (1, 4), (1, 5), (3, 6), (3, 7), (4, 8), (7, 8), (8, 9)])
+G.add_edges_from(
+    [(0, 1), (0, 2), (0, 3), (1, 4), (1, 5), (3, 6), (3, 7), (4, 8), (7, 8), (8, 9)]
+)
 pos = nx.spectral_layout(G)
-node_colors = ['green' if node == 2 else 'red' if node == 9 else 'blue' for node in G.nodes]
-nx.draw(G, pos, with_labels=True, font_color='white', node_color=node_colors, node_size=500, font_size=10, font_weight='bold')
+node_colors = [
+    "green" if node == 2 else "red" if node == 9 else "blue" for node in G.nodes
+]
+nx.draw(
+    G,
+    pos,
+    with_labels=True,
+    font_color="white",
+    node_color=node_colors,
+    node_size=500,
+    font_size=10,
+    font_weight="bold",
+)
 plt.show()
 ```
 
@@ -92,7 +105,7 @@ def animate_bfs(G, start_node):
 
     fig, ax = plt.subplots(figsize=(12, 9))
 
-    node_colors = {node: 'skyblue' for node in G.nodes}
+    node_colors = {node: "skyblue" for node in G.nodes}
 
     visited = set()
     queue = [start_node]
@@ -104,11 +117,21 @@ def animate_bfs(G, start_node):
         for node in layer:
             if node not in visited:
                 visited.add(node)
-                node_colors[node] = mcolors.hsv_to_rgb((layer_idx / len(layers), 0.7, 0.9))
+                node_colors[node] = mcolors.hsv_to_rgb(
+                    (layer_idx / len(layers), 0.7, 0.9)
+                )
                 next_layer.extend(G.neighbors(node))
 
-        nx.draw(G, pos, with_labels=True, node_color=[node_colors[node] for node in G.nodes],
-                node_size=1000, font_size=10, font_weight='bold', ax=ax)
+        nx.draw(
+            G,
+            pos,
+            with_labels=True,
+            node_color=[node_colors[node] for node in G.nodes],
+            node_size=1000,
+            font_size=10,
+            font_weight="bold",
+            ax=ax,
+        )
 
         clear_output(wait=True)
         display(fig)
@@ -117,15 +140,50 @@ def animate_bfs(G, start_node):
         queue = next_layer
 
     clear_output(wait=True)
-    nx.draw(G, pos, with_labels=True, node_color=[node_colors[node] for node in G.nodes],
-            node_size=1000, font_size=10, font_weight='bold')
+    nx.draw(
+        G,
+        pos,
+        with_labels=True,
+        node_color=[node_colors[node] for node in G.nodes],
+        node_size=1000,
+        font_size=10,
+        font_weight="bold",
+    )
     plt.show()
+
 
 # Example usage with a larger graph
 G = nx.Graph()
-G.add_edges_from([(0, 1), (0, 2), (0, 3), (1, 4), (1, 5), (3, 6), (3, 7), (4, 8), (7, 8), (8, 9),
-                 (2, 10), (2, 11), (10, 12), (10, 13), (12, 14), (12, 15), (5, 16), (5, 17),
-                 (16, 18), (16, 19), (18, 20), (18, 21), (7, 22), (7, 23), (22, 24), (22, 25)])
+G.add_edges_from(
+    [
+        (0, 1),
+        (0, 2),
+        (0, 3),
+        (1, 4),
+        (1, 5),
+        (3, 6),
+        (3, 7),
+        (4, 8),
+        (7, 8),
+        (8, 9),
+        (2, 10),
+        (2, 11),
+        (10, 12),
+        (10, 13),
+        (12, 14),
+        (12, 15),
+        (5, 16),
+        (5, 17),
+        (16, 18),
+        (16, 19),
+        (18, 20),
+        (18, 21),
+        (7, 22),
+        (7, 23),
+        (22, 24),
+        (22, 25),
+    ]
+)
 
 # Start the BFS animation from the root node (node 0)
 animate_bfs(G, start_node=0)
@@ -164,7 +222,17 @@ bfs_tree = nx.bfs_tree(G, start_node)
 # Draw the BFS tree
 pos = nx.spring_layout(G)  # Layout the original graph nodes using spring layout
 plt.figure(figsize=(12, 9))
-nx.draw(bfs_tree, pos, with_labels=True, node_size=1000, font_size=10, font_weight='bold', alpha=0.6, node_color='skyblue', width=2)
+nx.draw(
+    bfs_tree,
+    pos,
+    with_labels=True,
+    node_size=1000,
+    font_size=10,
+    font_weight="bold",
+    alpha=0.6,
+    node_color="skyblue",
+    width=2,
+)
 
 # Draw the BFS tree edges with a different color and width to distinguish it from the original graph
 
@@ -186,9 +254,36 @@ import matplotlib.pyplot as plt
 
 # Create the graph G
 G = nx.Graph()
-G.add_edges_from([(0, 1), (0, 2), (0, 3), (1, 4), (1, 5), (3, 6), (3, 7), (4, 8), (7, 8), (8, 9),
-                 (2, 10), (2, 11), (10, 12), (10, 13), (12, 14), (12, 15), (5, 16), (5, 17),
-                 (16, 18), (16, 19), (18, 20), (18, 21), (7, 22), (7, 23), (22, 24), (22, 25)])
+G.add_edges_from(
+    [
+        (0, 1),
+        (0, 2),
+        (0, 3),
+        (1, 4),
+        (1, 5),
+        (3, 6),
+        (3, 7),
+        (4, 8),
+        (7, 8),
+        (8, 9),
+        (2, 10),
+        (2, 11),
+        (10, 12),
+        (10, 13),
+        (12, 14),
+        (12, 15),
+        (5, 16),
+        (5, 17),
+        (16, 18),
+        (16, 19),
+        (18, 20),
+        (18, 21),
+        (7, 22),
+        (7, 23),
+        (22, 24),
+        (22, 25),
+    ]
+)
 
 # Find vertices at distance 2 from vertex 0
 vertices_at_distance_2 = nx.descendants_at_distance(G, source=0, distance=2)
@@ -198,22 +293,22 @@ plt.figure(figsize=(10, 6))
 pos = nx.spring_layout(G, seed=42)
 
 # Draw all vertices in blue
-nx.draw_networkx_nodes(G, pos, node_size=500, node_color='blue', alpha=0.6)
+nx.draw_networkx_nodes(G, pos, node_size=500, node_color="blue", alpha=0.6)
 
 # Draw edges
-nx.draw_networkx_edges(G, pos, edge_color='gray', alpha=0.6)
+nx.draw_networkx_edges(G, pos, edge_color="gray", alpha=0.6)
 
 # Draw labels
-nx.draw_networkx_labels(G, pos, font_size=10, font_weight='bold')
+nx.draw_networkx_labels(G, pos, font_size=10, font_weight="bold")
 
 # Highlight vertices at distance 2 in red
-nx.draw_networkx_nodes(G, pos, nodelist=vertices_at_distance_2, node_size=500, node_color='red', alpha=0.8)
+nx.draw_networkx_nodes(
+    G, pos, nodelist=vertices_at_distance_2, node_size=500, node_color="red", alpha=0.8
+)
 
 plt.title("Graph G with Vertices at Distance 2 from Vertex 0 Highlighted in Red")
-plt.axis('off')
+plt.axis("off")
 plt.show()
-
-
 ```
 
 ```{code-cell} ipython3
@@ -222,9 +317,36 @@ import matplotlib.pyplot as plt
 
 # Create the graph G
 G = nx.Graph()
-G.add_edges_from([(0, 1), (0, 2), (0, 3), (1, 4), (1, 5), (3, 6), (3, 7), (4, 8), (7, 8), (8, 9),
-                 (2, 10), (2, 11), (10, 12), (10, 13), (12, 14), (12, 15), (5, 16), (5, 17),
-                 (16, 18), (16, 19), (18, 20), (18, 21), (7, 22), (7, 23), (22, 24), (22, 25)])
+G.add_edges_from(
+    [
+        (0, 1),
+        (0, 2),
+        (0, 3),
+        (1, 4),
+        (1, 5),
+        (3, 6),
+        (3, 7),
+        (4, 8),
+        (7, 8),
+        (8, 9),
+        (2, 10),
+        (2, 11),
+        (10, 12),
+        (10, 13),
+        (12, 14),
+        (12, 15),
+        (5, 16),
+        (5, 17),
+        (16, 18),
+        (16, 19),
+        (18, 20),
+        (18, 21),
+        (7, 22),
+        (7, 23),
+        (22, 24),
+        (22, 25),
+    ]
+)
 
 # Perform BFS starting from node 0
 start_node = 0
@@ -257,15 +379,37 @@ for node, succ in successors.items():
 plt.figure(figsize=(15, 4))
 plt.subplot(1, 2, 1)
 pos = nx.spring_layout(G, seed=42)
-nx.draw_networkx(BFS_predecessor_tree, pos, with_labels=True, node_size=150, arrows=True, node_color='skyblue', edge_color='blue', width=2, arrowstyle='->', arrowsize=9)
+nx.draw_networkx(
+    BFS_predecessor_tree,
+    pos,
+    with_labels=True,
+    node_size=150,
+    arrows=True,
+    node_color="skyblue",
+    edge_color="blue",
+    width=2,
+    arrowstyle="->",
+    arrowsize=9,
+)
 plt.title("Graph G with Predecessor Edges")
-plt.axis('off')
+plt.axis("off")
 
 # Draw G with successor edges
 plt.subplot(1, 2, 2)
-nx.draw_networkx(BFS_successor_tree, pos, with_labels=True, node_size=150, arrows=True, node_color='skyblue', edge_color='red', width=2, arrowstyle='->', arrowsize=9)
+nx.draw_networkx(
+    BFS_successor_tree,
+    pos,
+    with_labels=True,
+    node_size=150,
+    arrows=True,
+    node_color="skyblue",
+    edge_color="red",
+    width=2,
+    arrowstyle="->",
+    arrowsize=9,
+)
 plt.title("Graph G with Successor Edges")
-plt.axis('off')
+plt.axis("off")
 
 plt.tight_layout()
 plt.show()
@@ -308,7 +452,6 @@ The iterative approach uses an explicit stack to keep track of vertices. It star
 
 On the other hand, in the recursive approach the algorithm starts with a source vertex. It marks the vertex as visited and then recursively calls itself for each unvisited neighbor. This recursive process allows the algorithm to explore each branch deeply before backtracking to explore other neighbors.
 
-
 ```{code-cell} ipython3
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -316,20 +459,29 @@ import matplotlib.colors as mcolors
 from IPython.display import clear_output, display
 import time
 
+
 def animate_dfs(G, start_node):
     pos = nx.spring_layout(G)
 
     fig, ax = plt.subplots(figsize=(12, 9))
 
-    node_colors = {node: 'skyblue' for node in G.nodes}
+    node_colors = {node: "skyblue" for node in G.nodes}
 
     visited = set()
 
     def dfs(node):
         visited.add(node)
-        node_colors[node] = 'yellow'
-        nx.draw(G, pos, with_labels=True, node_color=[node_colors[node] for node in G.nodes],
-                node_size=1000, font_size=10, font_weight='bold', ax=ax)
+        node_colors[node] = "yellow"
+        nx.draw(
+            G,
+            pos,
+            with_labels=True,
+            node_color=[node_colors[node] for node in G.nodes],
+            node_size=1000,
+            font_size=10,
+            font_weight="bold",
+            ax=ax,
+        )
 
         clear_output(wait=True)
         display(fig)
@@ -342,15 +494,50 @@ def animate_dfs(G, start_node):
     dfs(start_node)
 
     clear_output(wait=True)
-    nx.draw(G, pos, with_labels=True, node_color=[node_colors[node] for node in G.nodes],
-            node_size=1000, font_size=10, font_weight='bold')
+    nx.draw(
+        G,
+        pos,
+        with_labels=True,
+        node_color=[node_colors[node] for node in G.nodes],
+        node_size=1000,
+        font_size=10,
+        font_weight="bold",
+    )
     plt.show()
+
 
 # Example usage with the same larger graph
 G = nx.Graph()
-G.add_edges_from([(0, 1), (0, 2), (0, 3), (1, 4), (1, 5), (3, 6), (3, 7), (4, 8), (7, 8), (8, 9),
-                 (2, 10), (2, 11), (10, 12), (10, 13), (12, 14), (12, 15), (5, 16), (5, 17),
-                 (16, 18), (16, 19), (18, 20), (18, 21), (7, 22), (7, 23), (22, 24), (22, 25)])
+G.add_edges_from(
+    [
+        (0, 1),
+        (0, 2),
+        (0, 3),
+        (1, 4),
+        (1, 5),
+        (3, 6),
+        (3, 7),
+        (4, 8),
+        (7, 8),
+        (8, 9),
+        (2, 10),
+        (2, 11),
+        (10, 12),
+        (10, 13),
+        (12, 14),
+        (12, 15),
+        (5, 16),
+        (5, 17),
+        (16, 18),
+        (16, 19),
+        (18, 20),
+        (18, 21),
+        (7, 22),
+        (7, 23),
+        (22, 24),
+        (22, 25),
+    ]
+)
 
 # Start the DFS animation from the root node (node 0)
 animate_dfs(G, start_node=0)
@@ -399,10 +586,21 @@ print(list(nx.dfs_labeled_edges(G, source=0)))
 pos = nx.random_layout(G, seed=42)
 
 plt.figure(figsize=(8, 6))
-nx.draw(G, pos, with_labels=True, node_size=1000, node_color='skyblue', arrowsize=10, font_size=10, font_weight='bold')
-nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=8, font_weight='bold')
+nx.draw(
+    G,
+    pos,
+    with_labels=True,
+    node_size=1000,
+    node_color="skyblue",
+    arrowsize=10,
+    font_size=10,
+    font_weight="bold",
+)
+nx.draw_networkx_edge_labels(
+    G, pos, edge_labels=edge_labels, font_size=8, font_weight="bold"
+)
 plt.title("Example Graph with Labeled Edges using DFS")
-plt.axis('off')
+plt.axis("off")
 plt.show()
 ```
 
@@ -411,7 +609,7 @@ As per the documentation, a ‘forward’ edge is one in which u has been visite
 Note the reverse and nontree edges in the above illustrative example. 
 
 
-Finally, can take a look at dfs_postorder and dfs_preorder. 
+Finally, can take a look at dfs_postorder and dfs_preorder.
 
 ```{code-cell} ipython3
 import networkx as nx
@@ -419,30 +617,66 @@ import matplotlib.pyplot as plt
 
 # Create a simple graph
 G = nx.DiGraph()
-G.add_edges_from([(1, 2), (1, 3), (2, 4), (2, 5), (1, 6)])  # Adding vertex 6 and connecting to vertex 1
+G.add_edges_from(
+    [(1, 2), (1, 3), (2, 4), (2, 5), (1, 6)]
+)  # Adding vertex 6 and connecting to vertex 1
 
 # Draw the graph on the left with DFS postorder node labels
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
 
 postorder_nodes = list(nx.dfs_postorder_nodes(G, source=1))
 pos1 = nx.spectral_layout(G)
-nx.draw(G, pos1, with_labels=True, node_color='skyblue', node_size=1000, font_size=0, font_weight='bold',
-        ax=ax1, arrows=True)
+nx.draw(
+    G,
+    pos1,
+    with_labels=True,
+    node_color="skyblue",
+    node_size=1000,
+    font_size=0,
+    font_weight="bold",
+    ax=ax1,
+    arrows=True,
+)
 ax1.set_title("Graph with DFS Postorder Node Labels")
 
 # Draw the graph on the right with DFS preorder node labels
 preorder_nodes = list(nx.dfs_preorder_nodes(G, source=1))
 pos2 = nx.spectral_layout(G)
-nx.draw(G, pos2, with_labels=True, node_color='skyblue', node_size=1000, font_size=0, font_weight='bold',
-        ax=ax2, arrows=True)
+nx.draw(
+    G,
+    pos2,
+    with_labels=True,
+    node_color="skyblue",
+    node_size=1000,
+    font_size=0,
+    font_weight="bold",
+    ax=ax2,
+    arrows=True,
+)
 ax2.set_title("Graph with DFS Preorder Node Labels")
 
 # Label nodes with DFS postorder and preorder numbers
 node_labels_postorder = {node: f"{i}" for i, node in enumerate(postorder_nodes, 1)}
 node_labels_preorder = {node: f"{i}" for i, node in enumerate(preorder_nodes, 1)}
 
-nx.draw_networkx_labels(G, pos1, labels=node_labels_postorder, font_size=10, font_color='red', font_weight='bold', ax=ax1)
-nx.draw_networkx_labels(G, pos2, labels=node_labels_preorder, font_size=10, font_color='red', font_weight='bold', ax=ax2)
+nx.draw_networkx_labels(
+    G,
+    pos1,
+    labels=node_labels_postorder,
+    font_size=10,
+    font_color="red",
+    font_weight="bold",
+    ax=ax1,
+)
+nx.draw_networkx_labels(
+    G,
+    pos2,
+    labels=node_labels_preorder,
+    font_size=10,
+    font_color="red",
+    font_weight="bold",
+    ax=ax2,
+)
 
 plt.tight_layout()
 plt.show()
