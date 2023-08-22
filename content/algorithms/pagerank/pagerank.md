@@ -370,9 +370,9 @@ plt.title("G1", y=-0.2)
 plt.show()
 ```
 
-Both states in above Markov chain have only one incoming link that too from itself. Thus, it contains isolated subsets of states that cannot be reached from the rest of the chain. This is called a <b><i>reducible</i></b> Markov chain 
+Both states in above Markov chain have only one incoming link that comes from itself. Thus, it contains isolated subsets of states that cannot be reached from the rest of the chain. This is called a <b><i>reducible</i></b> Markov chain.
 
-Here the transition probability matrix is an identity matrix because of which every initial distribution becomes a stationary distribution.
+Here the transition probability matrix is an identity matrix because every initial distribution is a stationary distribution. The state are sometimes called "absorbing states" because the system never leaves those states.
 
 ```{code-cell}
 J = nx.DiGraph()
@@ -401,7 +401,7 @@ In the above Markov chain, when we apply transitions, the distribution never con
 
 Periodic Markov chains are characterized by having subsets of states that form closed loops or cycle, where transitions within the cycle are more probable than transitions between cycles. These loops introduce a regularity in the chain's behavior, causing the system to exhibit repetitive patterns as it evolves over time.
 
-A periodic Markoc chain does not converge to a stationary distribution.
+A periodic Markov chain does not converge to a stationary distribution. It oscillates between distributions.
 
 +++
 
@@ -419,7 +419,7 @@ When a Markov chain is both irreducible and aperiodic, it is guaranteed to have 
 
 The Pagerank algorithm is fundamentally based on the principle of computing Stationary Distributions of Markov chains. Our methods for computing stationary distributions rely on the assumption that the web network is a reducible and aperiodic Markov chain. However it may not always be true in reality.
 
-There maybe webpages that have no outgoing links, so all users will be absorbed into this state after some transitions (these are called sink states). There maybe two or more webpages linked to each other such that once a user enters, they get stuck in a never ending cycle and all users eventually end up cycling between these two states.
+There may be webpages that have no outgoing links, so all users will be absorbed into this state after some transitions (these are called sink states). There maybe two or more webpages linked to each other such that once a user enters, they get stuck in a never ending cycle and all users eventually end up cycling between these two states. Other configurations of states can cause similarly odd behavior.
 
 <i> So, how do we handle Markov chains that don't satisfy the required conditions?</i>
 
