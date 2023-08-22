@@ -26,7 +26,7 @@ You can follow along yourself:
  2. *locally*, by cloning the repository (see the octocat icon above) and
     running `jupyter notebook`.
 
-[myst-nb]: https://myst-nb.readthedocs.io/en/latest/use/markdown.html
+[myst-nb]: https://myst-nb.readthedocs.io/en/latest/authoring/text-notebooks.html
 
 ## Contents
 
