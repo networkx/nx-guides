@@ -567,7 +567,7 @@ dfs_predecessors and dfs_successors do essentially the same as their BFS counter
 
 As such, we will focus on the remaining: dfs_edges, dfs_labeled_edges, and the preorder and postorder node functions.
 
-We can dfs_edges to explicitly show all the edges that are traversed in the above graph during a DFS. Check it out below. It matches our animation as well!
+We can use dfs_edges to explicitly show all the edges that are traversed in the above graph during a DFS. Check it out below. It matches our animation as well!
 
 ```{code-cell} ipython3
 dfs_edges_result = list(nx.dfs_edges(G, 0))
