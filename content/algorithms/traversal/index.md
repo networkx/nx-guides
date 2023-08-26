@@ -419,7 +419,7 @@ plt.show()
 
 ## DFS
 
-One way to approach it is as follows: from a start node, explore one of its neighbors and continue exploring further down that branch as deep as possible before backtracking. Repeat this process for each unvisited neighbor, going deeper into each branch before returning to explore other unvisited options. In this manner, you are searching in a 'depth-first' fashion, delving deeply into one branch at a time. See the pseudocode below:
+Depth First Search is a way to approach Graph Traversal as follows: from a start node, explore one of its neighbors and continue exploring further down that branch as deep as possible. Then backtrack one node and repeat this process for each unvisited neighbor, going deeper into each branch before returning to explore other unvisited options. In this manner, we search in a 'depth-first' fashion, delving deeply into one branch at a time. See the pseudocode below:
 
 +++
 
