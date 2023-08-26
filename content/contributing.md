@@ -114,13 +114,10 @@ A good way to go about editing your markdown file is with Jupyter Notebook or ot
 
 ## Format Guidelines
 
-### 1. Write a clear title.
-### 2. When introducing your topic, reference what problem you are solving and what part of NetworkX you are using.
-### 3. Include an "import packages" section at the top of the notebook after your introduction.
-
+1. Write a clear title.
+2. When introducing your topic, reference what problem you are solving and what part of NetworkX you are using.
+3. Include an "import packages" section at the top of the notebook after your introduction.
 Add all import statements for packages in a code cell underneath your introduction (see other notebooks for examples)
-### 4. Comment code heavily, especially confusing sections. 
-
-### 5. Cite all sources. Include in-text references and a references section at the bottom of the document.
-
+4. Comment code heavily, especially confusing sections. 
+5. Cite all sources. Include in-text references and a references section at the bottom of the document.
 For examples of how to write these references and cite, see other notebooks
