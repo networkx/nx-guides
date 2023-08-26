@@ -242,7 +242,7 @@ plt.title("BFS Tree")
 plt.show()
 ```
 
-bfs_successor and bfs_predecessor both output lists of nodes and their sucessors and nodes and their predecessors, respectively. Below, I use these functions to reconstruct the graph. As you can see, in the graph on the left all edges are from nodes to their predecessors (and thus we have the BFS tree but all edges reversed). In the graph on the right all edges from nodes to their successors (and thus we have the BFS tree)
+bfs_successor and bfs_predecessor both generate node-neighbor_list pairs where neighbors are the successors and predecessors, respectively. Below, we use these functions to reconstruct the graph. As you can see, in the graph on the left all edges are from nodes to their predecessors (and thus we have the BFS tree but all edges reversed). In the graph on the right all edges are from nodes to their successors (and thus we have the BFS tree)
 
 
 Finally, we have descendants_at_distance, which is a useful way of identifying all nodes at a fixed distance from a source in G. It uses BFS (remember, layer number is the same as distance from the root) to do so. In our example graph, supposed I am at node 9 and want to find all nodes 2 edges away, because I can only travel two edges. I do so as below!
