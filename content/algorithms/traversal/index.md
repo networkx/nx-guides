@@ -206,7 +206,7 @@ We have six use cases.
 
 bfs_layers returns an iterator of all the 'layers' of a BFS: that is all the vertices that are on the same level (i.e. distance) from the root. BFS operates layer by layer. We use bfs_layers in the above to color the nodes at each layer
 
-We can bfs_edges to explicitly show all the edges that are traversed in the above graph during a BFS. Check it out below. It matches our animation!
+We can use bfs_edges to explicitly show all the edges that are traversed in the above graph during a BFS. Check it out below. It matches our animation!
 
 ```{code-cell} ipython3
 bfs_edges_result = list(nx.bfs_edges(G, 0))
