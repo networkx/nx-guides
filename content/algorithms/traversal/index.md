@@ -565,7 +565,7 @@ We have six use cases.
 
 dfs_predecessors and dfs_successors do essentially the same as their BFS counterparts but with DFS, so we'll ignore those for now. Likewise, dfs_tree simply builds a tree corresponding to the DFS traversal and descendants_at_distance does the same as its BFS counterpart, just using DFS as a base to traverse.
 
-As such, we will focus on the remaining: dfs_edges, dfs_labelled_edges, and the preorder and postorder node functions.
+As such, we will focus on the remaining: dfs_edges, dfs_labeled_edges, and the preorder and postorder node functions.
 
 We can dfs_edges to explicitly show all the edges that are traversed in the above graph during a DFS. Check it out below. It matches our animation as well!
 
