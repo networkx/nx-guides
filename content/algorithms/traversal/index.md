@@ -75,21 +75,23 @@ One way to go about it is as follows: from a start node, check all neighbors of 
 
 +++
 
+```python
+def BFS(G, start, goal):
+    """Return whether a path from start to goal exists, 
+    Q = [start]  # create a queue
+    seen = {start}  # store the nodes as we visit them
+    while Q:
+        v = Q.pop(0)  # FIFO queue
+        if v in seen:
+            continue
+        if v == goal:
+            return True
+        for w in G[v]:
+            if w not in explored:
+                seen.add(w)
+                Q.append(w)
+    return False
 ```
-BFS(G, start):
-    let Q be a queue
-    label start as explored
-    Q.enqueue(start)
-    while Q is not empty do
-        v := Q.dequeue()
-        if v is the goal then
-            return v
-        for all edges from v to w in G.adjacentEdges(v) do
-            if w is not labeled as explored then
-                label w as explored
-                w.parent := v
-                Q.enqueue(w)
- ```
 
 +++
 
