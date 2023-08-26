@@ -685,7 +685,7 @@ plt.show()
 
 DFS postorder is a node ordering in which we report a node's children first before reporting the node itself. Starting from the source node, we traverse deeper into the graph, visiting all the child nodes before reporting the current node. Once all the child nodes are visited, we backtrack and report the current node. This order is often used to compute the size of subtrees and perform tasks that depend on information from the children.
 
-On the other hand, DFS preorder is an ordering in which we process the current node before visiting its children. We start from the source node, process it, then move to its first child, process it, and so on, until all children are processed. Only then do we backtrack and continue processing other children of the parent node. This order is useful for tasks that require processing nodes before their children, such as copying the entire tree structure.
+On the other hand, DFS preorder is a node ordering in which we process the current node before visiting its children. We start from the source node, process it, then move to its first child, process it, and so on, until all first children are processed. Only then do we backtrack one edge and continue processing other children of that parent node. This order is useful for tasks that require processing nodes before their children, such as copying the entire tree structure.
 
 +++
 
