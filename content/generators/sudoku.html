@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Sudoku and Graph coloring &#8212; NetworkX Notebooks</title>
+    <title>Sudoku and Graph Coloring &#8212; NetworkX Notebooks</title>
   
   
   
@@ -150,9 +150,9 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../algorithms/assortativity/correlation.html">Node assortativity coefficients and correlation measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/assortativity/correlation.html">Node Assortativity Coefficients and Correlation Measures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/dag/index.html">Directed Acyclic Graphs &amp; Topological Sort</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../algorithms/flow/dinitz_alg.html">Dinitz’s algorithm and its applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/flow/dinitz_alg.html">Dinitz’s Algorithm and Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/lca/LCA.html">Lowest Common Ancestor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/euler/euler.html">Euler’s Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/isomorphism/isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
@@ -160,7 +160,7 @@
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Graph Generators</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="geometric.html">Geometric Generator Models</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Sudoku and Graph coloring</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Sudoku and Graph Coloring</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../exploratory_notebooks/facebook_notebook.html">Facebook Network Analysis</a></li>
@@ -412,7 +412,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Sudoku and Graph coloring</h1>
+    <h1>Sudoku and Graph Coloring</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -422,8 +422,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-and-intuition-building">Introduction and intuition building</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">Import packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-and-intuition">Introduction and Intuition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-formulation">Problem Formulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -436,9 +438,23 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="sudoku-and-graph-coloring">
-<h1>Sudoku and Graph coloring<a class="headerlink" href="#sudoku-and-graph-coloring" title="Permalink to this heading">#</a></h1>
-<section id="introduction-and-intuition-building">
-<h2>Introduction and intuition building<a class="headerlink" href="#introduction-and-intuition-building" title="Permalink to this heading">#</a></h2>
+<h1>Sudoku and Graph Coloring<a class="headerlink" href="#sudoku-and-graph-coloring" title="Permalink to this heading">#</a></h1>
+<p>In this tutorial, we will apply graph theory to the problem of solving a Sudoku with NetworkX.</p>
+<section id="import-packages">
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="introduction-and-intuition">
+<h2>Introduction and Intuition<a class="headerlink" href="#introduction-and-intuition" title="Permalink to this heading">#</a></h2>
 <p>Sudoku is a popular number-placement puzzle based on logic and combinatorics. The objective is to fill a 9 × 9 grid with digits such that each column, each row, and each of the nine 3 × 3 subgrids that compose the grid contain all of the digits from 1 to 9 (once and only once). Usually the puzzle is partially filled in a way that guarantees a unique solution, as of now from what we know at least 17 cues are needed to create a puzzle with a unique solution.</p>
 <p>Another way of looking at this puzzle is as follows:</p>
 <ul class="simple">
@@ -474,8 +490,7 @@ degree</p>
 <p>Let’s take an example Sudoku Puzzle that we will solve with graph theory (NetworkX and some cool figures as well!)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create Sudoku puzzle</span>
 <span class="n">puzzle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
     <span class="p">[</span>
         <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
@@ -495,11 +510,7 @@ degree</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-
-<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">sudoku_graph</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="n">mapping</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(),</span> <span class="n">puzzle</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))</span>
 <span class="n">pos</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()),</span> <span class="n">nx</span><span class="o">.</span><span class="n">grid_2d_graph</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">)))</span>
@@ -509,6 +520,7 @@ degree</p>
 <span class="n">norm</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">low</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">high</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">mapper</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Pastel1</span><span class="p">)</span>
 
+<span class="c1"># draw the graph</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
     <span class="n">G</span><span class="p">,</span>
@@ -582,7 +594,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/3d5583516a7bf8ce09075605eb5bd8d76550df76f44854b8d461d09f1c46c6c1.png" src="../../_images/3d5583516a7bf8ce09075605eb5bd8d76550df76f44854b8d461d09f1c46c6c1.png" />
+<img alt="../../_images/fd980b021d16fa0cf6dd502581df81fea274444c0d294c30fa9d61405336b023.png" src="../../_images/fd980b021d16fa0cf6dd502581df81fea274444c0d294c30fa9d61405336b023.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -685,7 +697,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/471c50f63e8254e1ebde7f2cbab347e345bd6049ac3f1dfc06117fb7817eb695.png" src="../../_images/471c50f63e8254e1ebde7f2cbab347e345bd6049ac3f1dfc06117fb7817eb695.png" />
+<img alt="../../_images/e5b5c6d83147f2d5d91ef35315d922e6b8d1625e80d480703f7d96d37e50a2c2.png" src="../../_images/e5b5c6d83147f2d5d91ef35315d922e6b8d1625e80d480703f7d96d37e50a2c2.png" />
 </div>
 </div>
 <p>Let’s change the layout a little to see all the edges that are invisible because they fall on top of each other</p>
@@ -696,7 +708,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/19e036ecd82c2153ff169eeca03772b72851f45b6932d1589e4e3e1dd791423c.png" src="../../_images/19e036ecd82c2153ff169eeca03772b72851f45b6932d1589e4e3e1dd791423c.png" />
+<img alt="../../_images/0c23662938e7144eadf06dffe66e54d0a7230542d871741cadf79cc71a9efb2d.png" src="../../_images/0c23662938e7144eadf06dffe66e54d0a7230542d871741cadf79cc71a9efb2d.png" />
 </div>
 </div>
 <p>pretty! Now, let’s check how do sudoku graphs look if sudokus were 16 x 16 grids instead of 9 x 9</p>
@@ -707,9 +719,13 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/8b9e5270e88f13d8b0e9becfc7ddbedb9101d5b68dc673c212f4b328bb31f459.png" src="../../_images/8b9e5270e88f13d8b0e9becfc7ddbedb9101d5b68dc673c212f4b328bb31f459.png" />
+<img alt="../../_images/ff10266e3965170270f59b86ce33d428c58c4465edc6757037cfa6f37f119e0c.png" src="../../_images/ff10266e3965170270f59b86ce33d428c58c4465edc6757037cfa6f37f119e0c.png" />
 </div>
 </div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Sudoku_graph">Wikipedia - Sudoku Graph</a></p>
 </section>
 </section>
 
@@ -761,8 +777,10 @@ degree</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-and-intuition-building">Introduction and intuition building</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">Import packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-and-intuition">Introduction and Intuition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-formulation">Problem Formulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 

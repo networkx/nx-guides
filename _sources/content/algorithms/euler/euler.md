@@ -14,7 +14,15 @@ kernelspec:
 
 # Euler's Algorithm
 
-In this tutorial, we will explore the Euler's algorithm and its implementation in NetworkX under `networkx/algorithms/euler.py`.
++++
+
+In this tutorial, we will explore Euler's algorithm and its implementation in NetworkX under [`networkx/algorithms/euler.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/euler.py).
+
+## Import package
+
+```{code-cell}
+import networkx as nx
+```
 
 ## Seven Bridges of Königsberg
 
@@ -37,8 +45,7 @@ In order to have a clear look, we should first simplify the map a little.
 Euler observed that the choice of route inside each land mass is irrelevant. The only thing that matters is the sequence of bridges to be crossed. This observation allows us to abstract the problem even more. In the graph below, blue vertices represent the land masses and edges represent the bridges that connect them.
 
 ```{code-cell}
-import networkx as nx
-
+# Create graph
 G = nx.DiGraph()
 G.add_edge("A", "B", label="a")
 G.add_edge("B", "A", label="b")
@@ -50,6 +57,7 @@ G.add_edge("C", "D", label="g")
 
 positions = {"A": (0, 0), "B": (1, -2), "C": (1, 2), "D": (2, 0)}
 
+# Visualize graph
 nx.draw_networkx_nodes(G, pos=positions, node_size=500)
 nx.draw_networkx_edges(
     G, pos=positions, edgelist=[("A", "D"), ("B", "D"), ("C", "D")], arrowstyle="-"
@@ -73,9 +81,10 @@ Note that every Euler Circuit is also an Euler Path.
 
 ### Euler's Method
 
-Euler[^2] denoted land masses of the town by capital letters $A$, $B$, $C$ and $D$ and bridges by lowercase $a$, $b$, $c$, $d$, $e$, $f$ and $g$. Let's draw the graph based on this node and edge labels.
+Euler [^2] denoted land masses of the town by capital letters $A$, $B$, $C$ and $D$ and bridges by lowercase $a$, $b$, $c$, $d$, $e$, $f$ and $g$. Let's draw the graph based on this node and edge labels.
 
 ```{code-cell}
+# Design and draw graph
 edge_labels = nx.get_edge_attributes(G, "label")
 
 nx.draw_networkx_nodes(G, pos=positions, node_size=500)
@@ -117,7 +126,7 @@ Euler generalized the method he applied for Königsberg problem as follows:
 - If there are two vertices with odd degree, then they are the starting and ending vertices.
 - If there are no vertices with odd degree, any vertex can be starting or ending vertex and the graph has also an Euler Circuit.
 
-## NetworkX Implementation of Euler's Algorithm
+## Euler's Algorithm in NetworkX
 
 NetworkX implements several methods using the Euler's algorithm. These are:
 - **is_eulerian**      : Whether the graph has an Eulerian circuit
@@ -282,5 +291,6 @@ Euler's algorithm is essential for anyone or anything that uses paths. Some exam
 
 ## References
 
-[^1]: <https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg>
-[^2]: Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.
+[^1]:  [Wikipedia, Seven Bridge of Konigsberg](https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg)
+
+[^2]:  Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.

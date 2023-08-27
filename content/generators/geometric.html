@@ -49,7 +49,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/generators/geometric';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Sudoku and Graph coloring" href="sudoku.html" />
+    <link rel="next" title="Sudoku and Graph Coloring" href="sudoku.html" />
     <link rel="prev" title="Graph Generators" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -150,9 +150,9 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../algorithms/assortativity/correlation.html">Node assortativity coefficients and correlation measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/assortativity/correlation.html">Node Assortativity Coefficients and Correlation Measures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/dag/index.html">Directed Acyclic Graphs &amp; Topological Sort</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../algorithms/flow/dinitz_alg.html">Dinitz’s algorithm and its applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/flow/dinitz_alg.html">Dinitz’s Algorithm and Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/lca/LCA.html">Lowest Common Ancestor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/euler/euler.html">Euler’s Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/isomorphism/isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
@@ -160,7 +160,7 @@
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Graph Generators</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Geometric Generator Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sudoku.html">Sudoku and Graph coloring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sudoku.html">Sudoku and Graph Coloring</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../exploratory_notebooks/facebook_notebook.html">Facebook Network Analysis</a></li>
@@ -422,6 +422,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">Import packages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-spatial-networks">Geometric/Spatial Networks</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#individual-model-definitions">Individual Model Definitions</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#random-geometric-graphs-r">Random Geometric Graphs (<span class="math notranslate nohighlight">\(R\)</span>)</a></li>
@@ -439,6 +440,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geographical-threshold-graphs">Geographical Threshold Graphs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-random-geometric-graphs">Soft Random Geometric Graphs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thresholded-random-geometric-graphs">Thresholded Random Geometric Graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -453,8 +455,21 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="geometric-generator-models">
 <h1>Geometric Generator Models<a class="headerlink" href="#geometric-generator-models" title="Permalink to this heading">#</a></h1>
 <p>In this tutorial, we’ll explore the geometric network generator models
-implemented in networkx under networkx/generators/geometric.py and apply them
+implemented under <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/generators/geometric.py"><code class="docutils literal notranslate"><span class="pre">networkx/generators/geometric.py</span></code></a> and apply them
 to a real-world use case to learn how these models can be parameterized and used.</p>
+<section id="import-packages">
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="geometric-spatial-networks">
 <h2>Geometric/Spatial Networks<a class="headerlink" href="#geometric-spatial-networks" title="Permalink to this heading">#</a></h2>
 <p>Many real-world complex systems have spatial components constraining the
@@ -474,7 +489,7 @@ arbitrary connection probability functions can be modeled.</p>
 real-world systems has motivated substainial research into these networks,
 with many unique but closely related models being proposed with theoretical
 proofs for many of their network properties.
-The 2010 Spatial Networks review article by Marc Barthélemy<a class="footnote-reference brackets" href="#id9" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> provides a
+The 2010 Spatial Networks review article by Marc Barthélemy <a class="footnote-reference brackets" href="#id9" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> provides a
 comprehensive overview of the field and reviews many of the most important
 theoretical proofs for the most common Spatial Network models.
 Here we explore some of the most typical Spatial Network models which have been
@@ -591,12 +606,7 @@ With this dataset, we can model the supercharger network with the various spatia
 networks implemented in networkx.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-
-<span class="c1"># Some matplotlib settings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some matplotlib settings</span>
 <span class="n">mpl_params</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;axes.titlesize&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
     <span class="s2">&quot;figure.figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
@@ -799,7 +809,7 @@ distribution with rate parameter <code class="docutils literal notranslate"><spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/12f5b31d4e20c70b3a12937cad22bb2d5ca29c6deeff187ebc5675af64a27f95.png" src="../../_images/12f5b31d4e20c70b3a12937cad22bb2d5ca29c6deeff187ebc5675af64a27f95.png" />
+<img alt="../../_images/8e8f4f904ee2db8ba2962c34bfad8183a389d299b5b3d9a8afcece09d0ba1cc6.png" src="../../_images/8e8f4f904ee2db8ba2962c34bfad8183a389d299b5b3d9a8afcece09d0ba1cc6.png" />
 </div>
 </div>
 </section>
@@ -829,6 +839,9 @@ rate parameter <code class="docutils literal notranslate"><span class="pre">lamb
 <img alt="../../_images/3e91c545b20bba96d8ad7f21deead16622a3d6d5fefe63077bf0a43b819a4ac6.png" src="../../_images/3e91c545b20bba96d8ad7f21deead16622a3d6d5fefe63077bf0a43b819a4ac6.png" />
 </div>
 </div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id9" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
@@ -892,7 +905,7 @@ rate parameter <code class="docutils literal notranslate"><span class="pre">lamb
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Sudoku and Graph coloring</p>
+        <p class="prev-next-title">Sudoku and Graph Coloring</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -914,6 +927,7 @@ rate parameter <code class="docutils literal notranslate"><span class="pre">lamb
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">Import packages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-spatial-networks">Geometric/Spatial Networks</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#individual-model-definitions">Individual Model Definitions</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#random-geometric-graphs-r">Random Geometric Graphs (<span class="math notranslate nohighlight">\(R\)</span>)</a></li>
@@ -931,6 +945,7 @@ rate parameter <code class="docutils literal notranslate"><span class="pre">lamb
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geographical-threshold-graphs">Geographical Threshold Graphs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-random-geometric-graphs">Soft Random Geometric Graphs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thresholded-random-geometric-graphs">Thresholded Random Geometric Graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 

@@ -22,9 +22,20 @@ language_info:
   version: 3.9.7
 ---
 
-# Sudoku and Graph coloring
+# Sudoku and Graph Coloring
 
-## Introduction and intuition building
+In this tutorial, we will apply graph theory to the problem of solving a Sudoku with NetworkX.
+
+## Import packages
+
+```{code-cell} ipython3
+import numpy as np
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import networkx as nx
+```
+
+## Introduction and Intuition
 
 Sudoku is a popular number-placement puzzle based on logic and combinatorics. The objective is to fill a 9 × 9 grid with digits such that each column, each row, and each of the nine 3 × 3 subgrids that compose the grid contain all of the digits from 1 to 9 (once and only once). Usually the puzzle is partially filled in a way that guarantees a unique solution, as of now from what we know at least 17 cues are needed to create a puzzle with a unique solution.
 
@@ -66,8 +77,7 @@ Now, from (1) we can get that the graph of a Sudoku grid of rank 3 is a $(V=81, 
 Let's take an example Sudoku Puzzle that we will solve with graph theory (NetworkX and some cool figures as well!)
 
 ```{code-cell} ipython3
-import numpy as np
-
+# Create Sudoku puzzle
 puzzle = np.asarray(
     [
         [0, 4, 3, 0, 8, 0, 2, 5, 0],
@@ -84,10 +94,6 @@ puzzle = np.asarray(
 ```
 
 ```{code-cell} ipython3
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import networkx as nx
-
 n = 3
 G = nx.sudoku_graph(n)
 mapping = dict(zip(G.nodes(), puzzle.flatten()))
@@ -98,6 +104,7 @@ low, *_, high = sorted(mapping.values())
 norm = mpl.colors.Normalize(vmin=low, vmax=high, clip=True)
 mapper = mpl.cm.ScalarMappable(norm=norm, cmap=mpl.cm.Pastel1)
 
+# draw the graph
 plt.figure(figsize=(12, 12))
 nx.draw(
     G,
@@ -254,3 +261,7 @@ pretty! Now, let's check how do sudoku graphs look if sudokus were 16 x 16 grids
 ```{code-cell} ipython3
 plot_edge_colored_sudoku(n=4)
 ```
+
+## References
+
+[Wikipedia - Sudoku Graph](https://en.wikipedia.org/wiki/Sudoku_graph)

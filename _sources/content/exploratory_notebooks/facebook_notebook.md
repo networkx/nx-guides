@@ -23,7 +23,7 @@ language_info:
 ---
 
 # Facebook Network Analysis
-This notebook contains a social network analysis mainly executed with the library of NetworkX. In detail, the facebook circles (friends lists) of ten people will be examined and scrutinized in order to extract all kinds of valuable information. The dataset can be found in the [stanford website](http://snap.stanford.edu/data/ego-Facebook.html). Moreover, as known, a facebook network is undirected and has no weights because one user can become friends with another user just once. Looking at the dataset from a graph analysis perspective:
+This notebook contains a social network analysis mainly executed with the library of NetworkX. In detail, the facebook circles (friends lists) of ten people will be examined and scrutinized in order to extract all kinds of valuable information. The dataset can be found at this link: [Stanford Facebook Dataset](http://snap.stanford.edu/data/ego-Facebook.html). Moreover, as known, a facebook network is undirected and has no weights because one user can become friends with another user just once. Looking at the dataset from a graph analysis perspective:
 * Each node represents an anonymized facebook user that belongs to one of those ten friends lists.
 * Each edge corresponds to the friendship of two facebook users that belong to this network. In other words, two users must become friends on facebook in order for them to be connected in the particular network.
 
@@ -31,18 +31,20 @@ Note: Nodes $0, 107, 348, 414, 686, 698, 1684, 1912, 3437, 3980$ are the ones wh
 
 +++
 
-* Now, the necessary libraries are imported
+## Import packages
 
 ```{code-cell} ipython3
-%matplotlib inline
 import pandas as pd
 import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
 from random import randint
+
+%matplotlib inline
 ```
 
-* The edges are loaded from the `data` folder and saved in a dataframe. Each edge is a new row and for each edge there is a `start_node` and an `end_node` column
+## Analysis
+The edges are loaded from the `data` folder and saved in a dataframe. Each edge is a new row and for each edge there is a `start_node` and an `end_node` column
 
 ```{code-cell} ipython3
 facebook = pd.read_csv(
@@ -54,7 +56,7 @@ facebook = pd.read_csv(
 facebook
 ```
 
-* The graph is created from the `facebook` dataframe of the edges:
+The graph is created from the `facebook` dataframe of the edges:
 
 ```{code-cell} ipython3
 G = nx.from_pandas_edgelist(facebook, "start_node", "end_node")
@@ -110,13 +112,13 @@ repeatable, qualitative clustering analysis. We'll revisit evaluating
 network clustering [later in the analysis](#clustering-effects)
 
 ## Basic topological attributes
-* Total number of nodes in network:
+Total number of nodes in network:
 
 ```{code-cell} ipython3
 G.number_of_nodes()
 ```
 
-* Total number of edges:
+Total number of edges:
 
 ```{code-cell} ipython3
 G.number_of_edges()
@@ -231,13 +233,13 @@ ax.set_ylabel("Frequency (%)", fontdict={"size": 22})
 The majority of the shortest path lengths are from $2$ to $5$ edges long.
 Also, it's highly unlikely for a pair of nodes to have a shortest path of length 8 (diameter length) as the likelihood is less than $0.1$%.
 
-* The graph's density is calculated here. Clearly, the graph is a very sparse one as: $density < 1$
+The graph's density is calculated here. Clearly, the graph is a very sparse one as: $density < 1$
 
 ```{code-cell} ipython3
 nx.density(G)
 ```
 
-* The graph's number of components are found below. As expected, the network consists of one giant compoenent:
+The graph's number of components are found below. As expected, the network consists of one giant component:
 
 ```{code-cell} ipython3
 nx.number_connected_components(G)
@@ -546,7 +548,8 @@ In our case the assortativity coefficient is around $0.064$, which is almost 0. 
 
 ## Network Communities
 A community is a group of nodes, so that nodes inside the group are connected with many more edges than between groups. Two different algorithms will be used for communities detection in this network
-* Firstly, a semi-synchronous label propagation method[^1] is used to detect the communities.
+
+Firstly, a semi-synchronous label propagation method [^1] is used to detect the communities.
 
 This function determines by itself the number of communities that will be detected. Now the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community. Also, the number of communities is printed:
 
@@ -573,7 +576,7 @@ nx.draw_networkx(
 )
 ```
 
-* Next, the asynchronous fluid communities algorithm is used. 
+* Next, the asynchronous fluid communities algorithm [^2] is used. 
 
 With this function, we can decide the number of communities to be detected. Let's say that $8$ communities is the number we want. Again, the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community.
 
@@ -595,9 +598,10 @@ nx.draw_networkx(
 )
 ```
 
-### References
-[Cambridge-intelligence](https://cambridge-intelligence.com/keylines-faqs-social-network-analysis/#:~:text=Centrality%20measures%20are%20a%20vital,but%20they%20all%20work%20differently.)
+## References
 
 [^1]: [Semi-synchronous label propagation](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.label_propagation.label_propagation_communities.html#networkx.algorithms.community.label_propagation.label_propagation_communities)
 
 [^2]: [Asynchronous fluid communities algorithm](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.asyn_fluid.asyn_fluidc.html#networkx.algorithms.community.asyn_fluid.asyn_fluidc)
+
+[Cambridge-intelligence](https://cambridge-intelligence.com/keylines-faqs-social-network-analysis/#:~:text=Centrality%20measures%20are%20a%20vital,but%20they%20all%20work%20differently.)

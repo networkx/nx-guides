@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Node assortativity coefficients and correlation measures &#8212; NetworkX Notebooks</title>
+    <title>Node Assortativity Coefficients and Correlation Measures &#8212; NetworkX Notebooks</title>
   
   
   
@@ -150,9 +150,9 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Node assortativity coefficients and correlation measures</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Node Assortativity Coefficients and Correlation Measures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dag/index.html">Directed Acyclic Graphs &amp; Topological Sort</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../flow/dinitz_alg.html">Dinitz’s algorithm and its applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../flow/dinitz_alg.html">Dinitz’s Algorithm and Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lca/LCA.html">Lowest Common Ancestor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../euler/euler.html">Euler’s Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../isomorphism/isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
@@ -160,7 +160,7 @@
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../generators/index.html">Graph Generators</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../generators/geometric.html">Geometric Generator Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../generators/sudoku.html">Sudoku and Graph coloring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators/sudoku.html">Sudoku and Graph Coloring</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../exploratory_notebooks/facebook_notebook.html">Facebook Network Analysis</a></li>
@@ -412,7 +412,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Node assortativity coefficients and correlation measures</h1>
+    <h1>Node Assortativity Coefficients and Correlation Measures</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -422,6 +422,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">Import packages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assortativity">Assortativity</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assortativity-coefficients">Assortativity coefficients</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mixing-matrix">Mixing matrix</a></li>
@@ -432,7 +433,8 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assortativity-example">Assortativity Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -445,15 +447,32 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="node-assortativity-coefficients-and-correlation-measures">
-<h1>Node assortativity coefficients and correlation measures<a class="headerlink" href="#node-assortativity-coefficients-and-correlation-measures" title="Permalink to this heading">#</a></h1>
-<p>In this tutorial, we will go through the theory of <a class="reference external" href="https://en.wikipedia.org/wiki/Assortativity">assortativity</a> and its measures.</p>
-<p>Specifically, we’ll focus on assortativity measures available in NetworkX at <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/assortativity/correlation.py">algorithms/assortativity/correlation.py</a>:</p>
+<h1>Node Assortativity Coefficients and Correlation Measures<a class="headerlink" href="#node-assortativity-coefficients-and-correlation-measures" title="Permalink to this heading">#</a></h1>
+<p>In this tutorial, we will explore the theory of assortativity <a class="footnote-reference brackets" href="#id5" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> and its measures.</p>
+<p>We’ll focus on assortativity measures available in NetworkX at <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/assortativity/correlation.py"><code class="docutils literal notranslate"><span class="pre">algorithms/assortativity/correlation.py</span></code></a>:</p>
 <ul class="simple">
 <li><p>Attribute assortativity</p></li>
 <li><p>Numeric assortativity</p></li>
 <li><p>Degree assortativity</p></li>
 </ul>
-<p>as well as mixing matrices, which are closely releated to assortativity measures.</p>
+<p>as well as mixing matrices, which are closely related to assortativity measures.</p>
+<section id="import-packages">
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="assortativity">
 <h2>Assortativity<a class="headerlink" href="#assortativity" title="Permalink to this heading">#</a></h2>
 <p>Assortativity in a network refers to the tendency of nodes to connect with
@@ -491,7 +510,7 @@ Pearson correlation coefficient.</p>
 <h4>Attribute Assortativity Coefficient<a class="headerlink" href="#attribute-assortativity-coefficient" title="Permalink to this heading">#</a></h4>
 <p>Here the property <span class="math notranslate nohighlight">\(P(v)\)</span> is a nominal property assigned to each node.
 As defined above we calculate the normalized mixing matrix <span class="math notranslate nohighlight">\(e\)</span> and from that we
-define the attribute assortativity coefficient <a class="footnote-reference brackets" href="#id4" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> as below.</p>
+define the attribute assortativity coefficient <a class="footnote-reference brackets" href="#id6" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> as below.</p>
 <p>From here onwards we will use subscript notation to denote indexing, for eg. <span class="math notranslate nohighlight">\(P_i = P[i]\)</span> and <span class="math notranslate nohighlight">\(e_{ij} = e[i][j]\)</span></p>
 <div class="math notranslate nohighlight">
 \[ r = \frac{\sum\limits_{i}e_{ii} - \sum\limits_{i}a_{i}b_{i}}{1-\sum\limits_{i}a_{i}b_{i}} = \frac{Trace(e) - ||e^2||}{1-||e^2||}\]</div>
@@ -502,7 +521,7 @@ define the attribute assortativity coefficient <a class="footnote-reference brac
 <p>Here the property <span class="math notranslate nohighlight">\(P(v)\)</span> is a numerical property assigned to each
 node and the definition of the normalized mixing
 matrix <span class="math notranslate nohighlight">\(e\)</span>, <span class="math notranslate nohighlight">\(\sigma_a\)</span>, and <span class="math notranslate nohighlight">\(\sigma_b\)</span> are same as above.
-From these we define numeric assortativity coefficient <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> as below.</p>
+From these we define numeric assortativity coefficient <a class="footnote-reference brackets" href="#id6" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> as below.</p>
 <div class="math notranslate nohighlight">
 \[ r = \frac{\sum\limits_{i,j}P_i P_j(e_{ij} -a_i b_j)}{\sigma_a\sigma_b} \]</div>
 <p>It is implemented as <code class="docutils literal notranslate"><span class="pre">numeric_assortativity_coefficient</span></code>.</p>
@@ -513,7 +532,7 @@ From these we define numeric assortativity coefficient <a class="footnote-refere
 more options compared to assortativity w.r.t a property because we have 2 types
 of degrees, namely in-degree and out-degree.
 Based on the 2 types of degrees we can measure <span class="math notranslate nohighlight">\(2 \times 2 =4\)</span> different types
-of degree assortativity <a class="footnote-reference brackets" href="#id5" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>:</p>
+of degree assortativity <a class="footnote-reference brackets" href="#id7" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>:</p>
 <ol class="arabic simple">
 <li><p>r(in,in) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = in-degree(v).</p></li>
 <li><p>r(in,out) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = out-degree(v).</p></li>
@@ -537,28 +556,12 @@ it potentally faster.</p>
 </section>
 </section>
 </section>
-<section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pickle</span>
-<span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
+<section id="assortativity-example">
+<h2>Assortativity Example<a class="headerlink" href="#assortativity-example" title="Permalink to this heading">#</a></h2>
 <p>Illustrating how value of assortativity changes</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gname</span> <span class="o">=</span> <span class="s2">&quot;g2&quot;</span>
-<span class="c1"># loading the graph</span>
 <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_graphml</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;data/</span><span class="si">{</span><span class="n">gname</span><span class="si">}</span><span class="s2">.graphml&quot;</span><span class="p">)</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;data/pos_</span><span class="si">{</span><span class="n">gname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
     <span class="n">pos</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
@@ -598,6 +601,10 @@ it potentally faster.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/circleci/repo/venv/lib/python3.9/site-packages/networkx/algorithms/assortativity/correlation.py:302: RuntimeWarning: invalid value encountered in scalar divide
+  return (xy * (M - ab)).sum() / np.sqrt(vara * varb)
+</pre></div>
+</div>
 <img alt="../../../_images/1db36cb7072fc44963e253241df1fe33bc2c0decb1a69486dc82bb024686ced2.png" src="../../../_images/1db36cb7072fc44963e253241df1fe33bc2c0decb1a69486dc82bb024686ced2.png" />
 </div>
 </div>
@@ -671,20 +678,31 @@ whose edges are considered in the mixing matrix calculation.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/circleci/repo/venv/lib/python3.9/site-packages/networkx/algorithms/assortativity/correlation.py:282: RuntimeWarning: invalid value encountered in scalar divide
+  r = (t - s) / (1 - s)
+</pre></div>
+</div>
 <img alt="../../../_images/c5b25cadceb7d6c1e76fa5311c74e15290635f91390c8b4a5f6d55ac3f559444.png" src="../../../_images/c5b25cadceb7d6c1e76fa5311c74e15290635f91390c8b4a5f6d55ac3f559444.png" />
 </div>
 </div>
 <p>In the above plots only the nodes which are considered are colored and rest are
 grayed out and only the edges which are considerd in the assortaivty calculation
 are drawn.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id4" role="note">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
+<aside class="footnote brackets" id="id5" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Assortativity">Wikipedia, Assortativity</a></p>
+</aside>
+<aside class="footnote brackets" id="id6" role="note">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
 <p>M. E. J. Newman, Mixing patterns in networks <a class="reference external" href="https://doi.org/10.1103/PhysRevE.67.026126">https://doi.org/10.1103/PhysRevE.67.026126</a></p>
 </aside>
-<aside class="footnote brackets" id="id5" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<aside class="footnote brackets" id="id7" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
 <p>Foster, J.G., Foster, D.V., Grassberger, P. &amp; Paczuski, M. Edge direction and the structure of networks <a class="reference external" href="https://doi.org/10.1073/pnas.0912671107">https://doi.org/10.1073/pnas.0912671107</a></p>
 </aside>
 </aside>
@@ -739,6 +757,7 @@ are drawn.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">Import packages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assortativity">Assortativity</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assortativity-coefficients">Assortativity coefficients</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mixing-matrix">Mixing matrix</a></li>
@@ -749,7 +768,8 @@ are drawn.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assortativity-example">Assortativity Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 

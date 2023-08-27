@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Dinitz’s algorithm and its applications &#8212; NetworkX Notebooks</title>
+    <title>Dinitz’s Algorithm and Applications &#8212; NetworkX Notebooks</title>
   
   
   
@@ -150,9 +150,9 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../assortativity/correlation.html">Node assortativity coefficients and correlation measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assortativity/correlation.html">Node Assortativity Coefficients and Correlation Measures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dag/index.html">Directed Acyclic Graphs &amp; Topological Sort</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Dinitz’s algorithm and its applications</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Dinitz’s Algorithm and Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lca/LCA.html">Lowest Common Ancestor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../euler/euler.html">Euler’s Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../isomorphism/isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
@@ -160,7 +160,7 @@
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../generators/index.html">Graph Generators</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../generators/geometric.html">Geometric Generator Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../generators/sudoku.html">Sudoku and Graph coloring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators/sudoku.html">Sudoku and Graph Coloring</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../exploratory_notebooks/facebook_notebook.html">Facebook Network Analysis</a></li>
@@ -412,7 +412,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Dinitz’s algorithm and its applications</h1>
+    <h1>Dinitz’s Algorithm and Applications</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -422,6 +422,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">Import packages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-flow-problem">Maximum flow problem</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formalization">Formalization</a></li>
@@ -435,7 +436,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-flow-in-networkx">Maximum flow in NetworkX</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reductions-and-applications">Reductions and Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
@@ -448,14 +449,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="dinitz-s-algorithm-and-its-applications">
-<h1>Dinitz’s algorithm and its applications<a class="headerlink" href="#dinitz-s-algorithm-and-its-applications" title="Permalink to this heading">#</a></h1>
-<p>In this notebook, we will introduce the <a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_flow_problem">Maximum flow problem</a>
-and <a class="reference external" href="https://en.wikipedia.org/wiki/Dinic%27s_algorithm">Dinitz’s algorithm</a> <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, which is implemented at
-<a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py">algorithms/flow/dinitz_alg.py</a>
+  <section class="tex2jax_ignore mathjax_ignore" id="dinitz-s-algorithm-and-applications">
+<h1>Dinitz’s Algorithm and Applications<a class="headerlink" href="#dinitz-s-algorithm-and-applications" title="Permalink to this heading">#</a></h1>
+<p>In this tutorial, we will explore the maximum flow problem <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> and Dinitz’s
+algorithm <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> , which is implemented at
+<a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py"><code class="docutils literal notranslate"><span class="pre">algorithms/flow/dinitz_alg.py</span></code></a>
 in NetworkX. We will also see how it can be used to solve some interesting problems.</p>
-<section id="maximum-flow-problem">
-<h2>Maximum flow problem<a class="headerlink" href="#maximum-flow-problem" title="Permalink to this heading">#</a></h2>
+<section id="import-packages">
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
@@ -469,6 +470,9 @@ in NetworkX. We will also see how it can be used to solve some interesting probl
 </div>
 </div>
 </div>
+</section>
+<section id="maximum-flow-problem">
+<h2>Maximum flow problem<a class="headerlink" href="#maximum-flow-problem" title="Permalink to this heading">#</a></h2>
 <section id="motivation">
 <h3>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading">#</a></h3>
 <p>Let’s say you want to send your friend some data as soon as possible, but the only way
@@ -478,8 +482,8 @@ along the paths you specify with certain limits on the sizes of data per second 
 you can send between a pair of nodes in this network.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the example graph</span>
-<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_gml</span><span class="p">(</span><span class="s2">&quot;data/example_graph.gml&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_gml</span><span class="p">(</span><span class="s2">&quot;data/example_graph.gml&quot;</span><span class="p">)</span>
+
 <span class="c1"># Extract info about node position from graph (for visualization)</span>
 <span class="n">pos</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)}</span>
 <span class="n">label_pos</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
@@ -529,8 +533,10 @@ a connection from node <span class="math notranslate nohighlight">\(u\)</span> t
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 
+<span class="c1"># Color source and sink node</span>
 <span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;skyblue&quot;</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">}</span> <span class="k">else</span> <span class="s2">&quot;lightgray&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
 
+<span class="c1"># Draw graph</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">label_pos</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">]);</span>
@@ -547,8 +553,10 @@ you can send from node <span class="math notranslate nohighlight">\(u\)</span> t
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 
+<span class="c1"># Label capacities</span>
 <span class="n">capacities</span> <span class="o">=</span> <span class="p">{(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="n">c</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;capacity&quot;</span><span class="p">)}</span>
 
+<span class="c1"># Draw graph</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">capacities</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">label_pos</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
@@ -1049,8 +1057,8 @@ network, <code class="docutils literal notranslate"><span class="pre">G</span></
 </div>
 <p>Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value</p>
 </section>
-<section id="reductions-and-applications">
-<h2>Reductions and Applications<a class="headerlink" href="#reductions-and-applications" title="Permalink to this heading">#</a></h2>
+<section id="applications">
+<h2>Applications<a class="headerlink" href="#applications" title="Permalink to this heading">#</a></h2>
 <p>There are many other problems which can be reduced to Maximum flow problem, for example:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Matching_(graph_theory)">Maximum Bipartite Matching</a></p></li>
@@ -1162,8 +1170,12 @@ gives the maximum shipping in a day.</p>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id2" role="note">
+<aside class="footnote brackets" id="id3" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_flow_problem">Wikipedia, Maximal Flow Problem</a></p>
+</aside>
+<aside class="footnote brackets" id="id4" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
 <p>Dinitz’ Algorithm: The Original Version and Even’s Version. 2006. Yefim Dinitz.
 In Theoretical Computer Science. Lecture Notes in Computer Science.
 Volume 3895. pp 218-240. <a class="reference external" href="https://doi.org/10.1007/11685654_10">https://doi.org/10.1007/11685654_10</a></p>
@@ -1220,6 +1232,7 @@ Volume 3895. pp 218-240. <a class="reference external" href="https://doi.org/10.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">Import packages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-flow-problem">Maximum flow problem</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formalization">Formalization</a></li>
@@ -1233,7 +1246,7 @@ Volume 3895. pp 218-240. <a class="reference external" href="https://doi.org/10.
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-flow-in-networkx">Maximum flow in NetworkX</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reductions-and-applications">Reductions and Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>

@@ -50,7 +50,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Euler’s Algorithm" href="../euler/euler.html" />
-    <link rel="prev" title="Dinitz’s algorithm and its applications" href="../flow/dinitz_alg.html" />
+    <link rel="prev" title="Dinitz’s Algorithm and Applications" href="../flow/dinitz_alg.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -150,9 +150,9 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../assortativity/correlation.html">Node assortativity coefficients and correlation measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assortativity/correlation.html">Node Assortativity Coefficients and Correlation Measures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dag/index.html">Directed Acyclic Graphs &amp; Topological Sort</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../flow/dinitz_alg.html">Dinitz’s algorithm and its applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../flow/dinitz_alg.html">Dinitz’s Algorithm and Applications</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Lowest Common Ancestor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../euler/euler.html">Euler’s Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../isomorphism/isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
@@ -160,7 +160,7 @@
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../generators/index.html">Graph Generators</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../generators/geometric.html">Geometric Generator Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../generators/sudoku.html">Sudoku and Graph coloring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators/sudoku.html">Sudoku and Graph Coloring</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../exploratory_notebooks/facebook_notebook.html">Facebook Network Analysis</a></li>
@@ -422,6 +422,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">Import packages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definitions">Definitions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#networkx-s-implementation-of-lowest-common-ancestor-algorithm">NetworkX’s Implementation of Lowest Common Ancestor Algorithm</a><ul class="nav section-nav flex-column">
@@ -432,6 +433,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-space-complexity">Time &amp; Space Complexity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -445,7 +447,20 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lowest-common-ancestor">
 <h1>Lowest Common Ancestor<a class="headerlink" href="#lowest-common-ancestor" title="Permalink to this heading">#</a></h1>
-<p>In this tutorial, we will explore the python implementation of the lowest common ancestor algorithm in NetworkX at <code class="docutils literal notranslate"><span class="pre">networkx/algorithms/lowest_common_ancestor.py</span></code>. To get a more general overview of Lowest Common Ancestor you can also read the <a class="reference external" href="https://en.wikipedia.org/wiki/Lowest_common_ancestor">wikipedia article</a>. This notebook expects readers to be familiar with the NetworkX API. If you are new to NetworkX, you can go through the <a class="reference external" href="https://networkx.org/documentation/latest/tutorial.html">introductory tutorial</a>.</p>
+<p>In this tutorial, we will explore the python implementation of the lowest common ancestor algorithm <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> in NetworkX at <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/lowest_common_ancestors.py"><code class="docutils literal notranslate"><span class="pre">networkx/algorithms/lowest_common_ancestor.py</span></code></a>. This notebook expects readers to be familiar with the NetworkX API. If you are new to NetworkX, you can go through the <a class="reference external" href="https://networkx.org/documentation/latest/tutorial.html">introductory tutorial</a>.</p>
+<section id="import-packages">
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">networkx.drawing.nx_agraph</span> <span class="kn">import</span> <span class="n">graphviz_layout</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">combinations_with_replacement</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="definitions">
 <h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading">#</a></h2>
 <p>Before diving into the algorithm, let’s first remember the concepts of an ancestor node and a descendant node.</p>
@@ -461,16 +476,6 @@ Given a rooted tree, any node <span class="math notranslate nohighlight">\(u\)</
 <p>It is always a good idea to learn concepts with an example. Consider the following evolutionary tree. We will draw a directed version of it and define the ancestor/descendant relationships.</p>
 <p><img alt="image:evolutionary tree" src="../../../_images/evol_tree.png" /></p>
 <p>Let’s first draw the tree using NetworkX.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-<span class="kn">from</span> <span class="nn">networkx.drawing.nx_agraph</span> <span class="kn">import</span> <span class="n">graphviz_layout</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">combinations_with_replacement</span>
-</pre></div>
-</div>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
@@ -656,6 +661,15 @@ method.</p>
 <p>Naive implementation of lowest common ancestor algorithm finds all ancestors of all nodes in the given pairs. Let the number of nodes given in the pairs be P. In the worst case, finding ancestors of a single node will take O(|V|) times where |V| is the number of nodes. Thus, constructing the ancestor cache of a graph will take O(|V|*P) times. This step will dominate the others and determine the worst-case running time of the algorithm.</p>
 <p>The space complexity of the algorithm will also be determined by the ancestor cache. For each node in the given pairs, there might be O(|V|) ancestors. Thus, space complexity is also O(|V|*P).</p>
 </section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Lowest_common_ancestor">Wikipedia, Lowest common ancestor</a></p>
+</aside>
+</aside>
+</section>
 </section>
 
 
@@ -676,7 +690,7 @@ method.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Dinitz’s algorithm and its applications</p>
+        <p class="prev-next-title">Dinitz’s Algorithm and Applications</p>
       </div>
     </a>
     <a class="right-next"
@@ -706,6 +720,7 @@ method.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">Import packages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definitions">Definitions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#networkx-s-implementation-of-lowest-common-ancestor-algorithm">NetworkX’s Implementation of Lowest Common Ancestor Algorithm</a><ul class="nav section-nav flex-column">
@@ -716,6 +731,7 @@ method.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-space-complexity">Time &amp; Space Complexity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 

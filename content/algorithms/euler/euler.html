@@ -150,9 +150,9 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../assortativity/correlation.html">Node assortativity coefficients and correlation measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assortativity/correlation.html">Node Assortativity Coefficients and Correlation Measures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dag/index.html">Directed Acyclic Graphs &amp; Topological Sort</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../flow/dinitz_alg.html">Dinitz’s algorithm and its applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../flow/dinitz_alg.html">Dinitz’s Algorithm and Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lca/LCA.html">Lowest Common Ancestor</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Euler’s Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../isomorphism/isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
@@ -160,7 +160,7 @@
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../generators/index.html">Graph Generators</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../generators/geometric.html">Geometric Generator Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../generators/sudoku.html">Sudoku and Graph coloring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators/sudoku.html">Sudoku and Graph Coloring</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../exploratory_notebooks/facebook_notebook.html">Facebook Network Analysis</a></li>
@@ -422,13 +422,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-package">Import package</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seven-bridges-of-konigsberg">Seven Bridges of Königsberg</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reformulating-the-problem-in-abstract-terms">Reformulating the Problem in Abstract Terms</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euler-s-method">Euler’s Method</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalizing-euler-s-solution">Generalizing Euler’s Solution</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#networkx-implementation-of-euler-s-algorithm">NetworkX Implementation of Euler’s Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#euler-s-algorithm-in-networkx">Euler’s Algorithm in NetworkX</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eulerian-circuit-implementation">1. Eulerian Circuit Implementation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eulerian-path-implementation">2. Eulerian Path Implementation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">3. Examples</a></li>
@@ -449,7 +450,17 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="euler-s-algorithm">
 <h1>Euler’s Algorithm<a class="headerlink" href="#euler-s-algorithm" title="Permalink to this heading">#</a></h1>
-<p>In this tutorial, we will explore the Euler’s algorithm and its implementation in NetworkX under <code class="docutils literal notranslate"><span class="pre">networkx/algorithms/euler.py</span></code>.</p>
+<p>In this tutorial, we will explore Euler’s algorithm and its implementation in NetworkX under <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/euler.py"><code class="docutils literal notranslate"><span class="pre">networkx/algorithms/euler.py</span></code></a>.</p>
+<section id="import-package">
+<h2>Import package<a class="headerlink" href="#import-package" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="seven-bridges-of-konigsberg">
 <h2>Seven Bridges of Königsberg<a class="headerlink" href="#seven-bridges-of-konigsberg" title="Permalink to this heading">#</a></h2>
 <p>What you are seeing below is the beautiful old town of Königsberg which is famous for its seven bridges. Each of these bridges either connect two large islands — Kneiphof and Lomse — or two mainland portions of the city.</p>
@@ -466,8 +477,7 @@ document.write(`
 <p>Euler observed that the choice of route inside each land mass is irrelevant. The only thing that matters is the sequence of bridges to be crossed. This observation allows us to abstract the problem even more. In the graph below, blue vertices represent the land masses and edges represent the bridges that connect them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create graph</span>
 <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
 <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
 <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
@@ -479,6 +489,7 @@ document.write(`
 
 <span class="n">positions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)}</span>
 
+<span class="c1"># Visualize graph</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
     <span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)],</span> <span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span>
@@ -506,10 +517,11 @@ document.write(`
 </section>
 <section id="euler-s-method">
 <h3>Euler’s Method<a class="headerlink" href="#euler-s-method" title="Permalink to this heading">#</a></h3>
-<p>Euler<a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> denoted land masses of the town by capital letters <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span>, <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(D\)</span> and bridges by lowercase <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, <span class="math notranslate nohighlight">\(c\)</span>, <span class="math notranslate nohighlight">\(d\)</span>, <span class="math notranslate nohighlight">\(e\)</span>, <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span>. Let’s draw the graph based on this node and edge labels.</p>
+<p>Euler <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> denoted land masses of the town by capital letters <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span>, <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(D\)</span> and bridges by lowercase <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, <span class="math notranslate nohighlight">\(c\)</span>, <span class="math notranslate nohighlight">\(d\)</span>, <span class="math notranslate nohighlight">\(e\)</span>, <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span>. Let’s draw the graph based on this node and edge labels.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edge_labels</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Design and draw graph</span>
+<span class="n">edge_labels</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">)</span>
 
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
@@ -560,8 +572,8 @@ document.write(`
 </ul>
 </section>
 </section>
-<section id="networkx-implementation-of-euler-s-algorithm">
-<h2>NetworkX Implementation of Euler’s Algorithm<a class="headerlink" href="#networkx-implementation-of-euler-s-algorithm" title="Permalink to this heading">#</a></h2>
+<section id="euler-s-algorithm-in-networkx">
+<h2>Euler’s Algorithm in NetworkX<a class="headerlink" href="#euler-s-algorithm-in-networkx" title="Permalink to this heading">#</a></h2>
 <p>NetworkX implements several methods using the Euler’s algorithm. These are:</p>
 <ul class="simple">
 <li><p><strong>is_eulerian</strong>      : Whether the graph has an Eulerian circuit</p></li>
@@ -591,7 +603,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/40bc56660367f7a4619c074fc2b302a32c1734b154ae4dae77f6c8dc21a34588.png" src="../../../_images/40bc56660367f7a4619c074fc2b302a32c1734b154ae4dae77f6c8dc21a34588.png" />
+<img alt="../../../_images/8fdaaece68d6109beb7f358d753f4e398bc8a877a20f705c7329722eafac158a.png" src="../../../_images/8fdaaece68d6109beb7f358d753f4e398bc8a877a20f705c7329722eafac158a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -741,7 +753,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/ee59366116e3a674aeff45342de0022961acdde72df54d513a27027b1f7a3f2b.png" src="../../../_images/ee59366116e3a674aeff45342de0022961acdde72df54d513a27027b1f7a3f2b.png" />
+<img alt="../../../_images/0ab741a3acd75e7066aecc852bd9b57d29b8f46501585529e75cf0047d63263f.png" src="../../../_images/0ab741a3acd75e7066aecc852bd9b57d29b8f46501585529e75cf0047d63263f.png" />
 </div>
 </div>
 <p>The answer is No! All nodes except for the one in the center have exactly 3 edges in the wheel graph. Thus, it cannot have an Eulerian Path.</p>
@@ -773,7 +785,7 @@ document.write(`
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id3" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg">https://en.wikipedia.org/wiki/Seven_Bridges_of_Königsberg</a></p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg">Wikipedia, Seven Bridge of Konigsberg</a></p>
 </aside>
 <aside class="footnote brackets" id="id4" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
@@ -831,13 +843,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-package">Import package</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seven-bridges-of-konigsberg">Seven Bridges of Königsberg</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reformulating-the-problem-in-abstract-terms">Reformulating the Problem in Abstract Terms</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euler-s-method">Euler’s Method</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalizing-euler-s-solution">Generalizing Euler’s Solution</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#networkx-implementation-of-euler-s-algorithm">NetworkX Implementation of Euler’s Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#euler-s-algorithm-in-networkx">Euler’s Algorithm in NetworkX</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eulerian-circuit-implementation">1. Eulerian Circuit Implementation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eulerian-path-implementation">2. Eulerian Path Implementation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">3. Examples</a></li>
