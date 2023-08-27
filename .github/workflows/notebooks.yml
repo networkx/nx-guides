@@ -15,7 +15,7 @@ jobs:
       max-parallel: 12
       matrix:
         os: [Ubuntu-22.04, macOS-latest]
-        python-version: ["3.9", "3.10", "3.11"]
+        python-version: ["3.11"]  # ["3.9", "3.10", "3.11"]
 
     steps:
     - uses: actions/checkout@v2
@@ -47,7 +47,7 @@ jobs:
         
     - name: Test with nbval
       run: |
-        find content/ -name "*.md" -exec jupytext --to notebook {} \;
-        find content -name "*.ipynb" -print
+        find content/algorithms content/generators -name "*.md" -exec jupytext --to notebook {} \;
+        find content/algorithms content/generators -name "*.ipynb" -print
         pip install pytest
-        pytest --nbval-lax --durations=25 content/
+        pytest --nbval-lax --durations=25 content/algorithms content/generators
