@@ -25,8 +25,17 @@ language_info:
 # Geometric Generator Models
 
 In this tutorial, we'll explore the geometric network generator models
-implemented in networkx under networkx/generators/geometric.py and apply them
+implemented under [`networkx/generators/geometric.py`](https://github.com/networkx/networkx/blob/main/networkx/generators/geometric.py) and apply them
 to a real-world use case to learn how these models can be parameterized and used.
+
+## Import packages
+
+```{code-cell} ipython3
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+import networkx as nx
+```
 
 ## Geometric/Spatial Networks
 
@@ -48,7 +57,7 @@ The potential application of Spatial Networks to such a wide variety of
 real-world systems has motivated substainial research into these networks,
 with many unique but closely related models being proposed with theoretical
 proofs for many of their network properties.
-The 2010 Spatial Networks review article by Marc Barthélemy[^1] provides a
+The 2010 Spatial Networks review article by Marc Barthélemy [^1] provides a
 comprehensive overview of the field and reviews many of the most important
 theoretical proofs for the most common Spatial Network models.
 Here we explore some of the most typical Spatial Network models which have been
@@ -173,11 +182,6 @@ With this dataset, we can model the supercharger network with the various spatia
 networks implemented in networkx.
 
 ```{code-cell} ipython3
-%matplotlib inline
-import numpy as np
-import matplotlib.pyplot as plt
-import networkx as nx
-
 # Some matplotlib settings
 mpl_params = {
     "axes.titlesize": 20,
@@ -343,6 +347,8 @@ for thresh, ax in zip(thresholds, axes):
     ax.set_title(f"Threshold = {thresh}, {TRGG.number_of_edges()} edges")
 fig.tight_layout()
 ```
+
+## References
 
 [^1]: Spatial Networks <https://doi.org/10.1016/j.physrep.2010.11.002>
 

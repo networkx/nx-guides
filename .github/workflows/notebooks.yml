@@ -47,5 +47,7 @@ jobs:
         
     - name: Test with nbval
       run: |
+        find content/algorithms content/generators -name "*.md" -exec jupytext --to notebook {} \;
+        find content/algorithms content/generators -name "*.ipynb" -print
         pip install pytest
-        pytest --nbval-lax --durations=25 content/
+        pytest --nbval-lax --durations=25 content/algorithms content/generators
