@@ -37,7 +37,7 @@ jobs:
   
     - name: Install dependencies
       run: |
-        pip install pip==21.1.1
+        pip install -U pip
         pip install -r requirements.txt
 
     - name: Lint with precommit
