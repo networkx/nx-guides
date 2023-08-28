@@ -23,7 +23,9 @@ language_info:
 ---
 
 # Dinitz's Algorithm and Applications
-In this tutorial, we will explore the maximum flow problem [^2], which is implemented at
+
+In this tutorial, we will explore the maximum flow problem [^1] and Dinitz's
+algorithm [^2] , which is implemented at
 [`algorithms/flow/dinitz_alg.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py)
 in NetworkX. We will also see how it can be used to solve some interesting problems.
 

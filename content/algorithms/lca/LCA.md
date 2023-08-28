@@ -37,6 +37,7 @@ Before diving into the algorithm, let's first remember the concepts of an ancest
 
 - **Lowest Common Ancestor:** For two of nodes $u$ and $v$ in a tree, the lowest common ancestor is the lowest (i.e. deepest) node which is an ancestor of both $u$ and $v$.
 
+
 ## Example
 
 It is always a good idea to learn concepts with an example. Consider the following evolutionary tree. We will draw a directed version of it and define the ancestor/descendant relationships.
