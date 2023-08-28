@@ -14,6 +14,8 @@ kernelspec:
 
 # Euler's Algorithm
 
++++
+
 In this tutorial, we will explore Euler's algorithm and its implementation in NetworkX under [`networkx/algorithms/euler.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/euler.py).
 
 ## Import package
