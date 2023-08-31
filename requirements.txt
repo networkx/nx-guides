@@ -19,4 +19,4 @@ pyupgrade
 
 # Notebook requirements
 pygraphviz
-
+basemap
