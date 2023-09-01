@@ -6,11 +6,7 @@ numpy
 scipy
 matplotlib
 pandas
-libpysal
-contextily
-geopandas
-shapely
-rtree
+ipython!=8.7.0
 
 # For testing and site generation
 nbval
@@ -24,3 +20,8 @@ pyupgrade
 # Notebook requirements
 pygraphviz
 
+libpysal
+contextily
+geopandas
+shapely
+rtree
