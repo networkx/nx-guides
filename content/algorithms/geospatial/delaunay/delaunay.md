@@ -97,7 +97,7 @@ For basic understanding, we will use a set of random points to elaborate the usa
 
 ```{code-cell}
 from libpysal import weights, examples
-from libpysal.cg.voronoi import voronoi_frames,voronoi
+from libpysal.cg.voronoi import voronoi_frames, voronoi
 from shapely.geometry import Point
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -107,7 +107,16 @@ import numpy as np
 - Declaring the points to be plotted in delaunay graph
 
 ```{code-cell}
-points = [(10.2, 5.1), (4.7, 2.2), (5.3, 5.7), (2.7, 5.3),(10.3,6.4),(4.5,7),(20,10),(0,2)]
+points = [
+    (10.2, 5.1),
+    (4.7, 2.2),
+    (5.3, 5.7),
+    (2.7, 5.3),
+    (10.3, 6.4),
+    (4.5, 7),
+    (20, 10),
+    (0, 2),
+]
 regions, vertices = voronoi(points)
 ```
 
@@ -133,27 +142,27 @@ The `voronoi_frames` takes in four parameters:
 Next, plotting the aformentioned points in a delaunay graph
 
 ```{code-cell}
-region_df, point_df = voronoi_frames(points,clip='extent')
+region_df, point_df = voronoi_frames(points, clip="extent")
 fig, ax = plt.subplots()
-ax.set_title("Basic example of voronoi_frames",fontsize=12)
-region_df.plot(ax=ax, color='blue',edgecolor='black', alpha=0.3)
-point_df.plot(ax=ax, color='red');
+ax.set_title("Basic example of voronoi_frames", fontsize=12)
+region_df.plot(ax=ax, color="blue", edgecolor="black", alpha=0.3)
+point_df.plot(ax=ax, color="red");
 ```
 
 - Plotting the graph for a radius of 5.0. Here, the radius refers to the distance to ‘points at infinity’ used in building voronoi cells. The default value of radius is `None`.
 
 ```{code-cell}
-fig, ax = plt.subplots(nrows=1,ncols=2,figsize=(10,6))
+fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(10, 6))
 
-region_df, point_df = voronoi_frames(points,clip='none',radius=0.0)
-ax[0].set_title('Voronoi Diagram with radius value of 0.0', fontsize=12)
-region_df.plot(ax=ax[0], color='blue',edgecolor='black', alpha=0.3)
-point_df.plot(ax=ax[0], color='red')
+region_df, point_df = voronoi_frames(points, clip="none", radius=0.0)
+ax[0].set_title("Voronoi Diagram with radius value of 0.0", fontsize=12)
+region_df.plot(ax=ax[0], color="blue", edgecolor="black", alpha=0.3)
+point_df.plot(ax=ax[0], color="red")
 
-region_df, point_df = voronoi_frames(points,clip='none',radius=100.0)
-ax[1].set_title('Voronoi Diagram with radius value of 100.0', fontsize=12)
-region_df.plot(ax=ax[1], color='blue',edgecolor='black', alpha=0.3)
-point_df.plot(ax=ax[1], color='red');
+region_df, point_df = voronoi_frames(points, clip="none", radius=100.0)
+ax[1].set_title("Voronoi Diagram with radius value of 100.0", fontsize=12)
+region_df.plot(ax=ax[1], color="blue", edgecolor="black", alpha=0.3)
+point_df.plot(ax=ax[1], color="red");
 ```
 
 Finally, generating graph for different clip options.The clip options available are - 
@@ -163,27 +172,27 @@ Finally, generating graph for different clip options.The clip options available 
 - `'ashape'` / `'ahull'`: Clip the voronoi cells to the tightest hull that contains all points
 
 ```{code-cell}
-fig, ax = plt.subplots(nrows=2,ncols=2,figsize=(12,9))
+fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(12, 9))
 
-region_df, point_df = voronoi_frames(points,clip='none')
-ax[0,0].set_title('Voronoi Diagram with no clipping', fontsize=12)
-region_df.plot(ax=ax[0,0], color='blue',edgecolor='black', alpha=0.3)
-point_df.plot(ax=ax[0,0], color='red')
+region_df, point_df = voronoi_frames(points, clip="none")
+ax[0, 0].set_title("Voronoi Diagram with no clipping", fontsize=12)
+region_df.plot(ax=ax[0, 0], color="blue", edgecolor="black", alpha=0.3)
+point_df.plot(ax=ax[0, 0], color="red")
 
-region_df, point_df = voronoi_frames(points,clip='extent')
-ax[0,1].set_title('Voronoi Diagram with Bounding Box clipping', fontsize=12)
-region_df.plot(ax=ax[0,1], color='blue',edgecolor='black', alpha=0.3)
-point_df.plot(ax=ax[0,1], color='red')
+region_df, point_df = voronoi_frames(points, clip="extent")
+ax[0, 1].set_title("Voronoi Diagram with Bounding Box clipping", fontsize=12)
+region_df.plot(ax=ax[0, 1], color="blue", edgecolor="black", alpha=0.3)
+point_df.plot(ax=ax[0, 1], color="red")
 
-region_df, point_df = voronoi_frames(points,100.0,clip='chull')
-ax[1,0].set_title('Voronoi Diagram with Convex Hull clipping', fontsize=12)
-region_df.plot(ax=ax[1,0], color='blue',edgecolor='black', alpha=0.3)
-point_df.plot(ax=ax[1,0], color='red');
+region_df, point_df = voronoi_frames(points, 100.0, clip="chull")
+ax[1, 0].set_title("Voronoi Diagram with Convex Hull clipping", fontsize=12)
+region_df.plot(ax=ax[1, 0], color="blue", edgecolor="black", alpha=0.3)
+point_df.plot(ax=ax[1, 0], color="red")
 
-region_df, point_df = voronoi_frames(points,100.0,clip='ahull')
-ax[1,1].set_title('Voronoi Diagram with tightest hull clipping', fontsize=12)
-region_df.plot(ax=ax[1,1], color='blue',edgecolor='black', alpha=0.3)
-point_df.plot(ax=ax[1,1], color='red');
+region_df, point_df = voronoi_frames(points, 100.0, clip="ahull")
+ax[1, 1].set_title("Voronoi Diagram with tightest hull clipping", fontsize=12)
+region_df.plot(ax=ax[1, 1], color="blue", edgecolor="black", alpha=0.3)
+point_df.plot(ax=ax[1, 1], color="red");
 ```
 
 ### Voronoi Frames with Real World Dataset
@@ -208,7 +217,7 @@ import numpy as np
 data = pd.read_csv("data/singapore_train_stations.csv")
 
 data.lng = list(map(float, data.lng))
-data.lat = list(map(float,data.lat))
+data.lat = list(map(float, data.lat))
 ```
 
 - In order for networkx to plot the nodes of our graph correctly, we need to construct the array of coordinates for each point in our dataset. To get this as a numpy array, we extract the x and y coordinates from the geometry column.
@@ -220,7 +229,7 @@ coordinates = np.column_stack((data.lng, data.lat))
 - While we could simply present the Delaunay graph directly, it is useful to visualize the Delaunay graph alongside the Voronoi diagram. This is because the two are intrinsically linked: the adjacency graph of the Voronoi diagram is the Delaunay graph for the set of generator points! Put simply, this means we can build the Voronoi diagram (relying on scipy.spatial for the underlying computations), and then convert these polygons quickly into the Delaunay graph. Be careful, though; our algorithm, by default, will clip the voronoi diagram to the bounding box of the point pattern. This is controlled by the "clip" argument.
 
 ```{code-cell}
-cells, generators = voronoi_frames(coordinates,clip='chull')
+cells, generators = voronoi_frames(coordinates, clip="chull")
 ```
 
 - With the voronoi polygons, we can construct the adjacency graph between them using "Rook" contiguity. This represents voronoi cells as being adjacent if they share an edge/face. This is an analogue to the "von Neuman" neighborhood, or the 4 cardinal neighbors in a regular grid. The name comes from the directions a Rook piece can move on a chessboard.
@@ -244,9 +253,9 @@ positions = dict(zip(delaunay_graph.nodes, coordinates))
 - Now, we can plot with a nice basemap using Contextily
 
 ```{code-cell}
-figure,ax = plt.subplots(figsize=(15, 9))
-cells.plot(ax=ax,facecolor="lightblue", alpha=0.50, edgecolor="cornsilk", linewidth=2)
-add_basemap(ax,crs='EPSG:4326')
+figure, ax = plt.subplots(figsize=(15, 9))
+cells.plot(ax=ax, facecolor="lightblue", alpha=0.50, edgecolor="cornsilk", linewidth=2)
+add_basemap(ax, crs="EPSG:4326")
 ax.axis("off")
 nx.draw(
     delaunay_graph,
