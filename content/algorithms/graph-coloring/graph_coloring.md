@@ -35,13 +35,13 @@ import requests
 %matplotlib inline
 ```
 
-### Greedy Colouring:
+### Greedy Coloring:
 
-The priority of colours/labels assigned is given by the strategies. Below is the list of strategies in networkx.
+The priority of colors/labels assigned is given by the strategies. Below is the list of strategies in networkx.
 You can also add your custom strategy.
 
 ```{code-cell}
-# Load the stratagies for the greedy colouring present in the networkx library
+# Load the stratagies for the greedy coloring present in the networkx library
 strategies = nx.coloring.greedy_coloring.STRATEGIES
 ```
 
@@ -96,12 +96,12 @@ nx.draw(random_graph, with_labels=True)
 
 +++
 
-![png](graph-colouring/graph_colouring_files/graph-colouring/graph_colouring_7_0.png)
+![png](graph-coloring/graph_coloring_files/graph-coloring/graph_coloring_7_0.png)
     
 
 
 ```{code-cell}
-# Get the greedy colouring for all the strategies
+# Get the greedy coloring for all the strategies
 colors = {
     current_strategy: nx.greedy_color(random_graph, strategy=current_strategy)
     for current_strategy in strategies
@@ -109,7 +109,7 @@ colors = {
 ```
 
 ```{code-cell}
-# Show the greedy colouring for selected strategy: DSATUR
+# Show the greedy coloring for selected strategy: DSATUR
 selected_strategy = "DSATUR"
 
 # Get the position of the nodes
@@ -157,7 +157,7 @@ nx.draw_networkx_edges(random_graph, pos=pos)
 
 
     
-![png](graph-colouring/graph_colouring_files/graph-colouring/graph_colouring_9_1.png)
+![png](graph-coloring/graph_coloring_files/graph-coloring/graph_coloring_9_1.png)
     
 
 +++
@@ -231,7 +231,7 @@ ani = animation.FuncAnimation(
 
 ```{code-cell}
 # Save the animation as gif
-gif_file_path = r"greedy_colouring.gif"
+gif_file_path = r"greedy_coloring.gif"
 writergif = animation.PillowWriter(fps=1)
 ani.save(gif_file_path, writer=writergif)
 ```
@@ -252,7 +252,7 @@ display_animation(gif_file_path)
 
 +++
 
-![png](graph-colouring/graph_colouring_files/graph-colouring/graph_colouring_16_0.png)
+![png](graph-coloring/graph_coloring_files/graph-coloring/graph_coloring_16_0.png)
     
 
 +++
@@ -291,7 +291,7 @@ state_data = gpd.read_file(indian_map_url)
 
 +++
 
-![png](graph-colouring/graph_colouring_files/graph-colouring/graph_colouring_21_0.png)
+![png](graph-coloring/graph_coloring_files/graph-coloring/graph_coloring_21_0.png)
     
 
 
@@ -326,7 +326,7 @@ nx.draw(indian_states, with_labels=True)
 
 +++
 
-![png](graph-colouring/graph_colouring_files/graph-colouring/graph_colouring_26_0.png)
+![png](graph-coloring/graph_coloring_files/graph-coloring/graph_coloring_26_0.png)
     
 
 
@@ -365,7 +365,7 @@ patch = nx.draw_networkx_edges(indian_states, pos=pos)
 
 +++
 
-![png](graph-colouring/graph_colouring_files/graph-colouring/graph_colouring_29_0.png)
+![png](graph-coloring/graph_coloring_files/graph-coloring/graph_coloring_29_0.png)
     
 
 
@@ -373,7 +373,7 @@ patch = nx.draw_networkx_edges(indian_states, pos=pos)
 state_data["color"] = state_data["ID_1"].map(india_state_colors[selected_strategy])
 state_data["color"].fillna(
     0, inplace=True
-)  # assigning default colour to states without any neighbours
+)  # assigning default color to states without any neighbours
 ```
 
 ```{code-cell}
@@ -404,4 +404,4 @@ folium.LayerControl().add_to(m)  # use folium to add layer control
 
 +++
 
-![png](graph-colouring/graph_colouring_files/graph-colouring/graph_colouring_32_0.png)
+![png](graph-coloring/graph_coloring_files/graph-coloring/graph_coloring_32_0.png)
