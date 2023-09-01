@@ -4,7 +4,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.13.8
+    jupytext_version: 1.15.0
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -95,7 +95,7 @@ For basic understanding, we will use a set of random points to elaborate the usa
 
 - Necessary libraries are imported
 
-```{code-cell} ipython3
+```{code-cell}
 from libpysal import weights, examples
 from libpysal.cg.voronoi import voronoi_frames,voronoi
 from shapely.geometry import Point
@@ -106,18 +106,18 @@ import numpy as np
 
 - Declaring the points to be plotted in delaunay graph
 
-```{code-cell} ipython3
+```{code-cell}
 points = [(10.2, 5.1), (4.7, 2.2), (5.3, 5.7), (2.7, 5.3),(10.3,6.4),(4.5,7),(20,10),(0,2)]
 regions, vertices = voronoi(points)
 ```
 
 - Printing the regions and points of the triangulations
 
-```{code-cell} ipython3
+```{code-cell}
 regions
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 vertices
 ```
 
@@ -132,7 +132,7 @@ The `voronoi_frames` takes in four parameters:
 
 Next, plotting the aformentioned points in a delaunay graph
 
-```{code-cell} ipython3
+```{code-cell}
 region_df, point_df = voronoi_frames(points,clip='extent')
 fig, ax = plt.subplots()
 ax.set_title("Basic example of voronoi_frames",fontsize=12)
@@ -142,7 +142,7 @@ point_df.plot(ax=ax, color='red');
 
 - Plotting the graph for a radius of 5.0. Here, the radius refers to the distance to ‘points at infinity’ used in building voronoi cells. The default value of radius is `None`.
 
-```{code-cell} ipython3
+```{code-cell}
 fig, ax = plt.subplots(nrows=1,ncols=2,figsize=(10,6))
 
 region_df, point_df = voronoi_frames(points,clip='none',radius=0.0)
@@ -162,7 +162,7 @@ Finally, generating graph for different clip options.The clip options available 
 - `'chull'` / `'convex hull'`: Clip the voronoi cells to the convex hull of the input points
 - `'ashape'` / `'ahull'`: Clip the voronoi cells to the tightest hull that contains all points
 
-```{code-cell} ipython3
+```{code-cell}
 fig, ax = plt.subplots(nrows=2,ncols=2,figsize=(12,9))
 
 region_df, point_df = voronoi_frames(points,clip='none')
@@ -192,7 +192,7 @@ This example shows how to build a delaunay graph (plus its dual, the set of Voro
 
 - First, including the necessary libraries
 
-```{code-cell} ipython3
+```{code-cell}
 from libpysal import weights, examples
 from libpysal.cg import voronoi_frames
 from contextily import add_basemap
@@ -204,7 +204,7 @@ import numpy as np
 
 - Reading the dataset from a CSV file using Pandas. The dataset contains the information about each train stations in Singapore alongwith its latitude and longitudes. Next, the coordinates are converted into float data type from string
 
-```{code-cell} ipython3
+```{code-cell}
 data = pd.read_csv("data/singapore_train_stations.csv")
 
 data.lng = list(map(float, data.lng))
@@ -213,37 +213,37 @@ data.lat = list(map(float,data.lat))
 
 - In order for networkx to plot the nodes of our graph correctly, we need to construct the array of coordinates for each point in our dataset. To get this as a numpy array, we extract the x and y coordinates from the geometry column.
 
-```{code-cell} ipython3
+```{code-cell}
 coordinates = np.column_stack((data.lng, data.lat))
 ```
 
 - While we could simply present the Delaunay graph directly, it is useful to visualize the Delaunay graph alongside the Voronoi diagram. This is because the two are intrinsically linked: the adjacency graph of the Voronoi diagram is the Delaunay graph for the set of generator points! Put simply, this means we can build the Voronoi diagram (relying on scipy.spatial for the underlying computations), and then convert these polygons quickly into the Delaunay graph. Be careful, though; our algorithm, by default, will clip the voronoi diagram to the bounding box of the point pattern. This is controlled by the "clip" argument.
 
-```{code-cell} ipython3
+```{code-cell}
 cells, generators = voronoi_frames(coordinates,clip='chull')
 ```
 
 - With the voronoi polygons, we can construct the adjacency graph between them using "Rook" contiguity. This represents voronoi cells as being adjacent if they share an edge/face. This is an analogue to the "von Neuman" neighborhood, or the 4 cardinal neighbors in a regular grid. The name comes from the directions a Rook piece can move on a chessboard.
 
-```{code-cell} ipython3
+```{code-cell}
 delaunay = weights.Rook.from_dataframe(cells)
 ```
 
 - Once the graph is built, we can convert the graphs to networkx objects using the relevant method.
 
-```{code-cell} ipython3
+```{code-cell}
 delaunay_graph = delaunay.to_networkx()
 ```
 
 - To plot with networkx, we need to merge the nodes back to their positions in order to plot in networkx
 
-```{code-cell} ipython3
+```{code-cell}
 positions = dict(zip(delaunay_graph.nodes, coordinates))
 ```
 
 - Now, we can plot with a nice basemap using Contextily
 
-```{code-cell} ipython3
+```{code-cell}
 figure,ax = plt.subplots(figsize=(15, 9))
 cells.plot(ax=ax,facecolor="lightblue", alpha=0.50, edgecolor="cornsilk", linewidth=2)
 add_basemap(ax,crs='EPSG:4326')
