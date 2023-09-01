@@ -18,5 +18,8 @@ black
 pyupgrade
 
 # Notebook requirements
+geopandas
+folium
+mapclassify
 pygraphviz
 
