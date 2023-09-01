@@ -24,3 +24,4 @@ flow/dinitz_alg
 lca/LCA
 euler/euler
 isomorphism/isomorphism
+karate_club/karate_club
