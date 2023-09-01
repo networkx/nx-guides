@@ -1,7 +1,22 @@
+---
+jupytext:
+  main_language: python
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.14.5
+kernelspec:
+  display_name: Python 3 (ipykernel)
+  language: python
+  name: python3
+---
 
-In this tutorial, we are going to talk about the graph coloring methods implemented in networkx. In the graph coloring problems, we assign minimum possible labels/colors that are subjected to certain conditions.
+# Graph Coloring
 
 +++
+
+In this tutorial, we are going to talk about the graph coloring methods implemented in networkx. In the graph coloring problems, we assign minimum possible labels/colors that are subjected to certain conditions.
 
 In networkx, there are two types of graph coloring methods (both are vertex coloring methods):
 

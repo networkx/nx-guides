@@ -13,5 +13,5 @@ flow/dinitz_alg
 lca/LCA
 euler/euler
 isomorphism/isomorphism
-graph_colouring/graph_colouring
+graph_coloring/graph_coloring
 ```
