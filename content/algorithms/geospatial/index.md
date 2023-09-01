@@ -6,6 +6,6 @@ A closer look at techniques and libraries recommended by Networkx when working w
 ---
 maxdepth: 1
 ---
-delaunay/index
+delaunay/delaunay
 
 ```
