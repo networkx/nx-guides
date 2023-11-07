@@ -20,12 +20,12 @@ The goal of nx-guides is to provide pedagogical notebooks about graph theory, ne
 
 If you want to contribute to nx-guides and already decided on a topic to work on, here are next steps:
 
-1.   Clone `nx-guides` repository to your local machine.
-2.   Add your markdown notebook to the appropriate folder (i.e. if you are adding a new algorithm, add a folder with its name in `nx-guides/content/algorithms` following the structure of the other algorithms).
-3.   Ensure you notebook fits the Format Guidelines in this document.
-4.  Use subdirectories for images and data. If you use any static images and data, please put them under corresponding folders. (optional)
-5.   Add your notebook's path to the index.md file.
-6.  When you complete your work and feel ready, push your changes to the repository and open a PR for review. 
+1. Clone `nx-guides` repository to your local machine.
+2. Add your markdown notebook to the appropriate folder (i.e. if you are adding a new algorithm, add a folder with its name in `nx-guides/content/algorithms` following the structure of the other algorithms).
+3. Ensure you notebook fits the Format Guidelines in this document.
+4. Use subdirectories for images and data. If you use any static images and data, please put them under corresponding folders. (optional)
+5. Add your notebook's path to the index.md file.
+6. When you complete your work and feel ready, push your changes to the repository and open a PR for review. 
 7. Engage in any discussion about your changes. Be sure to clearly communicate your thoughts.
  
 
