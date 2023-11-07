@@ -1,0 +1,644 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Contributors Guide &#8212; NetworkX Notebooks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/contributing';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Facebook Network Analysis" href="exploratory_notebooks/facebook_notebook.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/networkx_banner.svg" class="logo__image only-light" alt="NetworkX Notebooks - Home"/>
+    <script>document.write(`<img src="../_static/networkx_banner.svg" class="logo__image only-dark" alt="NetworkX Notebooks - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="algorithms/index.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="algorithms/assortativity/correlation.html">Node Assortativity Coefficients and Correlation Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithms/dag/index.html">Directed Acyclic Graphs &amp; Topological Sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithms/flow/dinitz_alg.html">Dinitz’s Algorithm and Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithms/lca/LCA.html">Lowest Common Ancestor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithms/euler/euler.html">Euler’s Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithms/isomorphism/isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="generators/index.html">Graph Generators</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="generators/geometric.html">Geometric Generator Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generators/sudoku.html">Sudoku and Graph Coloring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exploratory_notebooks/facebook_notebook.html">Facebook Network Analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Contributors Guide</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=tree/site/content/contributing.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/networkx/nx-guides" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/networkx/nx-guides/edit/main/site/content/contributing.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/networkx/nx-guides/issues/new?title=Issue%20on%20page%20%2Fcontent/contributing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/contributing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="../_sources/content/contributing.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Contributors Guide</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-brief-roadmap-for-first-time-contributors">A Brief Roadmap for First-time Contributors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-tips">Some Tips</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-notebook-should-be-a-md-file">1. Your notebook should be a <code class="docutils literal notranslate"><span class="pre">.md</span></code> file.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-code-generated-images-as-much-as-possible">2. Use code-generated images as much as possible.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-requirements-to-requirements-txt">3. Add requirements to <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-input-is-not-supported-yet">4. User input is not supported yet.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-not-forget-to-add-path-of-your-notebook-to-index-md">5. Do not forget to add path of your notebook to <code class="docutils literal notranslate"><span class="pre">index.md</span></code>.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#header-levels">6. Header Levels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#you-do-not-need-to-implement-the-algorithm-in-the-same-exact-way-as-done-inside-networkx">7. You do not need to implement the algorithm in the same exact way as done inside NetworkX.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feel-free-to-use-real-world-datasets">8. Feel free to use real-world datasets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-if-the-tests-are-still-failing">9. What if the tests are still failing?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment">Environment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format-guidelines">Format Guidelines</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="contributors-guide">
+<h1>Contributors Guide<a class="headerlink" href="#contributors-guide" title="Permalink to this heading">#</a></h1>
+<section id="a-brief-roadmap-for-first-time-contributors">
+<h2>A Brief Roadmap for First-time Contributors<a class="headerlink" href="#a-brief-roadmap-for-first-time-contributors" title="Permalink to this heading">#</a></h2>
+<p>The goal of nx-guides is to provide pedagogical notebooks about graph theory, network analysis, and NetworkX implementations (algorithms, etc.). This is a great place to get started with open source contribution!</p>
+<p>If you want to contribute to nx-guides and already decided on a topic to work on, here are next steps:</p>
+<ol class="arabic simple">
+<li><p>Clone <code class="docutils literal notranslate"><span class="pre">nx-guides</span></code> repository to your local machine.</p></li>
+<li><p>Add your markdown notebook to the appropriate folder (i.e. if you are adding a new algorithm, add a folder with its name in <code class="docutils literal notranslate"><span class="pre">nx-guides/content/algorithms</span></code> following the structure of the other algorithms).</p></li>
+<li><p>Ensure you notebook fits the Format Guidelines in this document.</p></li>
+<li><p>Use subdirectories for images and data. If you use any static images and data, please put them under corresponding folders. (optional)</p></li>
+<li><p>Add your notebook’s path to the index.md file.</p></li>
+<li><p>When you complete your work and feel ready, push your changes to the repository and open a PR for review.</p></li>
+<li><p>Engage in any discussion about your changes. Be sure to clearly communicate your thoughts.</p></li>
+</ol>
+</section>
+<section id="some-tips">
+<h2>Some Tips<a class="headerlink" href="#some-tips" title="Permalink to this heading">#</a></h2>
+<section id="your-notebook-should-be-a-md-file">
+<h3>1. Your notebook should be a <code class="docutils literal notranslate"><span class="pre">.md</span></code> file.<a class="headerlink" href="#your-notebook-should-be-a-md-file" title="Permalink to this heading">#</a></h3>
+<p>Your notebook should be in MyST markdown format (See: https://myst-parser.readthedocs.io/en/latest/index.html).</p>
+<p>If you normally use <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> notebooks to work on, you can convert them to <code class="docutils literal notranslate"><span class="pre">.md</span></code> using the following <code class="docutils literal notranslate"><span class="pre">jupytext</span></code> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupytext</span>  <span class="o">--</span><span class="n">to</span> <span class="n">md</span><span class="p">:</span><span class="n">myst</span> <span class="o">&lt;</span><span class="n">notebook</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;.</span><span class="n">ipynb</span>
+</pre></div>
+</div>
+</section>
+<section id="use-code-generated-images-as-much-as-possible">
+<h3>2. Use code-generated images as much as possible.<a class="headerlink" href="#use-code-generated-images-as-much-as-possible" title="Permalink to this heading">#</a></h3>
+<p>Showing how to make high-quality visualizations of graph/network data is one of the primary goals of nx-guides tutorials! For this, images (especially graph visualizations) should be generated directly by code in the notebook as much as possible.</p>
+<p>If you also prefer to include static images to your notebook, you</p>
+</section>
+<section id="add-requirements-to-requirements-txt">
+<h3>3. Add requirements to <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code><a class="headerlink" href="#add-requirements-to-requirements-txt" title="Permalink to this heading">#</a></h3>
+<p>If you prefer to install and use other libraries, add related requirements to <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> under <code class="docutils literal notranslate"><span class="pre">nx-guides</span></code> repository. (I.e. Do not install requirements using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> command in your notebook.)</p>
+</section>
+<section id="user-input-is-not-supported-yet">
+<h3>4. User input is not supported yet.<a class="headerlink" href="#user-input-is-not-supported-yet" title="Permalink to this heading">#</a></h3>
+<p>Our notebooks do not support getting input from the reader yet. Although it is an idea we consider for future, please keep narrative notebooks for now.</p>
+</section>
+<section id="do-not-forget-to-add-path-of-your-notebook-to-index-md">
+<h3>5. Do not forget to add path of your notebook to <code class="docutils literal notranslate"><span class="pre">index.md</span></code>.<a class="headerlink" href="#do-not-forget-to-add-path-of-your-notebook-to-index-md" title="Permalink to this heading">#</a></h3>
+<p>You should include the path of your notebook in index.md file under <code class="docutils literal notranslate"><span class="pre">nx-guides/content/algorithms</span></code>.</p>
+</section>
+<section id="header-levels">
+<h3>6. Header Levels<a class="headerlink" href="#header-levels" title="Permalink to this heading">#</a></h3>
+<p>Header levels should be incremented one by one. If you jump from level 2 to level 4 header, for example, msyt will produce an error to prevents you from passing the tests. In this example, if the current header level is 2, the following header level needs to be either 2 or 3.</p>
+</section>
+<section id="you-do-not-need-to-implement-the-algorithm-in-the-same-exact-way-as-done-inside-networkx">
+<h3>7. You do not need to implement the algorithm in the same exact way as done inside NetworkX.<a class="headerlink" href="#you-do-not-need-to-implement-the-algorithm-in-the-same-exact-way-as-done-inside-networkx" title="Permalink to this heading">#</a></h3>
+<p>nx-guides provides a pedagogical source for NetworkX algorithms. For this, you do not have to include source code of the algorithm as it is under NetworkX. If possible, feel free to remove bits that you think can be better compressed :)</p>
+</section>
+<section id="feel-free-to-use-real-world-datasets">
+<h3>8. Feel free to use real-world datasets<a class="headerlink" href="#feel-free-to-use-real-world-datasets" title="Permalink to this heading">#</a></h3>
+<p>One of the aims of nx-guides notebooks is to use different algorithms to explore and analyse real world datasets. Feel free to use them if you believe it is useful.</p>
+<p>Here is a good source for datasets:</p>
+<p>http://snap.stanford.edu/data/index.html</p>
+</section>
+<section id="what-if-the-tests-are-still-failing">
+<h3>9. What if the tests are still failing?<a class="headerlink" href="#what-if-the-tests-are-still-failing" title="Permalink to this heading">#</a></h3>
+<p>Once all tests are completed, you can see warnings and errors that prevents your PR from passing the tests. To do that, go to the bottom of “Conversation” page in your PR. There will be red cross signs on the left side of “ci/circleci: build-docs” test suite. Click on the “Details” link on the right side of it to see errors and warnings.</p>
+<p>You can also click on the “Details” link on the right side of “ci/circleci: build-docs artifact”. If your notebook is built, this will bring you to the full documentation for the project as if this branch was merged. You can then navigate to the notebook you have created and check that your documentation looks good.</p>
+</section>
+<section id="environment">
+<h3>Environment<a class="headerlink" href="#environment" title="Permalink to this heading">#</a></h3>
+<p>A good way to go about editing your markdown file is with Jupyter Notebook or other markdown file editors. Just make sure the metadata fits that of the other markdown files in nx-guides.</p>
+</section>
+</section>
+<section id="format-guidelines">
+<h2>Format Guidelines<a class="headerlink" href="#format-guidelines" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Write a clear title.</p></li>
+<li><p>When introducing your topic, reference what problem you are solving and what part of NetworkX you are using.</p></li>
+<li><p>Include an “import packages” section at the top of the notebook after your introduction.
+Add all import statements for packages in a code cell underneath your introduction (see other notebooks for examples)</p></li>
+<li><p>Comment code heavily, especially confusing sections.</p></li>
+<li><p>Cite all sources. Include in-text references and a references section at the bottom of the document.
+For examples of how to write these references and cite, see other notebooks</p></li>
+</ol>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="exploratory_notebooks/facebook_notebook.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Facebook Network Analysis</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-brief-roadmap-for-first-time-contributors">A Brief Roadmap for First-time Contributors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-tips">Some Tips</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-notebook-should-be-a-md-file">1. Your notebook should be a <code class="docutils literal notranslate"><span class="pre">.md</span></code> file.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-code-generated-images-as-much-as-possible">2. Use code-generated images as much as possible.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-requirements-to-requirements-txt">3. Add requirements to <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-input-is-not-supported-yet">4. User input is not supported yet.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-not-forget-to-add-path-of-your-notebook-to-index-md">5. Do not forget to add path of your notebook to <code class="docutils literal notranslate"><span class="pre">index.md</span></code>.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#header-levels">6. Header Levels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#you-do-not-need-to-implement-the-algorithm-in-the-same-exact-way-as-done-inside-networkx">7. You do not need to implement the algorithm in the same exact way as done inside NetworkX.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feel-free-to-use-real-world-datasets">8. Feel free to use real-world datasets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-if-the-tests-are-still-failing">9. What if the tests are still failing?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment">Environment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format-guidelines">Format Guidelines</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NetworkX developers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022, NetworkX developers.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
