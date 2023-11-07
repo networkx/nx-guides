@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,8 +34,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -61,6 +62,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -121,13 +131,14 @@
   
   
   
+  
     
     
       
     
     
-    <img src="../../_static/networkx_banner.svg" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../../_static/networkx_banner.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../../_static/networkx_banner.svg" class="logo__image only-light" alt="NetworkX Notebooks - Home"/>
+    <script>document.write(`<img src="../../_static/networkx_banner.svg" class="logo__image only-dark" alt="NetworkX Notebooks - Home"/>`);</script>
   
   
 </a></div>
@@ -142,8 +153,8 @@
           
           
           
-          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -384,10 +395,10 @@
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -395,7 +406,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -706,7 +717,7 @@ parameter <code class="docutils literal notranslate"><span class="pre">radius</s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/5169a24a4175aa1bcc83f3ca8aaaae8d41b9066d0c19b3118b4185c57fe2a54f.png" src="../../_images/5169a24a4175aa1bcc83f3ca8aaaae8d41b9066d0c19b3118b4185c57fe2a54f.png" />
+<img alt="../../_images/26140310807cd4c844a9aa6c2db0e7477e79afdc88338602427689ef4a7656ac.png" src="../../_images/26140310807cd4c844a9aa6c2db0e7477e79afdc88338602427689ef4a7656ac.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -751,7 +762,7 @@ nodes raised to the <span class="math notranslate nohighlight">\(-\alpha\)</span
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/3968b44900333689921466c4bb0cdfb509c9138418f398c6a852369d190f0c9f.png" src="../../_images/3968b44900333689921466c4bb0cdfb509c9138418f398c6a852369d190f0c9f.png" />
+<img alt="../../_images/961c77a55944f1e91c5e70cd8a04f5ddb24eb1ef43563cca55dd05d66cd32c5a.png" src="../../_images/961c77a55944f1e91c5e70cd8a04f5ddb24eb1ef43563cca55dd05d66cd32c5a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -779,7 +790,7 @@ nodes raised to the <span class="math notranslate nohighlight">\(-\alpha\)</span
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/4760885beeb8c8fe419913c2510a56ab3547ed07b8581d785ae1b472317b56b0.png" src="../../_images/4760885beeb8c8fe419913c2510a56ab3547ed07b8581d785ae1b472317b56b0.png" />
+<img alt="../../_images/74221930cc948c7686374a8533d2ddb254c4f7bbd7f9770233794934680ae28e.png" src="../../_images/74221930cc948c7686374a8533d2ddb254c4f7bbd7f9770233794934680ae28e.png" />
 </div>
 </div>
 </section>
@@ -809,7 +820,7 @@ distribution with rate parameter <code class="docutils literal notranslate"><spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/06ad93912e00a89c7cfb45f48887925366e9bbe32e572abe11eeafaec214e047.png" src="../../_images/06ad93912e00a89c7cfb45f48887925366e9bbe32e572abe11eeafaec214e047.png" />
+<img alt="../../_images/bfab350d6bc4928f83701d51c279f8f066b05cf105cbfd4e512ca080ebb14d2f.png" src="../../_images/bfab350d6bc4928f83701d51c279f8f066b05cf105cbfd4e512ca080ebb14d2f.png" />
 </div>
 </div>
 </section>
@@ -836,7 +847,7 @@ rate parameter <code class="docutils literal notranslate"><span class="pre">lamb
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/3e91c545b20bba96d8ad7f21deead16622a3d6d5fefe63077bf0a43b819a4ac6.png" src="../../_images/3e91c545b20bba96d8ad7f21deead16622a3d6d5fefe63077bf0a43b819a4ac6.png" />
+<img alt="../../_images/3ddb8e073ada472878f0e21d57d478473653de13bc0824c4f5945a5b79ea66eb.png" src="../../_images/3ddb8e073ada472878f0e21d57d478473653de13bc0824c4f5945a5b79ea66eb.png" />
 </div>
 </div>
 </section>
@@ -885,11 +896,10 @@ rate parameter <code class="docutils literal notranslate"><span class="pre">lamb
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="index.html"
@@ -909,10 +919,7 @@ rate parameter <code class="docutils literal notranslate"><span class="pre">lamb
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -993,8 +1000,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

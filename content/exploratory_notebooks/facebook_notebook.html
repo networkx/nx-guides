@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,8 +34,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -60,6 +61,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -120,13 +130,14 @@
   
   
   
+  
     
     
       
     
     
-    <img src="../../_static/networkx_banner.svg" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../../_static/networkx_banner.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../../_static/networkx_banner.svg" class="logo__image only-light" alt="NetworkX Notebooks - Home"/>
+    <script>document.write(`<img src="../../_static/networkx_banner.svg" class="logo__image only-dark" alt="NetworkX Notebooks - Home"/>`);</script>
   
   
 </a></div>
@@ -141,8 +152,8 @@
           
           
           
-          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -383,10 +394,10 @@
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -394,7 +405,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -598,7 +609,7 @@ functions.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/8dcb6cdad2eb8613d65ed6e249a3d32b046d94d8350fbaf03f7226d333b8f5c3.png" src="../../_images/8dcb6cdad2eb8613d65ed6e249a3d32b046d94d8350fbaf03f7226d333b8f5c3.png" />
+<img alt="../../_images/05381d14ffdb0b9ef9b7bd03d5f6bd193c847ba0fddae75a74313b85ef15f234.png" src="../../_images/05381d14ffdb0b9ef9b7bd03d5f6bd193c847ba0fddae75a74313b85ef15f234.png" />
 </div>
 </div>
 <p>The resulting image is… not very useful. Graph visualizations of this kind
@@ -625,7 +636,7 @@ visualizations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/d1226fc4c5a4033ca307c506513773425c7937d977cdfe870272a55e45abd3ff.png" src="../../_images/d1226fc4c5a4033ca307c506513773425c7937d977cdfe870272a55e45abd3ff.png" />
+<img alt="../../_images/23358d8ca45300b45fe0b026f2be3d82d0f641fc9a79db09b0e8d5b9ae23b3f1.png" src="../../_images/23358d8ca45300b45fe0b026f2be3d82d0f641fc9a79db09b0e8d5b9ae23b3f1.png" />
 </div>
 </div>
 <p>This visualization is much more useful than the previous one! Already we can
@@ -802,7 +813,7 @@ lengths from our pre-computed dict-of-dicts:</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Frequency (%)&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/ae6f5eefd9f2984510cacc75b305569c2ba1a72d1201533b6061f7392fc924c4.png" src="../../_images/ae6f5eefd9f2984510cacc75b305569c2ba1a72d1201533b6061f7392fc924c4.png" />
+<img alt="../../_images/428fa0259aefb3f27c56a54ae9f9abea6de90027efa7c1d09e7de814815d2239.png" src="../../_images/428fa0259aefb3f27c56a54ae9f9abea6de90027efa7c1d09e7de814815d2239.png" />
 </div>
 </div>
 <p>The majority of the shortest path lengths are from <span class="math notranslate nohighlight">\(2\)</span> to <span class="math notranslate nohighlight">\(5\)</span> edges long.
@@ -905,7 +916,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/35dac3877f2e0c5fc28e9856b8916f1a364329abc35d22278ce077c4a0e3c339.png" src="../../_images/35dac3877f2e0c5fc28e9856b8916f1a364329abc35d22278ce077c4a0e3c339.png" />
+<img alt="../../_images/389615587b2d180bfd74a91a373d7a4ba6e3461b1d6ab19fdfb98c7fff41704c.png" src="../../_images/389615587b2d180bfd74a91a373d7a4ba6e3461b1d6ab19fdfb98c7fff41704c.png" />
 </div>
 </div>
 <p>It is visible that the vast majority of facebook users have degree centralities of less than <span class="math notranslate nohighlight">\(0.05\)</span>. In fact the majority has less than <span class="math notranslate nohighlight">\(0.0125\)</span>. Actually, that makes sense because the network consists of friends lists of particular nodes, which are obviously the ones with the highest degree centralities. In other words, because only the friends list of particular nodes were used to create this particular network, plenty of nodes have extremely low degree centralities as they are not very interconnected in this network</p>
@@ -928,7 +939,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  0.7322121077775956)
 </pre></div>
 </div>
-<img alt="../../_images/a644548f00956427d098dca03a3bea064fd09faf9d537aefd7372c7eb50db226.png" src="../../_images/a644548f00956427d098dca03a3bea064fd09faf9d537aefd7372c7eb50db226.png" />
+<img alt="../../_images/05dec0a4a9a762479381ccc03274da91a541846ef45b344c7ca52f834581d672.png" src="../../_images/05dec0a4a9a762479381ccc03274da91a541846ef45b344c7ca52f834581d672.png" />
 </div>
 </div>
 </section>
@@ -982,7 +993,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/cff265664f7c331b7ca8f014c7325ac328b058056e550b81df490da0ced1d956.png" src="../../_images/cff265664f7c331b7ca8f014c7325ac328b058056e550b81df490da0ced1d956.png" />
+<img alt="../../_images/09191851b61311e355635ebbbe17b9a1528a1a250e19a289270d16a7a833d86c.png" src="../../_images/09191851b61311e355635ebbbe17b9a1528a1a250e19a289270d16a7a833d86c.png" />
 </div>
 </div>
 <p>As we can see, the vast majority of betweenness centralities is below <span class="math notranslate nohighlight">\(0.01\)</span>. That makes sense as the graph is very sparse and thus most nodes do not act as bridges in shortest paths. However, that also results in some nodes having extremely high betweenness centralities as for example node <span class="math notranslate nohighlight">\(107\)</span> with <span class="math notranslate nohighlight">\(0.48\)</span> and node <span class="math notranslate nohighlight">\(1684\)</span> with <span class="math notranslate nohighlight">\(0.34\)</span> betweenness centrality.</p>
@@ -1005,7 +1016,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  0.7322121077775956)
 </pre></div>
 </div>
-<img alt="../../_images/6bea8174fdc02135698302d35407b61ae68178fda5a48033da069034cc7557cb.png" src="../../_images/6bea8174fdc02135698302d35407b61ae68178fda5a48033da069034cc7557cb.png" />
+<img alt="../../_images/5c7be9965d1dcc314c516e0004565e7848d40365472fe21e88f7a12a4688b700.png" src="../../_images/5c7be9965d1dcc314c516e0004565e7848d40365472fe21e88f7a12a4688b700.png" />
 </div>
 </div>
 </section>
@@ -1070,7 +1081,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/ea0daf0f6528ab87c92ca8475adc9eec25a43f206bfec3c129bd046e653ff529.png" src="../../_images/ea0daf0f6528ab87c92ca8475adc9eec25a43f206bfec3c129bd046e653ff529.png" />
+<img alt="../../_images/6ef018dbc80e1104b30289036bc06010ef40da336b16283d09d5adef7066539f.png" src="../../_images/6ef018dbc80e1104b30289036bc06010ef40da336b16283d09d5adef7066539f.png" />
 </div>
 </div>
 <p>The closeness centralities are distributed over various values from <span class="math notranslate nohighlight">\(0.17\)</span> to <span class="math notranslate nohighlight">\(0.46\)</span>. In fact, the majority of them are found between <span class="math notranslate nohighlight">\(0.25\)</span> and <span class="math notranslate nohighlight">\(0.3\)</span>. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:</p>
@@ -1092,7 +1103,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  0.7322121077775956)
 </pre></div>
 </div>
-<img alt="../../_images/8593d2a0e3043fafe92cd7476b18ca643f4e3acf7a24ba7260bae50840e2b08e.png" src="../../_images/8593d2a0e3043fafe92cd7476b18ca643f4e3acf7a24ba7260bae50840e2b08e.png" />
+<img alt="../../_images/91fb3dc85fbc80b054c1fcca3278b2e02d45156bbb1eec0a072ae0dcec25bf0d.png" src="../../_images/91fb3dc85fbc80b054c1fcca3278b2e02d45156bbb1eec0a072ae0dcec25bf0d.png" />
 </div>
 </div>
 </section>
@@ -1117,10 +1128,10 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  (2206, 0.08605239270584342),
  (2233, 0.08517340912756598),
  (2464, 0.08427877475676092),
- (2142, 0.08419311897991796),
+ (2142, 0.08419311897991795),
  (2218, 0.0841557356805503),
- (2078, 0.08413617041724979),
- (2123, 0.08367141238206226),
+ (2078, 0.08413617041724977),
+ (2123, 0.08367141238206224),
  (1993, 0.0835324284081597)]
 </pre></div>
 </div>
@@ -1171,7 +1182,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/1ff7992790cd930d111a21167fa9e6300f48bd62810689b8d5959ad3ba20c6b7.png" src="../../_images/1ff7992790cd930d111a21167fa9e6300f48bd62810689b8d5959ad3ba20c6b7.png" />
+<img alt="../../_images/3fca44c7deee1af0863b59fabc3c42f3d7e11d84818fb63b0198a4a7421602c6.png" src="../../_images/3fca44c7deee1af0863b59fabc3c42f3d7e11d84818fb63b0198a4a7421602c6.png" />
 </div>
 </div>
 <p>As shown in the distribution histogram, the vast majority of eigenvector centralities are below <span class="math notranslate nohighlight">\(0.005\)</span> and are actually almost <span class="math notranslate nohighlight">\(0\)</span>. However, we can also see different values of eigenvector centralities as there are tiny bins all over the x axis.</p>
@@ -1194,7 +1205,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  0.7322121077775956)
 </pre></div>
 </div>
-<img alt="../../_images/6d9971f5c3acb931fad16a83e5405cdd04b930c375e304f20d1fd001529fb495.png" src="../../_images/6d9971f5c3acb931fad16a83e5405cdd04b930c375e304f20d1fd001529fb495.png" />
+<img alt="../../_images/5dbb9404f39829bed0eedc6b81da4eaf11d364367af38030202e59caa558ab04.png" src="../../_images/5dbb9404f39829bed0eedc6b81da4eaf11d364367af38030202e59caa558ab04.png" />
 </div>
 </div>
 </section>
@@ -1209,7 +1220,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6055467186200876
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6055467186200862
 </pre></div>
 </div>
 </div>
@@ -1229,7 +1240,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/225f49b892805147e6b851514aa22a76c764d19819f74c4f355f975331ef85bb.png" src="../../_images/225f49b892805147e6b851514aa22a76c764d19819f74c4f355f975331ef85bb.png" />
+<img alt="../../_images/64700b394a7e8fb0294975fb687b13f7a5212fcc5941715b046f43d52fef2c50.png" src="../../_images/64700b394a7e8fb0294975fb687b13f7a5212fcc5941715b046f43d52fef2c50.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(50\)</span> bins were used to showcase the distribution. The bin with the highest counts concerns nodes with clustering coefficient close to <span class="math notranslate nohighlight">\(1\)</span> as there are more than two-hundred-fifty nodes in that bin. In addition, the bins of clustering coefficient between <span class="math notranslate nohighlight">\(0.4\)</span> and <span class="math notranslate nohighlight">\(0.8\)</span> contain the majority of nodes by far.</p>
@@ -1349,7 +1360,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
  0.7322121077775956)
 </pre></div>
 </div>
-<img alt="../../_images/9fe5f2a5385ca464971be938608063408c86cad47a4bc3b720108f920b453dcc.png" src="../../_images/9fe5f2a5385ca464971be938608063408c86cad47a4bc3b720108f920b453dcc.png" />
+<img alt="../../_images/8ed0823bfa1eda4e42e85550e88115e3278682e6b212bc9609b580047a2c467f.png" src="../../_images/8ed0823bfa1eda4e42e85550e88115e3278682e6b212bc9609b580047a2c467f.png" />
 </div>
 </div>
 </section>
@@ -1426,7 +1437,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/08386163d1d9f019931feeb1ca6e478aa0747b97c29e8c19dd277aa22ec3cebe.png" src="../../_images/08386163d1d9f019931feeb1ca6e478aa0747b97c29e8c19dd277aa22ec3cebe.png" />
+<img alt="../../_images/5f41ce15f2d6e9e13f71e8f93785d27263631c83dbcf75ccdd9e0cef83df0392.png" src="../../_images/5f41ce15f2d6e9e13f71e8f93785d27263631c83dbcf75ccdd9e0cef83df0392.png" />
 </div>
 </div>
 <ul class="simple">
@@ -1456,7 +1467,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/7e2945c72613d150666378fbaff0d9e427e96539ea7b4a3ea936f398bf7883ef.png" src="../../_images/7e2945c72613d150666378fbaff0d9e427e96539ea7b4a3ea936f398bf7883ef.png" />
+<img alt="../../_images/ae1c64b41484a5265f1c348e3d0332135238a771465c43aa60cebd5f365e1046.png" src="../../_images/ae1c64b41484a5265f1c348e3d0332135238a771465c43aa60cebd5f365e1046.png" />
 </div>
 </div>
 </section>
@@ -1482,11 +1493,10 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="../generators/sudoku.html"
@@ -1497,10 +1507,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
         <p class="prev-next-title">Sudoku and Graph Coloring</p>
       </div>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1578,8 +1585,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

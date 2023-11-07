@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,8 +34,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -61,6 +62,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -121,13 +131,14 @@
   
   
   
+  
     
     
       
     
     
-    <img src="../../../_static/networkx_banner.svg" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../../../_static/networkx_banner.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../../../_static/networkx_banner.svg" class="logo__image only-light" alt="NetworkX Notebooks - Home"/>
+    <script>document.write(`<img src="../../../_static/networkx_banner.svg" class="logo__image only-dark" alt="NetworkX Notebooks - Home"/>`);</script>
   
   
 </a></div>
@@ -142,8 +153,8 @@
           
           
           
-          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -384,10 +395,10 @@
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -395,7 +406,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -513,7 +524,7 @@ you can send between a pair of nodes in this network.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/e7cabec7a0ed3d046ef4527abec72b080dfadc2d0ded4043aab4030f5473f56c.png" src="../../../_images/e7cabec7a0ed3d046ef4527abec72b080dfadc2d0ded4043aab4030f5473f56c.png" />
+<img alt="../../../_images/f2c362badfaade97050a1a0ea2c8ae372555eb6a56bc0bcf5dff68568dc295e2.png" src="../../../_images/f2c362badfaade97050a1a0ea2c8ae372555eb6a56bc0bcf5dff68568dc295e2.png" />
 </div>
 </div>
 <p>So how shall you plan the paths of the data packets to send them in the least amount
@@ -544,7 +555,7 @@ a connection from node <span class="math notranslate nohighlight">\(u\)</span> t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/bff87c2250ad3e801463bb2bb79071717aaf7fd25ab56c3862d1f76b3a3ba9c7.png" src="../../../_images/bff87c2250ad3e801463bb2bb79071717aaf7fd25ab56c3862d1f76b3a3ba9c7.png" />
+<img alt="../../../_images/0879bd2ae7f9f04496d2d6496104ea36909f12cdd8a70398ec70426957f7062d.png" src="../../../_images/0879bd2ae7f9f04496d2d6496104ea36909f12cdd8a70398ec70426957f7062d.png" />
 </div>
 </div>
 <p>Now say that node <span class="math notranslate nohighlight">\(u\)</span> and node <span class="math notranslate nohighlight">\(v\)</span> are connected and the maximum data per second that
@@ -565,7 +576,7 @@ you can send from node <span class="math notranslate nohighlight">\(u\)</span> t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/7e8525b2ceaeb41000c0be4a823fb94efc9e5a7a081d9d56a0aee807d1a09ea7.png" src="../../../_images/7e8525b2ceaeb41000c0be4a823fb94efc9e5a7a081d9d56a0aee807d1a09ea7.png" />
+<img alt="../../../_images/e068f1f486782ce5cd9cb01ac44ef9888e6c3718f943603951dcb77051933f8e.png" src="../../../_images/e068f1f486782ce5cd9cb01ac44ef9888e6c3718f943603951dcb77051933f8e.png" />
 </div>
 </div>
 <p>So before go ahead and plan the paths on which we will be sending the data packets,
@@ -659,7 +670,7 @@ data to other nodes, except for the source <span class="math notranslate nohighl
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/685b60e82945a40ea761f254fe10f977483e67aacc3566c833bd091c8d8b68a8.png" src="../../../_images/685b60e82945a40ea761f254fe10f977483e67aacc3566c833bd091c8d8b68a8.png" />
+<img alt="../../../_images/e4c18faf5d889a7768a520dacc661a9c8d20ed312e7d1b119fe84116182fdae6.png" src="../../../_images/e4c18faf5d889a7768a520dacc661a9c8d20ed312e7d1b119fe84116182fdae6.png" />
 </div>
 </div>
 <p>example of invalid flow:</p>
@@ -693,7 +704,7 @@ Invalid flow: flow conservation violated at node e
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/324fe0db192c47e762395ec703622672ca44695220608dbc9c59d09acbb9114e.png" src="../../../_images/324fe0db192c47e762395ec703622672ca44695220608dbc9c59d09acbb9114e.png" />
+<img alt="../../../_images/2f340da6244918fc92003347c8400f8e9d446d3beefc103eaaa3ff1984f5591d.png" src="../../../_images/2f340da6244918fc92003347c8400f8e9d446d3beefc103eaaa3ff1984f5591d.png" />
 </div>
 </div>
 <p>red color edges dont satisfy capacity constraint and red color nodes dont satisfy the
@@ -794,7 +805,7 @@ edges of <span class="math notranslate nohighlight">\(N\)</span> if they have no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/15cfa4b03c1ccfc6bd8ca3f711294e4b874e0e949d01855684ea3117c51cadcf.png" src="../../../_images/15cfa4b03c1ccfc6bd8ca3f711294e4b874e0e949d01855684ea3117c51cadcf.png" />
+<img alt="../../../_images/b8e1623833383bcf42b92cb8faf9738b6830f44bc30846d63b4f0b5f8f3f065d.png" src="../../../_images/b8e1623833383bcf42b92cb8faf9738b6830f44bc30846d63b4f0b5f8f3f065d.png" />
 </div>
 </div>
 <p>This is the residual network for the flow shown above:</p>
@@ -806,7 +817,7 @@ edges of <span class="math notranslate nohighlight">\(N\)</span> if they have no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/061acc09d55a1c5e56fe52bbf0505fc452cd027318d0c9c17155e7c1b1d98d2a.png" src="../../../_images/061acc09d55a1c5e56fe52bbf0505fc452cd027318d0c9c17155e7c1b1d98d2a.png" />
+<img alt="../../../_images/c5f93bd13bbb24f025bdf224367b4ee0eb04ef9ce77345243d0305fd65f0d10e.png" src="../../../_images/c5f93bd13bbb24f025bdf224367b4ee0eb04ef9ce77345243d0305fd65f0d10e.png" />
 </div>
 </div>
 <p>Note: In residual network we consider both the <span class="math notranslate nohighlight">\(uv\)</span> and <span class="math notranslate nohighlight">\(vu\)</span> edges if any of them is in <span class="math notranslate nohighlight">\(N\)</span></p>
@@ -893,7 +904,7 @@ network <span class="math notranslate nohighlight">\(L\)</span> which connect no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/c95eca321dd69f5834930f5a9c455bd1abad6c8f0f4939559123af7ab87ec4ef.png" src="../../../_images/c95eca321dd69f5834930f5a9c455bd1abad6c8f0f4939559123af7ab87ec4ef.png" />
+<img alt="../../../_images/a2b22648598815b033ccb5a6b9aff9ee096eec6f827c52a3fae268dc4cb50db4.png" src="../../../_images/a2b22648598815b033ccb5a6b9aff9ee096eec6f827c52a3fae268dc4cb50db4.png" />
 </div>
 </div>
 <p>Note that if sink node <span class="math notranslate nohighlight">\(t\)</span> is not reachable from the source node <span class="math notranslate nohighlight">\(s\)</span> that means that no
@@ -945,7 +956,7 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/8a1d27f0c0b8e9dd0da760c40afdd0aa0cf0d3380c80b71997a53e1c28c75851.png" src="../../../_images/8a1d27f0c0b8e9dd0da760c40afdd0aa0cf0d3380c80b71997a53e1c28c75851.png" />
+<img alt="../../../_images/48c33b3b7af1b6501c6b28387f12c9d3f9ac28b8ca12f273ae7f415d6f212157.png" src="../../../_images/48c33b3b7af1b6501c6b28387f12c9d3f9ac28b8ca12f273ae7f415d6f212157.png" />
 </div>
 </div>
 <p>Augmenting path after augmenting:</p>
@@ -968,7 +979,7 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/3eb55fc7945a078ab08dc60dc835373596fbe36d90245fe95537cdd0f2569a99.png" src="../../../_images/3eb55fc7945a078ab08dc60dc835373596fbe36d90245fe95537cdd0f2569a99.png" />
+<img alt="../../../_images/411f14fa44b694e377f1d795a5d3e263884a1e2db15fbdb1acecc92b66d8ef4b.png" src="../../../_images/411f14fa44b694e377f1d795a5d3e263884a1e2db15fbdb1acecc92b66d8ef4b.png" />
 </div>
 </div>
 <p>Resulting new residual Network:</p>
@@ -983,7 +994,7 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/32b86c8e8bb165bf131884d0764d820241b7fe8f3acb5b5644505b6178852a7c.png" src="../../../_images/32b86c8e8bb165bf131884d0764d820241b7fe8f3acb5b5644505b6178852a7c.png" />
+<img alt="../../../_images/464d71953e5de2b77f831fff37fc082ee6ca9083b14197cdc9729bb16eb031e9.png" src="../../../_images/464d71953e5de2b77f831fff37fc082ee6ca9083b14197cdc9729bb16eb031e9.png" />
 </div>
 </div>
 <p>Each of the above steps plays a role in Dinitz’s algorithm for finding the
@@ -1052,7 +1063,7 @@ network, <code class="docutils literal notranslate"><span class="pre">G</span></
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/335df2f1069d9b6eae95e939daa18853a2980e1b22be60648e5ee9eb23918d73.png" src="../../../_images/335df2f1069d9b6eae95e939daa18853a2980e1b22be60648e5ee9eb23918d73.png" />
+<img alt="../../../_images/1d243b8d0859fbef40ac75c5c298f5a070dfe016f30ab13db7a2d2226fa2fc91.png" src="../../../_images/1d243b8d0859fbef40ac75c5c298f5a070dfe016f30ab13db7a2d2226fa2fc91.png" />
 </div>
 </div>
 <p>Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value</p>
@@ -1096,7 +1107,7 @@ only then we can send the package from that shipping point to that customer.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/313b617aa14b72b8751b9f7c13478983e66fdb99eef364d17bc9875fa6a6de74.png" src="../../../_images/313b617aa14b72b8751b9f7c13478983e66fdb99eef364d17bc9875fa6a6de74.png" />
+<img alt="../../../_images/15ac0bf5c695d708f2b7a9806fea5718520719424066bfb895b19da24d26d926.png" src="../../../_images/15ac0bf5c695d708f2b7a9806fea5718520719424066bfb895b19da24d26d926.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1161,7 +1172,7 @@ as 1 we only need to do one shipment per customer.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/289a0738b07a35c010d7d15d7aa0183934119c5b0043eb2bdf9b552086195759.png" src="../../../_images/289a0738b07a35c010d7d15d7aa0183934119c5b0043eb2bdf9b552086195759.png" />
+<img alt="../../../_images/77c98f496e33b772cf16123b051b14f4bd79f55ac5440fa9a996dfc32065aca4.png" src="../../../_images/77c98f496e33b772cf16123b051b14f4bd79f55ac5440fa9a996dfc32065aca4.png" />
 </div>
 </div>
 <p>Above we can see a matching of intermediate shipping points and customers which
@@ -1190,11 +1201,10 @@ Volume 3895. pp 218-240. <a class="reference external" href="https://doi.org/10.
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="../dag/index.html"
@@ -1214,10 +1224,7 @@ Volume 3895. pp 218-240. <a class="reference external" href="https://doi.org/10.
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1295,8 +1302,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
