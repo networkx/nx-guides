@@ -423,9 +423,7 @@ There may be webpages that have no outgoing links, so all users will be absorbed
 
 <i> So, how do we handle Markov chains that don't satisfy the required conditions?</i>
 
-At every step, we transition to a random state with the probability $\frac{1-\alpha}{N}$ where $N = $ Number of states and we can pick any value for $\alpha$.
-
-But it is not sufficient to just add these random transition probabilities because it breaks the assumption of a probability distribution of across states since the distribution no longer sums to one. To solve this problem, we use the damping factor $\alpha$. We first reduce the original transition probability by $\alpha$ and then add the random state transition probability of $\frac{1-\alpha}{N}$.
+Now we change the random walk slightly. At every step, with a chance $\alpha$, take a random walk as described above or we "jump" to a uniformly chosen random state with the probability $\frac{1-\alpha}{N}$ for each of the $N$ states. Typically $\alpha$ is chosen to be about 0.85. The jumping ensures that any state can be reached from any other (irreducible) and that the jumps can happen at any timestep (aperiodic). Note that the sum of the probabilities is 1 as it should be.
 
 ```{code-cell}
 H2 = nx.complete_graph(4, create_using=nx.MultiDiGraph())
