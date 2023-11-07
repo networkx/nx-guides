@@ -11,11 +11,7 @@ kernelspec:
   name: python3
 ---
 
-+++ {"id": "QqmEP19zFVew"}
-
 # Contributors Guide
-
-+++ {"id": "lUOvQg1MGRIo"}
 
 ## A Brief Roadmap for First-time Contributors
 
@@ -33,12 +29,7 @@ If you want to contribute to nx-guides and already decided on a topic to work on
 7. Engage in any discussion about your changes. Be sure to clearly communicate your thoughts.
  
 
-+++ {"id": "4dKrGBiRIhYZ"}
-
 ## Some Tips
-
-+++ {"id": "vt0xsWsIDA1K"}
-
 
 ### 1. Your notebook should be a `.md` file.
 
@@ -50,45 +41,31 @@ If you normally use `.ipynb` notebooks to work on, you can convert them to `.md`
 jupytext  --to md:myst <notebook-name>.ipynb
 ```
 
-+++ {"id": "XByALcTUDm1X"}
-
 ### 2. Use code-generated images as much as possible.
 
 Showing how to make high-quality visualizations of graph/network data is one of the primary goals of nx-guides tutorials! For this, images (especially graph visualizations) should be generated directly by code in the notebook as much as possible.
 
 If you also prefer to include static images to your notebook, you 
 
-+++ {"id": "buq5ho4UDwLw"}
-
 ### 3. Add requirements to ```requirements.txt```
 
 If you prefer to install and use other libraries, add related requirements to ```requirements.txt``` under ```nx-guides``` repository. (I.e. Do not install requirements using ```pip install``` command in your notebook.)
-
-+++ {"id": "39L-DjZREctA"}
 
 ### 4. User input is not supported yet.
 
 Our notebooks do not support getting input from the reader yet. Although it is an idea we consider for future, please keep narrative notebooks for now.
 
-+++ {"id": "6TqY5A99JgXc"}
-
 ### 5. Do not forget to add path of your notebook to `index.md`.
 
 You should include the path of your notebook in index.md file under `nx-guides/content/algorithms`.
-
-+++ {"id": "o8wvepdRKPFK"}
 
 ### 6. Header Levels
 
 Header levels should be incremented one by one. If you jump from level 2 to level 4 header, for example, msyt will produce an error to prevents you from passing the tests. In this example, if the current header level is 2, the following header level needs to be either 2 or 3.
 
-+++ {"id": "sHw3aPpOKfJU"}
-
 ### 7. You do not need to implement the algorithm in the same exact way as done inside NetworkX.
 
 nx-guides provides a pedagogical source for NetworkX algorithms. For this, you do not have to include source code of the algorithm as it is under NetworkX. If possible, feel free to remove bits that you think can be better compressed :)
-
-+++ {"id": "78u0INXfL47X"}
 
 ### 8. Feel free to use real-world datasets
 
@@ -97,8 +74,6 @@ One of the aims of nx-guides notebooks is to use different algorithms to explore
 Here is a good source for datasets:
 
 http://snap.stanford.edu/data/index.html
-
-+++
 
 ### 9. What if the tests are still failing?
 
@@ -109,8 +84,6 @@ You can also click on the "Details" link on the right side of "ci/circleci: buil
 ### Environment
 
 A good way to go about editing your markdown file is with Jupyter Notebook or other markdown file editors. Just make sure the metadata fits that of the other markdown files in nx-guides. 
-
-+++
 
 ## Format Guidelines
 
