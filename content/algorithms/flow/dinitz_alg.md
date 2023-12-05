@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.13.4
+    jupytext_version: 1.14.5
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -22,13 +22,15 @@ language_info:
   version: 3.10.1
 ---
 
-# Dinitz's algorithm and its applications
-In this notebook, we will introduce the [Maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)
-and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm) [^1], which is implemented at
-[algorithms/flow/dinitz_alg.py](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py)
+# Dinitz's Algorithm and Applications
+
+In this tutorial, we will explore the maximum flow problem [^1] and Dinitz's
+algorithm [^2] , which is implemented at
+[`algorithms/flow/dinitz_alg.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py)
 in NetworkX. We will also see how it can be used to solve some interesting problems.
 
-## Maximum flow problem
+
+## Import packages
 
 ```{code-cell} ipython3
 import networkx as nx
@@ -40,7 +42,10 @@ from copy import deepcopy
 from collections import deque
 ```
 
+## Maximum flow problem
+
 ### Motivation
+
 Let's say you want to send your friend some data as soon as possible, but the only way
 of communication/sending data between you two is through a peer-to-peer network. An
 interesting thing about this peer-to-peer network is that it allows you to send data
@@ -48,8 +53,8 @@ along the paths you specify with certain limits on the sizes of data per second 
 you can send between a pair of nodes in this network.
 
 ```{code-cell} ipython3
-# Load the example graph
 G = nx.read_gml("data/example_graph.gml")
+
 # Extract info about node position from graph (for visualization)
 pos = {k: np.asarray(v) for k, v in G.nodes(data="pos")}
 label_pos = deepcopy(pos)
@@ -95,8 +100,10 @@ a connection from node $u$ to node $v$ across which we can send data. There are 
 ```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(16, 8))
 
+# Color source and sink node
 node_colors = ["skyblue" if n in {"s", "t"} else "lightgray" for n in G.nodes]
 
+# Draw graph
 nx.draw(G, pos, ax=ax, node_color=node_colors, with_labels=True)
 nx.draw_networkx_labels(G, label_pos, labels=labels, ax=ax, font_size=16)
 ax.set_xlim([-1.4, 1.4]);
@@ -108,8 +115,10 @@ you can send from node $u$ to node $v$ is $c_{uv}$, lets call this as capacity o
 ```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(16, 8))
 
+# Label capacities
 capacities = {(u, v): c for u, v, c in G.edges(data="capacity")}
 
+# Draw graph
 nx.draw(G, pos, ax=ax, node_color=node_colors, with_labels=True)
 nx.draw_networkx_edge_labels(G, pos, edge_labels=capacities, ax=ax)
 nx.draw_networkx_labels(G, label_pos, labels=labels, ax=ax, font_size=16)
@@ -162,10 +171,12 @@ def check_valid_flow(G, flow, source_node, target_node):
 def visualize_flow(flow_graph):
     """Visualize flow returned by the `check_valid_flow` funcion."""
     fig, ax = plt.subplots(figsize=(15, 9))
-    
+
     # Draw the full graph for reference
-    nx.draw(G, pos, ax=ax, node_color=node_colors, edge_color="lightgrey", with_labels=True)
-    
+    nx.draw(
+        G, pos, ax=ax, node_color=node_colors, edge_color="lightgrey", with_labels=True
+    )
+
     # Draw the example flow on top
     flow_nc = [
         "skyblue" if n in {"s", "t"} else flow_graph.nodes[n].get("color", "lightgrey")
@@ -248,9 +259,7 @@ def residual_graph(G, flow):
     for (u, v), f in flow.items():
         capacity = G[u][v]["capacity"]
         if f > G[u][v]["capacity"]:
-            raise ValueError(
-                f"Flow {f} exceeds the capacity of edge {u!r}->{v!r}."
-            )
+            raise ValueError(f"Flow {f} exceeds the capacity of edge {u!r}->{v!r}.")
         H[u][v]["capacity"] -= f
         if H.has_edge(v, u):
             H[v][u]["capacity"] += f
@@ -283,18 +292,20 @@ def draw_residual_graph(R, ax=None):
     # Draw edges
     nx.draw_networkx_edges(R, pos, edgelist=orig_edges)
     nx.draw_networkx_edges(
-        R, pos, edgelist=rev_edges, edge_color="goldenrod", connectionstyle="arc3,rad=0.2"
+        R,
+        pos,
+        edgelist=rev_edges,
+        edge_color="goldenrod",
+        connectionstyle="arc3,rad=0.2",
     )
-    nx.draw_networkx_edges(R, pos, edgelist=zero_edges, style="--", edge_color="lightgrey")
-    
+    nx.draw_networkx_edges(
+        R, pos, edgelist=zero_edges, style="--", edge_color="lightgrey"
+    )
+
     # Label edges by capacity
     rv = set(rev_edges)
-    fwd_caps = {
-        (u, v): c for u, v, c in R.edges(data="capacity") if (u, v) not in rv
-    }
-    rev_caps = {
-        (u, v): c for u, v, c in R.edges(data="capacity") if (u, v) in rv
-    }
+    fwd_caps = {(u, v): c for u, v, c in R.edges(data="capacity") if (u, v) not in rv}
+    rev_caps = {(u, v): c for u, v, c in R.edges(data="capacity") if (u, v) in rv}
     nx.draw_networkx_edge_labels(R, pos, edge_labels=fwd_caps, label_pos=0.667)
     nx.draw_networkx_edge_labels(
         R, pos, edge_labels=rev_caps, label_pos=0.667, font_color="goldenrod"
@@ -333,8 +344,14 @@ network $L$ which connect nodes of 2 different levels
 ```{code-cell} ipython3
 # Mapping between node level and color for visualization
 level_colors = {
-    1:'aqua', 2:'lightgreen', 3:'yellow', 4:'orange', 5:'lightpink', 6:'violet'
+    1: "aqua",
+    2: "lightgreen",
+    3: "yellow",
+    4: "orange",
+    5: "lightpink",
+    6: "violet",
 }
+
 
 def level_bfs(R, flow, source_node, target_node):
     """BFS to construct the level network from residual network for given flow."""
@@ -453,7 +470,7 @@ aug_path = residual_graph(R.subgraph(path), aug_flow)
 # Node ordering in the subgraph can be different than `path`
 nodes = list(aug_path.nodes)
 node_colors = [level_colors[level[n]] for n in nodes]
-node_colors[nodes.index('s')] = node_colors[nodes.index('t')] = "skyblue"
+node_colors[nodes.index("s")] = node_colors[nodes.index("t")] = "skyblue"
 
 draw_residual_graph(aug_path, ax=plt.gca())
 ```
@@ -504,14 +521,11 @@ fig, axes = plt.subplots(4, 2, figsize=(20, 30))
 node_colors = ["skyblue" if n in {"s", "t"} else "lightgray" for n in G.nodes]
 
 for cutoff, ax in zip(cutoff_list, axes.ravel()):
-
     # calculating the maximum flow with the cutoff value
     R = nx.flow.dinitz(G, s="s", t="t", capacity="capacity", cutoff=cutoff)
 
     # coloring and labeling edges depending on if they have non-zero flow value or not
-    edge_colors = [
-        "lightgray" if R[u][v]["flow"] == 0 else "black" for u, v in G.edges
-    ]
+    edge_colors = ["lightgray" if R[u][v]["flow"] == 0 else "black" for u, v in G.edges]
     edge_labels = {
         (u, v): f"{R[u][v]['flow']}/{G[u][v]['capacity']}"
         for u, v in G.edges
@@ -534,7 +548,7 @@ fig.tight_layout()
 ```
 
 Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value
-## Reductions and Applications
+## Applications
 There are many other problems which can be reduced to Maximum flow problem, for example:
 * [Maximum Bipartite Matching](https://en.wikipedia.org/wiki/Matching_(graph_theory))
 * [Assignment Problem](https://en.wikipedia.org/wiki/Assignment_problem)
@@ -629,6 +643,8 @@ Above we can see a matching of intermediate shipping points and customers which
 gives the maximum shipping in a day.
 
 ## References
-[^1]: Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz.
+[^1]: [Wikipedia, Maximal Flow Problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)
+
+[^2]: Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz.
 In Theoretical Computer Science. Lecture Notes in Computer Science.
 Volume 3895. pp 218-240. <https://doi.org/10.1007/11685654_10>

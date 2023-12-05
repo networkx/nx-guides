@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.11.1
+    jupytext_version: 1.14.5
 kernelspec:
   display_name: Python 3
   language: python
@@ -25,8 +25,17 @@ language_info:
 # Geometric Generator Models
 
 In this tutorial, we'll explore the geometric network generator models
-implemented in networkx under networkx/generators/geometric.py and apply them
+implemented under [`networkx/generators/geometric.py`](https://github.com/networkx/networkx/blob/main/networkx/generators/geometric.py) and apply them
 to a real-world use case to learn how these models can be parameterized and used.
+
+## Import packages
+
+```{code-cell} ipython3
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+import networkx as nx
+```
 
 ## Geometric/Spatial Networks
 
@@ -48,7 +57,7 @@ The potential application of Spatial Networks to such a wide variety of
 real-world systems has motivated substainial research into these networks,
 with many unique but closely related models being proposed with theoretical
 proofs for many of their network properties.
-The 2010 Spatial Networks review article by Marc Barthélemy[^1] provides a
+The 2010 Spatial Networks review article by Marc Barthélemy [^1] provides a
 comprehensive overview of the field and reviews many of the most important
 theoretical proofs for the most common Spatial Network models.
 Here we explore some of the most typical Spatial Network models which have been
@@ -173,11 +182,6 @@ With this dataset, we can model the supercharger network with the various spatia
 networks implemented in networkx.
 
 ```{code-cell} ipython3
-%matplotlib inline
-import numpy as np
-import matplotlib.pyplot as plt
-import networkx as nx
-
 # Some matplotlib settings
 mpl_params = {
     "axes.titlesize": 20,
@@ -192,8 +196,8 @@ Next, we load the data and construct the graph.
 # from networkx.readwrite import json_graph
 import json
 
-#load json-ed networkx datafile
-with open('data/tesla_network.json','r') as infile:
+# load json-ed networkx datafile
+with open("data/tesla_network.json") as infile:
     G = nx.json_graph.node_link_graph(json.load(infile))
 ```
 
@@ -202,15 +206,15 @@ print(G)
 ```
 
 ```{code-cell} ipython3
-#example node data structure keyed on geohash of GPS cords
-G.nodes['dr7k46ycwwb8']
+# example node data structure keyed on geohash of GPS cords
+G.nodes["dr7k46ycwwb8"]
 ```
 
 ```{code-cell} ipython3
-#extract pos and weight attributes for use in models
+# extract pos and weight attributes for use in models
 nodes = G.nodes()
-pos = nx.get_node_attributes(G, 'pos')
-weight = nx.get_node_attributes(G, 'weight')
+pos = nx.get_node_attributes(G, "pos")
+weight = nx.get_node_attributes(G, "weight")
 ```
 
 Since we'll be visualizing a lot of graphs, let's define some general
@@ -242,7 +246,7 @@ fig.tight_layout()
 ```
 
 ```{code-cell} ipython3
-# Make edge visualization more prominent (and consistent) for the following 
+# Make edge visualization more prominent (and consistent) for the following
 # examples
 edge_opts["alpha"] = 0.8
 edge_opts["width"] = 0.2
@@ -312,7 +316,7 @@ fig, axes = plt.subplots(1, 3)
 
 pdfs = {
     "default": None,  # default: exponential distribution with `lambda=1`
-    r"$e^{-10d}$": lambda d: math.exp(-10*d),
+    r"$e^{-10d}$": lambda d: math.exp(-10 * d),
     "norm": norm(loc=0.1, scale=0.1).pdf,
 }
 for (title, pdf), ax in zip(pdfs.items(), axes.ravel()):
@@ -343,6 +347,8 @@ for thresh, ax in zip(thresholds, axes):
     ax.set_title(f"Threshold = {thresh}, {TRGG.number_of_edges()} edges")
 fig.tight_layout()
 ```
+
+## References
 
 [^1]: Spatial Networks <https://doi.org/10.1016/j.physrep.2010.11.002>
 

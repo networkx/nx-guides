@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'nx-guides'
-copyright = '2021, NetworkX developers'
+copyright = '2022, NetworkX developers'
 author = 'NetworkX developers'
 
 
@@ -33,6 +33,9 @@ extensions = [
 
 # MyST configuration
 myst_heading_anchors = 2
+myst_enable_extensions = ["dollarmath"]
+# if `True` then a transition line(----) will be placed before any footnotes
+myst_footnote_transition = False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -50,7 +53,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 #
 html_theme = 'sphinx_book_theme'
 html_title = 'NetworkX Notebooks'
-html_logo = '_static/networkx_logo.svg'
+html_logo = '_static/networkx_banner.svg'
 # html_favicon
 html_theme_options = {
     "github_url": "https://github.com/networkx/nx-guides/",
@@ -74,7 +77,4 @@ html_static_path = ['_static']
 
 # Bump up per cell execution timeout to 300 seconds (from default 30 seconds)
 nb_execution_timeout = 300
-
-# if `True` then a transition line(----) will be placed before any footnotes
-myst_footnote_transition = False
-
+nb_execution_show_tb = True  # Print tracebacks to stderr

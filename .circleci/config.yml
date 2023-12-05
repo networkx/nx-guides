@@ -6,7 +6,7 @@ jobs:
   build-docs:
     working_directory: ~/repo
     docker:
-      - image: cimg/python:3.9.2
+      - image: cimg/python:3.12.0
 
     steps:
       - checkout
@@ -43,7 +43,7 @@ jobs:
   deploy-docs:
     working_directory: ~/repo
     docker:
-      - image: cimg/python:3.9.2
+      - image: cimg/python:3.12.0
 
     steps:
       - checkout
@@ -64,7 +64,7 @@ jobs:
 
       - add_ssh_keys:
           fingerprints:
-            - c4:33:f8:20:13:b6:17:d0:40:0a:5e:be:59:3a:a9:31
+            - e2:d9:9d:0c:a3:57:51:4b:36:da:a9:87:11:42:3d:c4
 
       - run:
           name: Deploy via gh-pages

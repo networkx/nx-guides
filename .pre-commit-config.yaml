@@ -1,0 +1,10 @@
+repos:
+- repo: https://github.com/nbQA-dev/nbQA
+  rev: 1.7.0
+  hooks:
+   - id: nbqa-pyupgrade
+     additional_dependencies: [jupytext]
+     args: [--py311-plus, --nbqa-shell]
+   - id: nbqa-black
+     additional_dependencies: [jupytext]
+     args: [--nbqa-shell]

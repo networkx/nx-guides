@@ -6,6 +6,7 @@ numpy
 scipy
 matplotlib
 pandas
+ipython!=8.7.0
 
 # For testing and site generation
 nbval
@@ -13,3 +14,9 @@ sphinx
 myst-nb
 sphinx-book-theme
 jupytext
+black
+pyupgrade
+
+# Notebook requirements
+pygraphviz
+
