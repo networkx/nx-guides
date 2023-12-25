@@ -241,7 +241,7 @@ indegree_map = {v: d for v, d in G.in_degree() if d > 0}
 
 #### Step 2. Initialize first level.
 
-At each step of Kahn's algorithm, we seek out vertices with an in-degree of zero.
+At each step of Kahn's algorithm, we seek out vertices with an indegree of zero.
 In preparation for the first loop iteration of the algorithm,
 we can initialize a list called `zero_indegree` that houses these nodes:
 
@@ -254,7 +254,7 @@ zero_indegree = [v for v, d in G.in_degree() if d == 0]
 Now, we will show how the algorithm moves from one level to the next.
 
 Inside the loop, the first generation to be considered (`this_generation`)
-is the collection of nodes that have zero in-degrees.
+is the collection of nodes that have zero indegrees.
 
 We process all the vertices of the current level in variable `this_generation`
 and we store the next level in variable `zero_degree`.
