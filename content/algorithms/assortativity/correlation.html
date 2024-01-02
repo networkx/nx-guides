@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Node Assortativity Coefficients and Correlation Measures &#8212; NetworkX Notebooks</title>
   
@@ -19,32 +18,29 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/algorithms/assortativity/correlation';</script>
@@ -124,6 +120,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
@@ -157,7 +154,18 @@
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
@@ -394,6 +402,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -403,6 +412,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -459,7 +469,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="node-assortativity-coefficients-and-correlation-measures">
-<h1>Node Assortativity Coefficients and Correlation Measures<a class="headerlink" href="#node-assortativity-coefficients-and-correlation-measures" title="Permalink to this heading">#</a></h1>
+<h1>Node Assortativity Coefficients and Correlation Measures<a class="headerlink" href="#node-assortativity-coefficients-and-correlation-measures" title="Link to this heading">#</a></h1>
 <p>In this tutorial, we will explore the theory of assortativity <a class="footnote-reference brackets" href="#id5" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> and its measures.</p>
 <p>We’ll focus on assortativity measures available in NetworkX at <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/assortativity/correlation.py"><code class="docutils literal notranslate"><span class="pre">algorithms/assortativity/correlation.py</span></code></a>:</p>
 <ul class="simple">
@@ -469,7 +479,7 @@ document.write(`
 </ul>
 <p>as well as mixing matrices, which are closely related to assortativity measures.</p>
 <section id="import-packages">
-<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this heading">#</a></h2>
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
@@ -486,7 +496,7 @@ document.write(`
 </div>
 </section>
 <section id="assortativity">
-<h2>Assortativity<a class="headerlink" href="#assortativity" title="Permalink to this heading">#</a></h2>
+<h2>Assortativity<a class="headerlink" href="#assortativity" title="Link to this heading">#</a></h2>
 <p>Assortativity in a network refers to the tendency of nodes to connect with
 other ‘similar’ nodes over ‘dissimilar’ nodes.</p>
 <p>Here we say that two nodes are ‘similar’ with respect to a property if they have the same value of that property. Properties can be any structural properties like the degree of a node to other properties like weight, or capacity.</p>
@@ -494,11 +504,11 @@ other ‘similar’ nodes over ‘dissimilar’ nodes.</p>
 On the other hand, we can also have disassortativity, in which case nodes tend
 to connect to dissimilar nodes over similar nodes.</p>
 <section id="assortativity-coefficients">
-<h3>Assortativity coefficients<a class="headerlink" href="#assortativity-coefficients" title="Permalink to this heading">#</a></h3>
+<h3>Assortativity coefficients<a class="headerlink" href="#assortativity-coefficients" title="Link to this heading">#</a></h3>
 <p>Let’s say we have a network <span class="math notranslate nohighlight">\(N\)</span>, <span class="math notranslate nohighlight">\(N = (V, E)\)</span>  where <span class="math notranslate nohighlight">\(V\)</span> is the set of nodes in the network and <span class="math notranslate nohighlight">\(E\)</span> is the set of edges/directed edges in the network.
 In addition, <span class="math notranslate nohighlight">\(P(v)\)</span> represents a property for each node <span class="math notranslate nohighlight">\(v\)</span>.</p>
 <section id="mixing-matrix">
-<h4>Mixing matrix<a class="headerlink" href="#mixing-matrix" title="Permalink to this heading">#</a></h4>
+<h4>Mixing matrix<a class="headerlink" href="#mixing-matrix" title="Link to this heading">#</a></h4>
 <p>Let the property <span class="math notranslate nohighlight">\(P(v)\)</span> take <span class="math notranslate nohighlight">\(P[0],P[1],...P[k-1]\)</span> distinct values on the network,
 then the <strong>mixing matrix</strong> is matrix <span class="math notranslate nohighlight">\(M\)</span> such that <span class="math notranslate nohighlight">\(M[i][j]\)</span> represents the number of edges from
 nodes with property <span class="math notranslate nohighlight">\(P[i]\)</span> to <span class="math notranslate nohighlight">\(P[j]\)</span>.
@@ -519,7 +529,7 @@ respectively.</p>
 Pearson correlation coefficient.</p>
 </section>
 <section id="attribute-assortativity-coefficient">
-<h4>Attribute Assortativity Coefficient<a class="headerlink" href="#attribute-assortativity-coefficient" title="Permalink to this heading">#</a></h4>
+<h4>Attribute Assortativity Coefficient<a class="headerlink" href="#attribute-assortativity-coefficient" title="Link to this heading">#</a></h4>
 <p>Here the property <span class="math notranslate nohighlight">\(P(v)\)</span> is a nominal property assigned to each node.
 As defined above we calculate the normalized mixing matrix <span class="math notranslate nohighlight">\(e\)</span> and from that we
 define the attribute assortativity coefficient <a class="footnote-reference brackets" href="#id6" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> as below.</p>
@@ -529,7 +539,7 @@ define the attribute assortativity coefficient <a class="footnote-reference brac
 <p>It is implemented as <code class="docutils literal notranslate"><span class="pre">attribute_assortativity_coefficient</span></code>.</p>
 </section>
 <section id="numeric-assortativity-coefficient">
-<h4>Numeric Assortativity Coefficient<a class="headerlink" href="#numeric-assortativity-coefficient" title="Permalink to this heading">#</a></h4>
+<h4>Numeric Assortativity Coefficient<a class="headerlink" href="#numeric-assortativity-coefficient" title="Link to this heading">#</a></h4>
 <p>Here the property <span class="math notranslate nohighlight">\(P(v)\)</span> is a numerical property assigned to each
 node and the definition of the normalized mixing
 matrix <span class="math notranslate nohighlight">\(e\)</span>, <span class="math notranslate nohighlight">\(\sigma_a\)</span>, and <span class="math notranslate nohighlight">\(\sigma_b\)</span> are same as above.
@@ -539,7 +549,7 @@ From these we define numeric assortativity coefficient <a class="footnote-refere
 <p>It is implemented as <code class="docutils literal notranslate"><span class="pre">numeric_assortativity_coefficient</span></code>.</p>
 </section>
 <section id="degree-assortativity-coefficient">
-<h4>Degree Assortativity Coefficient<a class="headerlink" href="#degree-assortativity-coefficient" title="Permalink to this heading">#</a></h4>
+<h4>Degree Assortativity Coefficient<a class="headerlink" href="#degree-assortativity-coefficient" title="Link to this heading">#</a></h4>
 <p>When it comes to measuring degree assortativity for directed networks we have
 more options compared to assortativity w.r.t a property because we have 2 types
 of degrees, namely in-degree and out-degree.
@@ -569,7 +579,7 @@ it potentally faster.</p>
 </section>
 </section>
 <section id="assortativity-example">
-<h2>Assortativity Example<a class="headerlink" href="#assortativity-example" title="Permalink to this heading">#</a></h2>
+<h2>Assortativity Example<a class="headerlink" href="#assortativity-example" title="Link to this heading">#</a></h2>
 <p>Illustrating how value of assortativity changes</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -617,7 +627,7 @@ it potentally faster.</p>
   return (xy * (M - ab)).sum() / np.sqrt(vara * varb)
 </pre></div>
 </div>
-<img alt="../../../_images/08b6bbc98fd8509b2c2d3036da53b9f29c154914a9c0601dbb13c1ad07fb6973.png" src="../../../_images/08b6bbc98fd8509b2c2d3036da53b9f29c154914a9c0601dbb13c1ad07fb6973.png" />
+<img alt="../../../_images/34a44e929c0d55b40ef7c114c2995c5063c0f257818fae1d8d0f7c1a8a25503c.png" src="../../../_images/34a44e929c0d55b40ef7c114c2995c5063c0f257818fae1d8d0f7c1a8a25503c.png" />
 </div>
 </div>
 <p>Nodes are colored by the <code class="docutils literal notranslate"><span class="pre">cluster</span></code> property and labeled by <code class="docutils literal notranslate"><span class="pre">num_prop</span></code> property.
@@ -694,26 +704,26 @@ whose edges are considered in the mixing matrix calculation.</p>
   r = (t - s) / (1 - s)
 </pre></div>
 </div>
-<img alt="../../../_images/54db69211c167ba14c2c4bc352491937bcbb17ffed61aff492315ff10be76485.png" src="../../../_images/54db69211c167ba14c2c4bc352491937bcbb17ffed61aff492315ff10be76485.png" />
+<img alt="../../../_images/daaadcc0e904358b33afaa5cbaff43568f69cbe7003b397acf59bd450fa4ce00.png" src="../../../_images/daaadcc0e904358b33afaa5cbaff43568f69cbe7003b397acf59bd450fa4ce00.png" />
 </div>
 </div>
 <p>In the above plots only the nodes which are considered are colored and rest are
-grayed out and only the edges which are considerd in the assortaivty calculation
+grayed out and only the edges which are considerd in the assortativity calculation
 are drawn.</p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id5" role="note">
+<aside class="footnote brackets" id="id5" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Assortativity">Wikipedia, Assortativity</a></p>
 </aside>
-<aside class="footnote brackets" id="id6" role="note">
+<aside class="footnote brackets" id="id6" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
 <p>M. E. J. Newman, Mixing patterns in networks <a class="reference external" href="https://doi.org/10.1103/PhysRevE.67.026126">https://doi.org/10.1103/PhysRevE.67.026126</a></p>
 </aside>
-<aside class="footnote brackets" id="id7" role="note">
+<aside class="footnote brackets" id="id7" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
 <p>Foster, J.G., Foster, D.V., Grassberger, P. &amp; Paczuski, M. Edge direction and the structure of networks <a class="reference external" href="https://doi.org/10.1073/pnas.0912671107">https://doi.org/10.1073/pnas.0912671107</a></p>
 </aside>
@@ -730,7 +740,7 @@ are drawn.</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="../index.html"
@@ -799,6 +809,7 @@ By NetworkX developers
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, NetworkX developers.
@@ -825,8 +836,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

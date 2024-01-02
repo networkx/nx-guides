@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Euler’s Algorithm &#8212; NetworkX Notebooks</title>
   
@@ -19,32 +18,29 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/algorithms/euler/euler';</script>
@@ -124,6 +120,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
@@ -157,7 +154,18 @@
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
@@ -394,6 +402,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -403,6 +412,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -461,10 +471,10 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="euler-s-algorithm">
-<h1>Euler’s Algorithm<a class="headerlink" href="#euler-s-algorithm" title="Permalink to this heading">#</a></h1>
+<h1>Euler’s Algorithm<a class="headerlink" href="#euler-s-algorithm" title="Link to this heading">#</a></h1>
 <p>In this tutorial, we will explore Euler’s algorithm and its implementation in NetworkX under <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/euler.py"><code class="docutils literal notranslate"><span class="pre">networkx/algorithms/euler.py</span></code></a>.</p>
 <section id="import-package">
-<h2>Import package<a class="headerlink" href="#import-package" title="Permalink to this heading">#</a></h2>
+<h2>Import package<a class="headerlink" href="#import-package" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
@@ -474,7 +484,7 @@ document.write(`
 </div>
 </section>
 <section id="seven-bridges-of-konigsberg">
-<h2>Seven Bridges of Königsberg<a class="headerlink" href="#seven-bridges-of-konigsberg" title="Permalink to this heading">#</a></h2>
+<h2>Seven Bridges of Königsberg<a class="headerlink" href="#seven-bridges-of-konigsberg" title="Link to this heading">#</a></h2>
 <p>What you are seeing below is the beautiful old town of Königsberg which is famous for its seven bridges. Each of these bridges either connect two large islands — Kneiphof and Lomse — or two mainland portions of the city.</p>
 <p><img alt="image:map" src="../../../_images/map.png" /></p>
 <p>What gave the town its fame is a question that was asked to mathematician Leonhard Euler almost 300 years ago <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>:</p>
@@ -483,7 +493,7 @@ document.write(`
 </div></blockquote>
 <p>Euler’s negative resolution to this question laid the foundations of graph theory. Before diving into Euler’s solution, let’s reformulate the problem.</p>
 <section id="reformulating-the-problem-in-abstract-terms">
-<h3>Reformulating the Problem in Abstract Terms<a class="headerlink" href="#reformulating-the-problem-in-abstract-terms" title="Permalink to this heading">#</a></h3>
+<h3>Reformulating the Problem in Abstract Terms<a class="headerlink" href="#reformulating-the-problem-in-abstract-terms" title="Link to this heading">#</a></h3>
 <p>In order to have a clear look, we should first simplify the map a little.</p>
 <p><img alt="image:part1" src="../../../_images/part1.png" /></p>
 <p>Euler observed that the choice of route inside each land mass is irrelevant. The only thing that matters is the sequence of bridges to be crossed. This observation allows us to abstract the problem even more. In the graph below, blue vertices represent the land masses and edges represent the bridges that connect them.</p>
@@ -517,7 +527,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/8f52bc0f8a5875b171748fe18f5fb477d6e241d4389a9211fcf4fa3ddcc79a5b.png" src="../../../_images/8f52bc0f8a5875b171748fe18f5fb477d6e241d4389a9211fcf4fa3ddcc79a5b.png" />
+<img alt="../../../_images/edcce70b60c09648e54e1d298463841c308329bfeac0323bc6ead112452ca26b.png" src="../../../_images/edcce70b60c09648e54e1d298463841c308329bfeac0323bc6ead112452ca26b.png" />
 </div>
 </div>
 <p>Based on this abstraction, we can paraphrase the problem as follows:</p>
@@ -528,7 +538,7 @@ document.write(`
 <p>Note that every Euler Circuit is also an Euler Path.</p>
 </section>
 <section id="euler-s-method">
-<h3>Euler’s Method<a class="headerlink" href="#euler-s-method" title="Permalink to this heading">#</a></h3>
+<h3>Euler’s Method<a class="headerlink" href="#euler-s-method" title="Link to this heading">#</a></h3>
 <p>Euler <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> denoted land masses of the town by capital letters <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span>, <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(D\)</span> and bridges by lowercase <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, <span class="math notranslate nohighlight">\(c\)</span>, <span class="math notranslate nohighlight">\(d\)</span>, <span class="math notranslate nohighlight">\(e\)</span>, <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span>. Let’s draw the graph based on this node and edge labels.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -552,7 +562,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/02f4bd6c4928442b423e818e48510265b2d0e48d56e028b2963cb7a85ff3b786.png" src="../../../_images/02f4bd6c4928442b423e818e48510265b2d0e48d56e028b2963cb7a85ff3b786.png" />
+<img alt="../../../_images/fb062a3a227707fbc2090b899400002b551631e54e7ac0e824eef0399ca378d4.png" src="../../../_images/fb062a3a227707fbc2090b899400002b551631e54e7ac0e824eef0399ca378d4.png" />
 </div>
 </div>
 <p>He described his logic as follows:</p>
@@ -573,7 +583,7 @@ document.write(`
 <p>It is obvious that we cannot satisfy both of these conditions at the same time. Therefore, Euler concluded that there is no solution to Seven Bridges of Königsberg problem (I.e. Königsberg does not have an Euler Path).</p>
 </section>
 <section id="generalizing-euler-s-solution">
-<h3>Generalizing Euler’s Solution<a class="headerlink" href="#generalizing-euler-s-solution" title="Permalink to this heading">#</a></h3>
+<h3>Generalizing Euler’s Solution<a class="headerlink" href="#generalizing-euler-s-solution" title="Link to this heading">#</a></h3>
 <p>Euler generalized the method he applied for Königsberg problem as follows:</p>
 <blockquote>
 <div><p><em><strong>A graph has an Euler Path if and only if the number of vertices with odd degree is either zero or two.</strong></em></p>
@@ -585,7 +595,7 @@ document.write(`
 </section>
 </section>
 <section id="euler-s-algorithm-in-networkx">
-<h2>Euler’s Algorithm in NetworkX<a class="headerlink" href="#euler-s-algorithm-in-networkx" title="Permalink to this heading">#</a></h2>
+<h2>Euler’s Algorithm in NetworkX<a class="headerlink" href="#euler-s-algorithm-in-networkx" title="Link to this heading">#</a></h2>
 <p>NetworkX implements several methods using the Euler’s algorithm. These are:</p>
 <ul class="simple">
 <li><p><strong>is_eulerian</strong>      : Whether the graph has an Eulerian circuit</p></li>
@@ -598,7 +608,7 @@ document.write(`
 <p>In this part, we will briefly explain the NetworkX implementation of Euler’s algorithm by explaining some of these methods.</p>
 <p><strong>Note</strong>: NetworkX implementation does not allow graphs with isolated nodes to have Eulerian Path and/or Eulerian Circuit. Thus, an Eulerian Path or Eulerian Circuit must visit not only all edges, but also all vertices of the graph.</p>
 <section id="eulerian-circuit-implementation">
-<h3>1. Eulerian Circuit Implementation<a class="headerlink" href="#eulerian-circuit-implementation" title="Permalink to this heading">#</a></h3>
+<h3>1. Eulerian Circuit Implementation<a class="headerlink" href="#eulerian-circuit-implementation" title="Link to this heading">#</a></h3>
 <p>Implementation of the <code class="docutils literal notranslate"><span class="pre">is_eulerian</span></code> method is quite simple. In order to have an Euler circuit (i.e. to be Eulerian):</p>
 <ul class="simple">
 <li><p>A directed graph must be strongly connected and every vertex of it must have equal in degree and out degree.</p></li>
@@ -615,7 +625,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/38e39afad5890db89fd58809d94de866e36f62b0480ed2c6db81c67de4d6808e.png" src="../../../_images/38e39afad5890db89fd58809d94de866e36f62b0480ed2c6db81c67de4d6808e.png" />
+<img alt="../../../_images/7cb895f512f160f4cb301b4d22ec3ef41babf8a3fcfdf10ea33876a6d28c135c.png" src="../../../_images/7cb895f512f160f4cb301b4d22ec3ef41babf8a3fcfdf10ea33876a6d28c135c.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -672,7 +682,7 @@ document.write(`
 </div>
 </section>
 <section id="eulerian-path-implementation">
-<h3>2. Eulerian Path Implementation<a class="headerlink" href="#eulerian-path-implementation" title="Permalink to this heading">#</a></h3>
+<h3>2. Eulerian Path Implementation<a class="headerlink" href="#eulerian-path-implementation" title="Link to this heading">#</a></h3>
 <p>Networkx implementation of <code class="docutils literal notranslate"><span class="pre">has_eulerian_path</span></code> first checks if the graph <code class="docutils literal notranslate"><span class="pre">is_eulerian</span></code> or not. Remember that if a graph is Eulerian (i.e. has Euler Circuit), then it also has Eulerian Path.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">has_eulerian_path</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_eulerian</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
@@ -730,7 +740,7 @@ document.write(`
 </div>
 </section>
 <section id="examples">
-<h3>3. Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h3>
+<h3>3. Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
 <p>Let’s call the methods above on the Seven Bridges problem. For the reasons explained above, we expect our graph to have neither an Eulerian Circuit nor an Eulerian Path.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -765,7 +775,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/14c06c5f41aded56c56c0438ca7202fbaacce6f7223fc2ad653d5bd33e1228c0.png" src="../../../_images/14c06c5f41aded56c56c0438ca7202fbaacce6f7223fc2ad653d5bd33e1228c0.png" />
+<img alt="../../../_images/1ec5f63c101b2ddc638918e9ad7cf7aaae0263370327830cf4b49eacdd02b698.png" src="../../../_images/1ec5f63c101b2ddc638918e9ad7cf7aaae0263370327830cf4b49eacdd02b698.png" />
 </div>
 </div>
 <p>The answer is No! All nodes except for the one in the center have exactly 3 edges in the wheel graph. Thus, it cannot have an Eulerian Path.</p>
@@ -784,7 +794,7 @@ document.write(`
 </section>
 </section>
 <section id="euler-is-everywhere">
-<h2>Euler is everywhere!<a class="headerlink" href="#euler-is-everywhere" title="Permalink to this heading">#</a></h2>
+<h2>Euler is everywhere!<a class="headerlink" href="#euler-is-everywhere" title="Link to this heading">#</a></h2>
 <p>Euler’s algorithm is essential for anyone or anything that uses paths. Some examples of its real applications:</p>
 <ul class="simple">
 <li><p>To solve many complex problems, like the Konigsberg Seven Bridges Problem explained above.</p></li>
@@ -793,13 +803,13 @@ document.write(`
 </ul>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id3" role="note">
+<aside class="footnote brackets" id="id3" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg">Wikipedia, Seven Bridge of Konigsberg</a></p>
 </aside>
-<aside class="footnote brackets" id="id4" role="note">
+<aside class="footnote brackets" id="id4" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
 <p>Euler, Leonhard, ‘Solutio problematis ad geometriam situs pertinentis’ (1741), Eneström 53, MAA Euler Archive.</p>
 </aside>
@@ -816,7 +826,7 @@ document.write(`
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="../lca/LCA.html"
@@ -887,6 +897,7 @@ By NetworkX developers
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, NetworkX developers.
@@ -913,8 +924,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

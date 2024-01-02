@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Geometric Generator Models &#8212; NetworkX Notebooks</title>
   
@@ -19,32 +18,29 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/generators/geometric';</script>
@@ -124,6 +120,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../index.html">
@@ -157,7 +154,18 @@
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -394,6 +402,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -403,6 +412,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -465,12 +475,12 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="geometric-generator-models">
-<h1>Geometric Generator Models<a class="headerlink" href="#geometric-generator-models" title="Permalink to this heading">#</a></h1>
+<h1>Geometric Generator Models<a class="headerlink" href="#geometric-generator-models" title="Link to this heading">#</a></h1>
 <p>In this tutorial, we’ll explore the geometric network generator models
 implemented under <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/generators/geometric.py"><code class="docutils literal notranslate"><span class="pre">networkx/generators/geometric.py</span></code></a> and apply them
 to a real-world use case to learn how these models can be parameterized and used.</p>
 <section id="import-packages">
-<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this heading">#</a></h2>
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -483,7 +493,7 @@ to a real-world use case to learn how these models can be parameterized and used
 </div>
 </section>
 <section id="geometric-spatial-networks">
-<h2>Geometric/Spatial Networks<a class="headerlink" href="#geometric-spatial-networks" title="Permalink to this heading">#</a></h2>
+<h2>Geometric/Spatial Networks<a class="headerlink" href="#geometric-spatial-networks" title="Link to this heading">#</a></h2>
 <p>Many real-world complex systems have spatial components constraining the
 network structures these types of systems can produce.
 Infrastructure networks such as transportation, electrical, and
@@ -525,11 +535,11 @@ distance metrics.</p>
 connected by their shared parameterization.</p>
 <p><img alt="spatial_networks" src="../../_images/spatial_networks.png" /></p>
 <section id="individual-model-definitions">
-<h3>Individual Model Definitions<a class="headerlink" href="#individual-model-definitions" title="Permalink to this heading">#</a></h3>
+<h3>Individual Model Definitions<a class="headerlink" href="#individual-model-definitions" title="Link to this heading">#</a></h3>
 <p>This section summarizes the various models. The notation <span class="math notranslate nohighlight">\(E_{ij}\)</span>
 indicates an edges exists between nodes <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>.</p>
 <section id="random-geometric-graphs-r">
-<h4>Random Geometric Graphs (<span class="math notranslate nohighlight">\(R\)</span>)<a class="headerlink" href="#random-geometric-graphs-r" title="Permalink to this heading">#</a></h4>
+<h4>Random Geometric Graphs (<span class="math notranslate nohighlight">\(R\)</span>)<a class="headerlink" href="#random-geometric-graphs-r" title="Link to this heading">#</a></h4>
 <p>A d-dimensional Random Geometric Graph (RGG) is a graph where each of the <span class="math notranslate nohighlight">\(N\)</span>
 nodes is assigned random coordinates in the box <span class="math notranslate nohighlight">\([0, 1]^{d}\)</span>, and only
 nodes “close” to each other are connected by an edge <a class="footnote-reference brackets" href="#id10" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.
@@ -541,7 +551,7 @@ wireless networks.</p>
 \[ E_{ij}: d_{ij} \leq R \]</div>
 </section>
 <section id="waxman-graphs-alpha">
-<h4>Waxman Graphs (<span class="math notranslate nohighlight">\(\alpha\)</span>)<a class="headerlink" href="#waxman-graphs-alpha" title="Permalink to this heading">#</a></h4>
+<h4>Waxman Graphs (<span class="math notranslate nohighlight">\(\alpha\)</span>)<a class="headerlink" href="#waxman-graphs-alpha" title="Link to this heading">#</a></h4>
 <p>Waxman Graphs are the spatial generalization of Erdős–Rényi random graphs, where the
 probability of connection of nodes depends on a function of the distance between them<a class="footnote-reference brackets" href="#id12" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.
 The original edge probabiliy function proposed by Waxman is exponential in
@@ -558,7 +568,7 @@ or power laws, <span class="math notranslate nohighlight">\(-{d_{ij}}^{-\alpha}\
 \[ E_{ij} \propto P(d_{ij}) \]</div>
 </section>
 <section id="threshold-graphs-theta">
-<h4>Threshold Graphs (<span class="math notranslate nohighlight">\(\theta\)</span>)<a class="headerlink" href="#threshold-graphs-theta" title="Permalink to this heading">#</a></h4>
+<h4>Threshold Graphs (<span class="math notranslate nohighlight">\(\theta\)</span>)<a class="headerlink" href="#threshold-graphs-theta" title="Link to this heading">#</a></h4>
 <p>A simple graph G is a threshold graph if we can assign weights to the vertices
 such that a pair of distinct vertices is adjacent exactly when the sum of their
 assigned weights equals or exceeds a specified threshold, <span class="math notranslate nohighlight">\(\theta\)</span> <a class="footnote-reference brackets" href="#id13" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>.
@@ -570,7 +580,7 @@ models such as Geometric Threshold Graphs.</p>
 \[ E_{ij}: (w_i + w_j) \geq \theta \]</div>
 </section>
 <section id="geographical-threshold-graphs-p-d-ij-theta">
-<h4>Geographical Threshold Graphs (<span class="math notranslate nohighlight">\(P(d_{ij}), \theta\)</span>)<a class="headerlink" href="#geographical-threshold-graphs-p-d-ij-theta" title="Permalink to this heading">#</a></h4>
+<h4>Geographical Threshold Graphs (<span class="math notranslate nohighlight">\(P(d_{ij}), \theta\)</span>)<a class="headerlink" href="#geographical-threshold-graphs-p-d-ij-theta" title="Link to this heading">#</a></h4>
 <p>Geographical Threshold Graphs are the geographical generalization of Threshold
 Graphs, where a pair of vertices with weights <span class="math notranslate nohighlight">\(w_i, w_j\)</span>,
 and distance <span class="math notranslate nohighlight">\(d_{ij}\)</span> are connected if and only if the product between
@@ -580,7 +590,7 @@ function, <span class="math notranslate nohighlight">\(P(d_{ij})\)</span>, is gr
 \[ E_{ij}: (w_i + w_j) P(d_{ij}) \geq \theta \]</div>
 </section>
 <section id="soft-random-geometric-graphs-r-p-d-ij">
-<h4>Soft Random Geometric Graphs (<span class="math notranslate nohighlight">\(R, P(d_{ij})\)</span>)<a class="headerlink" href="#soft-random-geometric-graphs-r-p-d-ij" title="Permalink to this heading">#</a></h4>
+<h4>Soft Random Geometric Graphs (<span class="math notranslate nohighlight">\(R, P(d_{ij})\)</span>)<a class="headerlink" href="#soft-random-geometric-graphs-r-p-d-ij" title="Link to this heading">#</a></h4>
 <p>A recent extention of Random Geometric Graphs couples the influence of distance
 between nodes that are within the maximum connection distance, <span class="math notranslate nohighlight">\(R\)</span>, to better model
 real-world systems where node proximity does not necessarily guarantee a
@@ -592,7 +602,7 @@ Otherwise, they are disconnected <a class="footnote-reference brackets" href="#i
 \[ E_{ij} \propto P(d_{ij}) \textrm{ if } d_{ij} \leq R \]</div>
 </section>
 <section id="thresholded-random-geometric-graphs-r-theta">
-<h4>Thresholded Random Geometric Graphs (<span class="math notranslate nohighlight">\(R, \theta\)</span>)<a class="headerlink" href="#thresholded-random-geometric-graphs-r-theta" title="Permalink to this heading">#</a></h4>
+<h4>Thresholded Random Geometric Graphs (<span class="math notranslate nohighlight">\(R, \theta\)</span>)<a class="headerlink" href="#thresholded-random-geometric-graphs-r-theta" title="Link to this heading">#</a></h4>
 <p>Thresholded Random Geometric Graphs extend RGGs to incorporate node weights into
 the model, where connections are only made between nodes with sufficiently
 powerful weights, up to a maximum connection distance between nodes <a class="footnote-reference brackets" href="#id16" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a>.</p>
@@ -601,7 +611,7 @@ powerful weights, up to a maximum connection distance between nodes <a class="fo
 </section>
 </section>
 <section id="a-motivating-example">
-<h3>A Motivating Example<a class="headerlink" href="#a-motivating-example" title="Permalink to this heading">#</a></h3>
+<h3>A Motivating Example<a class="headerlink" href="#a-motivating-example" title="Link to this heading">#</a></h3>
 <p>For this tutorial, we’ll use the Tesla North American Supercharger network to
 highlight how the various spatial network models implemented in networkx can
 be parameterized and used.</p>
@@ -697,7 +707,7 @@ plotting options for consistent visualizations.</p>
 </section>
 </section>
 <section id="random-geometric-graphs">
-<h2>Random Geometric Graphs<a class="headerlink" href="#random-geometric-graphs" title="Permalink to this heading">#</a></h2>
+<h2>Random Geometric Graphs<a class="headerlink" href="#random-geometric-graphs" title="Link to this heading">#</a></h2>
 <p>For RGGs, we see the impact of increasing the maximum connection distance
 parameter <code class="docutils literal notranslate"><span class="pre">radius</span></code> in increasing the number of connections.</p>
 <div class="cell docutils container">
@@ -718,7 +728,7 @@ parameter <code class="docutils literal notranslate"><span class="pre">radius</s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/26140310807cd4c844a9aa6c2db0e7477e79afdc88338602427689ef4a7656ac.png" src="../../_images/26140310807cd4c844a9aa6c2db0e7477e79afdc88338602427689ef4a7656ac.png" />
+<img alt="../../_images/52c2819fe05a856f5b631ce0339e83b0213a53a5cf3afea9de44f11f292444a7.png" src="../../_images/52c2819fe05a856f5b631ce0339e83b0213a53a5cf3afea9de44f11f292444a7.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -733,7 +743,7 @@ parameter <code class="docutils literal notranslate"><span class="pre">radius</s
 </div>
 </section>
 <section id="geographical-threshold-graphs">
-<h2>Geographical Threshold Graphs<a class="headerlink" href="#geographical-threshold-graphs" title="Permalink to this heading">#</a></h2>
+<h2>Geographical Threshold Graphs<a class="headerlink" href="#geographical-threshold-graphs" title="Link to this heading">#</a></h2>
 <p>The GTG model allows for a wide range of custom parameters including custom node
 positioning, weights, and a metric between nodes and the probability of connection,
 <span class="math notranslate nohighlight">\(P(d_{ij})\)</span>.
@@ -763,7 +773,7 @@ nodes raised to the <span class="math notranslate nohighlight">\(-\alpha\)</span
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/961c77a55944f1e91c5e70cd8a04f5ddb24eb1ef43563cca55dd05d66cd32c5a.png" src="../../_images/961c77a55944f1e91c5e70cd8a04f5ddb24eb1ef43563cca55dd05d66cd32c5a.png" />
+<img alt="../../_images/d07a137146ccfef60c31e9d40405c7d733a2ac40cf4fa3719f8738a7f92d9e4a.png" src="../../_images/d07a137146ccfef60c31e9d40405c7d733a2ac40cf4fa3719f8738a7f92d9e4a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -791,12 +801,12 @@ nodes raised to the <span class="math notranslate nohighlight">\(-\alpha\)</span
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/74221930cc948c7686374a8533d2ddb254c4f7bbd7f9770233794934680ae28e.png" src="../../_images/74221930cc948c7686374a8533d2ddb254c4f7bbd7f9770233794934680ae28e.png" />
+<img alt="../../_images/48d20885635c83c9efd1af9099a2517cb8bd0eac7a243be8ddbc1a08d0f26b9c.png" src="../../_images/48d20885635c83c9efd1af9099a2517cb8bd0eac7a243be8ddbc1a08d0f26b9c.png" />
 </div>
 </div>
 </section>
 <section id="soft-random-geometric-graphs">
-<h2>Soft Random Geometric Graphs<a class="headerlink" href="#soft-random-geometric-graphs" title="Permalink to this heading">#</a></h2>
+<h2>Soft Random Geometric Graphs<a class="headerlink" href="#soft-random-geometric-graphs" title="Link to this heading">#</a></h2>
 <p>SRGGs utilize the maximum connection distance parameter, <span class="math notranslate nohighlight">\(R\)</span>, of RGGs but provide
 the ability to input an arbitrary connection probability function, <span class="math notranslate nohighlight">\(P(d_{ij})\)</span>,
 for nodes within the maximum connection distance.
@@ -821,12 +831,12 @@ distribution with rate parameter <code class="docutils literal notranslate"><spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/8607bb1a8efdcba92b8ee31bac89b1f4b3300904caf9d6a2a102e2cdc7d478c6.png" src="../../_images/8607bb1a8efdcba92b8ee31bac89b1f4b3300904caf9d6a2a102e2cdc7d478c6.png" />
+<img alt="../../_images/0c31bda33d8ac052ebe103a0527191560f28e1cfc6f73e936e0416fbda5c13bb.png" src="../../_images/0c31bda33d8ac052ebe103a0527191560f28e1cfc6f73e936e0416fbda5c13bb.png" />
 </div>
 </div>
 </section>
 <section id="thresholded-random-geometric-graphs">
-<h2>Thresholded Random Geometric Graphs<a class="headerlink" href="#thresholded-random-geometric-graphs" title="Permalink to this heading">#</a></h2>
+<h2>Thresholded Random Geometric Graphs<a class="headerlink" href="#thresholded-random-geometric-graphs" title="Link to this heading">#</a></h2>
 <p>TRGGs allow for the coupling of the maximum connection distance and threshold parameters.
 The default weights for TRGG are drawn from an exponential distribution with
 rate parameter <code class="docutils literal notranslate"><span class="pre">lambda=1</span></code>.</p>
@@ -848,42 +858,42 @@ rate parameter <code class="docutils literal notranslate"><span class="pre">lamb
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/3ddb8e073ada472878f0e21d57d478473653de13bc0824c4f5945a5b79ea66eb.png" src="../../_images/3ddb8e073ada472878f0e21d57d478473653de13bc0824c4f5945a5b79ea66eb.png" />
+<img alt="../../_images/068b11b3f03adc17d4bdb3f89b4c70b72f0000e3286a29273e7eb8836a6ebe9e.png" src="../../_images/068b11b3f03adc17d4bdb3f89b4c70b72f0000e3286a29273e7eb8836a6ebe9e.png" />
 </div>
 </div>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id9" role="note">
+<aside class="footnote brackets" id="id9" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>Spatial Networks <a class="reference external" href="https://doi.org/10.1016/j.physrep.2010.11.002">https://doi.org/10.1016/j.physrep.2010.11.002</a></p>
 </aside>
-<aside class="footnote brackets" id="id10" role="note">
+<aside class="footnote brackets" id="id10" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
 <p>Random Geometric Graphs <a class="reference external" href="https://doi.org/10.1103/PhysRevE.66.016121">https://doi.org/10.1103/PhysRevE.66.016121</a></p>
 </aside>
-<aside class="footnote brackets" id="id11" role="note">
+<aside class="footnote brackets" id="id11" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
 <p>Unit Disk Graphs <a class="reference external" href="https://doi.org/10.1016/0012-365X(90)90358-O">https://doi.org/10.1016/0012-365X(90)90358-O</a></p>
 </aside>
-<aside class="footnote brackets" id="id12" role="note">
+<aside class="footnote brackets" id="id12" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
 <p>Waxman Graphs <a class="reference external" href="https://doi.org/10.1109/49.12889">https://doi.org/10.1109/49.12889</a></p>
 </aside>
-<aside class="footnote brackets" id="id13" role="note">
+<aside class="footnote brackets" id="id13" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">6</a><span class="fn-bracket">]</span></span>
 <p>Threshold Graphs - <a class="reference external" href="https://doi.org/10.37236/219">https://doi.org/10.37236/219</a></p>
 </aside>
-<aside class="footnote brackets" id="id14" role="note">
+<aside class="footnote brackets" id="id14" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">8</a><span class="fn-bracket">]</span></span>
 <p>Geometric Threshold Graphs - <a class="reference external" href="https://doi.org/10.1103/PhysRevE.71.036108">https://doi.org/10.1103/PhysRevE.71.036108</a></p>
 </aside>
-<aside class="footnote brackets" id="id15" role="note">
+<aside class="footnote brackets" id="id15" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">7</a><span class="fn-bracket">]</span></span>
 <p>Soft Geometric Random Graphs - <a class="reference external" href="https://doi.org/10.1214/15-AAP1110">https://doi.org/10.1214/15-AAP1110</a></p>
 </aside>
-<aside class="footnote brackets" id="id16" role="note">
+<aside class="footnote brackets" id="id16" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">9</a><span class="fn-bracket">]</span></span>
 <p>Thresholded Random Geometric Graphs - <a class="reference external" href="http://hdl.handle.net/2117/111425">http://hdl.handle.net/2117/111425</a></p>
 </aside>
@@ -900,7 +910,7 @@ rate parameter <code class="docutils literal notranslate"><span class="pre">lamb
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="index.html"
@@ -975,6 +985,7 @@ By NetworkX developers
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, NetworkX developers.
@@ -1001,8 +1012,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

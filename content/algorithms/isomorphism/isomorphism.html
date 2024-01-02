@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Isomorphism - How to find if two graphs are similar? &#8212; NetworkX Notebooks</title>
   
@@ -19,32 +18,29 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/algorithms/isomorphism/isomorphism';</script>
@@ -124,6 +120,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
@@ -157,7 +154,18 @@
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
@@ -394,6 +402,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -403,6 +412,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -461,7 +471,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="isomorphism-how-to-find-if-two-graphs-are-similar">
-<h1>Isomorphism - How to find if two graphs are similar?<a class="headerlink" href="#isomorphism-how-to-find-if-two-graphs-are-similar" title="Permalink to this heading">#</a></h1>
+<h1>Isomorphism - How to find if two graphs are similar?<a class="headerlink" href="#isomorphism-how-to-find-if-two-graphs-are-similar" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
@@ -471,7 +481,7 @@ document.write(`
 </div>
 </div>
 <section id="what-is-isomorphism-why-is-it-interesting">
-<h2>What is isomorphism? Why is it interesting?<a class="headerlink" href="#what-is-isomorphism-why-is-it-interesting" title="Permalink to this heading">#</a></h2>
+<h2>What is isomorphism? Why is it interesting?<a class="headerlink" href="#what-is-isomorphism-why-is-it-interesting" title="Link to this heading">#</a></h2>
 <p>As unlabeled graphs can have multiple spatial representations, two graphs are isomorphic if they have the same number of edges, vertices, and same edges connectivity. Let’s see an example of two isomorphic graphs,</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -489,13 +499,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/32b82e535ce7ac03eefe42152748a28bd8881cdf497ea6143fea5de4d1865c63.png" src="../../../_images/32b82e535ce7ac03eefe42152748a28bd8881cdf497ea6143fea5de4d1865c63.png" />
+<img alt="../../../_images/89a01f43676d73b47df48f3bcfc5ae8a6f2ae694a3dcc04f4d8e6e86c194c4c7.png" src="../../../_images/89a01f43676d73b47df48f3bcfc5ae8a6f2ae694a3dcc04f4d8e6e86c194c4c7.png" />
 </div>
 </div>
 <p>The spatial representations of these two graphs are very different yet
 they are the same graphs!</p>
 <section id="formal-definition">
-<h3>Formal definition<a class="headerlink" href="#formal-definition" title="Permalink to this heading">#</a></h3>
+<h3>Formal definition<a class="headerlink" href="#formal-definition" title="Link to this heading">#</a></h3>
 <p>G and H are isomorphic if we can establish a bijection between the vertex sets of G and H.</p>
 <div class="math notranslate nohighlight">
 \[ {\displaystyle f\colon N(G)\to N(H)} \]</div>
@@ -509,7 +519,7 @@ Checking every combination is not a feasible option for bigger graphs.
 In fact, isomorphism is part of the problems known as NP. This means that we don’t know any algorithm that runs in polynomial time.</p>
 </section>
 <section id="applications">
-<h3>Applications<a class="headerlink" href="#applications" title="Permalink to this heading">#</a></h3>
+<h3>Applications<a class="headerlink" href="#applications" title="Link to this heading">#</a></h3>
 <p>There are a lot of applications of the graph isomorphism problem.</p>
 <ul class="simple">
 <li><p>Image recognition: Images can be translated to graphs and by finding (sub)isomorphisms we can compare if two images are similar.</p></li>
@@ -521,7 +531,7 @@ In fact, isomorphism is part of the problems known as NP. This means that we don
 </section>
 </section>
 <section id="isomorphism-algorithms">
-<h2>Isomorphism Algorithms<a class="headerlink" href="#isomorphism-algorithms" title="Permalink to this heading">#</a></h2>
+<h2>Isomorphism Algorithms<a class="headerlink" href="#isomorphism-algorithms" title="Link to this heading">#</a></h2>
 <p><strong>Naive Approach</strong></p>
 <p>There are some initial properties that we can check to decide whether it’s possible to have an isomorphism</p>
 <ul class="simple">
@@ -544,7 +554,7 @@ In fact, isomorphism is part of the problems known as NP. This means that we don
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/92b295ef27267baa8241391c4649306803f292e82aadb4bbd82b18eb9db56031.png" src="../../../_images/92b295ef27267baa8241391c4649306803f292e82aadb4bbd82b18eb9db56031.png" />
+<img alt="../../../_images/a2066e699e33ae46db107b7dfdaf634309387cab85e8bedbfe00789fb9126b18.png" src="../../../_images/a2066e699e33ae46db107b7dfdaf634309387cab85e8bedbfe00789fb9126b18.png" />
 </div>
 </div>
 <p>We can use the function <code class="docutils literal notranslate"><span class="pre">nx.faster_could_be_isomorphic()</span></code> that returns True if G and H have the same degree secuence.</p>
@@ -616,7 +626,7 @@ The clique sequence contains for each node the number of the maximal clique invo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/29d0b9f886676a62a455bf0b8f27a4af1f4c0741f0648442de8de293990d8ea2.png" src="../../../_images/29d0b9f886676a62a455bf0b8f27a4af1f4c0741f0648442de8de293990d8ea2.png" />
+<img alt="../../../_images/609ad7a18a4716051fd78cfa8b0dedad7d097c21ae25971388adc18fc011f5d0.png" src="../../../_images/609ad7a18a4716051fd78cfa8b0dedad7d097c21ae25971388adc18fc011f5d0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -634,7 +644,7 @@ The clique sequence contains for each node the number of the maximal clique invo
 <p>These graphs meet all the necessary conditions but they’re not isomorphic.</p>
 </section>
 <section id="some-classes-of-graphs-with-solution-in-polynomial-time">
-<h2>Some classes of graphs with solution in polynomial time<a class="headerlink" href="#some-classes-of-graphs-with-solution-in-polynomial-time" title="Permalink to this heading">#</a></h2>
+<h2>Some classes of graphs with solution in polynomial time<a class="headerlink" href="#some-classes-of-graphs-with-solution-in-polynomial-time" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Trees</p></li>
 <li><p>Planar graphs(In fact, planar graph isomorphism is O(log(n)))</p></li>
@@ -690,10 +700,10 @@ The clique sequence contains for each node the number of the maximal clique invo
 </div>
 </section>
 <section id="advanced-algorithms">
-<h2>Advanced Algorithms<a class="headerlink" href="#advanced-algorithms" title="Permalink to this heading">#</a></h2>
+<h2>Advanced Algorithms<a class="headerlink" href="#advanced-algorithms" title="Link to this heading">#</a></h2>
 <!-- #region -->
 <section id="vf2">
-<h3>VF2<a class="headerlink" href="#vf2" title="Permalink to this heading">#</a></h3>
+<h3>VF2<a class="headerlink" href="#vf2" title="Link to this heading">#</a></h3>
 <p>This algorithm is used to solve graph isomorphism and sub-graph isomorphism as well.</p>
 <p>VF2 is a recursive algorithm where in each step we extend the current matching function to cover more nodes of both graphs until there are no more nodes to match. This is not a brute-force approach because there are some feasibility rules to avoid exploring the whole recursion tree.</p>
 <p>Formally, We have a function <span class="math notranslate nohighlight">\( M: s \rightarrow N(G) \times N(H) \)</span>. <span class="math notranslate nohighlight">\(M\)</span> is a matching function between the subsets of nodes from <span class="math notranslate nohighlight">\(G\)</span> and <span class="math notranslate nohighlight">\(H\)</span> at the current state <span class="math notranslate nohighlight">\(s\)</span>. We start with an initial state <span class="math notranslate nohighlight">\(s_0\)</span> with <span class="math notranslate nohighlight">\(M(s_0) = \emptyset\)</span>. In each step we consider a set of nodes to expand the current state <span class="math notranslate nohighlight">\(s\)</span> to the following state <span class="math notranslate nohighlight">\(s'\)</span>. In this new state <span class="math notranslate nohighlight">\(M(s') = M(s) \cup {(g, h)} , g\in N(G), h\in N(H)\)</span>. The consistency condition is that the partial graphs <span class="math notranslate nohighlight">\(G\)</span> and <span class="math notranslate nohighlight">\(H\)</span> associated with <span class="math notranslate nohighlight">\(M(s)\)</span> are isomorphic. There are two types of feasibility checks:</p>
@@ -749,13 +759,13 @@ ENDIF
 </section>
 </section>
 <section id="state-of-the-art">
-<h2>State of the art<a class="headerlink" href="#state-of-the-art" title="Permalink to this heading">#</a></h2>
+<h2>State of the art<a class="headerlink" href="#state-of-the-art" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>VF2++ and VF2 Plus. They include some optimizations over the algorithm VF2.</p></li>
 <li><p>There are some new algorithms: QuickSI, GraphQL, TurboISO, BoostISO, CFL-Match, VF3, CECI, and DAF.</p></li>
 </ul>
 <section id="references">
-<h3>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h3>
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Gross J., Yellen J., Anderson M. (2018). <em>Graph Theory and Its applications</em> (3rd edition). CRC Press.</p></li>
 <li><p>Somkunwar R., Moreshwar Vaze V. <em>A Comparative Study of Graph Isomorphism Applications</em>. International Journal of Computer Applications (0975 – 8887). Volume 162 – No 7, (March 2017) <a class="reference external" href="https://www.ijcaonline.org/archives/volume162/number7/somkunwar-2017-ijca-913414.pdf">https://www.ijcaonline.org/archives/volume162/number7/somkunwar-2017-ijca-913414.pdf</a></p></li>
@@ -775,7 +785,7 @@ ENDIF
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="../euler/euler.html"
@@ -846,6 +856,7 @@ By NetworkX developers
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, NetworkX developers.
@@ -872,8 +883,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

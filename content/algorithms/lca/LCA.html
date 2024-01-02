@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lowest Common Ancestor &#8212; NetworkX Notebooks</title>
   
@@ -19,32 +18,29 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/algorithms/lca/LCA';</script>
@@ -124,6 +120,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
@@ -157,7 +154,18 @@
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
@@ -394,6 +402,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -403,6 +412,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -458,10 +468,10 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lowest-common-ancestor">
-<h1>Lowest Common Ancestor<a class="headerlink" href="#lowest-common-ancestor" title="Permalink to this heading">#</a></h1>
+<h1>Lowest Common Ancestor<a class="headerlink" href="#lowest-common-ancestor" title="Link to this heading">#</a></h1>
 <p>In this tutorial, we will explore the python implementation of the lowest common ancestor algorithm <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> in NetworkX at <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/lowest_common_ancestors.py"><code class="docutils literal notranslate"><span class="pre">networkx/algorithms/lowest_common_ancestor.py</span></code></a>. This notebook expects readers to be familiar with the NetworkX API. If you are new to NetworkX, you can go through the <a class="reference external" href="https://networkx.org/documentation/latest/tutorial.html">introductory tutorial</a>.</p>
 <section id="import-packages">
-<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this heading">#</a></h2>
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -474,7 +484,7 @@ document.write(`
 </div>
 </section>
 <section id="definitions">
-<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading">#</a></h2>
+<h2>Definitions<a class="headerlink" href="#definitions" title="Link to this heading">#</a></h2>
 <p>Before diving into the algorithm, let’s first remember the concepts of an ancestor node and a descendant node.</p>
 <ul class="simple">
 <li><p><strong>Ancestor:</strong>
@@ -484,7 +494,7 @@ Given a rooted tree, any node <span class="math notranslate nohighlight">\(u\)</
 </ul>
 </section>
 <section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h2>
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
 <p>It is always a good idea to learn concepts with an example. Consider the following evolutionary tree. We will draw a directed version of it and define the ancestor/descendant relationships.</p>
 <p><img alt="image:evolutionary tree" src="../../../_images/evol_tree.png" /></p>
 <p>Let’s first draw the tree using NetworkX.</p>
@@ -521,7 +531,7 @@ Given a rooted tree, any node <span class="math notranslate nohighlight">\(u\)</
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/cd1041e9ec028ee1f1b6ea235bf2499a19797c0c4ba8670e52f6aec8a057243c.png" src="../../../_images/cd1041e9ec028ee1f1b6ea235bf2499a19797c0c4ba8670e52f6aec8a057243c.png" />
+<img alt="../../../_images/bb8840d78a2200ab0c86f7d59943ee5ad08bcfd8bb7bcbbf92b51cfe95042a84.png" src="../../../_images/bb8840d78a2200ab0c86f7d59943ee5ad08bcfd8bb7bcbbf92b51cfe95042a84.png" />
 </div>
 </div>
 <p>Consider the tree above and observe the following relationships:</p>
@@ -548,10 +558,10 @@ Given a rooted tree, any node <span class="math notranslate nohighlight">\(u\)</
 <p><em>Note that, in terms of lowest common ancestor algorithms, every node is considered as an ancestor itself.</em></p>
 </section>
 <section id="networkx-s-implementation-of-lowest-common-ancestor-algorithm">
-<h2>NetworkX’s Implementation of Lowest Common Ancestor Algorithm<a class="headerlink" href="#networkx-s-implementation-of-lowest-common-ancestor-algorithm" title="Permalink to this heading">#</a></h2>
+<h2>NetworkX’s Implementation of Lowest Common Ancestor Algorithm<a class="headerlink" href="#networkx-s-implementation-of-lowest-common-ancestor-algorithm" title="Link to this heading">#</a></h2>
 <p>NetworkX uses a naive algorithm to find the lowest common ancestor of given pairs of nodes. In this section, we will introduce it step by step.</p>
 <section id="step-1-check-if-the-type-of-input-graph-is-dag">
-<h3>Step 1: Check if the type of input graph is DAG.<a class="headerlink" href="#step-1-check-if-the-type-of-input-graph-is-dag" title="Permalink to this heading">#</a></h3>
+<h3>Step 1: Check if the type of input graph is DAG.<a class="headerlink" href="#step-1-check-if-the-type-of-input-graph-is-dag" title="Link to this heading">#</a></h3>
 <p>Lowest common ancestor algorithms under NetworkX are implemented only for directed acyclic graphs with at least one node. For this, the source code first checks if the input graph is a valid one or not.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">naive_all_pairs_lowest_common_ancestor</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_directed_acyclic_graph</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
@@ -576,7 +586,7 @@ Given a rooted tree, any node <span class="math notranslate nohighlight">\(u\)</
 </div>
 </section>
 <section id="step-2-find-ancestors-of-all-nodes-in-g">
-<h3>Step 2: Find ancestors of all nodes in G.<a class="headerlink" href="#step-2-find-ancestors-of-all-nodes-in-g" title="Permalink to this heading">#</a></h3>
+<h3>Step 2: Find ancestors of all nodes in G.<a class="headerlink" href="#step-2-find-ancestors-of-all-nodes-in-g" title="Link to this heading">#</a></h3>
 <p>Once the input validation is done, we find all ancestors of every node in the pairs and store these information in a cache.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ancestor_cache</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -591,14 +601,14 @@ Given a rooted tree, any node <span class="math notranslate nohighlight">\(u\)</
 </div>
 </section>
 <section id="step-3-find-common-ancestors">
-<h3>Step 3: Find common ancestors<a class="headerlink" href="#step-3-find-common-ancestors" title="Permalink to this heading">#</a></h3>
+<h3>Step 3: Find common ancestors<a class="headerlink" href="#step-3-find-common-ancestors" title="Link to this heading">#</a></h3>
 <p>For each pair (v, w), we determine nodes that appear in both ancestor lists of <span class="math notranslate nohighlight">\(v\)</span> and <span class="math notranslate nohighlight">\(w\)</span>. (i.e. find all common ancestors)</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">common_ancestors</span> <span class="o">=</span> <span class="n">ancestor_cache</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">ancestor_cache</span><span class="p">[</span><span class="n">w</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
 <section id="step-4-find-a-node-in-common-ancestors-which-is-located-at-the-lowest-level-in-the-graph">
-<h3>Step 4: Find a node in common ancestors which is located at the lowest level in the graph.<a class="headerlink" href="#step-4-find-a-node-in-common-ancestors-which-is-located-at-the-lowest-level-in-the-graph" title="Permalink to this heading">#</a></h3>
+<h3>Step 4: Find a node in common ancestors which is located at the lowest level in the graph.<a class="headerlink" href="#step-4-find-a-node-in-common-ancestors-which-is-located-at-the-lowest-level-in-the-graph" title="Link to this heading">#</a></h3>
 <p>We start with an arbitrary node <span class="math notranslate nohighlight">\(v\)</span> from the set of common ancestors. We follow the arbitrary outgoing edges remaining in the set of common ancestors, until reaching a node with no outgoing edge to another of the common ancestors.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">common_ancestors</span><span class="p">))</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -637,7 +647,7 @@ method.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/8def7c8862942afc52f8470c9ec582105b607e4d58a6bafac2f6895f6445f57e.png" src="../../../_images/8def7c8862942afc52f8470c9ec582105b607e4d58a6bafac2f6895f6445f57e.png" />
+<img alt="../../../_images/03d81412923c2ed4ad70f5a5c5fa82763522080d026ad92c50d1fc7729d50310.png" src="../../../_images/03d81412923c2ed4ad70f5a5c5fa82763522080d026ad92c50d1fc7729d50310.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -669,14 +679,14 @@ method.</p>
 </section>
 </section>
 <section id="time-space-complexity">
-<h2>Time &amp; Space Complexity<a class="headerlink" href="#time-space-complexity" title="Permalink to this heading">#</a></h2>
+<h2>Time &amp; Space Complexity<a class="headerlink" href="#time-space-complexity" title="Link to this heading">#</a></h2>
 <p>Naive implementation of lowest common ancestor algorithm finds all ancestors of all nodes in the given pairs. Let the number of nodes given in the pairs be P. In the worst case, finding ancestors of a single node will take O(|V|) times where |V| is the number of nodes. Thus, constructing the ancestor cache of a graph will take O(|V|*P) times. This step will dominate the others and determine the worst-case running time of the algorithm.</p>
 <p>The space complexity of the algorithm will also be determined by the ancestor cache. For each node in the given pairs, there might be O(|V|) ancestors. Thus, space complexity is also O(|V|*P).</p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id2" role="note">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Lowest_common_ancestor">Wikipedia, Lowest common ancestor</a></p>
 </aside>
@@ -693,7 +703,7 @@ method.</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="../flow/dinitz_alg.html"
@@ -761,6 +771,7 @@ By NetworkX developers
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, NetworkX developers.
@@ -787,8 +798,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

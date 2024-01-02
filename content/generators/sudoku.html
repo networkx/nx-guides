@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Sudoku and Graph Coloring &#8212; NetworkX Notebooks</title>
   
@@ -19,32 +18,29 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/generators/sudoku';</script>
@@ -124,6 +120,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../index.html">
@@ -157,7 +154,18 @@
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -394,6 +402,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -403,6 +412,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -450,10 +460,10 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="sudoku-and-graph-coloring">
-<h1>Sudoku and Graph Coloring<a class="headerlink" href="#sudoku-and-graph-coloring" title="Permalink to this heading">#</a></h1>
+<h1>Sudoku and Graph Coloring<a class="headerlink" href="#sudoku-and-graph-coloring" title="Link to this heading">#</a></h1>
 <p>In this tutorial, we will apply graph theory to the problem of solving a Sudoku with NetworkX.</p>
 <section id="import-packages">
-<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this heading">#</a></h2>
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -466,7 +476,7 @@ document.write(`
 </div>
 </section>
 <section id="introduction-and-intuition">
-<h2>Introduction and Intuition<a class="headerlink" href="#introduction-and-intuition" title="Permalink to this heading">#</a></h2>
+<h2>Introduction and Intuition<a class="headerlink" href="#introduction-and-intuition" title="Link to this heading">#</a></h2>
 <p>Sudoku is a popular number-placement puzzle based on logic and combinatorics. The objective is to fill a 9 × 9 grid with digits such that each column, each row, and each of the nine 3 × 3 subgrids that compose the grid contain all of the digits from 1 to 9 (once and only once). Usually the puzzle is partially filled in a way that guarantees a unique solution, as of now from what we know at least 17 cues are needed to create a puzzle with a unique solution.</p>
 <p>Another way of looking at this puzzle is as follows:</p>
 <ul class="simple">
@@ -482,7 +492,7 @@ document.write(`
 <p><em>cayley graph</em> is simply a way of encoding information about group in a graph, as in we can define the sudoku puzzle completely in terms of a Graph, without missing any logical information or mathematical properties</p>
 </section>
 <section id="problem-formulation">
-<h2>Problem Formulation<a class="headerlink" href="#problem-formulation" title="Permalink to this heading">#</a></h2>
+<h2>Problem Formulation<a class="headerlink" href="#problem-formulation" title="Link to this heading">#</a></h2>
 <p>Informally the Sudoku graph is an undirected graph- its vertices represent the cells and edges represent pairs of cells that belong to the same row, column, or block of the puzzle. Formally this can be defined as:</p>
 <blockquote>
 <div><p>A Sudoku grid of rank <span class="math notranslate nohighlight">\(n\)</span> is a <span class="math notranslate nohighlight">\(n^2 × n^2\)</span> grid(<span class="math notranslate nohighlight">\(X_n\)</span>).
@@ -548,7 +558,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/35ca04aeb4c6aa31ec987fc17be960aa134fb8c86441da8b26af58be74a8dcdb.png" src="../../_images/35ca04aeb4c6aa31ec987fc17be960aa134fb8c86441da8b26af58be74a8dcdb.png" />
+<img alt="../../_images/de04062b648ce0ed13b6ea08329c56fe0087aa785ab10a558aa1e83aa88e8fb2.png" src="../../_images/de04062b648ce0ed13b6ea08329c56fe0087aa785ab10a558aa1e83aa88e8fb2.png" />
 </div>
 </div>
 <p>Now this can be solved using greedy graph coloring algorithms, it’s an NP hard problem, so some level of brute force is part of the process</p>
@@ -606,7 +616,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/d4cf160d952229743f3a694ee76290edd65bd9a7b58d5ab4e4798adb76dcd6ea.png" src="../../_images/d4cf160d952229743f3a694ee76290edd65bd9a7b58d5ab4e4798adb76dcd6ea.png" />
+<img alt="../../_images/7f22f67e9a8a1cc8bd1456b948bdd1e56958de742e37601f68376b42df2bd0d0.png" src="../../_images/7f22f67e9a8a1cc8bd1456b948bdd1e56958de742e37601f68376b42df2bd0d0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -641,7 +651,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/fd162ed4f8ee5d8a4c06aae1c9b4a652ee1b9eb60e9a91aa04f4096002260ece.png" src="../../_images/fd162ed4f8ee5d8a4c06aae1c9b4a652ee1b9eb60e9a91aa04f4096002260ece.png" />
+<img alt="../../_images/c4a010f8842c3e4d3ecdbb827113301654bca2e2b6231a09b0d23782f7330898.png" src="../../_images/c4a010f8842c3e4d3ecdbb827113301654bca2e2b6231a09b0d23782f7330898.png" />
 </div>
 </div>
 <p>There you go, so all the nodes are indexed as stacks of columns from 0 to 80, now we’ll separate the three different types of edges here</p>
@@ -709,7 +719,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/3dbde575b537bf22be19b8d47be0c1478dbe3a9aca483f301beddc485a474051.png" src="../../_images/3dbde575b537bf22be19b8d47be0c1478dbe3a9aca483f301beddc485a474051.png" />
+<img alt="../../_images/a9a37d6fb06e2d452c07e4c0509fca372e7d7b7d2b84c41082106b2f86c3a6d2.png" src="../../_images/a9a37d6fb06e2d452c07e4c0509fca372e7d7b7d2b84c41082106b2f86c3a6d2.png" />
 </div>
 </div>
 <p>Let’s change the layout a little to see all the edges that are invisible because they fall on top of each other</p>
@@ -720,7 +730,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/d053fd189d4297f04b82f3392bd79bf76d726302daf46ba6e93f55111f5bea6e.png" src="../../_images/d053fd189d4297f04b82f3392bd79bf76d726302daf46ba6e93f55111f5bea6e.png" />
+<img alt="../../_images/9d1ef14049c1e10282a0206552bb305003128099738a8d94148ab8a6739a111f.png" src="../../_images/9d1ef14049c1e10282a0206552bb305003128099738a8d94148ab8a6739a111f.png" />
 </div>
 </div>
 <p>pretty! Now, let’s check how do sudoku graphs look if sudokus were 16 x 16 grids instead of 9 x 9</p>
@@ -731,12 +741,12 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/b35a40714a5015a4eac678d962dcde8968f6a00b796fe499010bfb084d42dde7.png" src="../../_images/b35a40714a5015a4eac678d962dcde8968f6a00b796fe499010bfb084d42dde7.png" />
+<img alt="../../_images/9e19f0510f1d53d14ea44ec6137d066ad21371ecdba84a2167c176a05004ec76.png" src="../../_images/9e19f0510f1d53d14ea44ec6137d066ad21371ecdba84a2167c176a05004ec76.png" />
 </div>
 </div>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Sudoku_graph">Wikipedia - Sudoku Graph</a></p>
 </section>
 </section>
@@ -750,7 +760,7 @@ degree</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="geometric.html"
@@ -810,6 +820,7 @@ By NetworkX developers
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, NetworkX developers.
@@ -836,8 +847,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

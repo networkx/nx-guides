@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Dinitz’s Algorithm and Applications &#8212; NetworkX Notebooks</title>
   
@@ -19,32 +18,29 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/algorithms/flow/dinitz_alg';</script>
@@ -124,6 +120,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
@@ -157,7 +154,18 @@
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
@@ -394,6 +402,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -403,6 +412,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -462,13 +472,13 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="dinitz-s-algorithm-and-applications">
-<h1>Dinitz’s Algorithm and Applications<a class="headerlink" href="#dinitz-s-algorithm-and-applications" title="Permalink to this heading">#</a></h1>
+<h1>Dinitz’s Algorithm and Applications<a class="headerlink" href="#dinitz-s-algorithm-and-applications" title="Link to this heading">#</a></h1>
 <p>In this tutorial, we will explore the maximum flow problem <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> and Dinitz’s
 algorithm <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> , which is implemented at
 <a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py"><code class="docutils literal notranslate"><span class="pre">algorithms/flow/dinitz_alg.py</span></code></a>
 in NetworkX. We will also see how it can be used to solve some interesting problems.</p>
 <section id="import-packages">
-<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this heading">#</a></h2>
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
@@ -484,9 +494,9 @@ in NetworkX. We will also see how it can be used to solve some interesting probl
 </div>
 </section>
 <section id="maximum-flow-problem">
-<h2>Maximum flow problem<a class="headerlink" href="#maximum-flow-problem" title="Permalink to this heading">#</a></h2>
+<h2>Maximum flow problem<a class="headerlink" href="#maximum-flow-problem" title="Link to this heading">#</a></h2>
 <section id="motivation">
-<h3>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading">#</a></h3>
+<h3>Motivation<a class="headerlink" href="#motivation" title="Link to this heading">#</a></h3>
 <p>Let’s say you want to send your friend some data as soon as possible, but the only way
 of communication/sending data between you two is through a peer-to-peer network. An
 interesting thing about this peer-to-peer network is that it allows you to send data
@@ -525,7 +535,7 @@ you can send between a pair of nodes in this network.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/f2c362badfaade97050a1a0ea2c8ae372555eb6a56bc0bcf5dff68568dc295e2.png" src="../../../_images/f2c362badfaade97050a1a0ea2c8ae372555eb6a56bc0bcf5dff68568dc295e2.png" />
+<img alt="../../../_images/a1f41daa2b09da34221f272055e4b1eb4bc566c0bf38189a3800322d7b338e0c.png" src="../../../_images/a1f41daa2b09da34221f272055e4b1eb4bc566c0bf38189a3800322d7b338e0c.png" />
 </div>
 </div>
 <p>So how shall you plan the paths of the data packets to send them in the least amount
@@ -535,7 +545,7 @@ network and the receiver will be able to rearrange the data packets to reconstru
 the original data.</p>
 </section>
 <section id="formalization">
-<h3>Formalization<a class="headerlink" href="#formalization" title="Permalink to this heading">#</a></h3>
+<h3>Formalization<a class="headerlink" href="#formalization" title="Link to this heading">#</a></h3>
 <p>So how can we model this problem in terms of graphs?</p>
 <p>Let’s say <span class="math notranslate nohighlight">\(N=(V, E)\)</span> represents this peer-to-peer network with <span class="math notranslate nohighlight">\(V\)</span> as the set of nodes
 where nodes are computers and <span class="math notranslate nohighlight">\(E\)</span> as the set of edges where edge <span class="math notranslate nohighlight">\(uv \in E\)</span> if there is
@@ -556,7 +566,7 @@ a connection from node <span class="math notranslate nohighlight">\(u\)</span> t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/0879bd2ae7f9f04496d2d6496104ea36909f12cdd8a70398ec70426957f7062d.png" src="../../../_images/0879bd2ae7f9f04496d2d6496104ea36909f12cdd8a70398ec70426957f7062d.png" />
+<img alt="../../../_images/11e85b2d6e72b105e1e23d674faa15988716532bcfaf1d98bfa1d0c3c84a59a6.png" src="../../../_images/11e85b2d6e72b105e1e23d674faa15988716532bcfaf1d98bfa1d0c3c84a59a6.png" />
 </div>
 </div>
 <p>Now say that node <span class="math notranslate nohighlight">\(u\)</span> and node <span class="math notranslate nohighlight">\(v\)</span> are connected and the maximum data per second that
@@ -577,7 +587,7 @@ you can send from node <span class="math notranslate nohighlight">\(u\)</span> t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/e068f1f486782ce5cd9cb01ac44ef9888e6c3718f943603951dcb77051933f8e.png" src="../../../_images/e068f1f486782ce5cd9cb01ac44ef9888e6c3718f943603951dcb77051933f8e.png" />
+<img alt="../../../_images/e3810588646a973597de05a761d9b6c94460e0c3cc8c8862189eb369551b6500.png" src="../../../_images/e3810588646a973597de05a761d9b6c94460e0c3cc8c8862189eb369551b6500.png" />
 </div>
 </div>
 <p>So before go ahead and plan the paths on which we will be sending the data packets,
@@ -671,7 +681,7 @@ data to other nodes, except for the source <span class="math notranslate nohighl
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/e4c18faf5d889a7768a520dacc661a9c8d20ed312e7d1b119fe84116182fdae6.png" src="../../../_images/e4c18faf5d889a7768a520dacc661a9c8d20ed312e7d1b119fe84116182fdae6.png" />
+<img alt="../../../_images/ba7293920ce4758b88f0fc034bbc1763e12243f2118735ec72f819d319cbf3af.png" src="../../../_images/ba7293920ce4758b88f0fc034bbc1763e12243f2118735ec72f819d319cbf3af.png" />
 </div>
 </div>
 <p>example of invalid flow:</p>
@@ -705,7 +715,7 @@ Invalid flow: flow conservation violated at node e
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/2f340da6244918fc92003347c8400f8e9d446d3beefc103eaaa3ff1984f5591d.png" src="../../../_images/2f340da6244918fc92003347c8400f8e9d446d3beefc103eaaa3ff1984f5591d.png" />
+<img alt="../../../_images/97752725dd790fbe1ad294cffa514376a2799b36b30403dd11821229895cc071.png" src="../../../_images/97752725dd790fbe1ad294cffa514376a2799b36b30403dd11821229895cc071.png" />
 </div>
 </div>
 <p>red color edges dont satisfy capacity constraint and red color nodes dont satisfy the
@@ -722,10 +732,10 @@ which is the same as maximizing the flow value <span class="math notranslate noh
 </section>
 </section>
 <section id="dinitz-s-algorithm">
-<h2>Dinitz’s algorithm<a class="headerlink" href="#dinitz-s-algorithm" title="Permalink to this heading">#</a></h2>
+<h2>Dinitz’s algorithm<a class="headerlink" href="#dinitz-s-algorithm" title="Link to this heading">#</a></h2>
 <p>Before understanding how Dinitz’s algorithm works and its steps let’s define some terms.</p>
 <section id="residual-capacity-graph">
-<h3>Residual Capacity &amp; Graph<a class="headerlink" href="#residual-capacity-graph" title="Permalink to this heading">#</a></h3>
+<h3>Residual Capacity &amp; Graph<a class="headerlink" href="#residual-capacity-graph" title="Link to this heading">#</a></h3>
 <p>If we send <span class="math notranslate nohighlight">\(f_{uv}\)</span> flow through edge <span class="math notranslate nohighlight">\(uv\)</span> with capacity <span class="math notranslate nohighlight">\(c_{uv}\)</span>, then we define residual
 capacity by <span class="math notranslate nohighlight">\(g_{uv}=c_{uv}-f_{uv}\)</span> and residual network by <span class="math notranslate nohighlight">\(N'\)</span> which only considers the
 edges of <span class="math notranslate nohighlight">\(N\)</span> if they have non-zero residual capacity.</p>
@@ -806,7 +816,7 @@ edges of <span class="math notranslate nohighlight">\(N\)</span> if they have no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/b8e1623833383bcf42b92cb8faf9738b6830f44bc30846d63b4f0b5f8f3f065d.png" src="../../../_images/b8e1623833383bcf42b92cb8faf9738b6830f44bc30846d63b4f0b5f8f3f065d.png" />
+<img alt="../../../_images/bda96e2c385debc36b03656a4a760beb4f88fea63fc8c7d26db01f4137f811fd.png" src="../../../_images/bda96e2c385debc36b03656a4a760beb4f88fea63fc8c7d26db01f4137f811fd.png" />
 </div>
 </div>
 <p>This is the residual network for the flow shown above:</p>
@@ -818,13 +828,13 @@ edges of <span class="math notranslate nohighlight">\(N\)</span> if they have no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/c5f93bd13bbb24f025bdf224367b4ee0eb04ef9ce77345243d0305fd65f0d10e.png" src="../../../_images/c5f93bd13bbb24f025bdf224367b4ee0eb04ef9ce77345243d0305fd65f0d10e.png" />
+<img alt="../../../_images/7f6f8b48393dbf09ff41dbb8ab3f8ce09b9b895d6b8132866233cc2400a7c971.png" src="../../../_images/7f6f8b48393dbf09ff41dbb8ab3f8ce09b9b895d6b8132866233cc2400a7c971.png" />
 </div>
 </div>
 <p>Note: In residual network we consider both the <span class="math notranslate nohighlight">\(uv\)</span> and <span class="math notranslate nohighlight">\(vu\)</span> edges if any of them is in <span class="math notranslate nohighlight">\(N\)</span></p>
 </section>
 <section id="level-network">
-<h3>Level Network<a class="headerlink" href="#level-network" title="Permalink to this heading">#</a></h3>
+<h3>Level Network<a class="headerlink" href="#level-network" title="Link to this heading">#</a></h3>
 <p>The level network is a subgraph of the residual network which we get when we apply
 <a class="reference external" href="https://en.wikipedia.org/wiki/Breadth-first_search">BFS</a> from source node <span class="math notranslate nohighlight">\(s\)</span>
 considering only the edges for which we have <span class="math notranslate nohighlight">\(c_{uv}-f_{uv}&gt;0\)</span> in the residual network
@@ -905,14 +915,14 @@ network <span class="math notranslate nohighlight">\(L\)</span> which connect no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/a2b22648598815b033ccb5a6b9aff9ee096eec6f827c52a3fae268dc4cb50db4.png" src="../../../_images/a2b22648598815b033ccb5a6b9aff9ee096eec6f827c52a3fae268dc4cb50db4.png" />
+<img alt="../../../_images/fd42e97cf8bda937e706d78c3293448b27e0585cc2d289704295f936c021687c.png" src="../../../_images/fd42e97cf8bda937e706d78c3293448b27e0585cc2d289704295f936c021687c.png" />
 </div>
 </div>
 <p>Note that if sink node <span class="math notranslate nohighlight">\(t\)</span> is not reachable from the source node <span class="math notranslate nohighlight">\(s\)</span> that means that no
 more flow can be pushed through the residual network.</p>
 </section>
 <section id="augmenting-path-flow">
-<h3>Augmenting Path &amp; Flow<a class="headerlink" href="#augmenting-path-flow" title="Permalink to this heading">#</a></h3>
+<h3>Augmenting Path &amp; Flow<a class="headerlink" href="#augmenting-path-flow" title="Link to this heading">#</a></h3>
 <p>An <em>augmenting path</em> <span class="math notranslate nohighlight">\(P\)</span> is a path from source node <span class="math notranslate nohighlight">\(s\)</span> to sink node <span class="math notranslate nohighlight">\(t\)</span> such that all
 the edges on the path have positive residual capacity i.e. <span class="math notranslate nohighlight">\(g_{uv}&gt;0\)</span> for <span class="math notranslate nohighlight">\(uv \in P\)</span>.
 An <em>augmenting flow</em> <span class="math notranslate nohighlight">\(\alpha\)</span> for the path <span class="math notranslate nohighlight">\(P\)</span> is the minimum value of the residual
@@ -957,7 +967,7 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/48c33b3b7af1b6501c6b28387f12c9d3f9ac28b8ca12f273ae7f415d6f212157.png" src="../../../_images/48c33b3b7af1b6501c6b28387f12c9d3f9ac28b8ca12f273ae7f415d6f212157.png" />
+<img alt="../../../_images/9d431f33cb7569ebd8f0cb0eac23884024c60f6bbffb60600f46aabae4bb30f1.png" src="../../../_images/9d431f33cb7569ebd8f0cb0eac23884024c60f6bbffb60600f46aabae4bb30f1.png" />
 </div>
 </div>
 <p>Augmenting path after augmenting:</p>
@@ -980,7 +990,7 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/411f14fa44b694e377f1d795a5d3e263884a1e2db15fbdb1acecc92b66d8ef4b.png" src="../../../_images/411f14fa44b694e377f1d795a5d3e263884a1e2db15fbdb1acecc92b66d8ef4b.png" />
+<img alt="../../../_images/c4a8794de09b907ebd4887a5428be235867476886b346fb90407479a54d58297.png" src="../../../_images/c4a8794de09b907ebd4887a5428be235867476886b346fb90407479a54d58297.png" />
 </div>
 </div>
 <p>Resulting new residual Network:</p>
@@ -995,14 +1005,14 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/464d71953e5de2b77f831fff37fc082ee6ca9083b14197cdc9729bb16eb031e9.png" src="../../../_images/464d71953e5de2b77f831fff37fc082ee6ca9083b14197cdc9729bb16eb031e9.png" />
+<img alt="../../../_images/a577e5ee0ca88ab8cef0475ffe34a46f74c0111011105dfc03b6a87d4283ce60.png" src="../../../_images/a577e5ee0ca88ab8cef0475ffe34a46f74c0111011105dfc03b6a87d4283ce60.png" />
 </div>
 </div>
 <p>Each of the above steps plays a role in Dinitz’s algorithm for finding the
 maximum flow in a network, summarized below.</p>
 </section>
 <section id="algorithm">
-<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">#</a></h3>
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Initialize a flow with zero value, <span class="math notranslate nohighlight">\(f_{uv}=0\)</span></p></li>
 <li><p>Construct a residual network  <span class="math notranslate nohighlight">\(N'\)</span> from that flow</p></li>
@@ -1015,7 +1025,7 @@ output the flow</p></li>
 </section>
 </section>
 <section id="maximum-flow-in-networkx">
-<h2>Maximum flow in NetworkX<a class="headerlink" href="#maximum-flow-in-networkx" title="Permalink to this heading">#</a></h2>
+<h2>Maximum flow in NetworkX<a class="headerlink" href="#maximum-flow-in-networkx" title="Link to this heading">#</a></h2>
 <p>In the previous section, we decomposed the Dinitz algorithm into smaller steps
 to better understand the algorithm as a whole.
 In practice however, there’s no need to implement all these steps yourself!
@@ -1064,13 +1074,13 @@ network, <code class="docutils literal notranslate"><span class="pre">G</span></
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/1d243b8d0859fbef40ac75c5c298f5a070dfe016f30ab13db7a2d2226fa2fc91.png" src="../../../_images/1d243b8d0859fbef40ac75c5c298f5a070dfe016f30ab13db7a2d2226fa2fc91.png" />
+<img alt="../../../_images/583686606cfa708603a44c7947916a2e8480b85bbdcd9ee18a31b000e4a7adee.png" src="../../../_images/583686606cfa708603a44c7947916a2e8480b85bbdcd9ee18a31b000e4a7adee.png" />
 </div>
 </div>
 <p>Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value</p>
 </section>
 <section id="applications">
-<h2>Applications<a class="headerlink" href="#applications" title="Permalink to this heading">#</a></h2>
+<h2>Applications<a class="headerlink" href="#applications" title="Link to this heading">#</a></h2>
 <p>There are many other problems which can be reduced to Maximum flow problem, for example:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Matching_(graph_theory)">Maximum Bipartite Matching</a></p></li>
@@ -1108,7 +1118,7 @@ only then we can send the package from that shipping point to that customer.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/15ac0bf5c695d708f2b7a9806fea5718520719424066bfb895b19da24d26d926.png" src="../../../_images/15ac0bf5c695d708f2b7a9806fea5718520719424066bfb895b19da24d26d926.png" />
+<img alt="../../../_images/8d0172bf526b1f07dfc3b36e62380ae18b547b31feda3f1ed19a7cd03273d730.png" src="../../../_images/8d0172bf526b1f07dfc3b36e62380ae18b547b31feda3f1ed19a7cd03273d730.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1173,20 +1183,20 @@ as 1 we only need to do one shipment per customer.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/77c98f496e33b772cf16123b051b14f4bd79f55ac5440fa9a996dfc32065aca4.png" src="../../../_images/77c98f496e33b772cf16123b051b14f4bd79f55ac5440fa9a996dfc32065aca4.png" />
+<img alt="../../../_images/91880d49a4125caf74252a19546309824c00b83180f4176dd8f60a66624d58b8.png" src="../../../_images/91880d49a4125caf74252a19546309824c00b83180f4176dd8f60a66624d58b8.png" />
 </div>
 </div>
 <p>Above we can see a matching of intermediate shipping points and customers which
 gives the maximum shipping in a day.</p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id3" role="note">
+<aside class="footnote brackets" id="id3" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_flow_problem">Wikipedia, Maximal Flow Problem</a></p>
 </aside>
-<aside class="footnote brackets" id="id4" role="note">
+<aside class="footnote brackets" id="id4" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
 <p>Dinitz’ Algorithm: The Original Version and Even’s Version. 2006. Yefim Dinitz.
 In Theoretical Computer Science. Lecture Notes in Computer Science.
@@ -1205,7 +1215,7 @@ Volume 3895. pp 218-240. <a class="reference external" href="https://doi.org/10.
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="../dag/index.html"
@@ -1277,6 +1287,7 @@ By NetworkX developers
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, NetworkX developers.
@@ -1303,8 +1314,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
