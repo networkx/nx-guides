@@ -18,24 +18,24 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
@@ -57,7 +57,7 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
 
@@ -100,12 +100,18 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <header>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
   
+  </header>
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -469,7 +475,7 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="dinitz-s-algorithm-and-applications">
 <h1>Dinitz’s Algorithm and Applications<a class="headerlink" href="#dinitz-s-algorithm-and-applications" title="Link to this heading">#</a></h1>
@@ -570,7 +576,7 @@ a connection from node <span class="math notranslate nohighlight">\(u\)</span> t
 </div>
 </div>
 <p>Now say that node <span class="math notranslate nohighlight">\(u\)</span> and node <span class="math notranslate nohighlight">\(v\)</span> are connected and the maximum data per second that
-you can send from node <span class="math notranslate nohighlight">\(u\)</span> to node <span class="math notranslate nohighlight">\(v\)</span> is <span class="math notranslate nohighlight">\(c_{uv}\)</span>, lets call this as capacity of the edge <span class="math notranslate nohighlight">\(uv\)</span>.</p>
+you can send from node <span class="math notranslate nohighlight">\(u\)</span> to node <span class="math notranslate nohighlight">\(v\)</span> is <span class="math notranslate nohighlight">\(c_{uv}\)</span> and let’s call this the capacity of the edge <span class="math notranslate nohighlight">\(uv\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -590,13 +596,13 @@ you can send from node <span class="math notranslate nohighlight">\(u\)</span> t
 <img alt="../../../_images/e3810588646a973597de05a761d9b6c94460e0c3cc8c8862189eb369551b6500.png" src="../../../_images/e3810588646a973597de05a761d9b6c94460e0c3cc8c8862189eb369551b6500.png" />
 </div>
 </div>
-<p>So before go ahead and plan the paths on which we will be sending the data packets,
-we need some way to represent or plan on the network. Observe that any plan will have
+<p>So before we go ahead and plan the paths on which we will be sending the data packets,
+we need some ways to represent or plan on the network. Observe that any plan will have
 to take up some capacity of the edges, so we can represent the plan by the values of
 the capacity taken by it for each edge in E, let’s call the plan as <strong>flow</strong>. Formally,
 we can define flow as <span class="math notranslate nohighlight">\(f: E \to \mathbb{R}\)</span> i.e. a mapping from edges <span class="math notranslate nohighlight">\(E\)</span> to real numbers
 denoting that we are sending data at rate <span class="math notranslate nohighlight">\(f(uv)\)</span> through edge <span class="math notranslate nohighlight">\(uv\in E\)</span>.</p>
-<p>Note that for this plan to be a valid plan it must satisfy the following constraints</p>
+<p>Note that for this plan to be a valid plan, it must satisfy the following constraints:</p>
 <ul class="simple">
 <li><p><strong>Capacity constraint:</strong>
 The data rate at which we are sending data from any node shouldn’t exceed its
@@ -656,7 +662,7 @@ data to other nodes, except for the source <span class="math notranslate nohighl
 </div>
 </div>
 </div>
-<p>example of valid flow:</p>
+<p>Example of valid flow:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example_flow</span> <span class="o">=</span> <span class="p">{</span>
@@ -684,7 +690,7 @@ data to other nodes, except for the source <span class="math notranslate nohighl
 <img alt="../../../_images/ba7293920ce4758b88f0fc034bbc1763e12243f2118735ec72f819d319cbf3af.png" src="../../../_images/ba7293920ce4758b88f0fc034bbc1763e12243f2118735ec72f819d319cbf3af.png" />
 </div>
 </div>
-<p>example of invalid flow:</p>
+<p>Example of invalid flow:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example_flow</span> <span class="o">=</span> <span class="p">{</span>
@@ -718,8 +724,8 @@ Invalid flow: flow conservation violated at node e
 <img alt="../../../_images/97752725dd790fbe1ad294cffa514376a2799b36b30403dd11821229895cc071.png" src="../../../_images/97752725dd790fbe1ad294cffa514376a2799b36b30403dd11821229895cc071.png" />
 </div>
 </div>
-<p>red color edges dont satisfy capacity constraint and red color nodes dont satisfy the
-conservation of flow</p>
+<p>Red color edges don’t satisfy capacity constraint and red color nodes don’t satisfy the
+conservation of flow.</p>
 <p><em>So if we use this plan/flow to send data then at what rate will we be sending the data to friend?</em></p>
 <p>To answer this we need to observe that any data that the sink node <span class="math notranslate nohighlight">\(t\)</span> will receive will be
 from its neighbors so if we sum over the data rates from plan/flow from those neighbors to
@@ -801,7 +807,7 @@ edges of <span class="math notranslate nohighlight">\(N\)</span> if they have no
 </div>
 </div>
 </div>
-<p>example flow:</p>
+<p>Example flow:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example_flow</span> <span class="o">=</span> <span class="p">{</span>
@@ -1026,15 +1032,15 @@ output the flow</p></li>
 </section>
 <section id="maximum-flow-in-networkx">
 <h2>Maximum flow in NetworkX<a class="headerlink" href="#maximum-flow-in-networkx" title="Link to this heading">#</a></h2>
-<p>In the previous section, we decomposed the Dinitz algorithm into smaller steps
+<p>In the previous section, we decomposed the Dinitz’s algorithm into smaller steps
 to better understand the algorithm as a whole.
 In practice however, there’s no need to implement all these steps yourself!
 NetworkX provides an implementation of Dinitz’s algorithm:
 <a class="reference external" href="https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.flow.dinitz.html">nx.flow.dinitz</a>.
 <code class="docutils literal notranslate"><span class="pre">nx.flow.dinitz</span></code> includes several features in addition to those described above.
 For example, the <code class="docutils literal notranslate"><span class="pre">cutoff</span></code> keyword argument can be used to prematurely terminate
-the Dinitz algorithm once the desired flow value is reached.</p>
-<p>Let’s try out NetworkX’s implementation of Dinitz’s algorith on our example
+the Dinitz’s algorithm once the desired flow value is reached.</p>
+<p>Let’s try out NetworkX’s implementation of Dinitz’s algorithm on our example
 network, <code class="docutils literal notranslate"><span class="pre">G</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1244,6 +1250,7 @@ Volume 3895. pp 218-240. <a class="reference external" href="https://doi.org/10.
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -1314,8 +1321,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
 
   <footer class="bd-footer">
   </footer>
