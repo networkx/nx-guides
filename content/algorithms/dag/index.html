@@ -467,7 +467,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Definition</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kahn-s-algorithm">Kahn’s algorithm</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#networkx-implementation">NetworkX implementation</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-initialize-indegrees">Step 1. Initialize indegrees.</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-initialize-in-degrees">Step 1. Initialize in-degrees.</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-initialize-first-level">Step 2. Initialize first level.</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-move-from-one-level-to-the-next">Step 3. Move from one level to the next.</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-check-if-there-is-a-cycle-in-the-graph">Step 4. Check if there is a cycle in the graph.</a></li>
@@ -741,11 +741,11 @@ Thus, topological sorting is reduced to correctly stratifying the graph in this 
 </ul>
 <p>This procedure is implemented in the <code class="docutils literal notranslate"><span class="pre">topological_generations()</span></code> function, on which the <code class="docutils literal notranslate"><span class="pre">topological_sort()</span></code> function is based.</p>
 <p>Let’s see how the <code class="docutils literal notranslate"><span class="pre">topological_generations()</span></code> function is implemented in NetworkX step by step.</p>
-<section id="step-1-initialize-indegrees">
-<h4>Step 1. Initialize indegrees.<a class="headerlink" href="#step-1-initialize-indegrees" title="Link to this heading">#</a></h4>
-<p>Since in Kahn’s algorithm we are only interested in the indegrees of the vertices,
+<section id="step-1-initialize-in-degrees">
+<h4>Step 1. Initialize in-degrees.<a class="headerlink" href="#step-1-initialize-in-degrees" title="Link to this heading">#</a></h4>
+<p>Since in Kahn’s algorithm we are only interested in the in-degrees of the vertices,
 in order to preserve the structure of the graph as it is passed in,
-instead of removing the edges, we will decrease the indegree of the corresponding vertex.
+instead of removing the edges, we will decrease the in-degree of the corresponding vertex.
 Therefore, we will save these values in a separate <em>dictionary</em> <code class="docutils literal notranslate"><span class="pre">indegree_map</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">indegree_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">d</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">in_degree</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">}</span>
 </pre></div>
@@ -1026,7 +1026,7 @@ def topological_generations(G):
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Definition</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kahn-s-algorithm">Kahn’s algorithm</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#networkx-implementation">NetworkX implementation</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-initialize-indegrees">Step 1. Initialize indegrees.</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-initialize-in-degrees">Step 1. Initialize in-degrees.</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-initialize-first-level">Step 2. Initialize first level.</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-move-from-one-level-to-the-next">Step 3. Move from one level to the next.</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-check-if-there-is-a-cycle-in-the-graph">Step 4. Check if there is a cycle in the graph.</a></li>
