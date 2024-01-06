@@ -36,6 +36,7 @@ maxdepth: 1
 ---
 
 content/algorithms/index
+content/algorithms/geospatial/index
 content/generators/index
 content/exploratory_notebooks/facebook_notebook
 content/contributing
