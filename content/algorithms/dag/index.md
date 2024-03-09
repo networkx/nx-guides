@@ -257,7 +257,7 @@ Inside the loop, the first generation to be considered (`this_generation`)
 is the collection of nodes that have zero in-degrees.
 
 We process all the vertices of the current level in variable `this_generation`
-and we store the next level in variable `zero_degree`.
+and we store the next level in variable `zero_indegree`.
 
 For each vertex inside `this_generation`,
 we remove all of its outgoing edges.
