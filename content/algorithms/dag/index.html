@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
@@ -33,9 +33,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
-  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
@@ -60,7 +60,6 @@
   <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -100,13 +99,10 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <header>
   
-    <div class="bd-header navbar navbar-expand-lg bd-navbar">
-    </div>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
-  </header>
 
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
@@ -526,7 +522,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/b2c61f054584db09cd2538798d666bab3639eb1581337f2d09c9ea6a3e25ad94.png" src="../../../_images/b2c61f054584db09cd2538798d666bab3639eb1581337f2d09c9ea6a3e25ad94.png" />
+<img alt="../../../_images/a4e3f500a738d0af6caea91c6ba98ebdb548012bfa15a040976078fbdbd5e944.png" src="../../../_images/a4e3f500a738d0af6caea91c6ba98ebdb548012bfa15a040976078fbdbd5e944.png" />
 </div>
 </div>
 <section id="definition">
@@ -569,7 +565,7 @@ You will see this idea in action in the examples below.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/483b3ccf15dfe937990104c6c2878489b1a79742f712c541aac892b45d4c360f.png" src="../../../_images/483b3ccf15dfe937990104c6c2878489b1a79742f712c541aac892b45d4c360f.png" />
+<img alt="../../../_images/cfedb57039d546b1aff9aaf664fa840ee92b1c3141b5452ee19769feb0a5ca4e.png" src="../../../_images/cfedb57039d546b1aff9aaf664fa840ee92b1c3141b5452ee19769feb0a5ca4e.png" />
 </div>
 </div>
 <p>Here is a fun example of Professor Bumstead,
@@ -766,7 +762,7 @@ we can initialize a list called <code class="docutils literal notranslate"><span
 <p>Inside the loop, the first generation to be considered (<code class="docutils literal notranslate"><span class="pre">this_generation</span></code>)
 is the collection of nodes that have zero in-degrees.</p>
 <p>We process all the vertices of the current level in variable <code class="docutils literal notranslate"><span class="pre">this_generation</span></code>
-and we store the next level in variable <code class="docutils literal notranslate"><span class="pre">zero_degree</span></code>.</p>
+and we store the next level in variable <code class="docutils literal notranslate"><span class="pre">zero_indegree</span></code>.</p>
 <p>For each vertex inside <code class="docutils literal notranslate"><span class="pre">this_generation</span></code>,
 we remove all of its outgoing edges.</p>
 <p>Then, if the input degree of some vertex is zeroed as a result,
@@ -854,7 +850,7 @@ We need to check this while the <code class="docutils literal notranslate"><span
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>@nx._dispatch
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>@nx._dispatchable
 def topological_generations(G):
     &quot;&quot;&quot;Stratifies a DAG into generations.
 
@@ -1086,8 +1082,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>
