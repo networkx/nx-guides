@@ -20,3 +20,8 @@ pyupgrade
 # Notebook requirements
 pygraphviz
 
+libpysal
+contextily
+geopandas
+shapely
+rtree
