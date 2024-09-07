@@ -1,4 +1,4 @@
-name: NetworkX Notebooks
+name: Testing notebooks
 
 on:
   push:
@@ -7,6 +7,10 @@ on:
   pull_request:
     branches:
     - main
+  schedule:
+    - cron: '0 5 * * 1'
+  workflow_dispatch:
+
 
 jobs:
   build:
@@ -34,7 +38,7 @@ jobs:
         fi
         python3 -m venv ~/venv
         source ~/venv/bin/activate
-  
+
     - name: Install dependencies
       run: |
         pip install -U pip
@@ -47,7 +51,7 @@ jobs:
         # pre-commit wants files to be staged
         find content/ -name "*.ipynb" -exec git add {} \;
         pre-commit run --all-files --show-diff-on-failure --color always
-        
+
     - name: Test with nbval
       run: |
         find content/algorithms content/generators -name "*.md" -exec jupytext --to notebook {} \;
