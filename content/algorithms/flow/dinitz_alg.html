@@ -14,33 +14,33 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/algorithms/flow/dinitz_alg';</script>
@@ -57,27 +57,23 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -99,8 +95,13 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -124,6 +125,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../../../index.html">
   
@@ -141,7 +144,7 @@
   
   
 </a></div>
-        <div class="sidebar-primary-item"><ul class="navbar-icon-links navbar-nav"
+        <div class="sidebar-primary-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
         <li class="nav-item">
           
@@ -152,7 +155,7 @@
           
           
           
-          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -160,7 +163,7 @@
 
  <script>
  document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -170,7 +173,7 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../assortativity/correlation.html">Node Assortativity Coefficients and Correlation Measures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dag/index.html">Directed Acyclic Graphs &amp; Topological Sort</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Dinitz’s Algorithm and Applications</a></li>
@@ -178,12 +181,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../euler/euler.html">Euler’s Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../isomorphism/isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../generators/index.html">Graph Generators</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../generators/index.html">Graph Generators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../generators/geometric.html">Geometric Generator Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generators/sudoku.html">Sudoku and Graph Coloring</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../exploratory_notebooks/facebook_notebook.html">Facebook Network Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
 </ul>
@@ -201,7 +204,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -210,14 +213,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -242,14 +245,14 @@
       
       <li><a href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=tree/site/content/algorithms/flow/dinitz_alg.md" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onBinder"
+   title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../../../_static/images/logo_binder.svg">
+    <img alt="Binder logo" src="../../../_static/images/logo_binder.svg">
   </span>
 <span class="btn__text-container">Binder</span>
 </a>
@@ -407,10 +410,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -418,14 +421,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -537,7 +540,7 @@ you can send between a pair of nodes in this network.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/77ffc7296189ec40b39b2bc9dcbbb307fae115ac09f9d0742863c1c81948b9f6.png" src="../../../_images/77ffc7296189ec40b39b2bc9dcbbb307fae115ac09f9d0742863c1c81948b9f6.png" />
+<img alt="../../../_images/910e526e5f140a67fc509d87303065da477f528a86fb8dcf61b17fa274582955.png" src="../../../_images/910e526e5f140a67fc509d87303065da477f528a86fb8dcf61b17fa274582955.png" />
 </div>
 </div>
 <p>So how shall you plan the paths of the data packets to send them in the least amount
@@ -568,7 +571,7 @@ a connection from node <span class="math notranslate nohighlight">\(u\)</span> t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/c8d8bf0947a9f2642b818d28e368de220180bea62ad8b45d9108b5ef9decd246.png" src="../../../_images/c8d8bf0947a9f2642b818d28e368de220180bea62ad8b45d9108b5ef9decd246.png" />
+<img alt="../../../_images/37e1fa20d7db3eb9fd76209f2c72ca4a020606d3dd21b59c68353e13ec510c3b.png" src="../../../_images/37e1fa20d7db3eb9fd76209f2c72ca4a020606d3dd21b59c68353e13ec510c3b.png" />
 </div>
 </div>
 <p>Now say that node <span class="math notranslate nohighlight">\(u\)</span> and node <span class="math notranslate nohighlight">\(v\)</span> are connected and the maximum data per second that
@@ -589,7 +592,7 @@ you can send from node <span class="math notranslate nohighlight">\(u\)</span> t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/b70bcc5e1deb6f71de1d701a4511513f6b7660161881301203653e712dea701d.png" src="../../../_images/b70bcc5e1deb6f71de1d701a4511513f6b7660161881301203653e712dea701d.png" />
+<img alt="../../../_images/099f9aafbd8aafc28f9b3870364be05415441385b2529f6ad5c10ca531b4e35a.png" src="../../../_images/099f9aafbd8aafc28f9b3870364be05415441385b2529f6ad5c10ca531b4e35a.png" />
 </div>
 </div>
 <p>So before we go ahead and plan the paths on which we will be sending the data packets,
@@ -683,7 +686,7 @@ data to other nodes, except for the source <span class="math notranslate nohighl
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/808044ab136e3ca1355747724b782521d27c9deb14f26bf3b536e8da5470f5ba.png" src="../../../_images/808044ab136e3ca1355747724b782521d27c9deb14f26bf3b536e8da5470f5ba.png" />
+<img alt="../../../_images/6ce8a7f9551814f75913ec19563057047c9cf463718e7099313bd2df72d8d4f2.png" src="../../../_images/6ce8a7f9551814f75913ec19563057047c9cf463718e7099313bd2df72d8d4f2.png" />
 </div>
 </div>
 <p>Example of invalid flow:</p>
@@ -717,7 +720,7 @@ Invalid flow: flow conservation violated at node e
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/1e308d072ab46f0084d79b0a661dcda3a76ddd7c108a74e67cb21e4303b9b545.png" src="../../../_images/1e308d072ab46f0084d79b0a661dcda3a76ddd7c108a74e67cb21e4303b9b545.png" />
+<img alt="../../../_images/eb53d583200c8d2a1234b587ab0872130c246a4a7a204e2faa1b5d56e8c8feba.png" src="../../../_images/eb53d583200c8d2a1234b587ab0872130c246a4a7a204e2faa1b5d56e8c8feba.png" />
 </div>
 </div>
 <p>Red color edges don’t satisfy capacity constraint and red color nodes don’t satisfy the
@@ -818,7 +821,7 @@ edges of <span class="math notranslate nohighlight">\(N\)</span> if they have no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/814f8a6a498aadbd1bdbd64b5254cfdc84f05f9df04c1fa9d7f7fd253cfd2975.png" src="../../../_images/814f8a6a498aadbd1bdbd64b5254cfdc84f05f9df04c1fa9d7f7fd253cfd2975.png" />
+<img alt="../../../_images/129b4c62306fbd65f58801da36016dcec83b1252926776d1caff65af0ede37b4.png" src="../../../_images/129b4c62306fbd65f58801da36016dcec83b1252926776d1caff65af0ede37b4.png" />
 </div>
 </div>
 <p>This is the residual network for the flow shown above:</p>
@@ -830,7 +833,7 @@ edges of <span class="math notranslate nohighlight">\(N\)</span> if they have no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/ec8ac62cfab842c4f9fa10385405815ff555da2c358571b2eca6214838338bec.png" src="../../../_images/ec8ac62cfab842c4f9fa10385405815ff555da2c358571b2eca6214838338bec.png" />
+<img alt="../../../_images/438b644d3d82fab2ca0b9198465a72165105a48de220967a64afd516d92f02d8.png" src="../../../_images/438b644d3d82fab2ca0b9198465a72165105a48de220967a64afd516d92f02d8.png" />
 </div>
 </div>
 <p>Note: In residual network we consider both the <span class="math notranslate nohighlight">\(uv\)</span> and <span class="math notranslate nohighlight">\(vu\)</span> edges if any of them is in <span class="math notranslate nohighlight">\(N\)</span></p>
@@ -917,7 +920,7 @@ network <span class="math notranslate nohighlight">\(L\)</span> which connect no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/128f7dfce245b33a25afeb3eb030c5202a61cfda3c77a54f33ee9c4230b523ef.png" src="../../../_images/128f7dfce245b33a25afeb3eb030c5202a61cfda3c77a54f33ee9c4230b523ef.png" />
+<img alt="../../../_images/fd82043b583ff3349df86a51d31b3a4e227cf1a0338f7585fed45aaf2a095002.png" src="../../../_images/fd82043b583ff3349df86a51d31b3a4e227cf1a0338f7585fed45aaf2a095002.png" />
 </div>
 </div>
 <p>Note that if sink node <span class="math notranslate nohighlight">\(t\)</span> is not reachable from the source node <span class="math notranslate nohighlight">\(s\)</span> that means that no
@@ -969,7 +972,7 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/544f2c6f285e878a66133dbb349466ee75a0f4c1e4ca2e1232a3681a34eff392.png" src="../../../_images/544f2c6f285e878a66133dbb349466ee75a0f4c1e4ca2e1232a3681a34eff392.png" />
+<img alt="../../../_images/486a2c54445c45b09870406d32762a17be6d4ae2c762e5decc36cb436c88bf04.png" src="../../../_images/486a2c54445c45b09870406d32762a17be6d4ae2c762e5decc36cb436c88bf04.png" />
 </div>
 </div>
 <p>Augmenting path after augmenting:</p>
@@ -992,7 +995,7 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/3bbd89147756f03609d53ad986dae4ec6a29a2a2522bc21d3a0583735f154cbf.png" src="../../../_images/3bbd89147756f03609d53ad986dae4ec6a29a2a2522bc21d3a0583735f154cbf.png" />
+<img alt="../../../_images/9c73062383f09a0e24be35cc7d69768a9e7b76edaa56f39bcab5e1bcd1194356.png" src="../../../_images/9c73062383f09a0e24be35cc7d69768a9e7b76edaa56f39bcab5e1bcd1194356.png" />
 </div>
 </div>
 <p>Resulting new residual Network:</p>
@@ -1007,7 +1010,7 @@ on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/09edef2f7c425c68ba6f62fb944daf94042e5ad20deb9a6e944cd57952ee7fe5.png" src="../../../_images/09edef2f7c425c68ba6f62fb944daf94042e5ad20deb9a6e944cd57952ee7fe5.png" />
+<img alt="../../../_images/ec519954f81e6ce1aa66d85e70bbcd26f8d60bf1668d3180cc787d592ca2fc7a.png" src="../../../_images/ec519954f81e6ce1aa66d85e70bbcd26f8d60bf1668d3180cc787d592ca2fc7a.png" />
 </div>
 </div>
 <p>Each of the above steps plays a role in Dinitz’s algorithm for finding the
@@ -1076,7 +1079,7 @@ network, <code class="docutils literal notranslate"><span class="pre">G</span></
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/6d800228e9e449c5bde66796986807696a9a8d51a2510b3e4e74838c3a4036ed.png" src="../../../_images/6d800228e9e449c5bde66796986807696a9a8d51a2510b3e4e74838c3a4036ed.png" />
+<img alt="../../../_images/120ecc4acd752edabb2fa4b1ec1f015eda6459d0442da6c1e9689ddc9b5c84f7.png" src="../../../_images/120ecc4acd752edabb2fa4b1ec1f015eda6459d0442da6c1e9689ddc9b5c84f7.png" />
 </div>
 </div>
 <p>Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value</p>
@@ -1120,7 +1123,7 @@ only then we can send the package from that shipping point to that customer.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/7645db72be861f127ed3046b56c813a15c81c95cf853d1eb61b5aa970518a571.png" src="../../../_images/7645db72be861f127ed3046b56c813a15c81c95cf853d1eb61b5aa970518a571.png" />
+<img alt="../../../_images/0c6dde4a5cb3025a0725077648f873395d5b2d311117f9d80070a963b09d685a.png" src="../../../_images/0c6dde4a5cb3025a0725077648f873395d5b2d311117f9d80070a963b09d685a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1185,7 +1188,7 @@ as 1 we only need to do one shipment per customer.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/0c3dbdc647353652248d5f217a8a3f0bb80b16611901c69c42cde3bd75205ec4.png" src="../../../_images/0c3dbdc647353652248d5f217a8a3f0bb80b16611901c69c42cde3bd75205ec4.png" />
+<img alt="../../../_images/87a24a69ed83351fb420c8f780b8730ff967f1d5cc9246de9fa68017891a0833.png" src="../../../_images/87a24a69ed83351fb420c8f780b8730ff967f1d5cc9246de9fa68017891a0833.png" />
 </div>
 </div>
 <p>Above we can see a matching of intermediate shipping points and customers which
@@ -1193,6 +1196,8 @@ gives the maximum shipping in a day.</p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+</section>
+</section>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id3" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
@@ -1205,8 +1210,6 @@ In Theoretical Computer Science. Lecture Notes in Computer Science.
 Volume 3895. pp 218-240. <a class="reference external" href="https://doi.org/10.1007/11685654_10">https://doi.org/10.1007/11685654_10</a></p>
 </aside>
 </aside>
-</section>
-</section>
 
 
                 </article>
@@ -1216,7 +1219,7 @@ Volume 3895. pp 218-240. <a class="reference external" href="https://doi.org/10.
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1317,8 +1320,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
