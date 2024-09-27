@@ -42,7 +42,6 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -U pip
-        pip install -r requirements.txt
 
         if [ "$RUNNER_OS" == "macOS" ]; then
           pip install --config-settings="--global-option=build_ext" \
@@ -51,7 +50,11 @@ jobs:
                       pygraphviz
         elif [ "$RUNNER_OS" == "Linux" ]; then
           pip install pygraphviz
+
         fi
+
+        pip install -r requirements.txt
+        pip list
 
     - name: Lint with precommit
       run: |
