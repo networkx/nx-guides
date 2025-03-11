@@ -26,16 +26,17 @@ isomorphic if they have the same number of edges, vertices, and same edge connec
 Let's see an example of two isomorphic graphs:
 
 ```{code-cell}
-plt.subplot(221)
-G = nx.cubical_graph()
-nx.draw_spectral(G, with_labels=True, node_color="c")
-plt.title("G", fontweight="bold")
-H = nx.cubical_graph()
-plt.subplot(222)
-nx.draw_circular(H, with_labels=True, node_color="yellow")
-plt.title("H", fontweight="bold")
+fig, (G_ax, H_ax) = plt.subplots(1, 2, figsize=(8, 3))
 
-plt.show()
+G = nx.cubical_graph()
+nx.draw_spectral(G, with_labels=True, node_color="c", ax=G_ax)
+G_ax.set_title("G", fontweight="bold");
+
+H = nx.cubical_graph()
+nx.draw_circular(H, with_labels=True, node_color="yellow", ax=H_ax)
+H_ax.set_title("H", fontweight="bold");
+
+fig.tight_layout()
 ```
 
 The spatial representations of these two graphs are very different yet
@@ -91,15 +92,17 @@ These are necessary conditions but don't guarantee that two graphs are isomorphi
 Let's see a small example:
 
 ```{code-cell}
-plt.subplot(221)
+fig, (G_ax, H_ax) = plt.subplots(1, 2, figsize=(8, 3))
+
 G = nx.cycle_graph(6)
-nx.draw_circular(G)
-plt.title("G", fontweight="bold")
-plt.subplot(222)
+nx.draw_circular(G, ax=G_ax)
+G_ax.set_title("G", fontweight="bold");
+
 H = nx.union(nx.cycle_graph(3), nx.cycle_graph(3), rename=("s", "d"))
-nx.draw_circular(H, node_color="r")
-plt.title("H", fontweight="bold")
-plt.show()
+nx.draw_circular(H, node_color="r", ax=H_ax)
+H_ax.set_title("H", fontweight="bold");
+
+fig.tight_layout()
 ```
 
 We can use the function
@@ -147,18 +150,19 @@ Again we can detect that G and H are not isomorphic. But these conditions are
 not enough to say that two graphs are isomorphic. Let's look at the following example:
 
 ```{code-cell}
-plt.subplot(221)
+fig, (G_ax, H_ax) = plt.subplots(1, 2, figsize=(8, 3))
+
 G = nx.path_graph(5)
 G.add_edge(2, 5)
-nx.draw_circular(G, with_labels=True, node_color="g")
-plt.title("G", fontweight="bold")
+nx.draw_circular(G, with_labels=True, node_color="g", ax=G_ax)
+G_ax.set_title("G", fontweight="bold")
 
-plt.subplot(222)
 H = nx.path_graph(5)
 H.add_edge(3, 5)
-nx.draw_circular(H, with_labels=True, node_color="c")
-plt.title("H", fontweight="bold")
-plt.show()
+nx.draw_circular(H, with_labels=True, node_color="c", ax=H_ax)
+H_ax.set_title("H", fontweight="bold");
+
+fig.tight_layout()
 ```
 
 ```{code-cell}
