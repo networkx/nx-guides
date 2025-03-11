@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.14.5
+    jupytext_version: 1.16.7
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -30,11 +30,11 @@ fig, (G_ax, H_ax) = plt.subplots(1, 2, figsize=(8, 3))
 
 G = nx.cubical_graph()
 nx.draw_spectral(G, with_labels=True, node_color="c", ax=G_ax)
-G_ax.set_title("G", fontweight="bold");
+G_ax.set_title("G", fontweight="bold")
 
 H = nx.cubical_graph()
 nx.draw_circular(H, with_labels=True, node_color="yellow", ax=H_ax)
-H_ax.set_title("H", fontweight="bold");
+H_ax.set_title("H", fontweight="bold")
 
 fig.tight_layout()
 ```
@@ -96,11 +96,11 @@ fig, (G_ax, H_ax) = plt.subplots(1, 2, figsize=(8, 3))
 
 G = nx.cycle_graph(6)
 nx.draw_circular(G, ax=G_ax)
-G_ax.set_title("G", fontweight="bold");
+G_ax.set_title("G", fontweight="bold")
 
 H = nx.union(nx.cycle_graph(3), nx.cycle_graph(3), rename=("s", "d"))
 nx.draw_circular(H, node_color="r", ax=H_ax)
-H_ax.set_title("H", fontweight="bold");
+H_ax.set_title("H", fontweight="bold")
 
 fig.tight_layout()
 ```
@@ -160,7 +160,7 @@ G_ax.set_title("G", fontweight="bold")
 H = nx.path_graph(5)
 H.add_edge(3, 5)
 nx.draw_circular(H, with_labels=True, node_color="c", ax=H_ax)
-H_ax.set_title("H", fontweight="bold");
+H_ax.set_title("H", fontweight="bold")
 
 fig.tight_layout()
 ```
