@@ -16,29 +16,26 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -53,7 +50,6 @@
     <link rel="prev" title="Geometric Generator Models" href="geometric.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -69,8 +65,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -78,6 +85,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -85,8 +93,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -102,8 +110,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -133,7 +140,7 @@
     
     
     <img src="../../_static/networkx_banner.svg" class="logo__image only-light" alt="NetworkX Notebooks - Home"/>
-    <img src="../../_static/networkx_banner.svg" class="logo__image only-dark pst-js-only" alt="NetworkX Notebooks - Home"/>
+    <script>document.write(`<img src="../../_static/networkx_banner.svg" class="logo__image only-dark" alt="NetworkX Notebooks - Home"/>`);</script>
   
   
 </a></div>
@@ -154,11 +161,15 @@
 </ul></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
@@ -397,16 +408,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -452,10 +471,10 @@
 <h2>Import packages<a class="headerlink" href="#import-packages" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
 </pre></div>
 </div>
 </div>
@@ -544,7 +563,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/c16f1caec1829563a81b3d9ed63099fbaf1e7c92e4385ecc56ed4d9b63b702c4.png" src="../../_images/c16f1caec1829563a81b3d9ed63099fbaf1e7c92e4385ecc56ed4d9b63b702c4.png" />
+<img alt="../../_images/3bc0a9c695f328734fc182e47eb859f49a503678875d8705008ab4f0dd43cdb4.png" src="../../_images/3bc0a9c695f328734fc182e47eb859f49a503678875d8705008ab4f0dd43cdb4.png" />
 </div>
 </div>
 <p>Now this can be solved using greedy graph coloring algorithms, it’s an NP hard problem, so some level of brute force is part of the process</p>
@@ -556,14 +575,14 @@ degree</p>
 <p>Let’s generate a solved grid which we’ll try to visualize</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">sample</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">sample</span>
 
 
 <span class="c1"># Generate random sudoku</span>
-<span class="k">def</span> <span class="nf">generate_random_sudoku</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_random_sudoku</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="n">side</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span>
 
-    <span class="k">def</span> <span class="nf">_pattern</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_pattern</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span> <span class="o">%</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="n">r</span> <span class="o">//</span> <span class="n">n</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span> <span class="o">%</span> <span class="n">side</span>
 
     <span class="n">rBase</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
@@ -602,7 +621,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/77855569f03e0a63e1a68328f36bb6bdbfecc09007001a658ce0e2c8cdfe6ac3.png" src="../../_images/77855569f03e0a63e1a68328f36bb6bdbfecc09007001a658ce0e2c8cdfe6ac3.png" />
+<img alt="../../_images/aea5f563912c22acbec0499760a8740b9acd3ee6faffb1f9c24bf385c0201c56.png" src="../../_images/aea5f563912c22acbec0499760a8740b9acd3ee6faffb1f9c24bf385c0201c56.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -637,16 +656,16 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/7330b9094a64d02b891b773ee33b15c3bddec926f654f572f2d4bf0d6b6337e0.png" src="../../_images/7330b9094a64d02b891b773ee33b15c3bddec926f654f572f2d4bf0d6b6337e0.png" />
+<img alt="../../_images/7912afbd7b8c95c82f8f0079e6f502dae332701b409c2181fe0df92fb14cefcd.png" src="../../_images/7912afbd7b8c95c82f8f0079e6f502dae332701b409c2181fe0df92fb14cefcd.png" />
 </div>
 </div>
 <p>There you go, so all the nodes are indexed as stacks of columns from 0 to 80, now we’ll separate the three different types of edges here</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
 
 
-<span class="k">def</span> <span class="nf">separate_edges</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">separate_edges</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">sudoku_graph</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
     <span class="n">box_edges</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">row_edges</span> <span class="o">=</span> <span class="p">[]</span>
@@ -672,7 +691,7 @@ degree</p>
     <span class="k">return</span> <span class="n">row_edges</span><span class="p">,</span> <span class="n">box_edges</span><span class="p">,</span> <span class="n">column_edges</span>
 
 
-<span class="k">def</span> <span class="nf">plot_edge_colored_sudoku</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_edge_colored_sudoku</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">):</span>
     <span class="n">row_edges</span><span class="p">,</span> <span class="n">box_edges</span><span class="p">,</span> <span class="n">column_edges</span> <span class="o">=</span> <span class="n">separate_edges</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
     <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">sudoku_graph</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
     <span class="n">board</span> <span class="o">=</span> <span class="n">generate_random_sudoku</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
@@ -705,7 +724,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/db13c65854d835255420f9cf0bba2826f6f20278fc205fb25cfaa1038f8eda39.png" src="../../_images/db13c65854d835255420f9cf0bba2826f6f20278fc205fb25cfaa1038f8eda39.png" />
+<img alt="../../_images/6bf5802cae2eab69060d4ecd732c10c1200ffc75d74176c26d5acee6d7ab3795.png" src="../../_images/6bf5802cae2eab69060d4ecd732c10c1200ffc75d74176c26d5acee6d7ab3795.png" />
 </div>
 </div>
 <p>Let’s change the layout a little to see all the edges that are invisible because they fall on top of each other</p>
@@ -716,7 +735,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/458bf0983a3978d75c86eab82305b95701b13f417e39e4150099f5a335bb74e8.png" src="../../_images/458bf0983a3978d75c86eab82305b95701b13f417e39e4150099f5a335bb74e8.png" />
+<img alt="../../_images/4bc28bf497fb6a3d33551e421d088409c45a4b0d5ec928dee1c0be7319c1763b.png" src="../../_images/4bc28bf497fb6a3d33551e421d088409c45a4b0d5ec928dee1c0be7319c1763b.png" />
 </div>
 </div>
 <p>pretty! Now, let’s check how do sudoku graphs look if sudokus were 16 x 16 grids instead of 9 x 9</p>
@@ -727,7 +746,7 @@ degree</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/a4fd01ca304c59fcdc0d968b3ec1cfb00f9542dd32be985eda281a9181fb0854.png" src="../../_images/a4fd01ca304c59fcdc0d968b3ec1cfb00f9542dd32be985eda281a9181fb0854.png" />
+<img alt="../../_images/c969a7eb63511db6ea40662acec78b4eae4cd815338329b8012da59991fe321d.png" src="../../_images/c969a7eb63511db6ea40662acec78b4eae4cd815338329b8012da59991fe321d.png" />
 </div>
 </div>
 </section>
@@ -773,8 +792,7 @@ degree</p>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -835,8 +853,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

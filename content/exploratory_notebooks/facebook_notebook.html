@@ -16,29 +16,26 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -53,7 +50,6 @@
     <link rel="prev" title="Sudoku and Graph Coloring" href="../generators/sudoku.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -69,8 +65,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -78,6 +85,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -85,8 +93,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -102,8 +110,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -133,7 +140,7 @@
     
     
     <img src="../../_static/networkx_banner.svg" class="logo__image only-light" alt="NetworkX Notebooks - Home"/>
-    <img src="../../_static/networkx_banner.svg" class="logo__image only-dark pst-js-only" alt="NetworkX Notebooks - Home"/>
+    <script>document.write(`<img src="../../_static/networkx_banner.svg" class="logo__image only-dark" alt="NetworkX Notebooks - Home"/>`);</script>
   
   
 </a></div>
@@ -154,11 +161,15 @@
 </ul></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
@@ -397,16 +408,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -469,11 +488,11 @@
 <h2>Import packages<a class="headerlink" href="#import-packages" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">randint</span>
 
 <span class="o">%</span><span class="k">matplotlib</span> inline
 </pre></div>
@@ -607,7 +626,7 @@ functions.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/a56b7271df6fb4a1c02f2869640c1a9cdca2844533f6af5c803115acce44a368.png" src="../../_images/a56b7271df6fb4a1c02f2869640c1a9cdca2844533f6af5c803115acce44a368.png" />
+<img alt="../../_images/9922fbd9e1c87ee116a714c7fd0d43a67f7400f5665059fa3925bea263c79ed5.png" src="../../_images/9922fbd9e1c87ee116a714c7fd0d43a67f7400f5665059fa3925bea263c79ed5.png" />
 </div>
 </div>
 <p>The resulting image is… not very useful. Graph visualizations of this kind
@@ -634,7 +653,7 @@ visualizations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/16a767e7b6c5997b64ee3f38f7c29f7edcc5ec7387eccc5d7ce6e3aedd78f939.png" src="../../_images/16a767e7b6c5997b64ee3f38f7c29f7edcc5ec7387eccc5d7ce6e3aedd78f939.png" />
+<img alt="../../_images/4b9a94aa83f6947af2c0ac28222af6e5bc2fa8e38532f6dfd1be2746a177f809.png" src="../../_images/4b9a94aa83f6947af2c0ac28222af6e5bc2fa8e38532f6dfd1be2746a177f809.png" />
 </div>
 </div>
 <p>This visualization is much more useful than the previous one! Already we can
@@ -811,7 +830,7 @@ lengths from our pre-computed dict-of-dicts:</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Frequency (%)&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/1bb6de3b726b1a8be6a1f09d07b7589f3c047b5c5a0a901d0fc4dd35ce3f37b1.png" src="../../_images/1bb6de3b726b1a8be6a1f09d07b7589f3c047b5c5a0a901d0fc4dd35ce3f37b1.png" />
+<img alt="../../_images/91a224c75bdb4f5007c8db908dfe1a9f03c0e1dd2bd578611e04e96d15e809d8.png" src="../../_images/91a224c75bdb4f5007c8db908dfe1a9f03c0e1dd2bd578611e04e96d15e809d8.png" />
 </div>
 </div>
 <p>The majority of the shortest path lengths are from <span class="math notranslate nohighlight">\(2\)</span> to <span class="math notranslate nohighlight">\(5\)</span> edges long.
@@ -914,7 +933,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/08fb6ca44deb7c9e1fac7699d6421602632994adf6fb8766f5eb618d2bab1862.png" src="../../_images/08fb6ca44deb7c9e1fac7699d6421602632994adf6fb8766f5eb618d2bab1862.png" />
+<img alt="../../_images/4380a78a69d444dba45e072131d140d9ea46ca241a01c8e1121a125c3bf5b7c4.png" src="../../_images/4380a78a69d444dba45e072131d140d9ea46ca241a01c8e1121a125c3bf5b7c4.png" />
 </div>
 </div>
 <p>It is visible that the vast majority of facebook users have degree centralities of less than <span class="math notranslate nohighlight">\(0.05\)</span>. In fact the majority has less than <span class="math notranslate nohighlight">\(0.0125\)</span>. Actually, that makes sense because the network consists of friends lists of particular nodes, which are obviously the ones with the highest degree centralities. In other words, because only the friends list of particular nodes were used to create this particular network, plenty of nodes have extremely low degree centralities as they are not very interconnected in this network</p>
@@ -937,7 +956,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  np.float64(0.7322139519453049))
 </pre></div>
 </div>
-<img alt="../../_images/0f875072c65a5d59ad26e8977d524c187f91e84d812ac646d4e3383802eeb933.png" src="../../_images/0f875072c65a5d59ad26e8977d524c187f91e84d812ac646d4e3383802eeb933.png" />
+<img alt="../../_images/20520d5c3f6f5c881a8e8904f60c3c32ba396fe3444fd94063f97078b57ecf68.png" src="../../_images/20520d5c3f6f5c881a8e8904f60c3c32ba396fe3444fd94063f97078b57ecf68.png" />
 </div>
 </div>
 </section>
@@ -991,7 +1010,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/c1774512a7735c2962bbd8d40b6a04db17722c223e339bb4de6d643899e1f200.png" src="../../_images/c1774512a7735c2962bbd8d40b6a04db17722c223e339bb4de6d643899e1f200.png" />
+<img alt="../../_images/fe882dd417a45f4af7ec3c5d8a069d8214512a346af15d2dc7dbb3c8c09ba602.png" src="../../_images/fe882dd417a45f4af7ec3c5d8a069d8214512a346af15d2dc7dbb3c8c09ba602.png" />
 </div>
 </div>
 <p>As we can see, the vast majority of betweenness centralities is below <span class="math notranslate nohighlight">\(0.01\)</span>. That makes sense as the graph is very sparse and thus most nodes do not act as bridges in shortest paths. However, that also results in some nodes having extremely high betweenness centralities as for example node <span class="math notranslate nohighlight">\(107\)</span> with <span class="math notranslate nohighlight">\(0.48\)</span> and node <span class="math notranslate nohighlight">\(1684\)</span> with <span class="math notranslate nohighlight">\(0.34\)</span> betweenness centrality.</p>
@@ -1014,7 +1033,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  np.float64(0.7322139519453049))
 </pre></div>
 </div>
-<img alt="../../_images/b508cfe48986a2563ed6a0d28e6895aa0e6e1bace489c5e6939d7dc353e7aed5.png" src="../../_images/b508cfe48986a2563ed6a0d28e6895aa0e6e1bace489c5e6939d7dc353e7aed5.png" />
+<img alt="../../_images/7a72121754859e64722bff1591ce1006cac59e0d33d9dc0f6b49c0dba72b2a0c.png" src="../../_images/7a72121754859e64722bff1591ce1006cac59e0d33d9dc0f6b49c0dba72b2a0c.png" />
 </div>
 </div>
 </section>
@@ -1079,7 +1098,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/54c678ffcef3e6e75b45e9db7212ed2a1c06b9a98b1206b8ef575937cbfc68a5.png" src="../../_images/54c678ffcef3e6e75b45e9db7212ed2a1c06b9a98b1206b8ef575937cbfc68a5.png" />
+<img alt="../../_images/e0f543bbe75d7b9da21c4e677d232d7f82e8567c0184fa8f717fde96ce2f5cd9.png" src="../../_images/e0f543bbe75d7b9da21c4e677d232d7f82e8567c0184fa8f717fde96ce2f5cd9.png" />
 </div>
 </div>
 <p>The closeness centralities are distributed over various values from <span class="math notranslate nohighlight">\(0.17\)</span> to <span class="math notranslate nohighlight">\(0.46\)</span>. In fact, the majority of them are found between <span class="math notranslate nohighlight">\(0.25\)</span> and <span class="math notranslate nohighlight">\(0.3\)</span>. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:</p>
@@ -1101,7 +1120,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  np.float64(0.7322139519453049))
 </pre></div>
 </div>
-<img alt="../../_images/2e8134242b765899d47c3076122360931af966e2b491f39d1d55bf1a562b520a.png" src="../../_images/2e8134242b765899d47c3076122360931af966e2b491f39d1d55bf1a562b520a.png" />
+<img alt="../../_images/64fc86921c4d3316122e6e989a56ffb4016f607de2f6701cdec3c95c47d552e3.png" src="../../_images/64fc86921c4d3316122e6e989a56ffb4016f607de2f6701cdec3c95c47d552e3.png" />
 </div>
 </div>
 </section>
@@ -1180,7 +1199,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/9fbe72df71c074759ec3f4032f53f64f5615d7566ab228c2a1d987fe8b201be4.png" src="../../_images/9fbe72df71c074759ec3f4032f53f64f5615d7566ab228c2a1d987fe8b201be4.png" />
+<img alt="../../_images/3697e47cca4372267c70d267f525c2ed845c414251f57cbf4ed9694bafa42c45.png" src="../../_images/3697e47cca4372267c70d267f525c2ed845c414251f57cbf4ed9694bafa42c45.png" />
 </div>
 </div>
 <p>As shown in the distribution histogram, the vast majority of eigenvector centralities are below <span class="math notranslate nohighlight">\(0.005\)</span> and are actually almost <span class="math notranslate nohighlight">\(0\)</span>. However, we can also see different values of eigenvector centralities as there are tiny bins all over the x axis.</p>
@@ -1203,7 +1222,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  np.float64(0.7322139519453049))
 </pre></div>
 </div>
-<img alt="../../_images/f6a0a1562d6ff938825ec281c889b10b02e3ee7b030a466c32719d67efeaf890.png" src="../../_images/f6a0a1562d6ff938825ec281c889b10b02e3ee7b030a466c32719d67efeaf890.png" />
+<img alt="../../_images/c834c5b23f5bce3b282f105d7309db62064677818773b39985a53928509eda4a.png" src="../../_images/c834c5b23f5bce3b282f105d7309db62064677818773b39985a53928509eda4a.png" />
 </div>
 </div>
 </section>
@@ -1238,7 +1257,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/708de3f47baf3af0f33f49e1d70c5a92398b94e4b72311214efe83d690cf3c79.png" src="../../_images/708de3f47baf3af0f33f49e1d70c5a92398b94e4b72311214efe83d690cf3c79.png" />
+<img alt="../../_images/d4a3e22471ee419109bf87b37fc85cd2e390b81683a6e616171bc8672d01e207.png" src="../../_images/d4a3e22471ee419109bf87b37fc85cd2e390b81683a6e616171bc8672d01e207.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(50\)</span> bins were used to showcase the distribution. The bin with the highest counts concerns nodes with clustering coefficient close to <span class="math notranslate nohighlight">\(1\)</span> as there are more than two-hundred-fifty nodes in that bin. In addition, the bins of clustering coefficient between <span class="math notranslate nohighlight">\(0.4\)</span> and <span class="math notranslate nohighlight">\(0.8\)</span> contain the majority of nodes by far.</p>
@@ -1358,7 +1377,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
  np.float64(0.7322139519453049))
 </pre></div>
 </div>
-<img alt="../../_images/9085be476e173f1d93717821dace91b181a5e49726b9e6009fa0a82816a9b865.png" src="../../_images/9085be476e173f1d93717821dace91b181a5e49726b9e6009fa0a82816a9b865.png" />
+<img alt="../../_images/b6321bd674b58dbd94be22d8399683ed05b24c2f430bb9ca803856d6ffb4caf8.png" src="../../_images/b6321bd674b58dbd94be22d8399683ed05b24c2f430bb9ca803856d6ffb4caf8.png" />
 </div>
 </div>
 </section>
@@ -1435,7 +1454,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/3a471fbeb49ceedda99a290d533e4a0d4b81771994538d2e2b64a258ba6ede6a.png" src="../../_images/3a471fbeb49ceedda99a290d533e4a0d4b81771994538d2e2b64a258ba6ede6a.png" />
+<img alt="../../_images/8082ffe57814436bee260faaf7d625b4685fd5958ac996c47a2af4419aedbcb9.png" src="../../_images/8082ffe57814436bee260faaf7d625b4685fd5958ac996c47a2af4419aedbcb9.png" />
 </div>
 </div>
 <ul class="simple">
@@ -1465,7 +1484,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/25c55f91d5edc935a46aa2d8c43d7c77e48e82787a6d9a64c952786532d8122e.png" src="../../_images/25c55f91d5edc935a46aa2d8c43d7c77e48e82787a6d9a64c952786532d8122e.png" />
+<img alt="../../_images/e45843791ea3d91ec62ec1bc17d5bd3d36bd211be27de3c1a266899ca20cbfb8.png" src="../../_images/e45843791ea3d91ec62ec1bc17d5bd3d36bd211be27de3c1a266899ca20cbfb8.png" />
 </div>
 </div>
 </section>
@@ -1521,8 +1540,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1595,8 +1613,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
