@@ -28,11 +28,10 @@ You can follow along yourself:
 
 [myst-nb]: https://myst-nb.readthedocs.io/en/latest/authoring/text-notebooks.html
 
-## Contents
-
 ```{toctree}
 ---
 maxdepth: 1
+hidden: true
 ---
 
 content/algorithms/index
