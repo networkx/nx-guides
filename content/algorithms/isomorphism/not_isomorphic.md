@@ -20,21 +20,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 ```
 
-The graph isomorphism problem is a very interesting topic with many applications
-spanning graph theory and network science --- check out {doc}`isomorphism` for
-a deeper introduction!
+Graph isomorphism is a very interesting topic with many applications
+spanning graph theory and network science --- check out
+{doc}`the isomorphism tutorial <isomorphism>` for a deeper introduction!
 
 Determining whether two graphs `G` and `H` are isomorphic essentially boils
 down to finding a valid isomorphic mapping between the nodes in `G` and `H`,
 respectively.
-The process of finding such a mapping can be quite expensive:
+The process of finding such a mapping can be quite expensive.
+Let's investigate with a basic pair of graphs.
 
 ```{code-cell}
 G = nx.complete_graph(100)
 H = nx.relabel_nodes(G, {n: 10 * n for n in G})
 ```
 
-We know `G` and `H` are isomorphic a priori, since `H` is just a copy of `G` with
+We know `G` and `H` are isomorphic *a priori*, since `H` is just a copy of `G` with
 relabeled nodes.
 Of course, we can verify this:
 
@@ -46,11 +47,11 @@ and do some basic timing to get a sense of how long it takes to make this
 determination:
 
 ```{code-cell}
-%timeit nx.is_isomorphic(G, H)
+%timeit -n1 -r1 nx.is_isomorphic(G, H)
 ```
 
 Not too bad, at least for these relatively small simple graphs - but absolute
-timing values aren't particularly enlightening.
+timing values aren't particularly informative.
 How does this compare with a very similar example where the graphs are *not*
 isomorphic?
 
@@ -59,7 +60,7 @@ H_ni = G.copy()
 H_ni.remove_edge(27, 72)  # Remove a single arbitrary edge
 ```
 
-Again, we know a priori that `G` and `H_ni` are not isomorphic:
+Again, we know *a priori* that `G` and `H_ni` are not isomorphic:
 
 ```{code-cell}
 nx.is_isomorphic(G, H_ni)
@@ -69,7 +70,7 @@ but even though all we've done is remove a single arbitrary edge from `H`, the
 isomorphism determination is several orders of magnitude faster!
 
 ```{code-cell}
-%timeit nx.is_isomorphic(G, H_ni)
+%timeit -n1 -r1 nx.is_isomorphic(G, H_ni)
 ```
 
 Quantitatively:
@@ -85,16 +86,16 @@ print(f"Relative compute time, iso/non_iso example: {iso_timing/non_iso_timing:.
 ```
 
 At face value it may seem surprising that two cases which are so similar can
-result in such drastic differences in computation time; however, upon closer
-inspection this makes sense.
+result in such drastic differences in computation time.
+
 The only way to prove that two graphs are isomorphic is to find a valid
 isomorphic mapping between them --- in the worst case scenario, this could
 entail searching *every possible* mapping of nodes between `G` and `H`!
 Graphs that *are* isomorphic however are guaranteed to have certain properties.
 For example, isomorphic graphs must have identical degree distributions.
 If two graphs are shown to have *different* degree distributions, then we can
-definitively say they are *not* isomorphic, without having to have exhaustively
-tested every possible (nor even a single valid) node mapping between `G` and `H`.
+definitively say they are *not* isomorphic, without having to have
+tested a single potential node mapping between `G` and `H`.
 However - neither is showing that two graphs have the same degree distribution
 sufficient to prove that they are isomorphic!
 
@@ -110,17 +111,19 @@ clustering.
  3. The number of triangles that each node contributes to in the graph
  4. The number of maximal cliques that each node contributes to in the graph
 
-## Comparing properties
+[nx_cbi]: https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.isomorphism.could_be_isomorphic.html
 
-TODO: Add a section here visualizing degree, triangles, and cliques on some
-example graphs.
+% ## Comparing properties
+% 
+% TODO: Add a section here visualizing degree, triangles, and cliques on some
+% example graphs.
 
 ## Exploring properties on the graph atlas
 
 So - we have properties of graphs that we can compare to determine whether or
 not two graphs *may* be isomorphic.
 We also know that some properties are more expensive to compute than others.
-An obvious next question then is: how good of a filter are the various properties
+An obvious next question then is: how "good" are these various properties
 in filtering out non-isomorphic graphs?
 For instance, if degree distribution alone is sufficient to prove that two graphs
 are not isomorphic in the vast majority of cases, then a good rule of thumb
@@ -177,10 +180,9 @@ def property_matrix(property):
     )
 ```
 
-Let's start with some sanity-checking by explicitly checking whether all graph
-pairs are isomorphic.
+Let's start with some sanity-checking.
 From the definition of the graph atlas, we'd expect that *none* of the graphs
-are isomorphic (except with themselves).
+are isomorphic with any other (except with themselves).
 If we translate this expectation to our `property_matrix`, we'd expect the
 `isomorphic` property matrix to be the identity matrix - i.e. with the only
 `True` values lying along the diagonal.
@@ -210,7 +212,7 @@ same_d, same_t, same_c = p_mats
 
 Let's look at the rough timing first.
 Again, we have to be careful about drawing general conclusions because we're
-only working with such a small subset of graphs[^1]
+only working with such a small subset of graphs.[^1]
 That being said, we note that computing/comparing degree distribution is
 roughly an order of magnitude faster than `cliques` or `triangles`, which are
 (at least for these graphs) of the same order in terms of computation time.
@@ -235,14 +237,15 @@ fig.tight_layout()
 One thing that immediately jumps out is that all graphs with identical
 degree distribution appear to be organized such that they are adjacent to
 each other.
-A closer look at the [`nx.graph_atlas_g`][nx_gag] docstring bears this out, as
+A closer look at the [`nx.graph_atlas_g`][nx_gag] docstring explains why:
 degree sequence is one of the properties by which the graphs are sorted in
 the atlas.
 
 Another thing we might notice is that the graph pairs with identical triangle
 distributions are concentrated towards the upper-left corner of the matrix.
-This too makes sense - the atlas is ordered by (among other things) increasing
-degree sequence; therefore the graphs with the lowest indices have the smallest
+This too makes sense --- the atlas is ordered by (among other things) increasing
+degree sequence.
+Therefore the graphs with the lowest indices have the smallest
 values in degree sequence.
 A triangle requires *at least 3 nodes* to have degree of at least 2 - which
 means the upper-left corner of the matrix contains all the graph pairs where there
@@ -337,14 +340,14 @@ for idx, a in zip(pair, ax):
 fig.tight_layout()
 ```
 
-TODO: add bit about comparing properties independently vs. together
+% TODO: add bit about comparing properties independently vs. together
 
 Let's refine our investigation even further --- of the 363378 possible graph
 pairs, how many have identical combined degree-triangle distributions, but
-*different* degree-triangle-clique distributions?
+*different* clique distributions?
 In other words, for how many of these graph pairs is the distribution of
 maximal cliques the determining factor in whether or not the graphs could be
-isomorphic.
+isomorphic?
 
 Let's start by combining our masks computed from properties independently to
 constrain the search space:
@@ -397,7 +400,7 @@ the nodes.
 In other words, rather than comparing degree, then triangles - what if we compute
 the degree *and* number of triangles *for each node*, then sort the nodes
 based on this combined degree-and-number-of-triangles feature.
-Fortunately, `could_be_isomorphic` does consider the combined properties, so
+`could_be_isomorphic` compares the combined properties, so
 we can answer our question by applying it to our candidate pairs:
 
 ```{code-cell}
