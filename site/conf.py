@@ -13,12 +13,13 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+from datetime import date
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'nx-guides'
-copyright = '2022, NetworkX developers'
+copyright = f'{date.today().year}, NetworkX developers'
 author = 'NetworkX developers'
 
 
