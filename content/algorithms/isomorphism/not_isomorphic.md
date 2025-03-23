@@ -89,7 +89,7 @@ At face value it may seem surprising that two cases which are so similar can
 result in such drastic differences in computation time.
 
 The only way to prove that two graphs are isomorphic is to find a valid
-isomorphic mapping between them --- in the worst case scenario, this could
+isomorphic mapping between them --- in the worst-case scenario, this could
 entail searching *every possible* mapping of nodes between `G` and `H`!
 Graphs that *are* isomorphic however are guaranteed to have certain properties.
 For example, isomorphic graphs must have identical degree distributions.
@@ -99,7 +99,7 @@ tested a single potential node mapping between `G` and `H`.
 However - neither is showing that two graphs have the same degree distribution
 sufficient to prove that they are isomorphic!
 
-This assymetry is the motivation for the [`nx.could_be_isomorphic`][nx_cbi]
+This asymmetry is the motivation for the [`nx.could_be_isomorphic`][nx_cbi]
 function, which compares various properties of pairs of graphs to determine
 whether they, well, *could be* isomorphic.
 There are many properties of graphs that one could compare, ranging from the
@@ -281,7 +281,7 @@ graphs that have the same degree distribution **and** triangle distribution:
 ```{code-cell}
 same_dt = same_d & same_t & ~is_iso
 print(
-    f"Number of graph pairs with same degree and triangle disributions: {same_dt.sum() // 2}"
+    f"Number of graph pairs with same degree and triangle distributions: {same_dt.sum() // 2}"
 )
 ```
 
@@ -356,7 +356,7 @@ constrain the search space:
 diff_c = same_d & same_t & ~same_c & ~is_iso
 
 print(
-    "Number of graph pairs with same degree and triangle disributions\n"
+    "Number of graph pairs with same degree and triangle distributions\n"
     f"but different clique distributions: {diff_c.sum() // 2}"
 )
 
@@ -395,7 +395,7 @@ triangle distributions, and *different* clique distributions.
 However - recall that to this point we have only compared the properties
 *independently* - i.e. we compared the sorted degree sequences, then the sorted
 triangle distributions etc.
-This is less-restrictve than if we had considered the *combined* properties of
+This is less-restrictive than if we had considered the *combined* properties of
 the nodes.
 In other words, rather than comparing degree, then triangles - what if we compute
 the degree *and* number of triangles *for each node*, then sort the nodes
