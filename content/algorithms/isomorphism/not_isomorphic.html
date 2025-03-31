@@ -1,0 +1,1158 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>To be or not to be (isomorphic) &#8212; NetworkX Notebooks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/algorithms/isomorphism/not_isomorphic';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Graph Generators" href="../../generators/index.html" />
+    <link rel="prev" title="Isomorphism - How to find if two graphs are similar?" href="isomorphism.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/networkx_banner.svg" class="logo__image only-light" alt="NetworkX Notebooks - Home"/>
+    <script>document.write(`<img src="../../../_static/networkx_banner.svg" class="logo__image only-dark" alt="NetworkX Notebooks - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../assortativity/correlation.html">Node Assortativity Coefficients and Correlation Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dag/index.html">Directed Acyclic Graphs &amp; Topological Sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../flow/dinitz_alg.html">Dinitz’s Algorithm and Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lca/LCA.html">Lowest Common Ancestor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../euler/euler.html">Euler’s Algorithm</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Isomorphism</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">To be or not to be (isomorphic)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../generators/index.html">Graph Generators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../generators/geometric.html">Geometric Generator Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators/sudoku.html">Sudoku and Graph Coloring</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exploratory_notebooks/facebook_notebook.html">Facebook Network Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=tree/site/content/algorithms/isomorphism/not_isomorphic.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/networkx/nx-guides" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/networkx/nx-guides/edit/main/site/content/algorithms/isomorphism/not_isomorphic.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/networkx/nx-guides/issues/new?title=Issue%20on%20page%20%2Fcontent/algorithms/isomorphism/not_isomorphic.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/content/algorithms/isomorphism/not_isomorphic.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="../../../_sources/content/algorithms/isomorphism/not_isomorphic.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>To be or not to be (isomorphic)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-properties-on-the-graph-atlas">Exploring properties on the graph atlas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspiration">Inspiration</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="to-be-or-not-to-be-isomorphic">
+<h1>To be or not to be (isomorphic)<a class="headerlink" href="#to-be-or-not-to-be-isomorphic" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Graph isomorphism is a very interesting topic with many applications
+spanning graph theory and network science — check out
+<a class="reference internal" href="isomorphism.html"><span class="doc">the isomorphism tutorial</span></a> for a deeper introduction!</p>
+<p>Determining whether two graphs <code class="docutils literal notranslate"><span class="pre">G</span></code> and <code class="docutils literal notranslate"><span class="pre">H</span></code> are isomorphic essentially boils
+down to finding a valid isomorphic mapping between the nodes in <code class="docutils literal notranslate"><span class="pre">G</span></code> and <code class="docutils literal notranslate"><span class="pre">H</span></code>,
+respectively.
+The process of finding such a mapping can be quite expensive.
+Let’s investigate with a basic pair of graphs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">complete_graph</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">relabel_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We know <code class="docutils literal notranslate"><span class="pre">G</span></code> and <code class="docutils literal notranslate"><span class="pre">H</span></code> are isomorphic <em>a priori</em>, since <code class="docutils literal notranslate"><span class="pre">H</span></code> is just a copy of <code class="docutils literal notranslate"><span class="pre">G</span></code> with
+relabeled nodes.
+Of course, we can verify this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>and do some basic timing to get a sense of how long it takes to make this
+determination:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> -n1 -r1 nx.is_isomorphic(G, H)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>76.4 ms ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Not too bad, at least for these relatively small simple graphs - but absolute
+timing values aren’t particularly informative.
+How does this compare with a very similar example where the graphs are <em>not</em>
+isomorphic?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H_ni</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">H_ni</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="mi">72</span><span class="p">)</span>  <span class="c1"># Remove a single arbitrary edge</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Again, we know <em>a priori</em> that <code class="docutils literal notranslate"><span class="pre">G</span></code> and <code class="docutils literal notranslate"><span class="pre">H_ni</span></code> are not isomorphic:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H_ni</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<p>but even though all we’ve done is remove a single arbitrary edge from <code class="docutils literal notranslate"><span class="pre">H</span></code>, the
+isomorphism determination is several orders of magnitude faster!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> -n1 -r1 nx.is_isomorphic(G, H_ni)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>156 μs ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Quantitatively:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">timeit</span>
+
+<span class="n">iso_timing</span><span class="p">,</span> <span class="n">non_iso_timing</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;nx.is_isomorphic(G, </span><span class="si">{</span><span class="n">G2</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="nb">globals</span><span class="o">=</span><span class="nb">globals</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">G2</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;H_ni&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relative compute time, iso/non_iso example: </span><span class="si">{</span><span class="n">iso_timing</span><span class="o">/</span><span class="n">non_iso_timing</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative compute time, iso/non_iso example: 1121.96
+</pre></div>
+</div>
+</div>
+</div>
+<p>At face value it may seem surprising that two cases which are so similar can
+result in such drastic differences in computation time.</p>
+<p>The only way to prove that two graphs are isomorphic is to find a valid
+isomorphic mapping between them — in the worst-case scenario, this could
+entail searching <em>every possible</em> mapping of nodes between <code class="docutils literal notranslate"><span class="pre">G</span></code> and <code class="docutils literal notranslate"><span class="pre">H</span></code>!
+Graphs that <em>are</em> isomorphic however are guaranteed to have certain properties.
+For example, isomorphic graphs must have identical degree distributions.
+If two graphs are shown to have <em>different</em> degree distributions, then we can
+definitively say they are <em>not</em> isomorphic, without having to have
+tested a single potential node mapping between <code class="docutils literal notranslate"><span class="pre">G</span></code> and <code class="docutils literal notranslate"><span class="pre">H</span></code>.
+However - neither is showing that two graphs have the same degree distribution
+sufficient to prove that they are isomorphic!</p>
+<p>This asymmetry is the motivation for the <a class="reference external" href="https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.isomorphism.could_be_isomorphic.html"><code class="docutils literal notranslate"><span class="pre">nx.could_be_isomorphic</span></code></a>
+function, which compares various properties of pairs of graphs to determine
+whether they, well, <em>could be</em> isomorphic.
+There are many properties of graphs that one could compare, ranging from the
+trivial (i.e. the number of nodes) to more complex features like average
+clustering.
+<a class="reference external" href="https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.isomorphism.could_be_isomorphic.html"><code class="docutils literal notranslate"><span class="pre">nx.could_be_isomorphic</span></code></a> has four built-in property checks:</p>
+<ol class="arabic simple">
+<li><p>The order of the graphs (i.e. the number of nodes)</p></li>
+<li><p>The degree of each node</p></li>
+<li><p>The number of triangles that each node contributes to in the graph</p></li>
+<li><p>The number of maximal cliques that each node contributes to in the graph</p></li>
+</ol>
+<section id="exploring-properties-on-the-graph-atlas">
+<h2>Exploring properties on the graph atlas<a class="headerlink" href="#exploring-properties-on-the-graph-atlas" title="Link to this heading">#</a></h2>
+<p>So - we have properties of graphs that we can compare to determine whether or
+not two graphs <em>may</em> be isomorphic.
+We also know that some properties are more expensive to compute than others.
+An obvious next question then is: how “good” are these various properties
+in filtering out non-isomorphic graphs?
+For instance, if degree distribution alone is sufficient to prove that two graphs
+are not isomorphic in the vast majority of cases, then a good rule of thumb
+might be to test degree distribution first in <code class="docutils literal notranslate"><span class="pre">could_be_isomorphic</span></code>, since the
+degree distribution is so quick to compute (compared to triangles or cliques).</p>
+<p>Answering this question in general is probably not possible, but perhaps we
+can build some intuition by exploring the question on a manageable set of
+possible graphs.
+For example, we can use the <a class="reference external" href="https://networkx.org/documentation/latest/reference/generated/networkx.generators.atlas.graph_atlas_g.html"><code class="docutils literal notranslate"><span class="pre">nx.graph_atlas_g</span></code></a> to investigate these
+properties on all fully-connected simple graphs with 7 nodes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">atlas</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">graph_atlas_g</span><span class="p">()[</span><span class="mi">209</span><span class="p">:]</span>  <span class="c1"># Graphs with 7 nodes start at idx 209</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">atlas</span><span class="p">)</span><span class="si">}</span><span class="s2"> graphs with 7 nodes.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Limit analysis to fully-connected graphs</span>
+<span class="n">atlas</span> <span class="o">=</span> <span class="p">[</span><span class="n">G</span> <span class="k">for</span> <span class="n">G</span> <span class="ow">in</span> <span class="n">atlas</span> <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">number_connected_components</span><span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">atlas</span><span class="p">)</span><span class="si">}</span><span class="s2"> fully-connected graphs with 7 nodes.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1044 graphs with 7 nodes.
+853 fully-connected graphs with 7 nodes.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s examine the properties of these graphs.
+Let’s define a few property-extraction shortcuts to save ourselves some typing:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="n">degree</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">G</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">d</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">())</span>
+<span class="n">triangles</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">G</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">triangles</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">cliques</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">G</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">find_cliques</span><span class="p">(</span><span class="n">G</span><span class="p">)))</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="c1"># Map each callable to a more detailed name - this will be useful for e.g.</span>
+<span class="c1"># labeling plots</span>
+<span class="n">name_property_mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;degree distribution&quot;</span><span class="p">:</span> <span class="n">degree</span><span class="p">,</span>
+    <span class="s2">&quot;triangle distribution&quot;</span><span class="p">:</span> <span class="n">triangles</span><span class="p">,</span>
+    <span class="s2">&quot;maximal clique distribution&quot;</span><span class="p">:</span> <span class="n">cliques</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And from here, let’s compare the graphs to each other!
+The simplest way to do so is simply to brute-force compare each graph to every
+other:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">property_matrix</span><span class="p">(</span><span class="nb">property</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;`property` is a callable that returns the property to be compared.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[[</span><span class="nb">property</span><span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="o">==</span> <span class="nb">property</span><span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="k">for</span> <span class="n">H</span> <span class="ow">in</span> <span class="n">atlas</span><span class="p">]</span> <span class="k">for</span> <span class="n">G</span> <span class="ow">in</span> <span class="n">atlas</span><span class="p">],</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s start with some sanity-checking.
+From the definition of the graph atlas, we’d expect that <em>none</em> of the graphs
+are isomorphic with any other (except with themselves).
+If we translate this expectation to our <code class="docutils literal notranslate"><span class="pre">property_matrix</span></code>, we’d expect the
+<code class="docutils literal notranslate"><span class="pre">isomorphic</span></code> property matrix to be the identity matrix - i.e. with the only
+<code class="docutils literal notranslate"><span class="pre">True</span></code> values lying along the diagonal.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">is_iso</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span> <span class="k">for</span> <span class="n">H</span> <span class="ow">in</span> <span class="n">atlas</span><span class="p">]</span> <span class="k">for</span> <span class="n">G</span> <span class="ow">in</span> <span class="n">atlas</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">is_iso</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atlas</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>Sanity-check passed — now let’s move on to the property comparison:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="n">p_mats</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="nb">property</span> <span class="ow">in</span> <span class="n">name_property_mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1"># Do some (very) rough timing of the property computation</span>
+    <span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">pm</span> <span class="o">=</span> <span class="n">property_matrix</span><span class="p">(</span><span class="nb">property</span><span class="p">)</span>
+    <span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">toc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tic</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> sec to compare </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> for all graphs&quot;</span><span class="p">)</span>
+    <span class="n">p_mats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pm</span><span class="p">)</span>
+
+<span class="c1"># Unpack results</span>
+<span class="n">same_d</span><span class="p">,</span> <span class="n">same_t</span><span class="p">,</span> <span class="n">same_c</span> <span class="o">=</span> <span class="n">p_mats</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.240 sec to compare degree distribution for all graphs
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>43.510 sec to compare triangle distribution for all graphs
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>53.502 sec to compare maximal clique distribution for all graphs
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s look at the rough timing first.
+Again, we have to be careful about drawing general conclusions because we’re
+only working with such a small subset of graphs.<a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>
+That being said, we note that computing/comparing degree distribution is
+roughly an order of magnitude faster than <code class="docutils literal notranslate"><span class="pre">cliques</span></code> or <code class="docutils literal notranslate"><span class="pre">triangles</span></code>, which are
+(at least for these graphs) of the same order in terms of computation time.</p>
+<p>How about the properties themselves:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">pname</span><span class="p">,</span> <span class="n">pm</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">name_property_mapping</span><span class="p">,</span> <span class="n">p_mats</span><span class="p">):</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pm</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">pname</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;atlas idx (H)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;atlas idx (G)&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/b20bba631914c706e2b19f7abb30b9eb6c8bd71a40d93875e196c560210fea54.png" src="../../../_images/b20bba631914c706e2b19f7abb30b9eb6c8bd71a40d93875e196c560210fea54.png" />
+</div>
+</div>
+<p>One thing that immediately jumps out is that all graphs with identical
+degree distribution appear to be organized such that they are adjacent to
+each other.
+A closer look at the <a class="reference external" href="https://networkx.org/documentation/latest/reference/generated/networkx.generators.atlas.graph_atlas_g.html"><code class="docutils literal notranslate"><span class="pre">nx.graph_atlas_g</span></code></a> docstring explains why:
+degree sequence is one of the properties by which the graphs are sorted in
+the atlas.</p>
+<p>Another thing we might notice is that the graph pairs with identical triangle
+distributions are concentrated towards the upper-left corner of the matrix.
+This too makes sense — the atlas is ordered by (among other things) increasing
+degree sequence.
+Therefore the graphs with the lowest indices have the smallest
+values in degree sequence.
+A triangle requires <em>at least 3 nodes</em> to have degree of at least 2 - which
+means the upper-left corner of the matrix contains all the graph pairs where there
+are no triangles, with the propensity for triangles generally increasing with
+increasing degree distribution (from upper left to lower right).</p>
+<p>Let’s quantify the results.
+Of the 853 fully-connected graphs of 7 nodes, how many of them have them
+have the same properties?
+We can sum over the property masks to answer this question, though we have to
+remember to:</p>
+<ol class="arabic simple">
+<li><p>Ignore the diagonal, i.e. don’t include the comparison of each graph with
+itself, and</p></li>
+<li><p>We were lazy in the computation of the properties and ended up comparing
+each graph to each other twice (i.e. <code class="docutils literal notranslate"><span class="pre">G</span></code> to <code class="docutils literal notranslate"><span class="pre">H</span></code> and <code class="docutils literal notranslate"><span class="pre">H</span></code> to <code class="docutils literal notranslate"><span class="pre">G</span></code>), so we
+also need to account for that.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">num_same</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sa">f</span><span class="s2">&quot;Same </span><span class="si">{</span><span class="n">pname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">pm</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">is_iso</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="k">for</span> <span class="n">pname</span><span class="p">,</span> <span class="n">pm</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">name_property_mapping</span><span class="p">,</span> <span class="n">p_mats</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># Use pandas to get a nice html rendering of our tabular data</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">num_same</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Same degree distribution</th>
+      <td>3048</td>
+    </tr>
+    <tr>
+      <th>Same triangle distribution</th>
+      <td>9696</td>
+    </tr>
+    <tr>
+      <th>Same maximal clique distribution</th>
+      <td>6437</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can also look at combinations of properties - for example: the number of
+graphs that have the same degree distribution <strong>and</strong> triangle distribution:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">same_dt</span> <span class="o">=</span> <span class="n">same_d</span> <span class="o">&amp;</span> <span class="n">same_t</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">is_iso</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Number of graph pairs with same degree and triangle distributions: </span><span class="si">{</span><span class="n">same_dt</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of graph pairs with same degree and triangle distributions: 270
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s a pretty strong filter! The total number of non-isomorphic pairs of
+fully-connected graphs of 7 nodes is: <span class="math notranslate nohighlight">\(\frac{853^{2} - 853}{2} = 363378\)</span>.
+Filtering by degree, triangles, or cliques alone results in several thousand
+candidates, but combining properties makes for an even stronger filter in
+determining whether graphs <em>could</em> be isomorphic.</p>
+<p>Let’s take a look at some of these graph pairs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidates</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">same_dt</span><span class="p">))</span>
+
+<span class="c1"># Filter out the duplicates</span>
+<span class="n">graph_pairs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">pair</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+        <span class="n">graph_pairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+        <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># First pair of graphs with same degree and triangle distributions</span>
+<span class="n">pair</span> <span class="o">=</span> <span class="n">graph_pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">G</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="p">(</span><span class="n">atlas</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">atlas</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;atlas[</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">]</span><span class="se">\n</span><span class="s2">degree: </span><span class="si">{</span><span class="n">degree</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">triangles: </span><span class="si">{</span><span class="n">triangles</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="c1"># TODO: change to could_be_isomorphic(properties=&quot;dt&quot;) after merge</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">fast_could_be_isomorphic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+<img alt="../../../_images/2693478970adc750df1dd58fa668f6036779fe30f2560717295db838268bb97e.png" src="../../../_images/2693478970adc750df1dd58fa668f6036779fe30f2560717295db838268bb97e.png" />
+</div>
+</div>
+<p>This matches our expectations, and is a nice illustration of how checking
+properties is not sufficient to prove graphs are isomorphic.
+It’s a little boring though as there are no triangles - let’s look at a pair
+where the graphs contain triangles:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># Last pair of graphs with same degree and triangle distributions</span>
+<span class="n">pair</span> <span class="o">=</span> <span class="n">graph_pairs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">atlas</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;atlas[</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">]</span><span class="se">\n</span><span class="s2">degree: </span><span class="si">{</span><span class="n">degree</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">triangles: </span><span class="si">{</span><span class="n">triangles</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/bad2f1d07b43f9fa6279b261a8c37626cbf10c68b548508270ac12674f7e487b.png" src="../../../_images/bad2f1d07b43f9fa6279b261a8c37626cbf10c68b548508270ac12674f7e487b.png" />
+</div>
+</div>
+<p>Let’s refine our investigation even further — of the 363378 possible graph
+pairs, how many have identical combined degree-triangle distributions, but
+<em>different</em> clique distributions?
+In other words, for how many of these graph pairs is the distribution of
+maximal cliques the determining factor in whether or not the graphs could be
+isomorphic?</p>
+<p>Let’s start by combining our masks computed from properties independently to
+constrain the search space:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diff_c</span> <span class="o">=</span> <span class="n">same_d</span> <span class="o">&amp;</span> <span class="n">same_t</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">same_c</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">is_iso</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Number of graph pairs with same degree and triangle distributions</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;but different clique distributions: </span><span class="si">{</span><span class="n">diff_c</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+
+<span class="n">candidates</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">diff_c</span><span class="p">))</span>
+
+<span class="c1"># Filter out the duplicates</span>
+<span class="n">graph_pairs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">pair</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+        <span class="n">graph_pairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+        <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of graph pairs with same degree and triangle distributions
+but different clique distributions: 107
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s the “simplest” of these candidate pairs, i.e. the pair with the lowest
+degree sequence:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># Last pair of graphs with same degree and triangle distributions</span>
+<span class="n">pair</span> <span class="o">=</span> <span class="n">graph_pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">atlas</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;atlas[</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">]</span><span class="se">\n</span><span class="s2">degree: </span><span class="si">{</span><span class="n">degree</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">triangles: </span><span class="si">{</span><span class="n">triangles</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">cliques: </span><span class="si">{</span><span class="n">cliques</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/2571cf73c50014abb225f0a154d646c509c2324706a9c303c5a358b8622b8660.png" src="../../../_images/2571cf73c50014abb225f0a154d646c509c2324706a9c303c5a358b8622b8660.png" />
+</div>
+</div>
+<p>At this point, we’ve filtered down all the possible combinations of fully-connected
+7-node graphs to 107 candidates that have the same degree distributions,
+triangle distributions, and <em>different</em> clique distributions.
+However - recall that to this point we have only compared the properties
+<em>independently</em> - i.e. we compared the sorted degree sequences, then the sorted
+triangle distributions etc.
+This is less-restrictive than if we had considered the <em>combined</em> properties of
+the nodes.
+In other words, rather than comparing degree, then triangles - what if we compute
+the degree <em>and</em> number of triangles <em>for each node</em>, then sort the nodes
+based on this combined degree-and-number-of-triangles feature.
+<code class="docutils literal notranslate"><span class="pre">could_be_isomorphic</span></code> compares the combined properties, so
+we can answer our question by applying it to our candidate pairs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All graph pairs that have the same *combined* degree-and-triangle distributions</span>
+<span class="c1"># but a different clique distributions</span>
+<span class="c1"># TODO: replace with could_be_isomorphic(properties=&quot;dt&quot;) when merged</span>
+<span class="n">resulting_pairs</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">G</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">H</span><span class="p">))</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span> <span class="ow">in</span> <span class="n">graph_pairs</span>
+    <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">fast_could_be_isomorphic</span><span class="p">(</span><span class="n">atlas</span><span class="p">[</span><span class="n">G</span><span class="p">],</span> <span class="n">atlas</span><span class="p">[</span><span class="n">H</span><span class="p">])</span>
+<span class="p">]</span>
+<span class="n">resulting_pairs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(318, 325), (473, 479)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Of all fully-connected graphs with 7 nodes, there are only two unique pairs of
+graphs that have the same degree-and-triangle combined properties, but
+different clique distributions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">resulting_pairs</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">atlas</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;atlas[</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">]</span><span class="se">\n</span><span class="s2">degree: </span><span class="si">{</span><span class="n">degree</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">triangles: </span><span class="si">{</span><span class="n">triangles</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">cliques: </span><span class="si">{</span><span class="n">cliques</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/6bd0b7a3d62672f081e24a799c9b7c7b86cf38c7132141e6e885b57d958e482a.png" src="../../../_images/6bd0b7a3d62672f081e24a799c9b7c7b86cf38c7132141e6e885b57d958e482a.png" />
+<img alt="../../../_images/8d288c0c766ec31ddd270f7d62fa991270ba1949dfa47cf891895996ce3b9e3c.png" src="../../../_images/8d288c0c766ec31ddd270f7d62fa991270ba1949dfa47cf891895996ce3b9e3c.png" />
+</div>
+</div>
+<section id="inspiration">
+<h3>Inspiration<a class="headerlink" href="#inspiration" title="Link to this heading">#</a></h3>
+<p>You may be wondering what motivated this particular line of investigation.
+This analysis was originally performed in order to find
+<a class="reference external" href="https://github.com/networkx/networkx/pull/7852">test cases for <code class="docutils literal notranslate"><span class="pre">nx.could_be_isomorphic</span></code></a>.</p>
+</section>
+</section>
+</section>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>As graphs get larger the complexity of the relationships they capture
+can increase greatly!</p>
+</aside>
+</aside>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="isomorphism.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Isomorphism - How to find if two graphs are similar?</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../generators/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Graph Generators</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-properties-on-the-graph-atlas">Exploring properties on the graph atlas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspiration">Inspiration</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NetworkX developers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, NetworkX developers.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
