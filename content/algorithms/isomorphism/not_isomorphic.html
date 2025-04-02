@@ -519,7 +519,7 @@ determination:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>76.4 ms ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>72.1 ms ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
 </pre></div>
 </div>
 </div>
@@ -558,7 +558,7 @@ isomorphism determination is several orders of magnitude faster!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>156 μs ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>92.8 μs ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
 </pre></div>
 </div>
 </div>
@@ -577,7 +577,7 @@ isomorphism determination is several orders of magnitude faster!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative compute time, iso/non_iso example: 1121.96
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative compute time, iso/non_iso example: 1104.39
 </pre></div>
 </div>
 </div>
@@ -717,13 +717,13 @@ If we translate this expectation to our <code class="docutils literal notranslat
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.240 sec to compare degree distribution for all graphs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.995 sec to compare degree distribution for all graphs
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>43.510 sec to compare triangle distribution for all graphs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>38.882 sec to compare triangle distribution for all graphs
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>53.502 sec to compare maximal clique distribution for all graphs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>52.182 sec to compare maximal clique distribution for all graphs
 </pre></div>
 </div>
 </div>
@@ -886,8 +886,7 @@ determining whether graphs <em>could</em> be isomorphic.</p>
     <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;atlas[</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">]</span><span class="se">\n</span><span class="s2">degree: </span><span class="si">{</span><span class="n">degree</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">triangles: </span><span class="si">{</span><span class="n">triangles</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
-<span class="c1"># TODO: change to could_be_isomorphic(properties=&quot;dt&quot;) after merge</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">fast_could_be_isomorphic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">could_be_isomorphic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="s2">&quot;dt&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -895,7 +894,7 @@ determining whether graphs <em>could</em> be isomorphic.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 </pre></div>
 </div>
-<img alt="../../../_images/2693478970adc750df1dd58fa668f6036779fe30f2560717295db838268bb97e.png" src="../../../_images/2693478970adc750df1dd58fa668f6036779fe30f2560717295db838268bb97e.png" />
+<img alt="../../../_images/a620a3821855f8c632ff83e81be1bdb08483464273943b954f42b5fc6c8aa0d6.png" src="../../../_images/a620a3821855f8c632ff83e81be1bdb08483464273943b954f42b5fc6c8aa0d6.png" />
 </div>
 </div>
 <p>This matches our expectations, and is a nice illustration of how checking
@@ -918,7 +917,7 @@ where the graphs contain triangles:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/bad2f1d07b43f9fa6279b261a8c37626cbf10c68b548508270ac12674f7e487b.png" src="../../../_images/bad2f1d07b43f9fa6279b261a8c37626cbf10c68b548508270ac12674f7e487b.png" />
+<img alt="../../../_images/c6c8b40c53a59cbd070c7a79955374a07569a094feeae3324395cb5233978f2e.png" src="../../../_images/c6c8b40c53a59cbd070c7a79955374a07569a094feeae3324395cb5233978f2e.png" />
 </div>
 </div>
 <p>Let’s refine our investigation even further — of the 363378 possible graph
@@ -977,7 +976,7 @@ degree sequence:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/2571cf73c50014abb225f0a154d646c509c2324706a9c303c5a358b8622b8660.png" src="../../../_images/2571cf73c50014abb225f0a154d646c509c2324706a9c303c5a358b8622b8660.png" />
+<img alt="../../../_images/526b0a4a5f7f65f6a46cfc31b39b0525233469294bb23f040a9c6233fa1776f8.png" src="../../../_images/526b0a4a5f7f65f6a46cfc31b39b0525233469294bb23f040a9c6233fa1776f8.png" />
 </div>
 </div>
 <p>At this point, we’ve filtered down all the possible combinations of fully-connected
@@ -997,11 +996,10 @@ we can answer our question by applying it to our candidate pairs:</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All graph pairs that have the same *combined* degree-and-triangle distributions</span>
 <span class="c1"># but a different clique distributions</span>
-<span class="c1"># TODO: replace with could_be_isomorphic(properties=&quot;dt&quot;) when merged</span>
 <span class="n">resulting_pairs</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">G</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">H</span><span class="p">))</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span> <span class="ow">in</span> <span class="n">graph_pairs</span>
-    <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">fast_could_be_isomorphic</span><span class="p">(</span><span class="n">atlas</span><span class="p">[</span><span class="n">G</span><span class="p">],</span> <span class="n">atlas</span><span class="p">[</span><span class="n">H</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">could_be_isomorphic</span><span class="p">(</span><span class="n">atlas</span><span class="p">[</span><span class="n">G</span><span class="p">],</span> <span class="n">atlas</span><span class="p">[</span><span class="n">H</span><span class="p">],</span> <span class="n">properties</span><span class="o">=</span><span class="s2">&quot;dt&quot;</span><span class="p">)</span>
 <span class="p">]</span>
 <span class="n">resulting_pairs</span>
 </pre></div>
@@ -1032,8 +1030,8 @@ different clique distributions.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/6bd0b7a3d62672f081e24a799c9b7c7b86cf38c7132141e6e885b57d958e482a.png" src="../../../_images/6bd0b7a3d62672f081e24a799c9b7c7b86cf38c7132141e6e885b57d958e482a.png" />
-<img alt="../../../_images/8d288c0c766ec31ddd270f7d62fa991270ba1949dfa47cf891895996ce3b9e3c.png" src="../../../_images/8d288c0c766ec31ddd270f7d62fa991270ba1949dfa47cf891895996ce3b9e3c.png" />
+<img alt="../../../_images/aac84bbb298127bff0689f9302d70ef8250ca19e47f6c8bc3123aecd60ff60c8.png" src="../../../_images/aac84bbb298127bff0689f9302d70ef8250ca19e47f6c8bc3123aecd60ff60c8.png" />
+<img alt="../../../_images/f5b12ae4a30f6ad466b4ecf33129ece64c6bfb7e1e8fc6e2827a4d39e5f059d6.png" src="../../../_images/f5b12ae4a30f6ad466b4ecf33129ece64c6bfb7e1e8fc6e2827a4d39e5f059d6.png" />
 </div>
 </div>
 <section id="inspiration">

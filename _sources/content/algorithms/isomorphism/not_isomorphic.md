@@ -318,8 +318,7 @@ for idx, a in zip(pair, ax):
     a.set_title(f"atlas[{idx}]\ndegree: {degree(G)}\ntriangles: {triangles(G)}")
 fig.tight_layout()
 
-# TODO: change to could_be_isomorphic(properties="dt") after merge
-nx.fast_could_be_isomorphic(G, H)
+nx.could_be_isomorphic(G, H, properties="dt")
 ```
 
 This matches our expectations, and is a nice illustration of how checking
@@ -406,11 +405,10 @@ we can answer our question by applying it to our candidate pairs:
 ```{code-cell}
 # All graph pairs that have the same *combined* degree-and-triangle distributions
 # but a different clique distributions
-# TODO: replace with could_be_isomorphic(properties="dt") when merged
 resulting_pairs = [
     (int(G), int(H))
     for (G, H) in graph_pairs
-    if nx.fast_could_be_isomorphic(atlas[G], atlas[H])
+    if nx.could_be_isomorphic(atlas[G], atlas[H], properties="dt")
 ]
 resulting_pairs
 ```
