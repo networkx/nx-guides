@@ -212,7 +212,7 @@ This is not a brute-force approach because there are some feasibility rules to
 avoid exploring the whole recursion tree. 
 
 
-Formally, We have a function $M: s \rightarrow N(G) \times N(H) $.
+Formally, we have a function $M: s \rightarrow N(G) \times N(H) $.
 $M$ is a matching function between the subsets of nodes from $G$ and $H$ at the
 current state $s$.
 We start with an initial state $s_0$ with $M(s_0) = \emptyset$.
