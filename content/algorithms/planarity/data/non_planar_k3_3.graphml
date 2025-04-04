@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns 
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+    <graph id="G2" edgedefault="undirected">
+        <node id="A1"/>
+        <node id="A2"/>
+        <node id="A3"/>
+        <node id="B1"/>
+        <node id="B2"/>
+        <node id="B3"/>
+        <edge source="A1" target="B1"/>
+        <edge source="A1" target="B2"/>
+        <edge source="A1" target="B3"/>
+        <edge source="A2" target="B1"/>
+        <edge source="A2" target="B2"/>
+        <edge source="A2" target="B3"/>
+        <edge source="A3" target="B1"/>
+        <edge source="A3" target="B2"/>
+        <edge source="A3" target="B3"/>
+    </graph>
+</graphml>
