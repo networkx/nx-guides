@@ -295,46 +295,6 @@ nx.draw_networkx(G, pos=pos, node_size=node_size, with_labels=False, width=0.15)
 plt.axis("off")
 ```
 
-### Betweenness Centrality
-Betweenness centrality measures the number of times a node lies on the shortest path between other nodes, meaning it acts as a bridge. In detail, betweenness centrality of a node $v$ is the percentage of all the shortest paths of any two nodes (apart from $v$), which pass through $v$. Specifically, in the facebook graph this measure is associated with the user's ability to influence others. A user with a high betweenness centrality acts as a bridge to many users that are not friends and thus has the ability to influence them by conveying information (e.g. by posting something or sharing a post) or even connect them via the user's circle (which would reduce the user's betweeness centrality after).
-* Now, the nodes with the $8$ highest betweenness centralities will be calculated and shown with their centrality values:
-
-```{code-cell} ipython3
-betweenness_centrality = nx.centrality.betweenness_centrality(
-    G
-)  # save results in a variable to use again
-(sorted(betweenness_centrality.items(), key=lambda item: item[1], reverse=True))[:8]
-```
-
-Looking at the results, the node $107$ has a betweenness centrality of $0.48$, meaning it lies on almost half of the total shortest paths between other nodes. Also, combining the knowledge of the degree centrality:
-* Nodes $0, 107, 1684, 1912, 3437$ have both the highest degree and betweenness centralities and are `spotlight nodes`. That indicates that those nodes are both the most popular ones in this network and can also influence and spread information in the network. However, those are some of the nodes whose friends list consist the network and as a result it is an expected finding.
-* Nodes $567, 1085$ are not spotlight nodes, have some of the highest betweenness centralities and have not the highest degree centralities. That means that even though those nodes are not the most popular users in the network, they have the most influence in this network among friends of spotlight nodes when it comes to spreading information.
-* Node $698$ is a `spotlight node` and has a very high betweenness centrality even though it has not the highest degree centralities. In other words, this node does not have a very large friends list on facebook. However, the user's whole friend list is a part of the network and thus the user could connect different circles in this network by being the middleman.
-
-Moving on, the distribution of betweenness centralities will be plotted:
-
-```{code-cell} ipython3
-plt.figure(figsize=(15, 8))
-plt.hist(betweenness_centrality.values(), bins=100)
-plt.xticks(ticks=[0, 0.02, 0.1, 0.2, 0.3, 0.4, 0.5])  # set the x axis ticks
-plt.title("Betweenness Centrality Histogram ", fontdict={"size": 35}, loc="center")
-plt.xlabel("Betweenness Centrality", fontdict={"size": 20})
-plt.ylabel("Counts", fontdict={"size": 20})
-```
-
-As we can see, the vast majority of betweenness centralities is below $0.01$. That makes sense as the graph is very sparse and thus most nodes do not act as bridges in shortest paths. However, that also results in some nodes having extremely high betweenness centralities as for example node $107$ with $0.48$ and node $1684$ with $0.34$ betweenness centrality.
-
-We can also get an image on the nodes with the highest betweenness centralities and where they are located in the network. It is clear that they are the bridges from one community to another:
-
-```{code-cell} ipython3
-node_size = [
-    v * 1200 for v in betweenness_centrality.values()
-]  # set up nodes size for a nice graph representation
-plt.figure(figsize=(15, 8))
-nx.draw_networkx(G, pos=pos, node_size=node_size, with_labels=False, width=0.15)
-plt.axis("off")
-```
-
 ### Closeness Centrality
 Closeness centrality scores each node based on their ‘closeness’ to all other nodes in the network. For a node $v$, its closeness centrality measures the average farness to all other nodes. In other words, the higher the closeness centrality of $v$, the closer it is located to the center of the network.
 
@@ -395,8 +355,8 @@ eigenvector_centrality = nx.centrality.eigenvector_centrality(
 ```
 
 Checking the results:
-* Node $1912$ has the highest eigenvector centrality with $0.095$. This node is also a `spotlight node` and can surely be considered the most important node in this network in terms of overall influence to the whole network. In fact, this node also has some of the highest degree centralities and  betweenness centralities, making the user very popular and influencious to other nodes. 
-* Nodes $1993, 2078, 2206, 2123, 2142, 2218, 2233, 2266, 2464$, even though they are not spotlight nodes, have some of the highest eigenvector centralities with around $0.83-0.87$. Very interesting is the fact that all those nodes are identified for the first time, meaning they have neither the heighest degree, betweenness or closeness centralities in this graph. That leads to the conclusion that those nodes are very likely to be connected to the node $1912$ and as a result have very high eigenvector centralities.
+* Node $1912$ has the highest eigenvector centrality with $0.095$. This node is also a `spotlight node` and can surely be considered the most important node in this network in terms of overall influence to the whole network. In fact, this node also has some of the highest degree centralities, making the user very popular and influencious to other nodes. 
+* Nodes $1993, 2078, 2206, 2123, 2142, 2218, 2233, 2266, 2464$, even though they are not spotlight nodes, have some of the highest eigenvector centralities with around $0.83-0.87$. Very interesting is the fact that all those nodes are identified for the first time, meaning they have neither the heighest degree nor closeness centralities in this graph. That leads to the conclusion that those nodes are very likely to be connected to the node $1912$ and as a result have very high eigenvector centralities.
 
 Checking if those nodes are connected to the most important node $1912$, the hypothesis is correct:
 
