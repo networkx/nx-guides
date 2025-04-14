@@ -10,6 +10,7 @@ maxdepth: 1
 assortativity/correlation
 dag/index
 flow/dinitz_alg
+Dijkstra/Dijkstra
 lca/LCA
 euler/euler
 isomorphism/index
