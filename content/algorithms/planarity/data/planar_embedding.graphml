@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns 
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+    <graph id="planar_graph" edgedefault="undirected">
+        <node id="1"/>
+        <node id="2"/>
+        <node id="3"/>
+        <node id="4"/>
+        <edge source="1" target="2"/>
+        <edge source="2" target="3"/>
+        <edge source="3" target="4"/>
+        <edge source="4" target="1"/>
+        <edge source="1" target="3"/> <!-- Diagonal -->
+    </graph>
+</graphml>
