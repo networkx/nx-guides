@@ -11,7 +11,7 @@ assortativity/correlation
 dag/index
 flow/dinitz_alg
 lca/LCA
-planarity/planarity  # Added Planarity algorithm section
+planarity/planarity
 euler/euler
 isomorphism/index
 ```
