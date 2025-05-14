@@ -1,20 +1,4 @@
----
-jupytext:
-  main_language: python
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.16.7
-kernelspec:
-  display_name: Python 3 (ipykernel)
-  language: python
-  name: python3
----
-
 # CHECK PLANARITY
-
-+++
 
 ## Planarity Algorithm in NetworkX
 
@@ -26,18 +10,46 @@ A graph is **planar** if and only if it does not contain a subgraph homeomorphic
 
 The planarity check in NetworkX is based on the **Left-Right Planarity Test**, an efficient combinatorial method to determine planarity.
 
-```{code-cell} ipython3
+---
+
+
+
+***What is  Left-Right Planarity Test***
+
+The Left-Right Planarity Test is a linear-time algorithm used to check whether a graph is planar—that is, drawable in the plane without edge crossings. This test forms the core of the networkx.check_planarity() function.
+
+***How It Works (Conceptually):***
+
+
+
+1. *Depth-First Search (DFS):*  
+The algorithm starts by building a DFS tree of the input graph, which helps classify edges into tree edges and back edges.
+2. *Lowpoints and Embedding Constraints:*  
+For each vertex, the algorithm computes "lowpoints"—the smallest reachable ancestor in DFS. It uses this to decide how back edges can be placed to the left or right of tree edges without crossings.
+3. *Conflict Detection:*  
+The algorithm tracks embedding constraints between edges. If it detects a conflict (e.g., an edge that can't be placed without violating planarity), it concludes the graph is non-planar.
+4. *Constructs a Planar Embedding or Finds Obstruction:*  
+If the graph is planar, it returns a combinatorial embedding (rotation system). If not, it can identify a Kuratowski subgraph (e.g., K₅ or K₃,₃).
+
+
+
+
+
+
+```python
 from functools import singledispatch
 ```
 
-```{code-cell} ipython3
+
+```python
 from collections import defaultdict
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
 ```
 
-```{code-cell} ipython3
+
+```python
 __all__ = ["check_planarity", "is_planar", "PlanarEmbedding"]
 ```
 
@@ -45,30 +57,49 @@ __all__ = ["check_planarity", "is_planar", "PlanarEmbedding"]
 
 G: NetworkX graph
 counterexample : bool
-A Kuratowski subgraph (to proof non planarity) is only returned if set to true.
+A Kuratowski subgraph (to prove non planarity) is only returned if set to true.
 
-+++
+
+What is ***Kuratowski subgraph*** ?
+
+A Kuratowski subgraph is a specific subgraph that serves as evidence that a graph is not planar. According to Kuratowski’s Theorem, a graph is non-planar if and only if it contains a subgraph that is a subdivision (i.e., homeomorphic copy) of either **K₅ (the complete graph on 5 vertices)** or **K₃,₃ (the complete bipartite graph with partitions of size 3)**. These subgraphs are called Kuratowski subgraphs.
+
+They may not appear in their exact form but can be present in a stretched-out version where edges are replaced by paths. NetworkX uses this principle internally: *if check_planarity() returns False, it indicates the existence of a Kuratowski subgraph obstructing planar embedding.*
+
+---
+
+
 
 ## Returns
 
-:
+The function returns a tuple of the form:
 
-(is_planar, certificate)
 
-(bool, NetworkX graph) tuple
+*   is_planar (bool):
+  *   True if the graph is planar.
+  *   False if the graph is non-planar.
 
-is_planar is true if the graph is planar. If the graph is planar certificate is a PlanarEmbedding otherwise it is a Kuratowski subgraph.
+*   certificate (NetworkX graph):
+  *   If is_planar is True, certificate will be a PlanarEmbedding object representing a valid planar embedding of the graph.
+  *   If is_planar is False, certificate will be a Kuratowski subgraph, which is a subgraph of the original graph that proves the graph is non-planar by being a homeomorphic copy of K₅ or K₃,₃.
 
-```{code-cell} ipython3
+---
+
+
+
+
+```python
 from networkx.algorithms.planarity import LRPlanarity
 ```
 
-```{code-cell} ipython3
+
+```python
 def is_planar(G):
     return check_planarity(G, counterexample=False)[0]
 ```
 
-```{code-cell} ipython3
+
+```python
 def check_planarity(G, counterexample=False):
     planarity_state = LRPlanarity(G)
     embedding = planarity_state.lr_planarity()
@@ -83,7 +114,8 @@ def check_planarity(G, counterexample=False):
         return True, embedding
 ```
 
-```{code-cell} ipython3
+
+```python
 #Example 1
 # Load GraphML file
 G = nx.read_graphml("./data/planar_graph.graphml")
@@ -96,7 +128,14 @@ plt.title("Planar Graph from GraphML")
 plt.show()
 ```
 
-```{code-cell} ipython3
+
+    
+![png](planarity_files/planarity_11_0.png)
+    
+
+
+
+```python
 #Example 2
 # Load GraphML file
 G = nx.read_graphml("./data/non_planar_k3_3.graphml")
@@ -109,9 +148,21 @@ plt.title("Non-Planar Graph (K3,3) from GraphML")
 plt.show()
 ```
 
-## Check Planarity Recusrivly
 
-```{code-cell} ipython3
+    
+![png](planarity_files/planarity_12_0.png)
+    
+
+
+## Check Planarity Recusrivly
+The function check_planarity_recursive recursively checks whether a graph G is planar. It uses a method lr_planarity_recursive from the LRPlanarity class to determine planarity. If the graph is planar, it returns True along with a PlanarEmbedding. If the graph is non-planar, it either returns False and a counterexample (if the counterexample=True flag is set) or just False with no counterexample. The recursive nature of the function allows it to break down the problem in smaller steps, examining the graph’s structure in a depth-first manner to assess its planarity.
+
+---
+
+
+
+
+```python
 def check_planarity_recursive(G, counterexample=False):
     """Recursive version of :meth:`check_planarity`."""
     planarity_state = LRPlanarity(G)
@@ -127,7 +178,8 @@ def check_planarity_recursive(G, counterexample=False):
         return True, embedding
 ```
 
-```{code-cell} ipython3
+
+```python
 # Example 1: Planar Graph
 # Load GraphML file
 G = nx.read_graphml("./data/planar_graph.graphml")
@@ -140,18 +192,15 @@ plt.title("Planar Graph from GraphML")
 plt.show()
 ```
 
-## Summary
-- We used `nx.check_planarity(G)` to determine if a graph is planar.
-- The function returns a PlanarEmbedding if the graph is planar and a Kuratowski subgraph if it is not.
-- The test is based on the **Left-Right Planarity Test**.
 
-This method is useful in applications like **circuit layout design, network visualization, and graph drawing**.
+    
+![png](planarity_files/planarity_15_0.png)
+    
 
-+++
 
 ## Notes
 
-A (combinatorial) embedding consists of cyclic orderings of the incident edges at each vertex. Given such an embedding there are multiple approaches discussed in literature to drawing the graph (subject to various constraints, e.g. integer coordinates), see e.g. [2].
+**Embedding** - A (combinatorial) embedding consists of cyclic orderings of the incident edges at each vertex. Given such an embedding there are multiple approaches discussed in literature to drawing the graph (subject to various constraints, e.g. integer coordinates), see e.g. [2].
 
 
 
@@ -161,51 +210,44 @@ The planarity check algorithm and extraction of the combinatorial embedding is b
 
 A counterexample is only generated if the corresponding parameter is set, because the complexity of the counterexample generation is higher.
 
-+++
+## IS_PLANAR
 
-## References
-[1]
-Ulrik Brandes: The Left-Right Planarity Test 2009 http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.217.9208
-
-
-
-2]
-
-Takao Nishizeki, Md Saidur Rahman: Planar graph drawing Lecture Notes Series on Computing: Volume 12 2004
-
-+++
-
-## IS_PLANAR 
-
-+++
-
-## Planarity: 
-    A graph is planar if it can be drawn on a plane without edges crossing.
+## Planarity:
+A graph is planar if it can be drawn on a plane without edges crossing.
 
 ## Kuratawoski's Theorem:
-    A graph is not planar if it contains a subgraph that is homeomorphic to K5 or K3,3.
+A graph is not planar if it contains a subgraph that is homeomorphic to K5 or K3,3.
 
-## NetworkX's is_planar(G) function 
-    determines whether a given graph is planar.
+## NetworkX's is_planar(G) function
+determines whether a given graph is planar.
 
-+++
+---
 
-import networkx as nx
-import matplotlib.pyplot as plt
 
-+++
 
 ## Parameters:
-G: NetworkX graph
+
+*   G: NetworkX graph  
+The graph to be checked for planarity.
+
+---
+
+
+
+
 ## Returns
- 
+
+*   bool:
+  *   True if the graph is planar.
+  *   False if the graph is non-planar.
 
 
-bol  o: l
+---
 
-Whether the graph is planar.
 
-```{code-cell} ipython3
+
+
+```python
 # Example 3: A simple planar graph
 # Load GraphML file
 G = nx.read_graphml("./data/simple_planar_graph.graphml")
@@ -218,7 +260,14 @@ plt.title("Simple Planar Graph from GraphML")
 plt.show()
 ```
 
-```{code-cell} ipython3
+
+    
+![png](planarity_files/planarity_20_0.png)
+    
+
+
+
+```python
 #Example 4
 # Load GraphML file
 G = nx.read_graphml("./data/K5_nonplanar.graphml")
@@ -231,32 +280,34 @@ plt.title("Complete Graph K5 (Non-Planar)")
 plt.show()
 ```
 
-## Planar Embedding
 
-+++ {"editable": true, "slideshow": {"slide_type": ""}}
+    
+![png](planarity_files/planarity_21_0.png)
+    
+
+
+## Planar Embedding
 
 ## Planar Embedding in NetworkX
 
-class PlanarEmbedding(incoming_graph_data=None, **attr)[source]
-
-Represents a planar graph with its planar embedding.
+*Class PlanarEmbedding:* This class represents a planar graph along with its planar embedding.
 
 
+A planar embedding is a way to represent a graph in the plane such that no edges cross, and it is given by a combinatorial embedding. This embedding stores the cyclic order of edges around each vertex, which is essential for visualizing the graph in a planar form.
 
-The planar embedding is given by a combinatorial embedding.
+---
 
-+++
+
 
 ## Combinatorial embedding
 
-Main article: Rotation system
-An embedded graph uniquely defines cyclic orders of edges incident to the same vertex. The set of all these cyclic orders is called a rotation system. Embeddings with the same rotation system are considered to be equivalent and the corresponding equivalence class of embeddings is called combinatorial embedding (as opposed to the term topological embedding, which refers to the previous definition in terms of points and curves). Sometimes, the rotation system itself is called a "combinatorial embedding".[5][6][7]
+**Main article: Rotation system**
+
+An embedded graph uniquely defines cyclic orders of edges incident to the same vertex. The set of all these cyclic orders is called a rotation system. Embeddings with the same rotation system are considered to be equivalent and the corresponding equivalence class of embeddings is called combinatorial embedding (as opposed to the term topological embedding, which refers to the previous definition in terms of points and curves). Sometimes, the rotation system itself is called a "combinatorial embedding".[3][4][5]
 
 An embedded graph also defines natural cyclic orders of edges which constitutes the boundaries of the faces of the embedding. However handling these face-based orders is less straightforward, since in some cases some edges may be traversed twice along a face boundary. For example this is always the case for embeddings of trees, which have a single face. To overcome this combinatorial nuisance, one may consider that every edge is "split" lengthwise in two "half-edges", or "sides". Under this convention in all face boundary traversals each half-edge is traversed only once and the two half-edges of the same edge are always traversed in opposite directions.
 
 Other equivalent representations for cellular embeddings include the ribbon graph, a topological space formed by gluing together topological disks for the vertices and edges of an embedded graph, and the graph-encoded map, an edge-colored cubic graph with four vertices for each edge of the embedded graph.
-
-+++
 
 ## Neighbor ordering:
 In comparison to a usual graph structure, the embedding also stores the order of all neighbors for every vertex. The order of the neighbors can be given in clockwise (cw) direction or counterclockwise (ccw) direction. This order is stored as edge attributes in the underlying directed graph. For the edge (u, v) the edge attribute ‘cw’ is set to the neighbor of u that follows immediately after v in clockwise direction.
@@ -275,19 +326,26 @@ Even though the graph is a subclass of nx.DiGraph, it can still be used for algo
 ## Half edges:
 In methods like add_half_edge the term “half-edge” is used, which is a term that is used in doubly connected edge lists. It is used to emphasize that the edge is only in one direction and there exists another half-edge in the opposite direction. While conventional edges always have two faces (including outer face) next to them, it is possible to assign each half-edge exactly one face. For a half-edge (u, v) that is oriented such that u is below v then the face that belongs to (u, v) is to the right of this half-edge.
 
-+++
+---
 
-__init__(incoming_graph_data=None, **attr)[source]
-Initialize a graph with edges, name, or graph attributes.
+
 
 ## Parameters:
-## incoming_graph_data : input graph (optional, default: None)
-Data to initialize graph. If None (default) an empty graph is created. The data can be an edge list, or any NetworkX graph object. If the corresponding optional Python packages are installed the data can also be a 2D NumPy array, a SciPy sparse array, or a PyGraphviz graph.
 
-## attr : keyword arguments, optional (default= no attributes)
-Attributes to add to graph as key=value pairs.
 
-```{code-cell} ipython3
+*   *incoming_graph_data :*  
+graph (optional, default: None)
+Data used to initialize the graph. If None (default), an empty graph is created. It can be an edge list or any NetworkX graph object. If the relevant Python packages are installed, it can also be a 2D NumPy array, a SciPy sparse matrix, or a PyGraphviz graph.
+*   *attr :*  
+keyword arguments, optional (default: no attributes)
+Attributes to add to the graph, provided as key-value pairs.
+
+---
+
+
+
+
+```python
 class PlanarEmbedding(nx.DiGraph):
     def __init__(self, incoming_graph_data=None, **attr):
         super().__init__(incoming_graph_data=incoming_graph_data, **attr)
@@ -849,7 +907,8 @@ class PlanarEmbedding(nx.DiGraph):
         return G
 ```
 
-```{code-cell} ipython3
+
+```python
 # Load GraphML file
 G = nx.read_graphml("./data/planar_embedding.graphml")
 
@@ -860,7 +919,7 @@ if is_planar:
     print("The graph is planar.")
 
     # Generate a planar embedding layout
-    pos = nx.planar_layout(G)  
+    pos = nx.planar_layout(G)
 
     # Draw the graph
     plt.figure(figsize=(6, 6))
@@ -870,3 +929,54 @@ if is_planar:
 else:
     print("The graph is not planar.")
 ```
+
+    The graph is planar.
+    
+
+
+    
+![png](planarity_files/planarity_28_1.png)
+    
+
+
+## Summary
+**Planarity in NetworkX**
+
+A planar graph can be embedded in the plane without any edge crossings. NetworkX provides functions to check whether a graph is planar using the Left-Right Planarity Test. This test determines if a graph is planar based on combinatorial embeddings.
+
+*   *check_planarity():* Returns a tuple (is_planar, certificate), where is_planar is a boolean indicating if the graph is planar, and certificate is either a PlanarEmbedding (for planar graphs) or a Kuratowski subgraph (for non-planar graphs).
+*   *PlanarEmbedding class:* Represents a planar graph and its embedding, which is described by a combinatorial embedding that stores the cyclic order of edges around each vertex.
+*   *Recursive Planarity Check:* The function check_planarity_recursive() checks planarity using recursion, returning a counterexample for non-planar graphs when requested.
+
+**Key Concepts:**
+
+*   *Kuratowski’s Theorem:*  A graph is non-planar if it contains a subgraph homeomorphic to K₅ or K₃,₃.
+*   *PlanarEmbedding:*  Encodes a valid planar graph embedding, ensuring no edge crossings in the planar layout.
+
+---
+
+
+
+
+
+
+
+
+## References
+[1]
+Ulrik Brandes: The Left-Right Planarity Test 2009 http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.217.9208
+
+
+
+[2]
+Takao Nishizeki, Md Saidur Rahman: Planar graph drawing Lecture Notes Series on Computing: Volume 12 2004
+
+[3] J. Edmonds, A Combinatorial Representation for Polyhedral Surfaces, 1960.
+
+[4] J.L. Gross and T.W. Tucker, Topological Graph Theory, 1987.
+
+[5] R. Cori and A. Machì, Maps, Hypermaps and Their Automorphisms, Expositiones Mathematicae, 1982.
+
+---
+
+
