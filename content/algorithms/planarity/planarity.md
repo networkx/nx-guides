@@ -128,13 +128,6 @@ plt.title("Planar Graph from GraphML")
 plt.show()
 ```
 
-
-    
-![png](planarity_files/planarity_11_0.png)
-    
-
-
-
 ```python
 #Example 2
 # Load GraphML file
@@ -147,12 +140,6 @@ nx.draw(G, pos, with_labels=True, node_color='lightcoral', edge_color='black', n
 plt.title("Non-Planar Graph (K3,3) from GraphML")
 plt.show()
 ```
-
-
-    
-![png](planarity_files/planarity_12_0.png)
-    
-
 
 ## Check Planarity Recusrivly
 The function check_planarity_recursive recursively checks whether a graph G is planar. It uses a method lr_planarity_recursive from the LRPlanarity class to determine planarity. If the graph is planar, it returns True along with a PlanarEmbedding. If the graph is non-planar, it either returns False and a counterexample (if the counterexample=True flag is set) or just False with no counterexample. The recursive nature of the function allows it to break down the problem in smaller steps, examining the graph’s structure in a depth-first manner to assess its planarity.
@@ -191,12 +178,6 @@ nx.draw(G, pos, with_labels=True, node_color='lightcoral', edge_color='black', n
 plt.title("Planar Graph from GraphML")
 plt.show()
 ```
-
-
-    
-![png](planarity_files/planarity_15_0.png)
-    
-
 
 ## Notes
 
@@ -260,13 +241,6 @@ plt.title("Simple Planar Graph from GraphML")
 plt.show()
 ```
 
-
-    
-![png](planarity_files/planarity_20_0.png)
-    
-
-
-
 ```python
 #Example 4
 # Load GraphML file
@@ -279,12 +253,6 @@ nx.draw(G, pos, with_labels=True, node_color='lightcoral', edge_color='black', n
 plt.title("Complete Graph K5 (Non-Planar)")
 plt.show()
 ```
-
-
-    
-![png](planarity_files/planarity_21_0.png)
-    
-
 
 ## Planar Embedding
 
@@ -934,11 +902,6 @@ else:
     
 
 
-    
-![png](planarity_files/planarity_28_1.png)
-    
-
-
 ## Summary
 **Planarity in NetworkX**
 
@@ -966,8 +929,6 @@ A planar graph can be embedded in the plane without any edge crossings. NetworkX
 [1]
 Ulrik Brandes: The Left-Right Planarity Test 2009 http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.217.9208
 
-
-
 [2]
 Takao Nishizeki, Md Saidur Rahman: Planar graph drawing Lecture Notes Series on Computing: Volume 12 2004
 
@@ -976,7 +937,3 @@ Takao Nishizeki, Md Saidur Rahman: Planar graph drawing Lecture Notes Series on 
 [4] J.L. Gross and T.W. Tucker, Topological Graph Theory, 1987.
 
 [5] R. Cori and A. Machì, Maps, Hypermaps and Their Automorphisms, Expositiones Mathematicae, 1982.
-
----
-
-
