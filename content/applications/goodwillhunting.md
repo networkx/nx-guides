@@ -229,7 +229,7 @@ not any(d == 2 for _, d in G.degree())
 
 It looks like we've found our first example!
 
-### Another perspective
+#### Another perspective
 
 We arrived at this example by thinking in terms of "roots" and "leaves", but if
 we change our perspective a bit, we might recognize this as an instance of a
@@ -251,4 +251,206 @@ And indeed it is!
 
 ```{code-cell}
 nx.is_isomorphic(G, nx.star_graph(9))
+```
+
+It turns out in fact that `star_graph(n)` is an instance of a homeomorphic
+irreducible tree of size `n` for all `n` greater than 3.
+
+### Finding more examples
+
+Let's return to our initial set of ideas that led us to the star_graph example.
+Using the star_graph as a starting point, we can use the same "hierarchical"
+approach to modify the star graph to develop other examples.
+For instance, what if we took some "leaves" from our original tree, and
+"moved them down a layer".
+We know that we don't want nodes of degree 2, so moving at least two nodes
+seems like a reasonable place to start.
+Let's start by re-visualizing our graph in hierarchical terms:
+
+```{code-cell}
+fig, ax = plt.subplots()
+
+nx.draw(G, pos=nx.bfs_layout(G, 0), ax=ax, with_labels=True);
+```
+
+Now let's try out our procedure. For starters, why don't we try moving nodes 1
+and 2 down a layer by connecting them to node 3 instead of the "root":
+
+```{code-cell}
+H = G.copy()
+
+H.remove_edges_from([(0, 1), (0, 2)])
+H.add_edges_from([(3, 1), (3, 2)])
+
+fig, ax = plt.subplots()
+nx.draw(H, pos=nx.bfs_layout(H, 0), ax=ax, with_labels=True);
+```
+
+This seems to meet our criteria; let's double-check!
+
+```{code-cell}
+nx.is_tree(H) and not any(d == 2 for _, d in H.degree())
+```
+
+Success!
+
+That procedure worked so well the first time, let's apply it again but
+attaching to node `4` instead of node `3`
+
+```{code-cell}
+H1 = G.copy()
+
+H1.remove_edges_from([(0, 1), (0, 2)])
+H1.add_edges_from([(4, 1), (4, 2)])
+
+fig, ax = plt.subplots()
+nx.draw(H1, pos=nx.bfs_layout(H1, 0), ax=ax, with_labels=True);
+```
+
+Looks good, right? Well looks can be deceiving...
+
+We're using hierarchical layouts and node labels to help us visualize
+the changes we're making, but recall that we're looking for *nonisomorphic* trees.
+While these two graphs may *look* distinct with the layouts we've chosen, they
+are actually isomorphic.
+
+```{code-cell}
+nx.is_isomorphic(H, H1)
+```
+
+This is easier to see if we tweak how we visualize the graphs:
+
+```{code-cell}
+fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+
+for G, a, ttl in zip((H, H1), ax.ravel(), ("H", "H1")):
+    nx.draw(G, pos=nx.spring_layout(G, seed=1000), with_labels=False, ax=a)
+    a.set_title(ttl)
+```
+
+This is a valuable lesson in both the virtues and pitfalls of graph visualization
+as a tool for working through the problem!
+
+### An algorithm
+
+The exploration above represents one application of a general procedure that
+should be useful in finding the remaining examples.
+Start with an existing irreducible example, and change the connectivity of
+a subset of nodes to create "deeper" trees.
+Recall also that it doesn't only have to be two nodes... what if we had moved
+nodes `1`, `2`, *and* `3` in our previous example?
+
+Formalizing this procedure into an actual algorithm for generating irreducible
+trees is left as an exercise for the reader!
+
+```{tip}
+This is a good stopping point to see if you can't use the above procedure
+(or another of your own devising!) to find the remaining 8 examples.
+
+The next section will spoil the answer!
+```
+
+## Searching the solution space
+
+Armed with a procedure for generating irreducible trees, the original problem
+should be solvable with a bit of elbow grease.
+
+But what if we didn't know how many examples we were looking for?
+In other words, what if we didn't know *at the start* that there are 10
+homeomorphically irreducible trees of order 10?
+
+For that matter, just how hard is this problem anyway? How "rare" are irreducible
+trees?
+
+We could get a much better sense of the problem if we had some idea of the
+solution space; i.e. the number of potential solutions.
+In the context of our problem, that boils down to answering "how many
+nonisomorphic trees of order 10 exist?"
+
+The [OEIS](oeis.org) is an excellent resource when face with questions like this,
+and indeed [A000055][oeis_a000055] has exactly what we're looking for.
+
+[oeis_a000055]: https://oeis.org/A000055
+
+In this case, it turns out so does NetworkX!
+
+```{code-cell}
+nx.number_of_nonisomorphic_trees(10)
+```
+
+So there are 106 unlabelled trees with 10 nodes.
+That actually seems like a quite manageable number...
+
+### A brute-force approach
+
+If there were a simple way to generate all the nonisomorphic trees with 10 nodes,
+we could simply check whether or not they are homeomorphically irreducible.
+All graphs that pass this check will then give us our answer.
+One nice thing about this approach is that it allows us to "prove" that we're
+finding *all* examples of homeomorphically irreducible trees, even if we don't
+know how many there are *a priori* for a given `n`.
+
+The downside however is also quite obvious - it requires checking
+*every possible tree*.
+This may be find for small `n`, but it quickly becomes
+[untenable as `n` increases](https://oeis.org/A000055/graph).
+
+Fortunately, we were only tasked for finding the result for `n=10`!
+
+```{code-cell}
+nhi_trees = [
+    G for G in nx.nonisomorphic_trees(10) if not any(d == 2 for _, d in G.degree())
+]
+```
+
+That's it!
+
+Let's do some sanity checks to make sure our result passes muster.
+First, we can check that we got the expected number of trees:
+
+```{code-cell}
+len(nhi_trees)
+```
+
+So far so good.
+We really relied on {func}`~networkx.generators.nonisomorphic_trees.nonisomorphic_trees`
+to do the majority of the heavy-lifting for us.
+Let's double check that the trees we recorded are indeed nonisomorphic to each
+other:
+
+```{code-cell}
+checked = []
+for G in nhi_trees:
+    assert not any(nx.is_isomorphic(G, H) for H in checked)
+    checked.append(G)
+```
+
+### The big reveal
+
+Finally, the fruits of our mental labor!
+We can view the results using a hierarchical layout to visualize the trees in a
+way that matches the line of thinking we developed in the previous section.
+We'll also include the number of nodes per each layer in the graph.
+Can you spot any patterns?
+
+```{code-cell}
+fig, ax = plt.subplots(2, 5, figsize=(12, 6))
+
+for G, a in zip(nhi_trees, ax.ravel()):
+    nodes_per_layer = [len(lyr) for lyr in nx.bfs_layers(G, 0)]
+    nx.draw(G, pos=nx.bfs_layout(G, 0), ax=a)
+    a.set_title(f"{nodes_per_layer}")
+```
+
+So there they are, in all their glory: all 10 homeomorphically irreducible
+unlabeled trees with 10 nodes.
+We'd be remiss however if we didn't also visualize these graphs nearer to how
+they were drawn in the Numberphile video or the film.
+As we've already convinced ourselves, it's just a matter of layout!
+
+```{code-cell}
+fig, ax = plt.subplots(2, 5, figsize=(12, 6))
+
+for G, a in zip(nhi_trees, ax.ravel()):
+    nx.draw(G, pos=nx.spring_layout(G, seed=1010, iterations=200), ax=a)
 ```
