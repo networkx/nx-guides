@@ -66,6 +66,8 @@ For example, a path graph with 10 nodes is connected and contains no cycles,
 and is therefore a tree!
 
 ```{code-cell}
+import networkx as nx
+
 G = nx.path_graph(10)
 nx.is_tree(G)
 ```
