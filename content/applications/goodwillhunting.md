@@ -14,7 +14,7 @@ kernelspec:
 # The Good Will Hunting Problem
 
 If you've seen the film [Good Will Hunting][gwh_wiki], you may recall a scene
-in the beginning of the film where Fields medal-winning MIT professor Gerald Lambeau
+near the beginning of the film where Fields medal-winning MIT professor Gerald Lambeau
 (played by Stellan Skarsgård) presents a mathematics challenge to a classrom
 full of students.
 It turns out that the problem involves some basic graph theory... let's see if
@@ -29,28 +29,29 @@ did a very nice video on this topic.
 Make sure to pause at **3:05** if you don't want to give away the answer!
 ```
 
-<iframe 
-  width="560" 
-  height="315"
-  src="https://www.youtube.com/embed/iW_LkYiuTKE?si=zgyO8Pnn6eqid30P"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  referrerpolicy="strict-origin-when-cross-origin"
-  allowfullscreen>
-</iframe>
+<center>
+  <iframe 
+    width="560" 
+    height="315"
+    src="https://www.youtube.com/embed/iW_LkYiuTKE?si=zgyO8Pnn6eqid30P"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
+</center>
 
 [gwh_wiki]: https://en.wikipedia.org/wiki/Good_Will_Hunting
 
-Here is the problem statement, quoting James in the Numberphile video linked
-above (starting at around `1:23`):
+Here is the problem statement, quoting James from the video (starting at around `1:23`):
 
 > Draw all homeomorphically irreducible trees of size n=10
 
 As in the video, let's examine these terms more closely to make sure we can
 understand the problem.
 
-The first term to focus on ["tree"][tree_wiki], a fundamental concept in
+The first term to focus on is [*"tree"*][tree_wiki], a fundamental concept in
 graph theory.
 A tree refers to an undirected graph which is fully connected and contains no
 cycles.
@@ -59,8 +60,8 @@ number of nodes that the tree contains.
 
 [tree_wiki]: https://en.wikipedia.org/wiki/Tree_(graph_theory)
 
-Given these simple definitions, we can already start coming up with example
-graphs that might fit the bill.
+Given these simple definitions, we can already start coming up with graphs that
+might fit the bill.
 For example, a path graph with 10 nodes is connected and contains no cycles,
 and is therefore a tree!
 
@@ -71,8 +72,8 @@ nx.is_tree(G)
 
 Wow, that was easy... did we really find our first example that quickly?
 Not so fast... there's still that whole business of "homeomorphic irreducibility".
-Fortunately, at least in the context of this problem, this complicated terminology
-describes a relatively simple concept:
+Fortunately, at least in the context of this problem, this complicated-sounding
+term refers to a relatively simple concept:
 
     A tree is homeomorphically irreducible if it contains no nodes with degree
     2.
@@ -130,22 +131,24 @@ At face value, it's clear these graphs are not identical.
 For starters, the numbers representing the nodes are different.
 Then there's the properties of the nodes in the two graphs, e.g. the node
 color or their position in the 2D visualization. 
-Let's think about these differences in the context of our problem.
-If we consider the node properties significant, then our question could have
+Let's examine these differences in the context of our problem.
+
+If we consider the node properties to be significant, then our question could have
 infinite answers: all we'd need to do is find one such tree, then change the
 coloring, positioning, or any other unbounded property of the nodes to get a
 "new" answer.
-For our purposes then, we want to ignore node properties.
+For our purposes then, we will ignore node properties.
 
-Similarly, there are the node labels - i.e. the values assigned 
-If we allow these labels to do be anything (i.e. integers, letters, etc.)
-then we have the same situation as the node properties: there is an infinite
-number of ways to label the nodes.
-We reject this as uninteresting for our question.
+Similarly, there are the node labels - i.e. the values that allow us to uniquely
+identify each node.
+If we allow these labels to be anything (i.e. integers, letters, arbitrary symbols, etc.)
+then we have the same situation as the node properties: there are infinite
+ways to label the nodes.
+This too we reject as uninteresting for our question.
+
 Even if we were to limit the set of possible labels (say the integers from `[0, 9]`
 for our `n=10` case), then we'd still have a scenario where graphs with the same
-adjacency can be represented multiple ways depending on the permutations of node
-labels.
+adjacency can be represented multiple ways by permutating the node labels.
 For our purposes then, we'll also be ignoring the node labels.
 In the parlance of graph theory, this means we're dealing with *unlabelled trees*.
 
@@ -157,7 +160,8 @@ graphs that are *nonisomorphic*.
 nx.is_isomorphic(G, H)
 ```
 
-You can learn more about isomorphism in the {ref}`other NX guides <isomorphism>`.
+You can learn more about isomorphism in
+{doc}`other NX Guides </content/algorithms/isomorphism/index>`.
 
 ### Problem statement summary
 
@@ -171,10 +175,10 @@ We're looking for all undirected graphs that:
 
 ## Attacking the problem
 
-How many of these trees exist for `n=10`?
+Before we go hunting for individual examples, we might ask: how many we need to find?
 As noted in the video, there are 10 homeomorphically irreducible unlabeled trees
 with 10 nodes.
-We can confirm this by checking the corresponding sequence in the [OEIS](oeis.org):
+We can confirm this by checking the corresponding sequence in the [OEIS](https://oeis.org):
 [The number of series-reduced trees with n nodes][a000014].
 
 [a000014]: https://oeis.org/A000014
@@ -232,11 +236,11 @@ It looks like we've found our first example!
 #### Another perspective
 
 We arrived at this example by thinking in terms of "roots" and "leaves", but if
-we change our perspective a bit, we might recognize this as an instance of a
-common class of graphs.
+we change our perspective a bit we might recognize this as an instance of a
+common class of graphs...
 
 Let's try a different layout; perhaps one that tries to evenly spread nodes
-spatial rather than capture hierarchical relationships:
+spatially rather than capture hierarchical relationships:
 
 ```{code-cell}
 # A force-directed layout
@@ -253,19 +257,20 @@ And indeed it is!
 nx.is_isomorphic(G, nx.star_graph(9))
 ```
 
-It turns out in fact that `star_graph(n)` is an instance of a homeomorphic
-irreducible tree of size `n` for all `n` greater than 3.
+It turns out in fact that `star_graph(n)` is an instance of a
+homeomorphically-irreducible tree of size `n` for all `n` greater than 3.
 
 ### Finding more examples
 
-Let's return to our initial set of ideas that led us to the star_graph example.
-Using the star_graph as a starting point, we can use the same "hierarchical"
-approach to modify the star graph to develop other examples.
+Let's return to our initial set of ideas that led us to the `star_graph`.
+Using the `star_graph` as a starting point, we can apply the same "hierarchical"
+thinking to develop other examples.
+
 For instance, what if we took some "leaves" from our original tree, and
 "moved them down a layer".
 We know that we don't want nodes of degree 2, so moving at least two nodes
 seems like a reasonable place to start.
-Let's start by re-visualizing our graph in hierarchical terms:
+Let's start by re-visualizing our graph hierarchically:
 
 ```{code-cell}
 fig, ax = plt.subplots()
@@ -273,8 +278,8 @@ fig, ax = plt.subplots()
 nx.draw(G, pos=nx.bfs_layout(G, 0), ax=ax, with_labels=True);
 ```
 
-Now let's try out our procedure. For starters, why don't we try moving nodes 1
-and 2 down a layer by connecting them to node 3 instead of the "root":
+Now let's try moving nodes 1 and 2 down a layer by connecting them to node 3
+instead of the "root":
 
 ```{code-cell}
 H = G.copy()
@@ -329,18 +334,18 @@ for G, a, ttl in zip((H, H1), ax.ravel(), ("H", "H1")):
 ```
 
 This is a valuable lesson in both the virtues and pitfalls of graph visualization
-as a tool for working through the problem!
+as a tool for working through problems!
 
 ### An algorithm
 
-The exploration above represents one application of a general procedure that
+The result above represents one application of a general procedure that
 should be useful in finding the remaining examples.
-Start with an existing irreducible example, and change the connectivity of
-a subset of nodes to create "deeper" trees.
-Recall also that it doesn't only have to be two nodes... what if we had moved
+Start with an existing irreducible tree, then change the connectivity of
+a subset of nodes to create a "deeper" tree.
+Bear in mind also that we can "move" more than two nodes... what if we had moved
 nodes `1`, `2`, *and* `3` in our previous example?
 
-Formalizing this procedure into an actual algorithm for generating irreducible
+Formalizing this procedure into an algorithm for generating irreducible
 trees is left as an exercise for the reader!
 
 ```{tip}
@@ -352,22 +357,20 @@ The next section will spoil the answer!
 
 ## Searching the solution space
 
-Armed with a procedure for generating irreducible trees, the original problem
-should be solvable with a bit of elbow grease.
+The original problem should now be solvable with a bit of elbow grease.
 
 But what if we didn't know how many examples we were looking for?
 In other words, what if we didn't know *at the start* that there are 10
-homeomorphically irreducible trees of order 10?
+homeomorphically-irreducible trees of order 10?
 
-For that matter, just how hard is this problem anyway? How "rare" are irreducible
+For that matter, just how hard *is* this problem anyway? How "rare" are irreducible
 trees?
 
-We could get a much better sense of the problem if we had some idea of the
-solution space; i.e. the number of potential solutions.
-In the context of our problem, that boils down to answering "how many
-nonisomorphic trees of order 10 exist?"
+We could get a much better sense if we had some idea of the solution space;
+i.e. the number of potential solutions.
+In other words, we're wondering how many nonisomorphic trees of order 10 exist?
 
-The [OEIS](oeis.org) is an excellent resource when face with questions like this,
+The [OEIS](https://oeis.org) is an excellent resource when faced with questions like this,
 and indeed [A000055][oeis_a000055] has exactly what we're looking for.
 
 [oeis_a000055]: https://oeis.org/A000055
@@ -383,16 +386,16 @@ That actually seems like a quite manageable number...
 
 ### A brute-force approach
 
-If there were a simple way to generate all the nonisomorphic trees with 10 nodes,
-we could simply check whether or not they are homeomorphically irreducible.
+If there were a way to generate all the nonisomorphic trees with 10 nodes,
+we could simply check whether or not they are homeomorphically-irreducible.
 All graphs that pass this check will then give us our answer.
-One nice thing about this approach is that it allows us to "prove" that we're
-finding *all* examples of homeomorphically irreducible trees, even if we don't
-know how many there are *a priori* for a given `n`.
+One nice thing about this approach is that it allows us to "prove" (by exhaustion)
+that we're finding *all* examples of homeomorphically-irreducible trees for a given
+order, even if we don't know how many there are *a priori*.
 
 The downside however is also quite obvious - it requires checking
 *every possible tree*.
-This may be find for small `n`, but it quickly becomes
+This may be fine for small `n`, but it quickly becomes
 [untenable as `n` increases](https://oeis.org/A000055/graph).
 
 Fortunately, we were only tasked for finding the result for `n=10`!
@@ -413,6 +416,7 @@ len(nhi_trees)
 ```
 
 So far so good.
+
 We really relied on {func}`~networkx.generators.nonisomorphic_trees.nonisomorphic_trees`
 to do the majority of the heavy-lifting for us.
 Let's double check that the trees we recorded are indeed nonisomorphic to each
@@ -425,9 +429,12 @@ for G in nhi_trees:
     checked.append(G)
 ```
 
+No `AssertionError` s ✅
+
 ### The big reveal
 
 Finally, the fruits of our mental labor!
+
 We can view the results using a hierarchical layout to visualize the trees in a
 way that matches the line of thinking we developed in the previous section.
 We'll also include the number of nodes per each layer in the graph.
@@ -442,10 +449,11 @@ for G, a in zip(nhi_trees, ax.ravel()):
     a.set_title(f"{nodes_per_layer}")
 ```
 
-So there they are, in all their glory: all 10 homeomorphically irreducible
-unlabeled trees with 10 nodes.
-We'd be remiss however if we didn't also visualize these graphs nearer to how
-they were drawn in the Numberphile video or the film.
+So there they are, in all their glory: all 10 homeomorphically-irreducible
+unlabeled trees with 10 nodes!
+
+We'd be remiss however if we didn't also generate images closer to those seen in
+the film/numberphile video.
 As we've already convinced ourselves, it's just a matter of layout!
 
 ```{code-cell}
