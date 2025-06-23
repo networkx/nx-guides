@@ -122,6 +122,8 @@ nx.set_node_attributes(H, values="tab:red", name="color")
 ```
 
 ```{code-cell}
+import matplotlib.pyplot as plt
+
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 
 for graph, axis in zip((G, H), ax):
