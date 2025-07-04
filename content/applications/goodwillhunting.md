@@ -15,10 +15,10 @@ kernelspec:
 
 If you've seen the film [Good Will Hunting][gwh_wiki], you may recall a scene
 near the beginning of the film where Fields medal-winning MIT professor Gerald Lambeau
-(played by Stellan Skarsgård) presents a mathematics challenge to a classrom
+(played by Stellan Skarsgård) presents a mathematics challenge to a classroom
 full of students.
 It turns out that the problem involves some basic graph theory... let's see if
-we can't attack it ourselves with NetworkX!
+we can attack it ourselves with NetworkX!
 
 ## The problem statement
 
@@ -62,7 +62,7 @@ number of nodes that the tree contains.
 
 Given these simple definitions, we can already start coming up with graphs that
 might fit the bill.
-For example, a path graph with 10 nodes is connected and contains no cycles,
+For example, a [path graph](https://en.wikipedia.org/wiki/Path_graph) with 10 nodes is connected and contains no cycles,
 and is therefore a tree!
 
 ```{code-cell}
@@ -77,8 +77,7 @@ Not so fast... there's still that whole business of "homeomorphic irreducibility
 Fortunately, at least in the context of this problem, this complicated-sounding
 term refers to a relatively simple concept:
 
-    A tree is homeomorphically irreducible if it contains no nodes with degree
-    2.
+    A tree is homeomorphically irreducible if it contains no nodes with degree 2.
 
 This simple interpretation can be found explicitly near the end of the
 [Definitions section of the wiki article on trees][tree_wiki_defn].
@@ -86,7 +85,7 @@ This simple interpretation can be found explicitly near the end of the
 [tree_wiki_defn]: https://en.wikipedia.org/wiki/Tree_(graph_theory)#Definitions
 
 This added condition means that our path graph isn't a valid solution after all,
-as it contains at least one node (8, in fact) with degree 2:
+as it contains at least one node (8, in fact) with degree 2 (the key in the dictionary is the node and value is the degree of the node):
 
 ```{code-cell}
 dict(G.degree)
@@ -402,7 +401,7 @@ The downside however is also quite obvious - it requires checking
 This may be fine for small `n`, but it quickly becomes
 [untenable as `n` increases](https://oeis.org/A000055/graph).
 
-Fortunately, we were only tasked for finding the result for `n=10`!
+Fortunately, we were only tasked with finding the result for `n=10`!
 
 ```{code-cell}
 nhi_trees = [
@@ -441,7 +440,7 @@ Finally, the fruits of our mental labor!
 
 We can view the results using a hierarchical layout to visualize the trees in a
 way that matches the line of thinking we developed in the previous section.
-We'll also include the number of nodes per each layer in the graph.
+We'll also include the number of nodes per layer in the graph.
 Can you spot any patterns?
 
 ```{code-cell}
