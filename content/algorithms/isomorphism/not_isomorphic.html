@@ -30,7 +30,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -46,7 +46,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/algorithms/isomorphism/not_isomorphic';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Graph Generators" href="../../generators/index.html" />
+    <link rel="next" title="Applications" href="../../applications/index.html" />
     <link rel="prev" title="Isomorphism - How to find if two graphs are similar?" href="isomorphism.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -184,6 +184,10 @@
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">To be or not to be (isomorphic)</a></li>
 </ul>
 </details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../applications/index.html">Applications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../applications/goodwillhunting.html">The Good Will Hunting Problem</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../generators/index.html">Graph Generators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -519,7 +523,7 @@ determination:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>73.1 ms ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100 ms ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
 </pre></div>
 </div>
 </div>
@@ -558,7 +562,7 @@ isomorphism determination is several orders of magnitude faster!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>135 μs ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>158 μs ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
 </pre></div>
 </div>
 </div>
@@ -577,7 +581,7 @@ isomorphism determination is several orders of magnitude faster!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative compute time, iso/non_iso example: 1082.74
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative compute time, iso/non_iso example: 1376.32
 </pre></div>
 </div>
 </div>
@@ -717,13 +721,13 @@ If we translate this expectation to our <code class="docutils literal notranslat
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.137 sec to compare degree distribution for all graphs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.032 sec to compare degree distribution for all graphs
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>40.557 sec to compare triangle distribution for all graphs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46.914 sec to compare triangle distribution for all graphs
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>57.341 sec to compare maximal clique distribution for all graphs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>57.581 sec to compare maximal clique distribution for all graphs
 </pre></div>
 </div>
 </div>
@@ -894,7 +898,7 @@ determining whether graphs <em>could</em> be isomorphic.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 </pre></div>
 </div>
-<img alt="../../../_images/c78f48012c669cac7c1b592bb13a17236727c17e0baf3ea0ef4864aa31d19797.png" src="../../../_images/c78f48012c669cac7c1b592bb13a17236727c17e0baf3ea0ef4864aa31d19797.png" />
+<img alt="../../../_images/f9b05e2d52f63b7183fd14ae3025556ed2126b93cf0942d6e5931f86fdbd4ba9.png" src="../../../_images/f9b05e2d52f63b7183fd14ae3025556ed2126b93cf0942d6e5931f86fdbd4ba9.png" />
 </div>
 </div>
 <p>This matches our expectations, and is a nice illustration of how checking
@@ -917,7 +921,7 @@ where the graphs contain triangles:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/97ed481ec05e307b1820ba3cdf9a2b6563446af60965cb6a49ceec919d4758ec.png" src="../../../_images/97ed481ec05e307b1820ba3cdf9a2b6563446af60965cb6a49ceec919d4758ec.png" />
+<img alt="../../../_images/480676b6ba1f5d947af80b5b9106b2acf3054a8972c64a3550f1911482d30e67.png" src="../../../_images/480676b6ba1f5d947af80b5b9106b2acf3054a8972c64a3550f1911482d30e67.png" />
 </div>
 </div>
 <p>Let’s refine our investigation even further — of the 363378 possible graph
@@ -976,7 +980,7 @@ degree sequence:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/2b3a3ba345fef429f192d9c5f5252d87918f8ad9bc9db533a2f81b6c54963fcd.png" src="../../../_images/2b3a3ba345fef429f192d9c5f5252d87918f8ad9bc9db533a2f81b6c54963fcd.png" />
+<img alt="../../../_images/900ba4a0a79034f4b7790cead57c7f723b0c5c2c543d4cb919a602355060fa1d.png" src="../../../_images/900ba4a0a79034f4b7790cead57c7f723b0c5c2c543d4cb919a602355060fa1d.png" />
 </div>
 </div>
 <p>At this point, we’ve filtered down all the possible combinations of fully-connected
@@ -1030,8 +1034,8 @@ different clique distributions.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/7ca803684f06023bc4f7eb2d795787c12b71e1a153b25018511d77abccec5645.png" src="../../../_images/7ca803684f06023bc4f7eb2d795787c12b71e1a153b25018511d77abccec5645.png" />
-<img alt="../../../_images/0e17d9cfdeaa2a32ebdde8ba501dd11f56e452ba40ce2b4b198939804d98d9ea.png" src="../../../_images/0e17d9cfdeaa2a32ebdde8ba501dd11f56e452ba40ce2b4b198939804d98d9ea.png" />
+<img alt="../../../_images/3fb38ae79faefc9874a8609a0f373c0bc41ebaa6d178aedd6501c4b6ed9381bc.png" src="../../../_images/3fb38ae79faefc9874a8609a0f373c0bc41ebaa6d178aedd6501c4b6ed9381bc.png" />
+<img alt="../../../_images/edf64399e361aaed515a64e4f07e672bb14a8527c49ad0dc7acf7d64a91ab06f.png" src="../../../_images/edf64399e361aaed515a64e4f07e672bb14a8527c49ad0dc7acf7d64a91ab06f.png" />
 </div>
 </div>
 <section id="inspiration">
@@ -1071,11 +1075,11 @@ can increase greatly!</p>
       </div>
     </a>
     <a class="right-next"
-       href="../../generators/index.html"
+       href="../../applications/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Graph Generators</p>
+        <p class="prev-next-title">Applications</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

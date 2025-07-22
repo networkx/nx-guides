@@ -1,0 +1,1154 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The Good Will Hunting Problem &#8212; NetworkX Notebooks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/applications/goodwillhunting';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Graph Generators" href="../generators/index.html" />
+    <link rel="prev" title="Applications" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/networkx_banner.svg" class="logo__image only-light" alt="NetworkX Notebooks - Home"/>
+    <script>document.write(`<img src="../../_static/networkx_banner.svg" class="logo__image only-dark" alt="NetworkX Notebooks - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/assortativity/correlation.html">Node Assortativity Coefficients and Correlation Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/dag/index.html">Directed Acyclic Graphs &amp; Topological Sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/flow/dinitz_alg.html">Dinitz’s Algorithm and Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/lca/LCA.html">Lowest Common Ancestor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/euler/euler.html">Euler’s Algorithm</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../algorithms/isomorphism/index.html">Isomorphism</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/isomorphism/isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/isomorphism/not_isomorphic.html">To be or not to be (isomorphic)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Applications</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">The Good Will Hunting Problem</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../generators/index.html">Graph Generators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../generators/geometric.html">Geometric Generator Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generators/sudoku.html">Sudoku and Graph Coloring</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../exploratory_notebooks/facebook_notebook.html">Facebook Network Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributors Guide</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=tree/site/content/applications/goodwillhunting.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/networkx/nx-guides" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/networkx/nx-guides/edit/main/site/content/applications/goodwillhunting.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/networkx/nx-guides/issues/new?title=Issue%20on%20page%20%2Fcontent/applications/goodwillhunting.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/applications/goodwillhunting.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="../../_sources/content/applications/goodwillhunting.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Good Will Hunting Problem</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-statement">The problem statement</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-statement-summary">Problem statement summary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attacking-the-problem">Attacking the problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qualitative-approach">Qualitative approach</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#another-perspective">Another perspective</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-more-examples">Finding more examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-algorithm">An algorithm</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#searching-the-solution-space">Searching the solution space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-brute-force-approach">A brute-force approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-big-reveal">The big reveal</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-good-will-hunting-problem">
+<h1>The Good Will Hunting Problem<a class="headerlink" href="#the-good-will-hunting-problem" title="Link to this heading">#</a></h1>
+<p>If you’ve seen the film <a class="reference external" href="https://en.wikipedia.org/wiki/Good_Will_Hunting">Good Will Hunting</a>, you may recall a scene
+near the beginning of the film where Fields medal-winning MIT professor Gerald Lambeau
+(played by Stellan Skarsgård) presents a mathematics challenge to a classroom
+full of students.
+It turns out that the problem involves some basic graph theory… let’s see if
+we can attack it ourselves with NetworkX!</p>
+<section id="the-problem-statement">
+<h2>The problem statement<a class="headerlink" href="#the-problem-statement" title="Link to this heading">#</a></h2>
+<p>The excellent <a class="reference external" href="https://www.youtube.com/&#64;numberphile">Numberphile YouTube channel</a>
+did a very nice video on this topic.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure to pause at <strong>3:05</strong> if you don’t want to give away the answer!</p>
+</div>
+<center>
+  <iframe 
+    width="560" 
+    height="315"
+    src="https://www.youtube.com/embed/iW_LkYiuTKE?si=zgyO8Pnn6eqid30P"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
+</center>
+<p>Here is the problem statement, quoting James from the video (starting at around <code class="docutils literal notranslate"><span class="pre">1:23</span></code>):</p>
+<blockquote>
+<div><p>Draw all homeomorphically irreducible trees of size n=10</p>
+</div></blockquote>
+<p>As in the video, let’s examine these terms more closely to make sure we can
+understand the problem.</p>
+<p>The first term to focus on is <a class="reference external" href="https://en.wikipedia.org/wiki/Tree_(graph_theory)"><em>“tree”</em></a>, a fundamental concept in
+graph theory.
+A tree refers to an undirected graph which is fully connected and contains no
+cycles.
+We are also given the “size” of the tree in the problem statement, i.e. the
+number of nodes that the tree contains.</p>
+<p>Given these simple definitions, we can already start coming up with graphs that
+might fit the bill.
+For example, a <a class="reference external" href="https://en.wikipedia.org/wiki/Path_graph">path graph</a> with 10 nodes is connected and contains no cycles,
+and is therefore a tree!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">is_tree</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>Wow, that was easy… did we really find our first example that quickly?
+Not so fast… there’s still that whole business of “homeomorphic irreducibility”.
+Fortunately, at least in the context of this problem, this complicated-sounding
+term refers to a relatively simple concept:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>A tree is homeomorphically irreducible if it contains no nodes with degree 2.
+</pre></div>
+</div>
+<p>This simple interpretation can be found explicitly near the end of the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Tree_(graph_theory)#Definitions">Definitions section of the wiki article on trees</a>.</p>
+<p>This added condition means that our path graph isn’t a valid solution after all,
+as it contains at least one node (8, in fact) with degree 2 (the key in the dictionary is the node and value is the degree of the node):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">dict</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: 1, 1: 2, 2: 2, 3: 2, 4: 2, 5: 2, 6: 2, 7: 2, 8: 2, 9: 1}
+</pre></div>
+</div>
+</div>
+</div>
+<p>So, let’s restate the problem in these less-specialized terms:</p>
+<p>We’re looking for all undirected graphs that:</p>
+<ul class="simple">
+<li><p>Contain 10 nodes</p></li>
+<li><p>Are fully connected</p></li>
+<li><p>Contain no cycles</p></li>
+<li><p>Contain no nodes with degree 2</p></li>
+</ul>
+<p>There’s one final consideration which isn’t explicitly mentioned in the problem
+statement.
+How do we determine whether or not a graph is “unique”?</p>
+<p>This is briefly touched on in the Numberphile video. Consider two graphs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The reason for explicit positioning will become clear in a moment</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">3</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">4</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">5</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)},</span> <span class="s2">&quot;pos&quot;</span>
+<span class="p">)</span>
+
+<span class="n">H</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span>
+    <span class="n">H</span><span class="p">,</span> <span class="p">{</span><span class="mi">6</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">5</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">4</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">3</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)},</span> <span class="s2">&quot;pos&quot;</span>
+<span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;tab:red&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;color&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">graph</span><span class="p">,</span> <span class="n">axis</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">((</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">),</span> <span class="n">ax</span><span class="p">):</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/262355315c55f1ada07a609a3c1fe36eabfb9a2bedc2cc40e99d9d99676b8ec2.png" src="../../_images/262355315c55f1ada07a609a3c1fe36eabfb9a2bedc2cc40e99d9d99676b8ec2.png" />
+</div>
+</div>
+<p>At face value, it’s clear these graphs are not identical.
+For starters, the numbers representing the nodes are different.
+Then there’s the properties of the nodes in the two graphs, e.g. the node
+color or their position in the 2D visualization.
+Let’s examine these differences in the context of our problem.</p>
+<p>If we consider the node properties to be significant, then our question could have
+infinite answers: all we’d need to do is find one such tree, then change the
+coloring, positioning, or any other unbounded property of the nodes to get a
+“new” answer.
+For our purposes then, we will ignore node properties.</p>
+<p>Similarly, there are the node labels - i.e. the values that allow us to uniquely
+identify each node.
+If we allow these labels to be anything (i.e. integers, letters, arbitrary symbols, etc.)
+then we have the same situation as the node properties: there are infinite
+ways to label the nodes.
+This too we reject as uninteresting for our question.</p>
+<p>Even if we were to limit the set of possible labels (say the integers from <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">9]</span></code>
+for our <code class="docutils literal notranslate"><span class="pre">n=10</span></code> case), then we’d still have a scenario where graphs with the same
+adjacency can be represented multiple ways by permutating the node labels.
+For our purposes then, we’ll also be ignoring the node labels.
+In the parlance of graph theory, this means we’re dealing with <em>unlabelled trees</em>.</p>
+<p>What’s left then is a comparison of the adjacencies between the two graphs.
+In the context of our problem, when we say “unique” graphs what we mean are
+graphs that are <em>nonisomorphic</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can learn more about isomorphism in
+<a class="reference internal" href="../algorithms/isomorphism/index.html"><span class="doc">other NX Guides</span></a>.</p>
+<section id="problem-statement-summary">
+<h3>Problem statement summary<a class="headerlink" href="#problem-statement-summary" title="Link to this heading">#</a></h3>
+<p>With that final clarification, we’ve fully specified the problem.
+We’re looking for all undirected graphs that:</p>
+<ul class="simple">
+<li><p>Contain 10 nodes</p></li>
+<li><p>Are fully connected</p></li>
+<li><p>Contain no cycles</p></li>
+<li><p>Contain no nodes with degree 2</p></li>
+<li><p>Are nonisomorphic with each other</p></li>
+</ul>
+</section>
+</section>
+<section id="attacking-the-problem">
+<h2>Attacking the problem<a class="headerlink" href="#attacking-the-problem" title="Link to this heading">#</a></h2>
+<p>Before we go hunting for individual examples, we might ask: how many we need to find?
+As noted in the video, there are 10 homeomorphically irreducible unlabeled trees
+with 10 nodes.
+We can confirm this by checking the corresponding sequence in the <a class="reference external" href="https://oeis.org">OEIS</a>:
+<a class="reference external" href="https://oeis.org/A000014">The number of series-reduced trees with n nodes</a>.</p>
+<section id="qualitative-approach">
+<h3>Qualitative approach<a class="headerlink" href="#qualitative-approach" title="Link to this heading">#</a></h3>
+<p>We began our investigation with a <code class="docutils literal notranslate"><span class="pre">path_graph</span></code>, which is a tree but doesn’t meet
+the criterion for irreducibility.
+Are there any simple modifications we can think of from this starting point to
+arrive at an irreducible tree?
+The main issue is all of those interconnected degree-2 nodes: how could we replace
+that pattern?</p>
+<p>One common way to think about trees is as a <em>hierarchical</em> structure, with
+“root” nodes and “leaf” nodes.
+Perhaps this line of thinking could help here.
+What if we organized our 10 nodes so that we had one “root” with the remaining
+nodes as leaves?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># our &quot;root&quot; node</span>
+
+<span class="c1"># Then, let&#39;s add each of the remaining 9 nodes as leaves connected only to</span>
+<span class="c1"># the root</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># Position nodes hierarchically, with &quot;root&quot; on one end and &quot;leaves&quot; on the other</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">bfs_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">store_pos_as</span><span class="o">=</span><span class="s2">&quot;pos_bfs&quot;</span><span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">node_pos</span><span class="o">=</span><span class="s2">&quot;pos_bfs&quot;</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="n">ax</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/17e9fa4a0abd3061f4bb1ecc46b5e3320f5844ed12dcaa45239a9ac8bad2e164.png" src="../../_images/17e9fa4a0abd3061f4bb1ecc46b5e3320f5844ed12dcaa45239a9ac8bad2e164.png" />
+</div>
+</div>
+<p>This looks promising… our graph <code class="docutils literal notranslate"><span class="pre">G</span></code> is a tree:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">is_tree</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>with 10 nodes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
+</pre></div>
+</div>
+</div>
+</div>
+<p>and, unlike the <code class="docutils literal notranslate"><span class="pre">path_graph</span></code>, doesn’t contain any nodes with degree 2:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">d</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>It looks like we’ve found our first example!</p>
+<section id="another-perspective">
+<h4>Another perspective<a class="headerlink" href="#another-perspective" title="Link to this heading">#</a></h4>
+<p>We arrived at this example by thinking in terms of “roots” and “leaves”, but if
+we change our perspective a bit we might recognize this as an instance of a
+common class of graphs…</p>
+<p>Let’s try a different layout; perhaps one that tries to evenly spread nodes
+spatially rather than capture hierarchical relationships:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A force-directed layout</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">store_pos_as</span><span class="o">=</span><span class="s2">&quot;pos_spring&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">node_pos</span><span class="o">=</span><span class="s2">&quot;pos_spring&quot;</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="n">ax</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d539a0407244dac100d456256f13f478aa1f36941be86999703f26ef6cb18afd.png" src="../../_images/d539a0407244dac100d456256f13f478aa1f36941be86999703f26ef6cb18afd.png" />
+</div>
+</div>
+<p>That looks an awful lot like the <code class="xref py py-func docutils literal notranslate"><span class="pre">star_graph()</span></code>.
+And indeed it is!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">star_graph</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>It turns out in fact that <code class="docutils literal notranslate"><span class="pre">star_graph(n)</span></code> is an instance of a
+homeomorphically-irreducible tree of size <code class="docutils literal notranslate"><span class="pre">n</span></code> for all <code class="docutils literal notranslate"><span class="pre">n</span></code> greater than 3.</p>
+</section>
+</section>
+<section id="finding-more-examples">
+<h3>Finding more examples<a class="headerlink" href="#finding-more-examples" title="Link to this heading">#</a></h3>
+<p>Let’s return to our initial set of ideas that led us to the <code class="docutils literal notranslate"><span class="pre">star_graph</span></code>.
+Using the <code class="docutils literal notranslate"><span class="pre">star_graph</span></code> as a starting point, we can apply the same “hierarchical”
+thinking to develop other examples.</p>
+<p>For instance, what if we took some “leaves” from our original tree, and
+“moved them down a layer”.
+We know that we don’t want nodes of degree 2, so moving at least two nodes
+seems like a reasonable place to start.
+Let’s start by re-visualizing our graph hierarchically:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">node_pos</span><span class="o">=</span><span class="s2">&quot;pos_bfs&quot;</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="n">ax</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/17e9fa4a0abd3061f4bb1ecc46b5e3320f5844ed12dcaa45239a9ac8bad2e164.png" src="../../_images/17e9fa4a0abd3061f4bb1ecc46b5e3320f5844ed12dcaa45239a9ac8bad2e164.png" />
+</div>
+</div>
+<p>Now let’s try moving nodes 1 and 2 down a layer by connecting them to node 3
+instead of the “root”:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">H</span><span class="o">.</span><span class="n">remove_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="n">H</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">bfs_layout</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/7389cabed3ddc68d22dcdbf93100a0bf29934c6f3b2ab10322cab49afdb03f52.png" src="../../_images/7389cabed3ddc68d22dcdbf93100a0bf29934c6f3b2ab10322cab49afdb03f52.png" />
+</div>
+</div>
+<p>This seems to meet our criteria; let’s double-check!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">is_tree</span><span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">d</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">H</span><span class="o">.</span><span class="n">degree</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>Success!</p>
+<p>That procedure worked so well the first time, let’s apply it again but
+attaching to node <code class="docutils literal notranslate"><span class="pre">4</span></code> instead of node <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H1</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">H1</span><span class="o">.</span><span class="n">remove_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="n">H1</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">H1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">bfs_layout</span><span class="p">(</span><span class="n">H1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/c790b257739507d55b2d85bae188a6beb67d99fd9ae76c585f931f6d24d3f662.png" src="../../_images/c790b257739507d55b2d85bae188a6beb67d99fd9ae76c585f931f6d24d3f662.png" />
+</div>
+</div>
+<p>Looks good, right? Well looks can be deceiving…</p>
+<p>We’re using hierarchical layouts and node labels to help us visualize
+the changes we’re making, but recall that we’re looking for <em>nonisomorphic</em> trees.
+While these two graphs may <em>look</em> distinct with the layouts we’ve chosen, they
+are actually isomorphic.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">H1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is easier to see if we tweak how we visualize the graphs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">G</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">ttl</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">((</span><span class="n">H</span><span class="p">,</span> <span class="n">H1</span><span class="p">),</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;H1&quot;</span><span class="p">)):</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1000</span><span class="p">),</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">ttl</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/b3bad0cf00e208f84e7c54707f6ea01bbed6bbdad316b781fe60fa6762b24c61.png" src="../../_images/b3bad0cf00e208f84e7c54707f6ea01bbed6bbdad316b781fe60fa6762b24c61.png" />
+</div>
+</div>
+<p>This is a valuable lesson in both the virtues and pitfalls of graph visualization
+as a tool for working through problems!</p>
+</section>
+<section id="an-algorithm">
+<h3>An algorithm<a class="headerlink" href="#an-algorithm" title="Link to this heading">#</a></h3>
+<p>The result above represents one application of a general procedure that
+should be useful in finding the remaining examples.
+Start with an existing irreducible tree, then change the connectivity of
+a subset of nodes to create a “deeper” tree.
+Bear in mind also that we can “move” more than two nodes… what if we had moved
+nodes <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, <em>and</em> <code class="docutils literal notranslate"><span class="pre">3</span></code> in our previous example?</p>
+<p>Formalizing this procedure into an algorithm for generating irreducible
+trees is left as an exercise for the reader!</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This is a good stopping point to see if you can’t use the above procedure
+(or another of your own devising!) to find the remaining 8 examples.</p>
+<p>The next section will spoil the answer!</p>
+</div>
+</section>
+</section>
+<section id="searching-the-solution-space">
+<h2>Searching the solution space<a class="headerlink" href="#searching-the-solution-space" title="Link to this heading">#</a></h2>
+<p>The original problem should now be solvable with a bit of elbow grease.</p>
+<p>But what if we didn’t know how many examples we were looking for?
+In other words, what if we didn’t know <em>at the start</em> that there are 10
+homeomorphically-irreducible trees of order 10?</p>
+<p>For that matter, just how hard <em>is</em> this problem anyway? How “rare” are irreducible
+trees?</p>
+<p>We could get a much better sense if we had some idea of the solution space;
+i.e. the number of potential solutions.
+In other words, we’re wondering how many nonisomorphic trees of order 10 exist?</p>
+<p>The <a class="reference external" href="https://oeis.org">OEIS</a> is an excellent resource when faced with questions like this,
+and indeed <a class="reference external" href="https://oeis.org/A000055">A000055</a> has exactly what we’re looking for.</p>
+<p>In this case, it turns out so does NetworkX!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">number_of_nonisomorphic_trees</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>106
+</pre></div>
+</div>
+</div>
+</div>
+<p>So there are 106 unlabelled trees with 10 nodes.
+That actually seems like a quite manageable number…</p>
+<section id="a-brute-force-approach">
+<h3>A brute-force approach<a class="headerlink" href="#a-brute-force-approach" title="Link to this heading">#</a></h3>
+<p>If there were a way to generate all the nonisomorphic trees with 10 nodes,
+we could simply check whether or not they are homeomorphically-irreducible.
+All graphs that pass this check will then give us our answer.
+One nice thing about this approach is that it allows us to “prove” (by exhaustion)
+that we’re finding <em>all</em> examples of homeomorphically-irreducible trees for a given
+order, even if we don’t know how many there are <em>a priori</em>.</p>
+<p>The downside however is also quite obvious - it requires checking
+<em>every possible tree</em>.
+This may be fine for small <code class="docutils literal notranslate"><span class="pre">n</span></code>, but it quickly becomes
+<a class="reference external" href="https://oeis.org/A000055/graph">untenable as <code class="docutils literal notranslate"><span class="pre">n</span></code> increases</a>.</p>
+<p>Fortunately, we were only tasked with finding the result for <code class="docutils literal notranslate"><span class="pre">n=10</span></code>!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhi_trees</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">G</span> <span class="k">for</span> <span class="n">G</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">nonisomorphic_trees</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">d</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">())</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s it!</p>
+<p>Let’s do some sanity checks to make sure our result passes muster.
+First, we can check that we got the expected number of trees:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">nhi_trees</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
+</pre></div>
+</div>
+</div>
+</div>
+<p>So far so good.</p>
+<p>We really relied on <code class="xref py py-func docutils literal notranslate"><span class="pre">nonisomorphic_trees()</span></code>
+to do the majority of the heavy-lifting for us.
+Let’s double check that the trees we recorded are indeed nonisomorphic to each
+other:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">checked</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">G</span> <span class="ow">in</span> <span class="n">nhi_trees</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span> <span class="k">for</span> <span class="n">H</span> <span class="ow">in</span> <span class="n">checked</span><span class="p">)</span>
+    <span class="n">checked</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>No <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> s ✅</p>
+</section>
+<section id="the-big-reveal">
+<h3>The big reveal<a class="headerlink" href="#the-big-reveal" title="Link to this heading">#</a></h3>
+<p>Finally, the fruits of our mental labor!</p>
+<p>We can view the results using a hierarchical layout to visualize the trees in a
+way that matches the line of thinking we developed in the previous section.
+We’ll also include the number of nodes per layer in the graph.
+Can you spot any patterns?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">G</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">nhi_trees</span><span class="p">,</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()):</span>
+    <span class="n">nodes_per_layer</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">lyr</span><span class="p">)</span> <span class="k">for</span> <span class="n">lyr</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">bfs_layers</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">bfs_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">nodes_per_layer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/62abdd5813c505ec20a82c8ad86ae48832435c5864643c6a7275cc73f4592414.png" src="../../_images/62abdd5813c505ec20a82c8ad86ae48832435c5864643c6a7275cc73f4592414.png" />
+</div>
+</div>
+<p>So there they are, in all their glory: all 10 homeomorphically-irreducible
+unlabeled trees with 10 nodes!</p>
+<p>We’d be remiss however if we didn’t also generate images closer to those seen in
+the film/numberphile video.
+As we’ve already convinced ourselves, it’s just a matter of layout!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">G</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">nhi_trees</span><span class="p">,</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()):</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1010</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4c0a8a68d5f7c2c169a6bd71ecf62a19e1e204344556b1cb0e71f59e98ff95f1.png" src="../../_images/4c0a8a68d5f7c2c169a6bd71ecf62a19e1e204344556b1cb0e71f59e98ff95f1.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Applications</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../generators/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Graph Generators</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-statement">The problem statement</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-statement-summary">Problem statement summary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attacking-the-problem">Attacking the problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qualitative-approach">Qualitative approach</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#another-perspective">Another perspective</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-more-examples">Finding more examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-algorithm">An algorithm</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#searching-the-solution-space">Searching the solution space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-brute-force-approach">A brute-force approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-big-reveal">The big reveal</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NetworkX developers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, NetworkX developers.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
