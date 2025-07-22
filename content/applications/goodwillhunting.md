@@ -211,9 +211,9 @@ G.add_edges_from((0, n) for n in range(1, 10))
 
 fig, ax = plt.subplots()
 # Position nodes hierarchically, with "root" on one end and "leaves" on the other
-pos = nx.bfs_layout(G, 0)
+pos = nx.bfs_layout(G, 0, store_pos_as="pos_bfs")
 
-nx.draw(G, pos=pos, ax=ax)
+nx.display(G, node_pos="pos_bfs", canvas=ax);
 ```
 
 This looks promising... our graph `G` is a tree:
@@ -247,10 +247,10 @@ spatially rather than capture hierarchical relationships:
 
 ```{code-cell}
 # A force-directed layout
-pos = nx.spring_layout(G)
+pos = nx.spring_layout(G, store_pos_as="pos_spring")
 
 fig, ax = plt.subplots()
-nx.draw(G, pos=pos, ax=ax)
+nx.display(G, node_pos="pos_spring", canvas=ax);
 ```
 
 That looks an awful lot like the {func}`~networkx.generators.classic.star_graph`.
@@ -278,7 +278,7 @@ Let's start by re-visualizing our graph hierarchically:
 ```{code-cell}
 fig, ax = plt.subplots()
 
-nx.draw(G, pos=nx.bfs_layout(G, 0), ax=ax, with_labels=True);
+nx.display(G, node_pos="pos_bfs", canvas=ax);
 ```
 
 Now let's try moving nodes 1 and 2 down a layer by connecting them to node 3
