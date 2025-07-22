@@ -35,6 +35,7 @@ hidden: true
 ---
 
 content/algorithms/index
+content/applications/index
 content/generators/index
 content/exploratory_notebooks/facebook_notebook
 content/contributing
