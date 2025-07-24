@@ -49,7 +49,7 @@ sets of `G` and `H`:
 
 $$ {\displaystyle f\colon N(G)\to N(H)} $$
 
-such that if $v$ and $w$ are adjacent in `G` $\iff$ $f(v)$ and $f(w)$ are
+such that $v$ and $w$ are adjacent in `G` $\iff$ $f(v)$ and $f(w)$ are
 adjacent in `H` 
 
 To definitively prove that two graphs are isomorphic, we need to find the bijection
