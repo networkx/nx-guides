@@ -513,7 +513,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">facebook</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;data/facebook_combined.txt.gz&quot;</span><span class="p">,</span>
+    <span class="c1"># Dataset from the SNAP database</span>
+    <span class="s2">&quot;https://snap.stanford.edu/data/facebook_combined.txt.gz&quot;</span><span class="p">,</span>
     <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span>
     <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span>
     <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;start_node&quot;</span><span class="p">,</span> <span class="s2">&quot;end_node&quot;</span><span class="p">],</span>
@@ -633,7 +634,7 @@ functions.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/0218f75796d0f546b7a064e22b9df395a2908227763e23512a6e7f4f768b28b6.png" src="../../_images/0218f75796d0f546b7a064e22b9df395a2908227763e23512a6e7f4f768b28b6.png" />
+<img alt="../../_images/5d8ef5ebe315ebb31787c06f8d7376ff64231cfc8a9e0d5465a9fed343de86b1.png" src="../../_images/5d8ef5ebe315ebb31787c06f8d7376ff64231cfc8a9e0d5465a9fed343de86b1.png" />
 </div>
 </div>
 <p>The resulting image is… not very useful. Graph visualizations of this kind
@@ -660,7 +661,7 @@ visualizations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/6035df0f63feb392a15722d9d1f5d6307f6d900e4f982a9b9a590c15dc95c7c1.png" src="../../_images/6035df0f63feb392a15722d9d1f5d6307f6d900e4f982a9b9a590c15dc95c7c1.png" />
+<img alt="../../_images/21aa634dc2d15def8e2974ec9f04c7091485949c1ca04d965ae11d4d0669553d.png" src="../../_images/21aa634dc2d15def8e2974ec9f04c7091485949c1ca04d965ae11d4d0669553d.png" />
 </div>
 </div>
 <p>This visualization is much more useful than the previous one! Already we can
@@ -837,7 +838,7 @@ lengths from our pre-computed dict-of-dicts:</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Frequency (%)&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/9c5706f97bf598b3e50f4fd112a1c76e69ec40bae69fa918ea3bc58687080ca1.png" src="../../_images/9c5706f97bf598b3e50f4fd112a1c76e69ec40bae69fa918ea3bc58687080ca1.png" />
+<img alt="../../_images/99c44d37fe2dd9b022de773c029bda4a4715fe9105315ddc2fddb6166beb6a07.png" src="../../_images/99c44d37fe2dd9b022de773c029bda4a4715fe9105315ddc2fddb6166beb6a07.png" />
 </div>
 </div>
 <p>The majority of the shortest path lengths are from <span class="math notranslate nohighlight">\(2\)</span> to <span class="math notranslate nohighlight">\(5\)</span> edges long.
@@ -940,7 +941,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/5e4017c07e3edf6c68e6d22a43c252c1d05bab9994fe35850e2cb9d3e7e3541e.png" src="../../_images/5e4017c07e3edf6c68e6d22a43c252c1d05bab9994fe35850e2cb9d3e7e3541e.png" />
+<img alt="../../_images/a22dd4f92c565b01c584a5dbe24ca161691925f32d16cdf9c8ce97c517be590e.png" src="../../_images/a22dd4f92c565b01c584a5dbe24ca161691925f32d16cdf9c8ce97c517be590e.png" />
 </div>
 </div>
 <p>It is visible that the vast majority of facebook users have degree centralities of less than <span class="math notranslate nohighlight">\(0.05\)</span>. In fact the majority has less than <span class="math notranslate nohighlight">\(0.0125\)</span>. Actually, that makes sense because the network consists of friends lists of particular nodes, which are obviously the ones with the highest degree centralities. In other words, because only the friends list of particular nodes were used to create this particular network, plenty of nodes have extremely low degree centralities as they are not very interconnected in this network</p>
@@ -963,7 +964,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  np.float64(1.2075561310648637))
 </pre></div>
 </div>
-<img alt="../../_images/e65c552101626b6c2d2e0308a51ed333e81c9fcb3fdd8437078a46f3a88917ac.png" src="../../_images/e65c552101626b6c2d2e0308a51ed333e81c9fcb3fdd8437078a46f3a88917ac.png" />
+<img alt="../../_images/765ef19379e1f95e3cac01fe86d0a8c42579bad99afea00e909418ac88400848.png" src="../../_images/765ef19379e1f95e3cac01fe86d0a8c42579bad99afea00e909418ac88400848.png" />
 </div>
 </div>
 </section>
@@ -1028,7 +1029,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/69c144c7efc030f11aca2e2a6bd5efe8556c7dcb92ea1ceadca4472aadf7270e.png" src="../../_images/69c144c7efc030f11aca2e2a6bd5efe8556c7dcb92ea1ceadca4472aadf7270e.png" />
+<img alt="../../_images/9d62ef26e3d81fa345404d7b52dfc7f8ab7c6a1c9ce29168225b6c64afce5cbb.png" src="../../_images/9d62ef26e3d81fa345404d7b52dfc7f8ab7c6a1c9ce29168225b6c64afce5cbb.png" />
 </div>
 </div>
 <p>The closeness centralities are distributed over various values from <span class="math notranslate nohighlight">\(0.17\)</span> to <span class="math notranslate nohighlight">\(0.46\)</span>. In fact, the majority of them are found between <span class="math notranslate nohighlight">\(0.25\)</span> and <span class="math notranslate nohighlight">\(0.3\)</span>. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:</p>
@@ -1050,7 +1051,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  np.float64(1.2075561310648637))
 </pre></div>
 </div>
-<img alt="../../_images/78bfe6239fb5d8f493baa4afc96d0f1a37b3007e71e2d55e07a1ef3e7ba03724.png" src="../../_images/78bfe6239fb5d8f493baa4afc96d0f1a37b3007e71e2d55e07a1ef3e7ba03724.png" />
+<img alt="../../_images/6f002efebcf42913ac742ebe71b6f7609ca1d1730a6f97efca9b03cc69452f7c.png" src="../../_images/6f002efebcf42913ac742ebe71b6f7609ca1d1730a6f97efca9b03cc69452f7c.png" />
 </div>
 </div>
 </section>
@@ -1129,7 +1130,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/cd715baca0a9028516da9109f8d401d7e9aea0abb270a4407a15e3af45d83015.png" src="../../_images/cd715baca0a9028516da9109f8d401d7e9aea0abb270a4407a15e3af45d83015.png" />
+<img alt="../../_images/3b5da8db37e188b47eb124a61fe791ab6b7ec03d7b1147bfc198475dc497cf39.png" src="../../_images/3b5da8db37e188b47eb124a61fe791ab6b7ec03d7b1147bfc198475dc497cf39.png" />
 </div>
 </div>
 <p>As shown in the distribution histogram, the vast majority of eigenvector centralities are below <span class="math notranslate nohighlight">\(0.005\)</span> and are actually almost <span class="math notranslate nohighlight">\(0\)</span>. However, we can also see different values of eigenvector centralities as there are tiny bins all over the x axis.</p>
@@ -1152,7 +1153,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  np.float64(1.2075561310648637))
 </pre></div>
 </div>
-<img alt="../../_images/6b57abe9c8a93cb5694233975a28fd89b1b03414dd78ce3c57d856ecd7b89639.png" src="../../_images/6b57abe9c8a93cb5694233975a28fd89b1b03414dd78ce3c57d856ecd7b89639.png" />
+<img alt="../../_images/ac3addd49d7f45ce0b44503e4664bc01dd9aa8f16c88850d20ca8b4ef574c06a.png" src="../../_images/ac3addd49d7f45ce0b44503e4664bc01dd9aa8f16c88850d20ca8b4ef574c06a.png" />
 </div>
 </div>
 </section>
@@ -1187,7 +1188,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/1ece27e1bfbffa2ad2bd5ceda400958c8f044765c34899ef80f4018d461ee881.png" src="../../_images/1ece27e1bfbffa2ad2bd5ceda400958c8f044765c34899ef80f4018d461ee881.png" />
+<img alt="../../_images/f900a63fbe4891a40021a72283de956ff6379ac966c23b7b42a08f9dc4efb5c6.png" src="../../_images/f900a63fbe4891a40021a72283de956ff6379ac966c23b7b42a08f9dc4efb5c6.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(50\)</span> bins were used to showcase the distribution. The bin with the highest counts concerns nodes with clustering coefficient close to <span class="math notranslate nohighlight">\(1\)</span> as there are more than two-hundred-fifty nodes in that bin. In addition, the bins of clustering coefficient between <span class="math notranslate nohighlight">\(0.4\)</span> and <span class="math notranslate nohighlight">\(0.8\)</span> contain the majority of nodes by far.</p>
@@ -1307,7 +1308,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
  np.float64(1.2075561310648637))
 </pre></div>
 </div>
-<img alt="../../_images/7b02f6ba5d57eb6d760615b1091ca7714fc0c4bb71acc73d4c8980f07460b756.png" src="../../_images/7b02f6ba5d57eb6d760615b1091ca7714fc0c4bb71acc73d4c8980f07460b756.png" />
+<img alt="../../_images/c3bbb99c2ec422fe04dfc96df717d6783df50ad3b2ae443a6dab9110869a2a32.png" src="../../_images/c3bbb99c2ec422fe04dfc96df717d6783df50ad3b2ae443a6dab9110869a2a32.png" />
 </div>
 </div>
 </section>
@@ -1384,7 +1385,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/5528f48e4253982b2b21e566e50cf11a3c295b493fc9ebd25a8ae3266fc1e02a.png" src="../../_images/5528f48e4253982b2b21e566e50cf11a3c295b493fc9ebd25a8ae3266fc1e02a.png" />
+<img alt="../../_images/1d87d19c627a55c8120abef4a119bd2c26638df75c1b1d4998ab7d5cb9728970.png" src="../../_images/1d87d19c627a55c8120abef4a119bd2c26638df75c1b1d4998ab7d5cb9728970.png" />
 </div>
 </div>
 <ul class="simple">
@@ -1414,7 +1415,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/f711fc3444e813644cf2caf939ff6b006bce14bf77d8ef1edca244378308cd56.png" src="../../_images/f711fc3444e813644cf2caf939ff6b006bce14bf77d8ef1edca244378308cd56.png" />
+<img alt="../../_images/b2717b3639549df04f7b923be89f32bddb693cf143c2bb93be1f0c4db21d5438.png" src="../../_images/b2717b3639549df04f7b923be89f32bddb693cf143c2bb93be1f0c4db21d5438.png" />
 </div>
 </div>
 </section>

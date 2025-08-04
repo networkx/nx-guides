@@ -48,7 +48,8 @@ The edges are loaded from the `data` folder and saved in a dataframe. Each edge 
 
 ```{code-cell} ipython3
 facebook = pd.read_csv(
-    "data/facebook_combined.txt.gz",
+    # Dataset from the SNAP database
+    "https://snap.stanford.edu/data/facebook_combined.txt.gz",
     compression="gzip",
     sep=" ",
     names=["start_node", "end_node"],
