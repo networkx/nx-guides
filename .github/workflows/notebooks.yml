@@ -19,7 +19,7 @@ jobs:
       max-parallel: 12
       matrix:
         os: [Ubuntu-22.04, macOS-latest]
-        python-version: ["3.11", "3.12", "3.13"]
+        python-version: ["3.12", "3.13", "3.14"]
 
     steps:
     - uses: actions/checkout@v4
@@ -31,8 +31,8 @@ jobs:
     - name: Before install
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo apt-get update
-          sudo apt-get install graphviz graphviz-dev
+          sudo apt update
+          sudo apt install -y graphviz graphviz-dev
         elif [ "$RUNNER_OS" == "macOS" ]; then
           brew install graphviz pkg-config
         fi
