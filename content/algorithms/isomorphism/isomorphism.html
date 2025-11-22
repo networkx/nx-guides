@@ -462,7 +462,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isomorphism-algorithms">Isomorphism Algorithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isomorphism-algorithms">Isomorphism Algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-approach">Naive Approach</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-classes-of-graphs-with-solution-in-polynomial-time">Some classes of graphs with solution in polynomial time</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-algorithms">Advanced Algorithms</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vf2">VF2</a></li>
@@ -495,48 +498,57 @@ document.write(`
 </div>
 <section id="what-is-isomorphism-why-is-it-interesting">
 <h2>What is isomorphism? Why is it interesting?<a class="headerlink" href="#what-is-isomorphism-why-is-it-interesting" title="Link to this heading">#</a></h2>
-<p>As unlabeled graphs can have multiple spatial representations, two graphs are isomorphic if they have the same number of edges, vertices, and same edges connectivity. Let’s see an example of two isomorphic graphs,</p>
+<p>As unlabeled graphs can have multiple spatial representations, two graphs are
+isomorphic if they have the same number of edges, vertices, and same edge connectivity.
+Let’s see an example of two isomorphic graphs:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
-<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">cubical_graph</span><span class="p">()</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_spectral</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
-<span class="n">H</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">cubical_graph</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">G_ax</span><span class="p">,</span> <span class="n">H_ax</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">cubical_graph</span><span class="p">()</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_spectral</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">G_ax</span><span class="p">)</span>
+<span class="n">G_ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+<span class="n">H</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">cubical_graph</span><span class="p">()</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">H_ax</span><span class="p">)</span>
+<span class="n">H_ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/05446ec15f4edb422f23b136639fd8f4ce9979f6b6089c122fca1f12a4745947.png" src="../../../_images/05446ec15f4edb422f23b136639fd8f4ce9979f6b6089c122fca1f12a4745947.png" />
+<img alt="../../../_images/37fbd1974ea5e2f10fe7176a0242ee307af67d81dbe7af533ccc08702e457898.png" src="../../../_images/37fbd1974ea5e2f10fe7176a0242ee307af67d81dbe7af533ccc08702e457898.png" />
 </div>
 </div>
 <p>The spatial representations of these two graphs are very different yet
 they are the same graphs!</p>
 <section id="formal-definition">
 <h3>Formal definition<a class="headerlink" href="#formal-definition" title="Link to this heading">#</a></h3>
-<p>G and H are isomorphic if we can establish a bijection between the vertex sets of G and H.</p>
+<p><code class="docutils literal notranslate"><span class="pre">G</span></code> and <code class="docutils literal notranslate"><span class="pre">H</span></code> are isomorphic if we can establish a bijection between the vertex
+sets of <code class="docutils literal notranslate"><span class="pre">G</span></code> and <code class="docutils literal notranslate"><span class="pre">H</span></code>:</p>
 <div class="math notranslate nohighlight">
 \[ {\displaystyle f\colon N(G)\to N(H)} \]</div>
-<p>such as if</p>
-<p><span class="math notranslate nohighlight">\(v\)</span>  and <span class="math notranslate nohighlight">\( w \)</span> are  adjacent  in G <span class="math notranslate nohighlight">\(\iff\)</span> <span class="math notranslate nohighlight">\(f(v)\)</span> and <span class="math notranslate nohighlight">\(f(w)\)</span> are adjacent in H</p>
-<p>To formally prove that 2 graphs are isomorphic we need to find the bijection between the vertex set. For the previous example that would be:</p>
+<p>such that <span class="math notranslate nohighlight">\(v\)</span> and <span class="math notranslate nohighlight">\(w\)</span> are adjacent in <code class="docutils literal notranslate"><span class="pre">G</span></code> <span class="math notranslate nohighlight">\(\iff\)</span> <span class="math notranslate nohighlight">\(f(v)\)</span> and <span class="math notranslate nohighlight">\(f(w)\)</span> are
+adjacent in <code class="docutils literal notranslate"><span class="pre">H</span></code></p>
+<p>To definitively prove that two graphs are isomorphic, we need to find the bijection
+between the vertex sets. For the previous example that would be:</p>
 <div class="math notranslate nohighlight">
 \[f(i) = i+1 \hspace{0.5cm} \forall i \in [0, 7]\]</div>
-<p>For small examples, isomorphism may seem easy. But it isn’t a simple problem. For two graphs G and H of n nodes, there are n! possible bijection functions.
+<p>For small examples, isomorphism may seem easy — but it isn’t a simple problem.
+For two graphs <code class="docutils literal notranslate"><span class="pre">G</span></code> and <code class="docutils literal notranslate"><span class="pre">H</span></code> of <span class="math notranslate nohighlight">\(n\)</span> nodes, there are <span class="math notranslate nohighlight">\(n!\)</span> possible bijection functions.
 Checking every combination is not a feasible option for bigger graphs.
-In fact, isomorphism is part of the problems known as NP. This means that we don’t know any algorithm that runs in polynomial time.</p>
+In fact, isomorphism is part of the problems known as NP-hard; i.e. there does not
+exist any known algorithm that runs in polynomial time.</p>
 </section>
 <section id="applications">
 <h3>Applications<a class="headerlink" href="#applications" title="Link to this heading">#</a></h3>
 <p>There are a lot of applications of the graph isomorphism problem.</p>
 <ul class="simple">
-<li><p>Image recognition: Images can be translated to graphs and by finding (sub)isomorphisms we can compare if two images are similar.</p></li>
-<li><p>Verification of equivalence of different representations of the design of an electronic circuit and communication networks.</p></li>
+<li><p>Image recognition: Images can be translated to graphs and by finding
+(sub)isomorphisms we can compare if two images are similar.</p></li>
+<li><p>Verification of equivalence of different representations of the design of an
+electronic circuit and communication networks.</p></li>
 <li><p>Identification of chemical compounds and proteins.</p></li>
 <li><p>Algorithms for fingerprint, facial and retina matching.</p></li>
 <li><p>Clustering Algorithms on social networks.</p></li>
@@ -545,32 +557,39 @@ In fact, isomorphism is part of the problems known as NP. This means that we don
 </section>
 <section id="isomorphism-algorithms">
 <h2>Isomorphism Algorithms<a class="headerlink" href="#isomorphism-algorithms" title="Link to this heading">#</a></h2>
-<p><strong>Naive Approach</strong></p>
-<p>There are some initial properties that we can check to decide whether it’s possible to have an isomorphism</p>
+<section id="naive-approach">
+<h3>Naive Approach<a class="headerlink" href="#naive-approach" title="Link to this heading">#</a></h3>
+<p>There are some initial properties that we can check to decide whether it’s
+possible to have an isomorphism:</p>
 <ul class="simple">
-<li><p>G and H must have the same number of nodes and edges</p></li>
-<li><p>The degree sequence for G and H must be the same</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">G</span></code> and <code class="docutils literal notranslate"><span class="pre">H</span></code> must have the same number of nodes and edges</p></li>
+<li><p>The degree sequence for <code class="docutils literal notranslate"><span class="pre">G</span></code> and <code class="docutils literal notranslate"><span class="pre">H</span></code> must be the same</p></li>
 </ul>
-<p>These are necessary conditions but don’t guarantee that two graphs are isomorphic. Let’s see a small example:</p>
+<p>These are necessary conditions but don’t guarantee that two graphs are isomorphic.
+Let’s see a small example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">G_ax</span><span class="p">,</span> <span class="n">H_ax</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
 <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">cycle_graph</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">G_ax</span><span class="p">)</span>
+<span class="n">G_ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
 <span class="n">H</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">cycle_graph</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">nx</span><span class="o">.</span><span class="n">cycle_graph</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">rename</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">))</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">H_ax</span><span class="p">)</span>
+<span class="n">H_ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/d325e697a4f2addd9ac060d756d1f9755583656955b6ac9947cf49e7127306ec.png" src="../../../_images/d325e697a4f2addd9ac060d756d1f9755583656955b6ac9947cf49e7127306ec.png" />
+<img alt="../../../_images/f2310967bb6488e5a85bded1bb764f928c8d8037373fabb72be6b1a46a098252.png" src="../../../_images/f2310967bb6488e5a85bded1bb764f928c8d8037373fabb72be6b1a46a098252.png" />
 </div>
 </div>
-<p>We can use the function <code class="docutils literal notranslate"><span class="pre">nx.faster_could_be_isomorphic()</span></code> that returns True if G and H have the same degree secuence.</p>
+<p>We can use the function
+<a class="reference external" href="https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.isomorphism.faster_could_be_isomorphic.html"><code class="docutils literal notranslate"><span class="pre">nx.faster_could_be_isomorphic()</span></code></a> which checks whether <code class="docutils literal notranslate"><span class="pre">G</span></code> and <code class="docutils literal notranslate"><span class="pre">H</span></code> have the
+same degree sequence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">faster_could_be_isomorphic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
@@ -583,12 +602,13 @@ In fact, isomorphism is part of the problems known as NP. This means that we don
 </div>
 </div>
 </div>
-<p>These graphs are clearly not isomorphic but they have the same degree secuence.</p>
+<p>These graphs are clearly not isomorphic but they have the same degree sequence.</p>
 <p>Another property we can check for is:</p>
 <ul class="simple">
 <li><p>The same number of cycles of a particular length, for example, triangles.</p></li>
 </ul>
-<p>We can use the function <code class="docutils literal notranslate"><span class="pre">nx.fast_could_be_isomorphic()</span></code> to check if the graphs have the same degree and triangle sequence. The triangle sequence contains the number of triangles each node is part of.</p>
+<p>We can use the function <a class="reference external" href="https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.isomorphism.fast_could_be_isomorphic.html"><code class="docutils literal notranslate"><span class="pre">nx.fast_could_be_isomorphic()</span></code></a> to check if
+the graphs have the same degree and triangle sequence:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">fast_could_be_isomorphic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
@@ -601,13 +621,16 @@ In fact, isomorphism is part of the problems known as NP. This means that we don
 </div>
 </div>
 </div>
-<p>This new property allows us to detect that the graphs from the previous example were not isomorphic.</p>
+<p>This new property allows us to detect that the graphs from the previous example
+were not isomorphic.</p>
 <p>We can go one step further and check:</p>
 <ul class="simple">
 <li><p>The same number of maximal cliques.</p></li>
 </ul>
-<p>We can use the function <code class="docutils literal notranslate"><span class="pre">nx.could_be_isomorphic()</span></code> to check if the graphs have the same degree, triangle, and clique sequence.
-The clique sequence contains for each node the number of the maximal clique involving that node.</p>
+<p>We can use the function <a class="reference external" href="https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.isomorphism.could_be_isomorphic.html"><code class="docutils literal notranslate"><span class="pre">nx.could_be_isomorphic()</span></code></a> to check if the
+graphs have the same degree, triangle, and clique sequence.
+The clique sequence contains for each node the number of the maximal clique
+involving that node.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">could_be_isomorphic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
@@ -620,26 +643,28 @@ The clique sequence contains for each node the number of the maximal clique invo
 </div>
 </div>
 </div>
-<p>Again we can detect that G and H are not isomorphic. But these conditions are not enough to say that two graphs are isomorphic. Let’s look at the following example:</p>
+<p>Again we can detect that G and H are not isomorphic. But these conditions are
+not enough to say that two graphs are isomorphic. Let’s look at the following example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">G_ax</span><span class="p">,</span> <span class="n">H_ax</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
 <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">G_ax</span><span class="p">)</span>
+<span class="n">G_ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
 <span class="n">H</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">H</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">H_ax</span><span class="p">)</span>
+<span class="n">H_ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/4cf7a2cfabf599d103ce37e4d35b254518ffd0dab3bf496e6bda06630375caab.png" src="../../../_images/4cf7a2cfabf599d103ce37e4d35b254518ffd0dab3bf496e6bda06630375caab.png" />
+<img alt="../../../_images/465e13dacf85b3c95f771ff82029ddeb0eb85db94f8c600ea04f8c741b800e03.png" src="../../../_images/465e13dacf85b3c95f771ff82029ddeb0eb85db94f8c600ea04f8c741b800e03.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -656,15 +681,16 @@ The clique sequence contains for each node the number of the maximal clique invo
 </div>
 <p>These graphs meet all the necessary conditions but they’re not isomorphic.</p>
 </section>
+</section>
 <section id="some-classes-of-graphs-with-solution-in-polynomial-time">
 <h2>Some classes of graphs with solution in polynomial time<a class="headerlink" href="#some-classes-of-graphs-with-solution-in-polynomial-time" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Trees</p></li>
-<li><p>Planar graphs(In fact, planar graph isomorphism is O(log(n)))</p></li>
+<li><p>Planar graphs (In fact, planar graph isomorphism is <span class="math notranslate nohighlight">\(O(log(n)))\)</span></p></li>
 <li><p>Interval graphs</p></li>
 <li><p>Permutation graphs</p></li>
 <li><p>Circulant graphs</p></li>
-<li><p>Bounded-parameter graphs</p>
+<li><p>Bounded-parameter graphs:</p>
 <ul>
 <li><p>Graphs of bounded treewidth</p></li>
 <li><p>Graphs of bounded genus</p></li>
@@ -674,22 +700,23 @@ The clique sequence contains for each node the number of the maximal clique invo
 </ul>
 </li>
 </ul>
-<p>Let’s see an example, we can use the function <em>tree_isomorphism()</em> from the isomorphism module to check if two trees are isomorphic in <span class="math notranslate nohighlight">\(O(n*log(n))\)</span>. This function uses a D&amp;C approach to match the trees once it has found the root of each tree and returns a list with the node matching.</p>
+<p>Take trees, for example. We can use the function <em>tree_isomorphism()</em> to check
+if two trees are isomorphic in <span class="math notranslate nohighlight">\(O(n*log(n))\)</span>.
+This function uses a divide-and-conquer approach to match the trees once it has
+found the root of each tree.</p>
 <p>So let’s use it to check that a 2-ary tree of <span class="math notranslate nohighlight">\(2^4 - 1\)</span> nodes is a balanced binary tree of height 3.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t1</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">balanced_tree</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">t2</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">full_rary_tree</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">networkx.algorithms</span><span class="w"> </span><span class="kn">import</span> <span class="n">isomorphism</span> <span class="k">as</span> <span class="n">iso</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Node matching&quot;</span><span class="p">)</span>
-<span class="n">iso</span><span class="o">.</span><span class="n">tree_isomorphism</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Node matching:&quot;</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">isomorphism</span><span class="o">.</span><span class="n">tree_isomorphism</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node matching
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node matching:
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(0, 0),
@@ -714,18 +741,30 @@ The clique sequence contains for each node the number of the maximal clique invo
 </section>
 <section id="advanced-algorithms">
 <h2>Advanced Algorithms<a class="headerlink" href="#advanced-algorithms" title="Link to this heading">#</a></h2>
-<!-- #region -->
 <section id="vf2">
 <h3>VF2<a class="headerlink" href="#vf2" title="Link to this heading">#</a></h3>
-<p>This algorithm is used to solve graph isomorphism and sub-graph isomorphism as well.</p>
-<p>VF2 is a recursive algorithm where in each step we extend the current matching function to cover more nodes of both graphs until there are no more nodes to match. This is not a brute-force approach because there are some feasibility rules to avoid exploring the whole recursion tree.</p>
-<p>Formally, We have a function <span class="math notranslate nohighlight">\( M: s \rightarrow N(G) \times N(H) \)</span>. <span class="math notranslate nohighlight">\(M\)</span> is a matching function between the subsets of nodes from <span class="math notranslate nohighlight">\(G\)</span> and <span class="math notranslate nohighlight">\(H\)</span> at the current state <span class="math notranslate nohighlight">\(s\)</span>. We start with an initial state <span class="math notranslate nohighlight">\(s_0\)</span> with <span class="math notranslate nohighlight">\(M(s_0) = \emptyset\)</span>. In each step we consider a set of nodes to expand the current state <span class="math notranslate nohighlight">\(s\)</span> to the following state <span class="math notranslate nohighlight">\(s'\)</span>. In this new state <span class="math notranslate nohighlight">\(M(s') = M(s) \cup {(g, h)} , g\in N(G), h\in N(H)\)</span>. The consistency condition is that the partial graphs <span class="math notranslate nohighlight">\(G\)</span> and <span class="math notranslate nohighlight">\(H\)</span> associated with <span class="math notranslate nohighlight">\(M(s)\)</span> are isomorphic. There are two types of feasibility checks:</p>
+<p>This algorithm is used to solve graph isomorphism and sub-graph isomorphism.</p>
+<p>VF2 is a recursive algorithm where in each step we extend the current matching
+function to cover more nodes of both graphs until there are no more nodes to match.
+This is not a brute-force approach because there are some feasibility rules to
+avoid exploring the whole recursion tree.</p>
+<p>Formally, we have a function <span class="math notranslate nohighlight">\(M: s \rightarrow N(G) \times N(H) \)</span>.
+<span class="math notranslate nohighlight">\(M\)</span> is a matching function between the subsets of nodes from <span class="math notranslate nohighlight">\(G\)</span> and <span class="math notranslate nohighlight">\(H\)</span> at the
+current state <span class="math notranslate nohighlight">\(s\)</span>.
+We start with an initial state <span class="math notranslate nohighlight">\(s_0\)</span> with <span class="math notranslate nohighlight">\(M(s_0) = \emptyset\)</span>.
+In each step we consider a set of nodes to expand the current state <span class="math notranslate nohighlight">\(s\)</span> to the
+following state <span class="math notranslate nohighlight">\(s'\)</span>.
+In this new state <span class="math notranslate nohighlight">\(M(s') = M(s) \cup {(g, h)} , g\in N(G), h\in N(H)\)</span>.
+The consistency condition is that the partial graphs <span class="math notranslate nohighlight">\(G\)</span> and <span class="math notranslate nohighlight">\(H\)</span> associated with
+<span class="math notranslate nohighlight">\(M(s)\)</span> are isomorphic.
+There are two types of feasibility checks:</p>
 <ul class="simple">
-<li><p>syntactic (graph structure): consist of checking the consistency condition and also the k-look-ahead rules, for checking in advance if a consistent state <span class="math notranslate nohighlight">\(s\)</span> has no consistent successors after k steps.</p></li>
+<li><p>syntactic (graph structure): consist of checking the consistency condition and
+also the k-look-ahead rules, for checking in advance if a consistent state <span class="math notranslate nohighlight">\(s\)</span>
+has no consistent successors after k steps.</p></li>
 <li><p>semantic(attributes).</p></li>
 </ul>
 <p>Pseudocode:</p>
-<!-- #endregion -->
 <p><strong>Match(s):</strong></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Input: Intermediate state
 
@@ -766,8 +805,10 @@ ENDIF
 </div>
 <p><strong>Time Complexity</strong></p>
 <ul class="simple">
-<li><p>Best Case <span class="math notranslate nohighlight">\(\in \theta(n²)\)</span> if only <span class="math notranslate nohighlight">\(n\)</span> states are explored, for example, if each node is explored once.</p></li>
-<li><p>Worst Case <span class="math notranslate nohighlight">\(\in \theta(n!n)\)</span> if all the possible matchings have to be completely explored.</p></li>
+<li><p>Best Case: <span class="math notranslate nohighlight">\(\in \theta(n^{2})\)</span> if only <span class="math notranslate nohighlight">\(n\)</span> states are explored, for example,
+if each node is explored once.</p></li>
+<li><p>Worst Case: <span class="math notranslate nohighlight">\(\in \theta(n!n)\)</span> if all the possible matchings have to be
+completely explored.</p></li>
 </ul>
 </section>
 </section>
@@ -839,7 +880,10 @@ ENDIF
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isomorphism-algorithms">Isomorphism Algorithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isomorphism-algorithms">Isomorphism Algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-approach">Naive Approach</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-classes-of-graphs-with-solution-in-polynomial-time">Some classes of graphs with solution in polynomial time</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-algorithms">Advanced Algorithms</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vf2">VF2</a></li>
