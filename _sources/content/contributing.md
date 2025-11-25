@@ -45,8 +45,6 @@ jupytext  --to md:myst <notebook-name>.ipynb
 
 Showing how to make high-quality visualizations of graph/network data is one of the primary goals of nx-guides tutorials! For this, images (especially graph visualizations) should be generated directly by code in the notebook as much as possible.
 
-If you also prefer to include static images to your notebook, you 
-
 ### 3. Add requirements to `requirements.txt`
 
 If you prefer to install and use other libraries, add related requirements to `requirements.txt` under `nx-guides` repository. (I.e. Do not install requirements using `pip install` command in your notebook.)
