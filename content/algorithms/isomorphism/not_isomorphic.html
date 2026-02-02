@@ -38,11 +38,11 @@
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/algorithms/isomorphism/not_isomorphic';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -523,7 +523,7 @@ determination:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>74 ms ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>78.4 ms ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
 </pre></div>
 </div>
 </div>
@@ -562,7 +562,7 @@ isomorphism determination is several orders of magnitude faster!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>129 μs ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>180 μs ± 0 ns per loop (mean ± std. dev. of 1 run, 1 loop each)
 </pre></div>
 </div>
 </div>
@@ -581,7 +581,7 @@ isomorphism determination is several orders of magnitude faster!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative compute time, iso/non_iso example: 1086.22
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative compute time, iso/non_iso example: 1203.32
 </pre></div>
 </div>
 </div>
@@ -721,13 +721,13 @@ If we translate this expectation to our <code class="docutils literal notranslat
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.163 sec to compare degree distribution for all graphs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.176 sec to compare degree distribution for all graphs
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>39.512 sec to compare triangle distribution for all graphs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>44.501 sec to compare triangle distribution for all graphs
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>51.723 sec to compare maximal clique distribution for all graphs
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>53.786 sec to compare maximal clique distribution for all graphs
 </pre></div>
 </div>
 </div>
@@ -754,7 +754,7 @@ roughly an order of magnitude faster than <code class="docutils literal notransl
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/e11792fe09cbc98385484514909f78abb9747316795efc135917fce673c2cf6b.png" src="../../../_images/e11792fe09cbc98385484514909f78abb9747316795efc135917fce673c2cf6b.png" />
+<img alt="../../../_images/e7f9ca672c88054025fe2a1ebd6d0c4036f947be299d3058411b1f3b60f221af.png" src="../../../_images/e7f9ca672c88054025fe2a1ebd6d0c4036f947be299d3058411b1f3b60f221af.png" />
 </div>
 </div>
 <p>One thing that immediately jumps out is that all graphs with identical
@@ -898,7 +898,7 @@ determining whether graphs <em>could</em> be isomorphic.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 </pre></div>
 </div>
-<img alt="../../../_images/9577a040e71f55f490de245947fc2f8e22eab9c248491f19517fb1a197b789c5.png" src="../../../_images/9577a040e71f55f490de245947fc2f8e22eab9c248491f19517fb1a197b789c5.png" />
+<img alt="../../../_images/3c2c65e44e57504ef7cd7d562d08868a253d08e506acbd005a3a3d19e7fdf3a6.png" src="../../../_images/3c2c65e44e57504ef7cd7d562d08868a253d08e506acbd005a3a3d19e7fdf3a6.png" />
 </div>
 </div>
 <p>This matches our expectations, and is a nice illustration of how checking
@@ -921,7 +921,7 @@ where the graphs contain triangles:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/a5aa873bb7b6b7c6b1ab4d0d51d7d01ce3b6082f8a5edd01936e350e65ffe2eb.png" src="../../../_images/a5aa873bb7b6b7c6b1ab4d0d51d7d01ce3b6082f8a5edd01936e350e65ffe2eb.png" />
+<img alt="../../../_images/3446d79b84b7dd7d478c28197da59bc042c7910d9842bc233960b585c8ab9a05.png" src="../../../_images/3446d79b84b7dd7d478c28197da59bc042c7910d9842bc233960b585c8ab9a05.png" />
 </div>
 </div>
 <p>Let’s refine our investigation even further — of the 363378 possible graph
@@ -980,7 +980,7 @@ degree sequence:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/fe1ae094905752a424d0d9bb405529cf2c1d75cf6b79dd8f4b8b4aaceb895cca.png" src="../../../_images/fe1ae094905752a424d0d9bb405529cf2c1d75cf6b79dd8f4b8b4aaceb895cca.png" />
+<img alt="../../../_images/4895161e55cb314dd306e361565d5caae4b9cab97a1b1949ed7dc5f53653ceee.png" src="../../../_images/4895161e55cb314dd306e361565d5caae4b9cab97a1b1949ed7dc5f53653ceee.png" />
 </div>
 </div>
 <p>At this point, we’ve filtered down all the possible combinations of fully-connected
@@ -1034,8 +1034,8 @@ different clique distributions.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/b053114b5c81aca9789d4aef5754e49f2417f315c4ab558e85cb6ad9d40f9b60.png" src="../../../_images/b053114b5c81aca9789d4aef5754e49f2417f315c4ab558e85cb6ad9d40f9b60.png" />
-<img alt="../../../_images/26bf63bc127ed4d65718137ce0c1b266f36fc3e6033b27fda9ed7d805d717d82.png" src="../../../_images/26bf63bc127ed4d65718137ce0c1b266f36fc3e6033b27fda9ed7d805d717d82.png" />
+<img alt="../../../_images/259bbf42f4e000969f8b214c8061e2a1bfe315dec62b98d0950e6e84853879be.png" src="../../../_images/259bbf42f4e000969f8b214c8061e2a1bfe315dec62b98d0950e6e84853879be.png" />
+<img alt="../../../_images/599c67239568c9ef410584e26637fd3114dfa2a19e2c6e505b70faeb0a2c2694.png" src="../../../_images/599c67239568c9ef410584e26637fd3114dfa2a19e2c6e505b70faeb0a2c2694.png" />
 </div>
 </div>
 <section id="inspiration">
@@ -1127,7 +1127,7 @@ By NetworkX developers
 
   <p class="copyright">
     
-      © Copyright 2025, NetworkX developers.
+      © Copyright 2026, NetworkX developers.
       <br/>
     
   </p>
