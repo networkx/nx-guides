@@ -30,7 +30,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -634,7 +634,7 @@ functions.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/01c379a4c5e75a6a3b72c68dc1b657ff7ad31f5e2e5329bbe9cb836f058712f1.png" src="../../_images/01c379a4c5e75a6a3b72c68dc1b657ff7ad31f5e2e5329bbe9cb836f058712f1.png" />
+<img alt="../../_images/f3eea69368265584b60f5eddeddfe88533efb40393317f2043c94edb13354a11.png" src="../../_images/f3eea69368265584b60f5eddeddfe88533efb40393317f2043c94edb13354a11.png" />
 </div>
 </div>
 <p>The resulting image is… not very useful. Graph visualizations of this kind
@@ -977,9 +977,8 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">closeness_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">centrality</span><span class="o">.</span><span class="n">closeness_centrality</span><span class="p">(</span>
-    <span class="n">G</span>
-<span class="p">)</span>  <span class="c1"># save results in a variable to use again</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pass in the precomputed shortest_path_lengths to speed up computation</span>
+<span class="n">closeness_centrality</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">closeness_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">sp</span><span class="o">=</span><span class="n">shortest_path_lengths</span><span class="p">)</span>
 <span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">closeness_centrality</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[:</span><span class="mi">8</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1385,7 +1384,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/f500ebd4ba6c871abd4d61869277f7a51276182c0daee57bc4ca87088a46da72.png" src="../../_images/f500ebd4ba6c871abd4d61869277f7a51276182c0daee57bc4ca87088a46da72.png" />
+<img alt="../../_images/a3b8317d48ec659119268e3c28d97ecfcfe73c4acc8735e3db91fb3d243cb00f.png" src="../../_images/a3b8317d48ec659119268e3c28d97ecfcfe73c4acc8735e3db91fb3d243cb00f.png" />
 </div>
 </div>
 <ul class="simple">
@@ -1415,7 +1414,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/01c8c03948f53defe45f0eb88013f2e675abdd9e29bf0d579a6353018c155317.png" src="../../_images/01c8c03948f53defe45f0eb88013f2e675abdd9e29bf0d579a6353018c155317.png" />
+<img alt="../../_images/4192ccc8c33c0a68075e51ae96feb7cbcd1fc0f20eda2a1b812f5cba14cab574.png" src="../../_images/4192ccc8c33c0a68075e51ae96feb7cbcd1fc0f20eda2a1b812f5cba14cab574.png" />
 </div>
 </div>
 </section>

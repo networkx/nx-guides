@@ -303,9 +303,8 @@ The closeness centrality measure is very important for the monitoring of the spr
 * The nodes with the highest closeness centralities will be found now:
 
 ```{code-cell} ipython3
-closeness_centrality = nx.centrality.closeness_centrality(
-    G
-)  # save results in a variable to use again
+# Pass in the precomputed shortest_path_lengths to speed up computation
+closeness_centrality = nx.closeness_centrality(G, sp=shortest_path_lengths)
 (sorted(closeness_centrality.items(), key=lambda item: item[1], reverse=True))[:8]
 ```
 
