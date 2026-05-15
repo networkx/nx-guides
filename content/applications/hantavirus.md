@@ -45,7 +45,6 @@ The paper is packed with a ton of interesting information, but of particular
 interest for us is the *transmission network* presented in Figure 1B:
 
 ```{figure} https://www.nejm.org/cms/10.1056/NEJMoa2009040/asset/af0da102-84a2-48bf-abec-b1660394b3ee/assets/images/large/nejmoa2009040_f1.jpg
-:label: paperFigure1
 :alt: Four-panel image summarizing study. Upper-right panel contains graphic of transmission network.
 :align: center
 
