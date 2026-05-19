@@ -443,3 +443,17 @@ print(f"{R0(G, weight="weight"):.2f}")
 We see a further drop in $R_{0}$ as we incorporate these possible transmissions.
 This makes sense in princple, as we're reducing the known out-degree (i.e.
 number of folks infected by a single patient) for both patients 10 and 22.
+
+### Conclusion
+
+Add a caveat here about the fact that our "possible transmission" model violates
+the tree-like requirement, at least in the undirected case?
+
+## Outbreak over Time
+
+The original publication notes that this outbreak of Andes-strain hantavirus
+was largely driven by "super-spreader" events.
+We see this reflected in the transmission network, which has several nodes of
+relatively high out-degree, corresponding to a single infected patient being
+exposed to many others; for example, the initial infections at a birthday party,
+or the infections from patient 
