@@ -13,36 +13,33 @@ kernelspec:
 
 # Networks in Epidemiology: Hantavirus
 
-Networkx analysis is an essential part of epidemiology, particularly in the
-study of disease transmission, surveillance, and outbreak investigation.
+Network analysis is a fundamental tool for epidemiologists, particularly in the
+study of infectious disease transmission, surveillance, and outbreak investigation.
 Many data from such studies naturally lend themselves to graphical representations.
 For instance, *contact tracing* involves the tracking of potential interactions
 between members of a population who may have been exposed to disease.
-It is natural to represent such data as a graph where the nodes in the graph
+It is natural to store such data in a graph where the nodes
 represent individuals and the edges represent interactions (or potential interactions)
 between them.
-Another common formulation is the *transmission network*, where the edges in
-the graph represent likely (or possible) transmissions of an infectious agent from one
-individual to another.
-Such networks are powerful tools to allow epidemiologists to study and ultimately
+Another common type of graph is the *transmission network*, where the edges in
+the graph represent transmissions (or possible transmissions) of an infectious
+agent from one individual to another.
+Such networks are powerful tools allowing epidemiologists to study and ultimately
 predict the dynamics of infectious agents within populations.
 
 ## Studying an outbreak of Andes Hantavirus
 
 In this tutorial, we will use NetworkX to investigate and reproduce results from an
 epidemiological study of an outbreak in the Andes virus (ANDV) hantavirus that
-occurred in 2018-2019 entitled:
-
-  “Super-Spreaders” and Person-to-Person Transmission of Andes Virus in Argentina
-
-by Martínez, V. P. et. al.
+occurred in 2018-2019: [“Super-Spreaders” and Person-to-Person Transmission of
+Andes Virus in Argentina][paper] by Martínez, V. P. et. al.
 The article is publicly available via the New England Journal of Medicine
 [DOI: 10.1056/NEJMoa2009040][paper].
 
 [paper]: https://www.nejm.org/doi/full/10.1056/NEJMoa2009040
 
 The paper is packed with a ton of interesting information, but of particular
-interest for us is the *transmission network* presented in Figure 1B:
+interest is the *transmission network* presented in Figure 1B:
 
 ```{figure} https://www.nejm.org/cms/10.1056/NEJMoa2009040/asset/af0da102-84a2-48bf-abec-b1660394b3ee/assets/images/large/nejmoa2009040_f1.jpg
 :alt: Four-panel image summarizing study. Upper-right panel contains graphic of transmission network.
@@ -82,7 +79,7 @@ G.add_edges_from(
 G.add_edge(13, 25)
 G.add_edge(8, 28)
 G.add_edge(14, 26)
-# And finally patient 10 - the details of which we will examine below
+# And patient 10 - the details of which we will examine below
 G.add_edges_from([(10, 20), (10, 21), (10, 29)])
 
 # And finally, the last round of infection before the outbreak was halted
@@ -93,17 +90,16 @@ G.add_edge(28, 32)
 Now we have our transmission network!
 Note however that we had to make some assumptions related to the "possible
 transmissions", represented by the yellow arrows in figure 1B.
-In the first row of the image, we see that any one of patients 2 through 6
-could've been the source of transmission to patient 10.
-From the supplementary material of the paper, we know that patient 10 was an
+In the first row of the image, we see that any one of patients `2` through `6`
+could've been the source of transmission to patient `10`.
+From the supplementary material of the paper, we know that patient `10` was an
 administrator in a healthcare center through which all 5 of these patients
 passed.
 For now, we dealt with this ambiguity by arbitrarily assigining the transmission
-from one of the patients in the group (patient 2 in this case) to patient 10.
+from one of the patients in the group (patient `2` in this case) to patient `10`.
 Similarly, there are possible transmissions between patients within subgroups
-later on in the outbreak (cf. patients 20 and 31).
-Again, for now we've chosen to ignore these possible transmissions when
-constructing our graph.
+later on in the outbreak (cf. patients `20` and `31`).
+For now we've chosen to ignore these possible transmissions.
 We will investigate alternatives later on in the tutorial.
 
 Also note that we've chosen to represent the network as a `DiGraph` - i.e. to
@@ -119,7 +115,7 @@ First things first - let's visualize the network:
 ```{code-cell}
 import matplotlib.pyplot as plt
 
-fig, ax = plt.subplots(figsize=(12, 8))
+fig, ax = plt.subplots(figsize=(12, 7))
 
 circo_pos = nx.nx_agraph.graphviz_layout(G, prog="circo", args="")
 nx.draw(G, circo_pos, ax=ax, with_labels=True);
@@ -139,25 +135,25 @@ len(G) == 34
 ```
 
 The `Z` values along the edges in Figure 1B represent the total number of
-folks infected by a given patient.
+known transmissions from a given patient.
 In our directed network, this corresponds to the `out_degree` of the nodes.
 Let's compare the `out_degree` for our patients to the Z-values listed in
-Figure 1B, starting with the "super-spreaders", i.e. patients 1 and 9
+Figure 1B, starting with the "super-spreaders":
 
 ```{code-cell}
 G.out_degree(1) == 5 and G.out_degree(9) == 10
 ```
 
-Recall that, in our construction, we arbitrarily assigned patient `2` as the
+Recall that, in our graph, we arbitrarily assigned patient `2` as the
 transmission source for patient `10`, so we'd expect patient `2` to have an
-out degree of 7 instead of 6 as shown in the figure:
+out-degree of 7 instead of 6 as shown in the figure:
 
 ```{code-cell}
 G.out_degree(2) == 7
 ```
 
 Similarly, we ignored the "possible sources" in our model, so both patients
-`10` and `22` should have out degree 3:
+`10` and `22` should have out-degree 3:
 
 ```{code-cell}
 G.out_degree(10) == 3 and G.out_degree(22) == 3
@@ -196,9 +192,9 @@ nx.is_directed_acyclic_graph(G)
 
 Finally, the topology of the network reflects the reported "phases" of the
 infection (roughly corresponding to the rows in figure 1B).
-The first phases of the infection saw patient 1 transmit the infection to
-patients 2 through 6, the second phase comprises the transmissions from patients
-2 and 5 to patients 9 through 14, etc.
+The first phase of the infection saw patient `1` transmit the infection to
+patients `2` through `6`; the second phase comprises the transmissions from patients
+`2` and `5` to patients `9` through `14`; etc.
 
 ```{code-cell}
 # Mapping of the phase of the outbreak to patients infected in that phase
@@ -206,7 +202,8 @@ topo_layers = dict(enumerate(nx.topological_generations(G)))
 topo_layers
 ```
 
-We can use this information to visualized the graph more similarly to figure 1B:
+We can use this information to visualize the graph with a layout similar to
+that in Figure 1B:
 
 ```{code-cell}
 pos = nx.multipartite_layout(
@@ -219,11 +216,13 @@ fig, ax = plt.subplots(figsize=(12, 8))
 nx.draw(G, topo_pos, ax=ax, with_labels=True);
 ```
 
-Much more similar to Figure 1B, which makes it easier to qualitatively compare.
-
 #### Summary
 
-Let's do one last round of visualization to compare our plots to the original:
+At this point we're confident that we have captured the basic structure of the
+transmission network correctly.
+Let's do one last round of visualization incorporating some of the additional
+patient information; e.g. using color to encode whether a patient transmitted
+the infection mimicing figure 1B:
 
 ```{figure} https://www.nejm.org/cms/10.1056/NEJMoa2009040/asset/af0da102-84a2-48bf-abec-b1660394b3ee/assets/images/large/nejmoa2009040_f1.jpg
 :alt: A repeat of figure 1B.
@@ -233,6 +232,8 @@ Figure 1B, repeated for easy comparison.
 ```
 
 ```{code-cell}
+:tags: [hide-input]
+
 # Incorporate patient coloring from original figure
 transmitters = {1, 2, 5, 9, 13, 8, 14, 10, 22, 28}
 possible_transmitters = {20, 31}
@@ -262,34 +263,32 @@ fig.tight_layout()
 
 Comparing these layouts side-by-side highlights the value of looking at the
 same data from different perspectives.
-The topological layout on the left captures highlights the progression of the
-outbreak (i.e. who infected who and in what order).
-The layout on the right on the other hand is great for clustering events and
-highlighting potential community structure in the graph.
+The topological layout on the left highlights the progression of the
+outbreak (i.e. who infected whom and in what order).
+The layout on the right on the other hand highlights potential clusters based on
+the degree of the transmission network.
 For example, the super-spreader events (i.e. events resulting in transmitters with
-out-degree greater than 3) are clearly visible.
+out-degree greater than 3) are arguably more visually distinct in this layout.
 
 ## Computing $R_{0}$
 
-The main goal of any modeling of infectious disease is to learn something about
-the disease to inform decision makers and public health officials on how best
+The main goal of any modeling effort is to learn something about
+the infection to inform decision makers and public health officials on how best
 to respond.
-One of the most well-known numbers associated with disease spread is the
-*reproduction number*, denoted by $R_{0}$, a single parameter intended to
+One of the most well-known numbers associated with infectious transmission is the
+*reproduction number*, $R_{0}$: a single parameter intended to
 capture how transferable a disease is:
 
-> [$R_{0}$] is the average number of people that a single infectious person will
+> $R_{0}$ is the average number of people that a single infectious person will
 > infect over the course of their infection[^2]
 
 [^2]: https://en.wikipedia.org/wiki/Mathematical_modelling_of_infectious_diseases#Reproduction_number
 
-There are *many* different ways to model infectious disease spread of which
-network-based modeling is only a single tool.
-In practice, this means there are many different ways to derive an estimate for
-$R_{0}$.
+There are *many* different ways to model infectious disease, and therefore
+there are many different ways to derive an estimate for $R_{0}$.
 
 Thanks to the incredible work of the epidemiologists and researchers who
-provided us with the transmission network for this outbreak, we can estimate
+published the transmission network in this study, we can estimate
 $R_{0}$ directly from the properties of the network.
 From the [Wikipedia article on modeling epidemics on networks][wiki]:
 
@@ -339,11 +338,11 @@ print(f"{R0(G):.2f}")
 The paper reports a posterior median $R$ value for the entire outbreak of
 $1.19 \pm 0.37$ (95% credible interval).
 Our computed $R_{0}$ deviates slightly from this estimate, but falls within the
-expected credible interval[^3].
+reported interval[^3].
 Note also the fairly wide credible interval reported in the paper.
 Given the limited data available, it's not surprising that there is such a wide
 range of statistically credible results.
-All that said - can we identify any possible sources of variability, and perhaps
+All that said --- can we identify any possible sources of variability, and perhaps
 come up with a way to probe the effects of uncertainty on our $R_{0}$ estimates?
 
 [^3]: For details on the statistical analysis performed to estimate $R$ in the
@@ -354,13 +353,13 @@ paper, see both the `Methods` section and `Supplementary Appendix 1`.
 Recall that we made some arbitrary decisions when we were constructing our
 transmission network from the information provided in Figure 1B; specifically
 regarding how to deal with possible transmission.
-For example, we know that patient 10 was exposed to each of patients 2 through 6
+For example, we know that patient `10` was exposed to each of patients `2` through `6`
 and likely acquired the infection from one of those five candidates.
 However, we do not know exactly which of these patients was the source of
-infection in patient 10.
+infection in patient `10`.
 For our initial model, we arbitrarily chose patient `2` as the the source.
-What happens if we instead model patient 10's infection as having come from one
-of the other candidates, say patient `3`:
+What happens if we instead model patient `10`'s infection as having come from one
+of the other candidates, say patient `3`?
 
 ```{code-cell}
 # Keep a copy of the original transmission network model for comparison
@@ -377,21 +376,24 @@ That's a pretty significant swing in the estimated $R_{0}$ value!
 Our updated transmission network model is not necessarily any more accurate
 after this change; we replaced one arbitrarily selected edge with a different
 one.
-Is there a way we could instead better capture these possible transmissions?
-One possibility would be to model the possible transmissions with 
+However - it does provide us with some sense of just how sensitive our $R_{0}$
+estimate is to minor changes in the network.
+It also presents us with a recipe to stochastically probe the uncertainty in
+our model by modeling all possible transmission routes.
+
+Is there another way we can capture these possible transmissions in our network?
+One possibility would be to model possible transmissions with weighted edges,
+where weights could represent e.g. the probability of transmission.
+For example, let's say that patient `10` was equally likely to have become
+infected from all of their possible exposures:
 
 ```{code-cell}
 G.remove_edge(3, 10)
 
-# Add edges for all possible infection sources for patient 10 with uniform
-# probability (1 / 5)
+# Add edges for all possible infection sources for patient 10 with uniform probability
 potential_trans_p10 = [(2, 10), (3, 10), (4, 10), (5, 10), (6, 10)]
 p = 1 / len(potential_trans_p10)
 G.add_weighted_edges_from((u, v, p) for u, v in potential_trans_p10)
-```
-
-```{code-cell}
-nx.is_tree(G.to_undirected())
 ```
 
 We can now use the weighted degree to incorporate the possible transmissions
@@ -423,37 +425,45 @@ G[22][34]["weight"] = 0.5
 G.add_weighted_edges_from([(31, 33, 0.5), (31, 34, 0.5)])
 ```
 
-One thing we can do to double-check we didn't make any data-entry mistakes is
-to verify the weighted `in_degree` of every node (excepting the index patient)
-is 1.
 We're intending to use the edge weights to represent the probability of
 transmission, so the total probability of any individual patient having become
-infected (across all possible sources) should always be 1
+infected (across all possible sources) should always be 1.
+Therefore we can double-check we didn't make any data-entry mistakes by
+verifying the `in_degree` of every node (excepting the index patient)
+is 1.
 
 ```{code-cell}
 all(d == 1 for _, d in G.in_degree(weight="weight", nbunch=(set(G) - {1})))
 ```
 
-Looks good - let's see what affect these changes had on our modeled $R_{0}$
+Looks good - let's see what effect these changes had on our modeled $R_{0}$:
 
 ```{code-cell}
 print(f"{R0(G, weight="weight"):.2f}")
 ```
 
-We see a further drop in $R_{0}$ as we incorporate these possible transmissions.
-This makes sense in princple, as we're reducing the known out-degree (i.e.
-number of folks infected by a single patient) for both patients 10 and 22.
-
 ### Conclusion
 
-Add a caveat here about the fact that our "possible transmission" model violates
-the tree-like requirement, at least in the undirected case?
+Our simple replication of the $R_{0}$ estimate from [this study][paper]
+(hopefully) provide a glimpse into the application of network analysis to
+modeling infectious disease.
+As with anything, the devil's in the details! Perhaps some questions come to mind:
+ - We qualitatively probed uncertainties in our estimates through
+   minor modifications to modeled network... Are there more systematic approaches
+   to quantify uncertainty?
+ - We also assumed that the presented transmission network captured every
+   transmission for this outbreak. What about incidents where this may not be
+   the case; e.g. diseases where carriers don't necessarily exhibit symptoms or
+   patients are missed during contact tracing? Can we capture/quantify such
+   effects on our downstream estimates?
+ - Our treatment of possible transmissions as edge weights introduces structure
+   to the network that may have violated the "locally tree-like" assumption
+   on which our $R_{0}$ calculation is based. How do we account for this?
 
-## Outbreak over Time
-
-The original publication notes that this outbreak of Andes-strain hantavirus
-was largely driven by "super-spreader" events.
-We see this reflected in the transmission network, which has several nodes of
-relatively high out-degree, corresponding to a single infected patient being
-exposed to many others; for example, the initial infections at a birthday party,
-or the infections from patient 
+In practice, more complex models with greater parametrization are required to
+better capture uncertainties and the complexities of contact networks.
+One thing this example should make abundantly clear is the importance of accurate
+data and the utter necessity of boots-on-the-ground epidemiology in its collection.
+The analysis reproduced here is only possible due to the high-quality
+transmission network compiled by the researchers, which itself is the result of
+meticulous case study and contact tracing.
