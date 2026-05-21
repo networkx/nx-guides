@@ -4,7 +4,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.14.5
+    jupytext_version: 1.19.3
 kernelspec:
   display_name: Python 3
   language: python
@@ -69,12 +69,14 @@ G.add_edge(5, 14)
 G.add_edge(2, 10)  # NOTE: see discussion below!
 
 # On to the 3rd row, starting with those infected by patient 9
+# fmt: off
 G.add_edges_from(
     [
         (9, 15), (9, 16), (9, 17), (9, 18), (9, 19), (9, 22), (9, 23), (9, 24),
         (9, 27), (9, 30),
     ]
 )
+# fmt: on
 # Patients 13, 8, and 14 each infected one other individual
 G.add_edge(13, 25)
 G.add_edge(8, 28)
@@ -118,7 +120,7 @@ import matplotlib.pyplot as plt
 fig, ax = plt.subplots(figsize=(12, 7))
 
 circo_pos = nx.nx_agraph.graphviz_layout(G, prog="circo", args="")
-nx.draw(G, circo_pos, ax=ax, with_labels=True);
+nx.draw(G, circo_pos, ax=ax, with_labels=True)
 fig.tight_layout()
 ```
 
@@ -173,10 +175,12 @@ not subsequently transmit the infection to anyone else[^1]:
 [^1]: Recall that we're ignoring the possible transmissions from patient 20 and 31
 
 ```{code-cell}
+# fmt: off
 other_patients = [
     3, 4, 6, 12, 11, 7, 15, 16, 17, 18, 19, 23, 24, 27, 30, 25, 26, 20, 21, 29,
     31, 33, 34, 32
 ]
+# fmt: on
 all(G.out_degree[n] == 0 for n in other_patients)
 ```
 
@@ -206,9 +210,7 @@ We can use this information to visualize the graph with a layout similar to
 that in Figure 1B:
 
 ```{code-cell}
-pos = nx.multipartite_layout(
-    G, subset_key=topo_layers, align="horizontal"
-)
+pos = nx.multipartite_layout(G, subset_key=topo_layers, align="horizontal")
 # Flip the y-axis to put index patient at the top
 topo_pos = {n: loc * (1, -1) for n, loc in pos.items()}
 
