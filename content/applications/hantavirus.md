@@ -451,7 +451,7 @@ Our simple replication of the $R_{0}$ estimate from [this study][paper]
 modeling infectious disease.
 As with anything, the devil's in the details! Perhaps some questions come to mind:
  - We qualitatively probed uncertainties in our estimates through
-   minor modifications to modeled network... Are there more systematic approaches
+   minor modifications to the modeled network. Are there more systematic approaches
    to quantify uncertainty?
  - We also assumed that the presented transmission network captured every
    transmission for this outbreak. What about incidents where this may not be
