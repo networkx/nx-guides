@@ -7,4 +7,5 @@ General applications of NetworkX to graph theory and network analysis.
 maxdepth: 1
 ---
 goodwillhunting
+hantavirus
 ```
