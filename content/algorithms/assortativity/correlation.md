@@ -258,7 +258,7 @@ fig.tight_layout()
 ```
 
 In the above plots only the nodes which are considered are colored and rest are
-grayed out and only the edges which are considerd in the assortaivty calculation
+grayed out and only the edges which are considerd in the assortativity calculation
 are drawn.
 
 +++

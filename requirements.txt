@@ -1,12 +1,13 @@
 # nx-guides is tested on the development branch of NetworkX
 git+https://github.com/networkx/networkx@main
 
-# Scientific Python (see networkx/requirements/default.txt)
+# Dependencies for running the tutorials
 numpy
 scipy
 matplotlib
 pandas
 ipython!=8.7.0
+pygraphviz
 
 # For testing and site generation
 nbval
@@ -16,7 +17,3 @@ sphinx-book-theme
 jupytext
 black
 pyupgrade
-
-# Notebook requirements
-pygraphviz
-

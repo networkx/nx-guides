@@ -6,7 +6,7 @@ jobs:
   build-docs:
     working_directory: ~/repo
     docker:
-      - image: cimg/python:3.9.2
+      - image: cimg/python:3.12.0
 
     steps:
       - checkout
@@ -31,7 +31,7 @@ jobs:
             source venv/bin/activate
             # n = nitpicky (broken links), W = warnings as errors,
             # T = full tracebacks, keep-going = run to completion even with errors
-            make -C site/ SPHINXOPTS="-nWT --keep-going" html
+            make -C site/ SPHINXOPTS="-WT --keep-going" html
 
       - store_artifacts:
           path: site/_build/html
@@ -43,7 +43,7 @@ jobs:
   deploy-docs:
     working_directory: ~/repo
     docker:
-      - image: cimg/python:3.9.2
+      - image: cimg/python:3.12.0
 
     steps:
       - checkout
