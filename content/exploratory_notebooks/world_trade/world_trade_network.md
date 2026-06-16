@@ -25,12 +25,16 @@ import networkx as nx
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+cartopy = None
 try:
-    from mpl_toolkits.basemap import Basemap as Basemap
-    importBasemap = True
-except:
-    print("Basemap cannot be imported, so Geographic visualizations will be plotted without underlying cartograph.")
-    importBasemap = False
+    import cartopy.crs as ccrs
+    import cartopy.feature as cfeature
+    cartopy = (ccrs, cfeature)
+except ImportError:
+    print(
+        "Cartopy is not installed, so geographic visualizations will be plotted "
+        "without the coastlines overlay."
+    )
 ```
 
 For the sake of convenience and scope of this tutorial, the data for trade flows of three product categories - Natural Gas (Hs6: 271111), Coffee (Hs6: 090111) and Diamonds (Hs6: 710210) was extracted to three separate CSV files. These are now imported as pandas dataframe, from where they can be converted to NetworkX Graph objects.
@@ -143,7 +147,6 @@ def draw_pretty(G, geo=False):
     norm = mpl.colors.Normalize(vmin=low, vmax=high, clip=True)
     mapper = mpl.cm.ScalarMappable(norm=norm, cmap=mpl.cm.coolwarm)
     nsize = [x * 20000 for x in outdeg_dict.values()]
-    plt.figure(figsize=(40, 20))
     lat_long = {
         i: [a, b]
         for i, a, b in zip(
@@ -151,23 +154,46 @@ def draw_pretty(G, geo=False):
         )
     }
     if geo:
-        postemp=lat_long
-        latitudes = [lat_long[country][1] for country in lat_long]
-        longitudes = [lat_long[country][0] for country in lat_long]
-        if(importBasemap):
-            m = Basemap(projection='merc',llcrnrlon=-180,llcrnrlat=-80,urcrnrlon=180, urcrnrlat=80, lat_ts=0, resolution='l',suppress_ticks=True)
-            m.drawcountries(linewidth = 1.5)
-            m.drawstates(linewidth = 0.1)
-            m.drawcoastlines(linewidth=1.5)
-            longitudes, latitudes = m(longitudes, latitudes)
+        if cartopy is not None:
+            ccrs, cfeature = cartopy
+            _, ax = plt.subplots(
+                figsize=(40, 20), subplot_kw={"projection": ccrs.PlateCarree()}
+            )
+            ax.set_global()
+            ax.add_feature(cfeature.LAND, facecolor="#f7f7f7")
+            ax.add_feature(cfeature.OCEAN, facecolor="#f0f4ff")
+            ax.add_feature(cfeature.COASTLINE, linewidth=0.8)
+            ax.add_feature(cfeature.BORDERS, linewidth=0.5)
+        else:
+            _, ax = plt.subplots(figsize=(40, 20))
         pos = {}
-        for count, (key, value) in enumerate(postemp.items()):
-            if(key in G.nodes):
-                pos[key] = (longitudes[count], latitudes[count])
+        for key, (longitude, latitude) in lat_long.items():
+            if key in G.nodes:
+                pos[key] = (longitude, latitude)
+        nx.draw(
+            G,
+            pos,
+            with_labels=True,
+            node_size=nsize,
+            node_color=[mapper.to_rgba(i) for i in indeg_dict.values()],
+            alpha=0.7,
+            ax=ax,
+        )
+        if cartopy is not None:
+            ax.set_extent([-180, 180, -80, 80], crs=ccrs.PlateCarree())
+        plt.show()
     else:
-        pos=nx.spring_layout(G, seed=1231)
-    nx.draw(G, pos, with_labels=True, node_size=nsize, node_color=[mapper.to_rgba(i) for i in indeg_dict.values()], alpha = 0.7)
-    plt.show()
+        plt.figure(figsize=(40, 20))
+        pos = nx.spring_layout(G, seed=1231)
+        nx.draw(
+            G,
+            pos,
+            with_labels=True,
+            node_size=nsize,
+            node_color=[mapper.to_rgba(i) for i in indeg_dict.values()],
+            alpha=0.7,
+        )
+        plt.show()
 ```
 
 In this visualization, by definition, the distance between countries in the network represents their geographical distance. As the color gradient of node moves from blue to red, the in degree centrality of that node becomes higher. This means that nodes that import from large number of countries will have a redder color. Whereas the nodes with bigger size are large exporters.

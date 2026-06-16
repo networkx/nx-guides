@@ -33,10 +33,13 @@ You can follow along yourself:
 ```{toctree}
 ---
 maxdepth: 1
+hidden: true
 ---
 
 content/algorithms/index
+content/applications/index
 content/generators/index
 content/exploratory_notebooks/index
+content/contributing
 ```
 
