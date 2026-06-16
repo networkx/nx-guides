@@ -50,8 +50,8 @@ Let's first draw the tree using NetworkX.
 T = nx.DiGraph()
 T.add_edges_from(
     [
-        ("Vertabrate", "Lamprey"),
-        ("Vertabrate", "Jawed V."),
+        ("Vertebrate", "Lamprey"),
+        ("Vertebrate", "Jawed V."),
         ("Jawed V.", "Sunfish"),
         ("Jawed V.", "Tetrapod"),
         ("Tetrapod", "Newt"),
@@ -80,12 +80,12 @@ Consider the tree above and observe the following relationships:
 
 - Ancestors of node Mammal:
   - For this, we will follow the path from root to node Mammal.
-  - Nodes Vertabrate, Jawed Vertabrate, Tetrapod and Amniote -which are on this path- are ancestors of Mammal.
+  - Nodes Vertebrate, Jawed Vertebrate, Tetrapod and Amniote -which are on this path- are ancestors of Mammal.
 - Descendants of node Mammal:
   - Bear and Chimpanzee are the child of Mammal. Thus, they are its descendants.
 - Lowest Common Ancestor of Mammal and Newt:
-  - Ancestors of Mammal are Vertabrate, Jawed Vertabrate, Tetrapod and Amniote.
-  - Ancestors of Newt are Vertabrate, Jawed Vertabrate, and Tetrapod.
+  - Ancestors of Mammal are Vertebrate, Jawed Vertebrate, Tetrapod and Amniote.
+  - Ancestors of Newt are Vertebrate, Jawed Vertebrate, and Tetrapod.
   - Among the common ancestors, the lowest (i.e. farthest away from the root) one is Tetrapod.
 
 _Note that, in terms of lowest common ancestor algorithms, every node is considered as an ancestor itself._

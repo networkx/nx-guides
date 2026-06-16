@@ -228,11 +228,11 @@ This procedure is implemented in the `topological_generations()` function, on wh
 
 Let's see how the `topological_generations()` function is implemented in NetworkX step by step.
 
-#### Step 1. Initialize indegrees.
+#### Step 1. Initialize in-degrees.
 
-Since in Kahn's algorithm we are only interested in the indegrees of the vertices,
+Since in Kahn's algorithm we are only interested in the in-degrees of the vertices,
 in order to preserve the structure of the graph as it is passed in,
-instead of removing the edges, we will decrease the indegree of the corresponding vertex.
+instead of removing the edges, we will decrease the in-degree of the corresponding vertex.
 Therefore, we will save these values in a separate _dictionary_ `indegree_map`.
 
 ```
@@ -257,7 +257,7 @@ Inside the loop, the first generation to be considered (`this_generation`)
 is the collection of nodes that have zero in-degrees.
 
 We process all the vertices of the current level in variable `this_generation`
-and we store the next level in variable `zero_degree`.
+and we store the next level in variable `zero_indegree`.
 
 For each vertex inside `this_generation`,
 we remove all of its outgoing edges.

@@ -110,7 +110,7 @@ ax.set_xlim([-1.4, 1.4]);
 ```
 
 Now say that node $u$ and node $v$ are connected and the maximum data per second that
-you can send from node $u$ to node $v$ is $c_{uv}$, lets call this as capacity of the edge $uv$.
+you can send from node $u$ to node $v$ is $c_{uv}$ and let's call this the capacity of the edge $uv$.
 
 ```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(16, 8))
@@ -125,14 +125,14 @@ nx.draw_networkx_labels(G, label_pos, labels=labels, ax=ax, font_size=16)
 ax.set_xlim([-1.4, 1.4]);
 ```
 
-So before go ahead and plan the paths on which we will be sending the data packets,
-we need some way to represent or plan on the network. Observe that any plan will have
+So before we go ahead and plan the paths on which we will be sending the data packets,
+we need some ways to represent or plan on the network. Observe that any plan will have
 to take up some capacity of the edges, so we can represent the plan by the values of
 the capacity taken by it for each edge in E, let's call the plan as **flow**. Formally,
 we can define flow as $f: E \to \mathbb{R}$ i.e. a mapping from edges $E$ to real numbers
 denoting that we are sending data at rate $f(uv)$ through edge $uv\in E$.
 
-Note that for this plan to be a valid plan it must satisfy the following constraints
+Note that for this plan to be a valid plan, it must satisfy the following constraints:
 * **Capacity constraint:**
     The data rate at which we are sending data from any node shouldn't exceed its
     capacity, formally $f_{uv} \le c_{uv}$
@@ -188,7 +188,7 @@ def visualize_flow(flow_graph):
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, ax=ax);
 ```
 
-example of valid flow:
+Example of valid flow:
 
 ```{code-cell} ipython3
 example_flow = {
@@ -208,7 +208,7 @@ flow_graph = check_valid_flow(G, example_flow, "s", "t")
 visualize_flow(flow_graph)
 ```
 
-example of invalid flow:
+Example of invalid flow:
 
 ```{code-cell} ipython3
 example_flow = {
@@ -228,8 +228,8 @@ flow_graph = check_valid_flow(G, example_flow, "s", "t")
 visualize_flow(flow_graph)
 ```
 
-red color edges dont satisfy capacity constraint and red color nodes dont satisfy the
-conservation of flow
+Red color edges don't satisfy capacity constraint and red color nodes don't satisfy the
+conservation of flow.
 
 *So if we use this plan/flow to send data then at what rate will we be sending the data to friend?*
 
@@ -312,7 +312,7 @@ def draw_residual_graph(R, ax=None):
     )
 ```
 
-example flow:
+Example flow:
 
 ```{code-cell} ipython3
 example_flow = {
@@ -500,16 +500,16 @@ output the flow
 
 ## Maximum flow in NetworkX
 
-In the previous section, we decomposed the Dinitz algorithm into smaller steps
+In the previous section, we decomposed the Dinitz's algorithm into smaller steps
 to better understand the algorithm as a whole.
 In practice however, there's no need to implement all these steps yourself!
 NetworkX provides an implementation of Dinitz's algorithm:
 [nx.flow.dinitz](https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.flow.dinitz.html).
 `nx.flow.dinitz` includes several features in addition to those described above.
 For example, the `cutoff` keyword argument can be used to prematurely terminate
-the Dinitz algorithm once the desired flow value is reached.
+the Dinitz's algorithm once the desired flow value is reached.
 
-Let's try out NetworkX's implementation of Dinitz's algorith on our example
+Let's try out NetworkX's implementation of Dinitz's algorithm on our example
 network, `G`.
 
 ```{code-cell} ipython3
