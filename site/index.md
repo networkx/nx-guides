@@ -37,7 +37,7 @@ hidden: true
 content/algorithms/index
 content/applications/index
 content/generators/index
-content/exploratory_notebooks/facebook_notebook
+content/exploratory_notebooks/index
 content/contributing
 ```
 
