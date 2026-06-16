@@ -22,16 +22,29 @@ language_info:
   version: 3.8.5
 ---
 
-# Node assortativity coefficients and correlation measures
+# Node Assortativity Coefficients and Correlation Measures
 
-In this tutorial, we will go through the theory of [assortativity](https://en.wikipedia.org/wiki/Assortativity) and its measures.
+In this tutorial, we will explore the theory of assortativity [^1] and its measures. 
 
-Specifically, we'll focus on assortativity measures available in NetworkX at [algorithms/assortativity/correlation.py](https://github.com/networkx/networkx/blob/main/networkx/algorithms/assortativity/correlation.py):
+We'll focus on assortativity measures available in NetworkX at [`algorithms/assortativity/correlation.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/assortativity/correlation.py):
 * Attribute assortativity
 * Numeric assortativity
 * Degree assortativity
 
-as well as mixing matrices, which are closely releated to assortativity measures.
+as well as mixing matrices, which are closely related to assortativity measures.
+
+## Import packages
+
+```{code-cell} ipython3
+import networkx as nx
+import matplotlib.pyplot as plt
+import pickle
+import copy
+import random
+import warnings
+
+%matplotlib inline
+```
 
 ## Assortativity
 
@@ -80,7 +93,7 @@ Pearson correlation coefficient.
 
 Here the property $P(v)$ is a nominal property assigned to each node.
 As defined above we calculate the normalized mixing matrix $e$ and from that we
-define the attribute assortativity coefficient [^1] as below.
+define the attribute assortativity coefficient [^2] as below.
 
 From here onwards we will use subscript notation to denote indexing, for eg. $P_i = P[i]$ and $e_{ij} = e[i][j]$
 
@@ -93,7 +106,7 @@ It is implemented as `attribute_assortativity_coefficient`.
 Here the property $P(v)$ is a numerical property assigned to each
 node and the definition of the normalized mixing
 matrix $e$, $\sigma_a$, and $\sigma_b$ are same as above.
-From these we define numeric assortativity coefficient [^1] as below.
+From these we define numeric assortativity coefficient [^2] as below.
 
 $$ r = \frac{\sum\limits_{i,j}P_i P_j(e_{ij} -a_i b_j)}{\sigma_a\sigma_b} $$
 
@@ -105,7 +118,7 @@ When it comes to measuring degree assortativity for directed networks we have
 more options compared to assortativity w.r.t a property because we have 2 types
 of degrees, namely in-degree and out-degree.
 Based on the 2 types of degrees we can measure $2 \times 2 =4$ different types
-of degree assortativity [^2]:
+of degree assortativity [^3]:
 
 1. r(in,in) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = in-degree(v).
 2. r(in,out) : Measures tendency of having a directed edge (u,v) such that, in-degree(u) = out-degree(v).
@@ -130,25 +143,14 @@ It is implemented as `degree_assortativity_coefficient` and
 `scipy.stats.pearsonr` to calculate the assortativity coefficient which makes
 it potentally faster.
 
-## Example
+## Assortativity Example
 
-```{code-cell} ipython3
-%matplotlib inline
-import networkx as nx
-import matplotlib.pyplot as plt
-import pickle
-import copy
-import random
-import warnings
-
-warnings.filterwarnings("ignore")
-```
++++
 
 Illustrating how value of assortativity changes
 
 ```{code-cell} ipython3
 gname = "g2"
-# loading the graph
 G = nx.read_graphml(f"data/{gname}.graphml")
 with open(f"data/pos_{gname}", "rb") as fp:
     pos = pickle.load(fp)
@@ -256,11 +258,15 @@ fig.tight_layout()
 ```
 
 In the above plots only the nodes which are considered are colored and rest are
-grayed out and only the edges which are considerd in the assortaivty calculation
+grayed out and only the edges which are considerd in the assortativity calculation
 are drawn.
 
 +++
 
-[^1]: M. E. J. Newman, Mixing patterns in networks <https://doi.org/10.1103/PhysRevE.67.026126>
+## References
 
-[^2]: Foster, J.G., Foster, D.V., Grassberger, P. & Paczuski, M. Edge direction and the structure of networks <https://doi.org/10.1073/pnas.0912671107>
+[^1]: [Wikipedia, Assortativity](https://en.wikipedia.org/wiki/Assortativity)
+
+[^2]: M. E. J. Newman, Mixing patterns in networks <https://doi.org/10.1103/PhysRevE.67.026126>
+
+[^3]: Foster, J.G., Foster, D.V., Grassberger, P. & Paczuski, M. Edge direction and the structure of networks <https://doi.org/10.1073/pnas.0912671107>

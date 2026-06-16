@@ -13,7 +13,18 @@ kernelspec:
 
 # Lowest Common Ancestor
 
-In this tutorial, we will explore the python implementation of the lowest common ancestor algorithm in NetworkX at `networkx/algorithms/lowest_common_ancestor.py`. To get a more general overview of Lowest Common Ancestor you can also read the [wikipedia article](https://en.wikipedia.org/wiki/Lowest_common_ancestor). This notebook expects readers to be familiar with the NetworkX API. If you are new to NetworkX, you can go through the [introductory tutorial](https://networkx.org/documentation/latest/tutorial.html).
+In this tutorial, we will explore the python implementation of the lowest common ancestor algorithm [^1] in NetworkX at [`networkx/algorithms/lowest_common_ancestor.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/lowest_common_ancestors.py). This notebook expects readers to be familiar with the NetworkX API. If you are new to NetworkX, you can go through the [introductory tutorial](https://networkx.org/documentation/latest/tutorial.html).
+
+## Import packages
+
+```{code-cell} ipython3
+import matplotlib.pyplot as plt
+import networkx as nx
+from networkx.drawing.nx_agraph import graphviz_layout
+from itertools import chain, count, combinations_with_replacement
+```
+
++++ {"id": "Z5VJ4S_mlMiI"}
 
 ## Definitions
 
@@ -26,6 +37,7 @@ Before diving into the algorithm, let's first remember the concepts of an ancest
 
 - **Lowest Common Ancestor:** For two of nodes $u$ and $v$ in a tree, the lowest common ancestor is the lowest (i.e. deepest) node which is an ancestor of both $u$ and $v$.
 
+
 ## Example
 
 It is always a good idea to learn concepts with an example. Consider the following evolutionary tree. We will draw a directed version of it and define the ancestor/descendant relationships.
@@ -35,18 +47,11 @@ It is always a good idea to learn concepts with an example. Consider the followi
 Let's first draw the tree using NetworkX.
 
 ```{code-cell}
-import matplotlib.pyplot as plt
-import networkx as nx
-from networkx.drawing.nx_agraph import graphviz_layout
-from itertools import chain, count, combinations_with_replacement
-```
-
-```{code-cell}
 T = nx.DiGraph()
 T.add_edges_from(
     [
-        ("Vertabrate", "Lamprey"),
-        ("Vertabrate", "Jawed V."),
+        ("Vertebrate", "Lamprey"),
+        ("Vertebrate", "Jawed V."),
         ("Jawed V.", "Sunfish"),
         ("Jawed V.", "Tetrapod"),
         ("Tetrapod", "Newt"),
@@ -75,12 +80,12 @@ Consider the tree above and observe the following relationships:
 
 - Ancestors of node Mammal:
   - For this, we will follow the path from root to node Mammal.
-  - Nodes Vertabrate, Jawed Vertabrate, Tetrapod and Amniote -which are on this path- are ancestors of Mammal.
+  - Nodes Vertebrate, Jawed Vertebrate, Tetrapod and Amniote -which are on this path- are ancestors of Mammal.
 - Descendants of node Mammal:
   - Bear and Chimpanzee are the child of Mammal. Thus, they are its descendants.
 - Lowest Common Ancestor of Mammal and Newt:
-  - Ancestors of Mammal are Vertabrate, Jawed Vertabrate, Tetrapod and Amniote.
-  - Ancestors of Newt are Vertabrate, Jawed Vertabrate, and Tetrapod.
+  - Ancestors of Mammal are Vertebrate, Jawed Vertebrate, Tetrapod and Amniote.
+  - Ancestors of Newt are Vertebrate, Jawed Vertebrate, and Tetrapod.
   - Among the common ancestors, the lowest (i.e. farthest away from the root) one is Tetrapod.
 
 _Note that, in terms of lowest common ancestor algorithms, every node is considered as an ancestor itself._
@@ -190,3 +195,8 @@ dict(nx.all_pairs_lowest_common_ancestor(G))
 Naive implementation of lowest common ancestor algorithm finds all ancestors of all nodes in the given pairs. Let the number of nodes given in the pairs be P. In the worst case, finding ancestors of a single node will take O(|V|) times where |V| is the number of nodes. Thus, constructing the ancestor cache of a graph will take O(|V|\*P) times. This step will dominate the others and determine the worst-case running time of the algorithm.
 
 The space complexity of the algorithm will also be determined by the ancestor cache. For each node in the given pairs, there might be O(|V|) ancestors. Thus, space complexity is also O(|V|\*P).
+
++++
+
+## References
+[^1]: [Wikipedia, Lowest common ancestor](https://en.wikipedia.org/wiki/Lowest_common_ancestor)

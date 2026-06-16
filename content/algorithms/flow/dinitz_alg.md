@@ -22,13 +22,15 @@ language_info:
   version: 3.10.1
 ---
 
-# Dinitz's algorithm and its applications
-In this notebook, we will introduce the [Maximum flow problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)
-and [Dinitz's algorithm](https://en.wikipedia.org/wiki/Dinic%27s_algorithm) [^1], which is implemented at
-[algorithms/flow/dinitz_alg.py](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py)
+# Dinitz's Algorithm and Applications
+
+In this tutorial, we will explore the maximum flow problem [^1] and Dinitz's
+algorithm [^2] , which is implemented at
+[`algorithms/flow/dinitz_alg.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py)
 in NetworkX. We will also see how it can be used to solve some interesting problems.
 
-## Maximum flow problem
+
+## Import packages
 
 ```{code-cell} ipython3
 import networkx as nx
@@ -40,7 +42,10 @@ from copy import deepcopy
 from collections import deque
 ```
 
+## Maximum flow problem
+
 ### Motivation
+
 Let's say you want to send your friend some data as soon as possible, but the only way
 of communication/sending data between you two is through a peer-to-peer network. An
 interesting thing about this peer-to-peer network is that it allows you to send data
@@ -48,8 +53,8 @@ along the paths you specify with certain limits on the sizes of data per second 
 you can send between a pair of nodes in this network.
 
 ```{code-cell} ipython3
-# Load the example graph
 G = nx.read_gml("data/example_graph.gml")
+
 # Extract info about node position from graph (for visualization)
 pos = {k: np.asarray(v) for k, v in G.nodes(data="pos")}
 label_pos = deepcopy(pos)
@@ -95,35 +100,39 @@ a connection from node $u$ to node $v$ across which we can send data. There are 
 ```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(16, 8))
 
+# Color source and sink node
 node_colors = ["skyblue" if n in {"s", "t"} else "lightgray" for n in G.nodes]
 
+# Draw graph
 nx.draw(G, pos, ax=ax, node_color=node_colors, with_labels=True)
 nx.draw_networkx_labels(G, label_pos, labels=labels, ax=ax, font_size=16)
 ax.set_xlim([-1.4, 1.4]);
 ```
 
 Now say that node $u$ and node $v$ are connected and the maximum data per second that
-you can send from node $u$ to node $v$ is $c_{uv}$, lets call this as capacity of the edge $uv$.
+you can send from node $u$ to node $v$ is $c_{uv}$ and let's call this the capacity of the edge $uv$.
 
 ```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(16, 8))
 
+# Label capacities
 capacities = {(u, v): c for u, v, c in G.edges(data="capacity")}
 
+# Draw graph
 nx.draw(G, pos, ax=ax, node_color=node_colors, with_labels=True)
 nx.draw_networkx_edge_labels(G, pos, edge_labels=capacities, ax=ax)
 nx.draw_networkx_labels(G, label_pos, labels=labels, ax=ax, font_size=16)
 ax.set_xlim([-1.4, 1.4]);
 ```
 
-So before go ahead and plan the paths on which we will be sending the data packets,
-we need some way to represent or plan on the network. Observe that any plan will have
+So before we go ahead and plan the paths on which we will be sending the data packets,
+we need some ways to represent or plan on the network. Observe that any plan will have
 to take up some capacity of the edges, so we can represent the plan by the values of
 the capacity taken by it for each edge in E, let's call the plan as **flow**. Formally,
 we can define flow as $f: E \to \mathbb{R}$ i.e. a mapping from edges $E$ to real numbers
 denoting that we are sending data at rate $f(uv)$ through edge $uv\in E$.
 
-Note that for this plan to be a valid plan it must satisfy the following constraints
+Note that for this plan to be a valid plan, it must satisfy the following constraints:
 * **Capacity constraint:**
     The data rate at which we are sending data from any node shouldn't exceed its
     capacity, formally $f_{uv} \le c_{uv}$
@@ -179,7 +188,7 @@ def visualize_flow(flow_graph):
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, ax=ax);
 ```
 
-example of valid flow:
+Example of valid flow:
 
 ```{code-cell} ipython3
 example_flow = {
@@ -199,7 +208,7 @@ flow_graph = check_valid_flow(G, example_flow, "s", "t")
 visualize_flow(flow_graph)
 ```
 
-example of invalid flow:
+Example of invalid flow:
 
 ```{code-cell} ipython3
 example_flow = {
@@ -219,8 +228,8 @@ flow_graph = check_valid_flow(G, example_flow, "s", "t")
 visualize_flow(flow_graph)
 ```
 
-red color edges dont satisfy capacity constraint and red color nodes dont satisfy the
-conservation of flow
+Red color edges don't satisfy capacity constraint and red color nodes don't satisfy the
+conservation of flow.
 
 *So if we use this plan/flow to send data then at what rate will we be sending the data to friend?*
 
@@ -303,7 +312,7 @@ def draw_residual_graph(R, ax=None):
     )
 ```
 
-example flow:
+Example flow:
 
 ```{code-cell} ipython3
 example_flow = {
@@ -491,16 +500,16 @@ output the flow
 
 ## Maximum flow in NetworkX
 
-In the previous section, we decomposed the Dinitz algorithm into smaller steps
+In the previous section, we decomposed the Dinitz's algorithm into smaller steps
 to better understand the algorithm as a whole.
 In practice however, there's no need to implement all these steps yourself!
 NetworkX provides an implementation of Dinitz's algorithm:
 [nx.flow.dinitz](https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.flow.dinitz.html).
 `nx.flow.dinitz` includes several features in addition to those described above.
 For example, the `cutoff` keyword argument can be used to prematurely terminate
-the Dinitz algorithm once the desired flow value is reached.
+the Dinitz's algorithm once the desired flow value is reached.
 
-Let's try out NetworkX's implementation of Dinitz's algorith on our example
+Let's try out NetworkX's implementation of Dinitz's algorithm on our example
 network, `G`.
 
 ```{code-cell} ipython3
@@ -539,7 +548,7 @@ fig.tight_layout()
 ```
 
 Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value
-## Reductions and Applications
+## Applications
 There are many other problems which can be reduced to Maximum flow problem, for example:
 * [Maximum Bipartite Matching](https://en.wikipedia.org/wiki/Matching_(graph_theory))
 * [Assignment Problem](https://en.wikipedia.org/wiki/Assignment_problem)
@@ -634,6 +643,8 @@ Above we can see a matching of intermediate shipping points and customers which
 gives the maximum shipping in a day.
 
 ## References
-[^1]: Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz.
+[^1]: [Wikipedia, Maximal Flow Problem](https://en.wikipedia.org/wiki/Maximum_flow_problem)
+
+[^2]: Dinitz' Algorithm: The Original Version and Even's Version. 2006. Yefim Dinitz.
 In Theoretical Computer Science. Lecture Notes in Computer Science.
 Volume 3895. pp 218-240. <https://doi.org/10.1007/11685654_10>

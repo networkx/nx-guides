@@ -25,25 +25,24 @@ language_info:
 # Directed Acyclic Graphs & Topological Sort
 
 In this tutorial, we will explore the algorithms related to a directed acyclic graph
-(or a "dag" as it is sometimes called) implemented in networkx under `networkx/algorithms/dag.py`.
+(or a "DAG" as it is sometimes called) implemented in NetworkX under [`networkx/algorithms/dag.py`](https://github.com/networkx/networkx/blob/main/networkx/algorithms/dag.py).
 
 First of all, we need to understand what a directed graph is.
 
-## Directed Graph
-
-### Example
+## Import packages
 
 ```{code-cell} ipython3
-%matplotlib inline
 import networkx as nx
 import matplotlib.pyplot as plt
+import inspect
+
+%matplotlib inline
 ```
 
-```{code-cell} ipython3
-triangle_graph = nx.from_edgelist([(1, 2), (2, 3), (3, 1)], create_using=nx.DiGraph)
-```
+## Example: Directed Graphs
 
 ```{code-cell} ipython3
+triangle_graph = nx.DiGraph([(1, 2), (2, 3), (3, 1)])
 nx.draw_planar(
     triangle_graph,
     with_labels=True,
@@ -75,7 +74,6 @@ clothing_graph = nx.read_graphml(f"data/clothing_graph.graphml")
 
 ```{code-cell} ipython3
 plt.figure(figsize=(12, 12), dpi=150)
-
 nx.draw_planar(
     clothing_graph,
     arrowsize=12,
@@ -164,7 +162,7 @@ Then, a topological sort gives an order in which to perform the jobs.
 
 A closely related application of topological sorting algorithms
 was first studied in the early 1960s in the context of the
-[PERT technique](https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique)
+PERT technique [^1]
 for scheduling in project management.
 In this application, the vertices of a graph represent the milestones of a project,
 and the edges represent tasks that must be performed between one milestone and another.
@@ -230,11 +228,11 @@ This procedure is implemented in the `topological_generations()` function, on wh
 
 Let's see how the `topological_generations()` function is implemented in NetworkX step by step.
 
-#### Step 1. Initialize indegrees.
+#### Step 1. Initialize in-degrees.
 
-Since in Kahn's algorithm we are only interested in the indegrees of the vertices,
+Since in Kahn's algorithm we are only interested in the in-degrees of the vertices,
 in order to preserve the structure of the graph as it is passed in,
-instead of removing the edges, we will decrease the indegree of the corresponding vertex.
+instead of removing the edges, we will decrease the in-degree of the corresponding vertex.
 Therefore, we will save these values in a separate _dictionary_ `indegree_map`.
 
 ```
@@ -259,7 +257,7 @@ Inside the loop, the first generation to be considered (`this_generation`)
 is the collection of nodes that have zero in-degrees.
 
 We process all the vertices of the current level in variable `this_generation`
-and we store the next level in variable `zero_degree`.
+and we store the next level in variable `zero_indegree`.
 
 For each vertex inside `this_generation`,
 we remove all of its outgoing edges.
@@ -343,8 +341,6 @@ We need to check this while the `while` loop is running.
 Combining all of the above gives the current implementation of the `topological_generations()` function in NetworkX.
 
 ```{code-cell} ipython3
-import inspect
-
 print(inspect.getsource(nx.topological_generations))
 ```
 
@@ -353,3 +349,7 @@ Let's finally see what the result will be on the `clothing_graph`.
 ```{code-cell} ipython3
 list(nx.topological_generations(clothing_graph))
 ```
+
+## References
+
+[^1]: [Wikipedia, PERT Technique](https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique)
